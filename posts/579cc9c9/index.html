@@ -1,0 +1,1621 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-flash.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <link href="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+  
+
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/icon128.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/icon32.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/icon16.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="NTFS文件系统比FAT32复杂多了，小明我上课听得一头雾水。 接下来来详细介绍NTFS文件系统 NTFS文件系统原名为New Tecnology File System（这个称呼有点直接(・∀・)），是现在绝大多数电脑磁盘分区使用的文件系统。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深究NTFS文件系统">
+<meta property="og:url" content="https://asymptotic-freedom.xyz/posts/579cc9c9/index.html">
+<meta property="og:site_name" content="风屿の博客">
+<meta property="og:description" content="NTFS文件系统比FAT32复杂多了，小明我上课听得一头雾水。 接下来来详细介绍NTFS文件系统 NTFS文件系统原名为New Tecnology File System（这个称呼有点直接(・∀・)），是现在绝大多数电脑磁盘分区使用的文件系统。">
+<meta property="og:image" content="https://asymptotic-freedom.xyz/images/loading.gif">
+<meta property="og:image" content="https://asymptotic-freedom.xyz/images/loading.gif">
+<meta property="og:image" content="https://asymptotic-freedom.xyz/images/loading.gif">
+<meta property="og:image" content="https://asymptotic-freedom.xyz/images/loading.gif">
+<meta property="og:image" content="https://asymptotic-freedom.xyz/images/loading.gif">
+<meta property="og:image" content="https://asymptotic-freedom.xyz/images/loading.gif">
+<meta property="og:image" content="https://asymptotic-freedom.xyz/images/loading.gif">
+<meta property="og:image" content="https://asymptotic-freedom.xyz/images/loading.gif">
+<meta property="og:image" content="https://asymptotic-freedom.xyz/images/loading.gif">
+<meta property="og:image" content="https://asymptotic-freedom.xyz/images/loading.gif">
+<meta property="og:image" content="https://asymptotic-freedom.xyz/images/loading.gif">
+<meta property="og:image" content="https://asymptotic-freedom.xyz/images/loading.gif">
+<meta property="og:image" content="https://asymptotic-freedom.xyz/images/loading.gif">
+<meta property="og:image" content="https://asymptotic-freedom.xyz/images/loading.gif">
+<meta property="og:image" content="https://asymptotic-freedom.xyz/images/loading.gif">
+<meta property="og:image" content="https://asymptotic-freedom.xyz/images/loading.gif">
+<meta property="og:image" content="https://asymptotic-freedom.xyz/images/loading.gif">
+<meta property="og:image" content="https://asymptotic-freedom.xyz/images/loading.gif">
+<meta property="og:image" content="https://asymptotic-freedom.xyz/images/loading.gif">
+<meta property="og:image" content="https://asymptotic-freedom.xyz/images/loading.gif">
+<meta property="og:image" content="https://asymptotic-freedom.xyz/images/loading.gif">
+<meta property="og:image" content="https://asymptotic-freedom.xyz/images/loading.gif">
+<meta property="og:image" content="https://asymptotic-freedom.xyz/images/loading.gif">
+<meta property="og:image" content="https://asymptotic-freedom.xyz/images/loading.gif">
+<meta property="og:image" content="https://asymptotic-freedom.xyz/images/loading.gif">
+<meta property="og:image" content="https://asymptotic-freedom.xyz/images/loading.gif">
+<meta property="og:image" content="https://asymptotic-freedom.xyz/images/loading.gif">
+<meta property="og:image" content="https://asymptotic-freedom.xyz/images/loading.gif">
+<meta property="og:image" content="https://asymptotic-freedom.xyz/images/loading.gif">
+<meta property="og:image" content="https://asymptotic-freedom.xyz/images/loading.gif">
+<meta property="og:image" content="https://asymptotic-freedom.xyz/images/loading.gif">
+<meta property="article:published_time" content="2020-03-09T09:47:08.000Z">
+<meta property="article:modified_time" content="2022-04-09T15:16:20.833Z">
+<meta property="article:author" content="Asymptotic-freedom">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://asymptotic-freedom.xyz/images/loading.gif">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"flipYIn","post_header":"perspectiveRightIn","post_body":"perspectiveLeftIn","coll_header":"perspectiveDownIn","sidebar":"perspectiveUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://asymptotic-freedom.xyz/posts/579cc9c9/"/>
+
+
+
+
+
+  <title>深究NTFS文件系统 | 风屿の博客</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="风屿の博客" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+	<a href="https://github.com/Aurthoria" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#70B7FD; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">风屿の博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://asymptotic-freedom.xyz/posts/579cc9c9/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Asymptotic-freedom">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="风屿の博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">深究NTFS文件系统</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-09T17:47:08+08:00">
+                2020-03-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%94%B5%E5%AD%90%E6%95%B0%E6%8D%AE%E6%93%A6%E9%99%A4%E4%B8%8E%E6%81%A2%E5%A4%8D%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index">
+                    <span itemprop="name">电子数据擦除与恢复技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.5k
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>NTFS文件系统比FAT32复杂多了，小明我上课听得一头雾水。<br>
+接下来来详细介绍NTFS文件系统<br>
+NTFS文件系统原名为New Tecnology File System（这个称呼有点直接(・∀・)），是现在绝大多数电脑磁盘分区使用的文件系统。<a id="more"></a></p>
+<h1 id="ntfs介绍"><a class="markdownIt-Anchor" href="#ntfs介绍"></a> NTFS介绍</h1>
+<p>其具有以下特点：<br>
+–<strong>安全性较高</strong>，NTFS文件系统有日志容错功能，所以安全性比FAT文件系统高。<br>
+–NTFS文件系统可以<strong>给文件设置访问权限</strong><br>
+–文件<strong>压缩</strong>和文件<strong>加密</strong>（<strong>EFS加密</strong>右键高级设置）<br>
+–<strong>磁盘配额</strong><br>
+–NTFS文件系统<strong>支持大分区</strong>（在MBR磁盘最大支持<strong>2T</strong> ，在GPT磁盘支持的分区更大）<br>
+–NTFS文件系统<strong>支持大文件</strong>（<strong>大于4G</strong>）<br>
+–NTFS下可创建超过<strong>2TB</strong>的磁盘（注：<strong>硬盘可创建超过其本身大小的虚拟磁盘</strong>，但是需要选择<strong>动态扩展</strong>而不是固定大小。其文件类型是<strong>vhdx</strong>。）</p>
+<p>接下来演示以下NTFS文件的压缩功能（文件系统本身支持的，不借助压缩软件）<br>
+右键属性，点击常规中的高级，勾上<strong>压缩内容以便节省磁盘空间</strong><br>
+<img src="/images/loading.gif" data-original="/posts/579cc9c9/18457849-9a397e0c0b67a24c.png" alt>点击确定即可<br>
+<img src="/images/loading.gif" data-original="/posts/579cc9c9/18457849-3cc2aebe432303fe.png" alt><br>
+可以发现文件占用空间变小了，且其属性图标发生了变化，多了两个小箭头<img src="/images/loading.gif" data-original="/posts/579cc9c9/18457849-07b65dbc0c933f83.png" alt>文件图标均发生变化，NTFS压缩是<strong>透明的</strong>，即外部程序可以直接访问压缩后的文件，而其他压缩软件，是不透明的，外部程序无法直接访问，需要解压后才可以访问，但是NTFS压缩相对来说比压缩软件压缩得比较<strong>少</strong>。</p>
+<h1 id="ntfs的结构类型"><a class="markdownIt-Anchor" href="#ntfs的结构类型"></a> NTFS的结构类型</h1>
+<p>结构类型有两种<img src="/images/loading.gif" data-original="/posts/579cc9c9/18457849-6b9a95153660411f.png" alt="NTFS结构类型1"><img src="/images/loading.gif" data-original="/posts/579cc9c9/18457849-042a647d1d1e8363.png" alt="NTFS结构类型2"><br>
+可以注意到分区末尾均有<strong>备份DBR</strong>。</p>
+<h1 id="ntfs的dbr扇区"><a class="markdownIt-Anchor" href="#ntfs的dbr扇区"></a> NTFS的DBR扇区</h1>
+<p><strong>查找NTFS DBR快速方法:十六进制查找EB5290</strong></p>
+<p><img src="/images/loading.gif" data-original="/posts/579cc9c9/18457849-c86afd628efa47da.png" alt="NTFS的DBR扇区"><br>
+<img src="/images/loading.gif" data-original="/posts/579cc9c9/18457849-863c873e44854b48.png" alt="DBR的数据结构"></p>
+<p>介绍一下一些特殊概念：</p>
+<p>1）<strong>15</strong>是代表<strong>介质描述符</strong>，<strong>F8</strong>代表<strong>硬盘介质</strong></p>
+<p>2）<strong>1C-1F</strong>代表<strong>隐含扇区数</strong>，是针对于主分区而言的隐含扇区，隐含扇区是NTFS分区前的物理扇区数，如果NTFS分区是在磁盘内，则和该扇区在磁盘位置数值一样，如NTFS分区是在扩展分区内，则是表示在该分区内<strong>相对偏移</strong>扇区。</p>
+<p>3）<strong>28-2F</strong>是<strong>文件系统扇区总数</strong>，其是8个字节，要用数据解析器的<strong>64bit位</strong>查看，其与NTFS实际扇区数<strong>可能有出入</strong>（NTFS的一种特点），但是硬盘的DPT（分区表项）写的分区总扇区数与其相同。</p>
+<p>4）<strong>30-37</strong>表示<strong>MFT起始簇号</strong>，MFT是NTFS的第0个元文件，<strong>38-3F</strong>表示MFTMirr的<strong>起始簇号</strong>,它是NFTS的第1个元文件，是MFT的镜像，紧跟在MFT后面，40是<strong>MFT项的大小</strong>，即其所占用的空间，一般是<strong>2个扇区</strong>（计算方法，选中40（数值为0xF6）查看数据解释器8 bit(±)为-10，利用公式<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mn>2</mn><mrow><mo>−</mo><mn>1</mn><mo>∗</mo><mo>−</mo><mn>10</mn></mrow></msup><mo>=</mo><msup><mn>2</mn><mn>10</mn></msup><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">2^{-1*-10}=2^{10}=2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">−</span><span class="mord mtight">1</span><span class="mbin mtight">∗</span><span class="mord mtight">−</span><span class="mord mtight">1</span><span class="mord mtight">0</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span><span class="mord mtight">0</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span></span></span></span>个扇区）。</p>
+<p>5）<strong>44</strong>表示<strong>每个索引块大小簇数****（待补充）</strong></p>
+<h1 id="ntfs文件系统的16个元文件"><a class="markdownIt-Anchor" href="#ntfs文件系统的16个元文件"></a> NTFS文件系统的16个元文件</h1>
+<p>这些元文件名都是以**$**开头的<img src="/images/loading.gif" data-original="/posts/579cc9c9/18457849-04b201371d0d26e2.png" alt><img src="/images/loading.gif" data-original="/posts/579cc9c9/18457849-7e735c56d1f5d3f4.png" alt></p>
+<p>值得注意的是，<strong>元文件文件名和序号是严格对应</strong>，在NTFS分区内按序号排列。</p>
+<p>我们可以通过DBR扇区的$MFT起始簇号或者直接点击$MFT跳转到MFT元文件。</p>
+<p><img src="/images/loading.gif" data-original="/posts/579cc9c9/18457849-2295ea2d28343976.png" alt></p>
+<p>可以看到$MFT字样，向下多次滑可以依次看到<br>
+$MFTMir、$LogFile、$Volume(当我们卷标显示时，要用unicode编码（点击Winhex查看字符集选择unicode可以看到“新加卷”字样，因为<strong>NTFS是用Unicode编码，FAT32是用ASCII编码</strong>)、$AttrDef等，但是$Root是不可见的。</p>
+<h1 id="mft表"><a class="markdownIt-Anchor" href="#mft表"></a> MFT表</h1>
+<p><strong>MFT表特点</strong></p>
+<ul>
+<li>
+<p>以明文**“FILE”**开头</p>
+</li>
+<li>
+<p>每个MFT项都占用<strong>1024</strong>字节，即<strong>两个扇区</strong></p>
+</li>
+<li>
+<p>NTFS文件系统中的所有文件，都有一个MFT项记录相应的数据</p>
+</li>
+<li>
+<p>每个MFT项占用的两个扇区，<strong>最后两个字节</strong>是一个修正值，这个修正值和MFT项中的<strong>更新序列号</strong>相同，如果系统发现<strong>不同</strong>，就会认为这个MFT项<strong>错误</strong>，会把开头标志明文“FILE”改成**“BAAD”**</p>
+</li>
+</ul>
+<p><img src="/images/loading.gif" data-original="/posts/579cc9c9/18457849-ea56790dd30790f5.png" alt></p>
+<p>可以发现它是有颜色区分的！<strong>不同颜色块代表不同的属性</strong></p>
+<h2 id="ntfs主文件分配表mft头"><a class="markdownIt-Anchor" href="#ntfs主文件分配表mft头"></a> NTFS主文件分配表(MFT头)</h2>
+<p><img src="/images/loading.gif" data-original="/posts/579cc9c9/18457849-b627108f7f0cc0b7.png" alt></p>
+<h2 id="mft头的数据结构"><a class="markdownIt-Anchor" href="#mft头的数据结构"></a> MFT头的数据结构</h2>
+<p><img src="/images/loading.gif" data-original="/posts/579cc9c9/18457849-9a6c6aecba0240fb.png" alt><img src="/images/loading.gif" data-original="/posts/579cc9c9/18457849-fe140369ee885b30.png" alt></p>
+<p>1）这边重点提一下<strong>04-05 06-07</strong>指<strong>更新序列号的偏移和个数</strong>，一般来说，04-05是30 00（其实是0x0030），则由偏移找到MFT头的30位置，看到04 00，这个就是更新序列号，06-07是指更新序列号的个数，一个MFT表一般有3个更新序列号，分别位于<strong>30、第一个扇区末尾，第二个扇区末尾</strong>，如下图</p>
+<p><img src="/images/loading.gif" data-original="/posts/579cc9c9/18457849-74bc8f8dae201cdc.png" alt><strong>如果系统发现这几个更新序列号不同，就会认为这个MFT项错误，会把开头标志明文“FILE”改成“BAAD”</strong></p>
+<p>2）<strong>14-15</strong>代表<strong>第一个属性的偏移地址</strong>，图上写的是0x0038，转向38块，可以发现这是10属性的开头。</p>
+<p>3）<strong>16-17</strong>代表着<strong>文件或目录的状态</strong>，<strong>00：文件被删除，01：文件正常，02：目录被删除，03：目录正常</strong></p>
+<p>4）<strong>18-1B</strong>、<strong>1C-1F</strong>分别代表MFT项的<strong>逻辑长度（有效长度 ）<strong>和</strong>物理长度（占用长度）</strong>，单位是<strong>字节</strong>，可以看到图中物理长度是0x00 00 04 00字节=1024字节=2个扇区。</p>
+<p>5）<strong>2C-2F</strong>代表<strong>MFT项的索引号****（待补充）</strong></p>
+<h2 id="mft属性"><a class="markdownIt-Anchor" href="#mft属性"></a> MFT属性</h2>
+<p>每个MFT的属性都可以分成两部分：<strong>属性头</strong>和<strong>属性体</strong></p>
+<p>MFT属性的分类:</p>
+<ul>
+<li><strong>常驻属性</strong>：直接在<strong>MFT项中</strong>记录属性体，例如10 30
+<ul>
+<li>优点：直接在MFT项中记录属体，访问速度<strong>快</strong></li>
+<li>缺点：只能记录<strong>少量</strong>的数据</li>
+</ul>
+</li>
+<li><strong>非常驻属性</strong>：在<strong>MFT之外</strong>的区域记录属性体，例如80
+<ul>
+<li>优点：用簇流记录文件存储的数据区域，可以记录很<strong>大</strong>的数据</li>
+<li>缺点：访问速度较<strong>慢</strong></li>
+</ul>
+</li>
+</ul>
+<p><strong>属性类型</strong></p>
+<p><img src="/images/loading.gif" data-original="/posts/579cc9c9/18457849-4f7bf1aaa733a70d.png" alt><img src="/images/loading.gif" data-original="/posts/579cc9c9/18457849-981ce1374bc402e1.png" alt><br>
+一个属性分为<strong>属性头</strong>和<strong>属性体</strong>，<strong>用同一种颜色的浅深区分</strong></p>
+<h3 id="常驻属性的数据结构"><a class="markdownIt-Anchor" href="#常驻属性的数据结构"></a> 常驻属性的数据结构</h3>
+<p><strong>常驻属性的属性头</strong><br>
+<img src="/images/loading.gif" data-original="/posts/579cc9c9/18457849-6b31c1f17f2a23d0.png" alt="常驻属性的属性头"><br>
+<img src="/images/loading.gif" data-original="/posts/579cc9c9/18457849-ffff50d825b4fbab.png" alt></p>
+<p>其中注意以下几点：<br>
+1）<strong>00-03</strong>是指<strong>属性类型</strong></p>
+<p>2）<strong>04-07</strong>是指<strong>整个属性的总字节数</strong></p>
+<p>3）<strong>08</strong>代表<strong>属性类型</strong>（<strong>0常驻 or 1非常驻</strong>）</p>
+<p>4）<strong>10-13</strong>代表<strong>属性体的字节数</strong>（与实际颜色块字节数可能不同，因为颜色块是8字节为一块划分的）</p>
+<p>5）<strong>14-15</strong>代表<strong>属性体偏移的字节数</strong>，是相对于属性头开头位置的偏移量，亦即代表<strong>属性头的字节数</strong></p>
+<h4 id="mft中10属性体"><a class="markdownIt-Anchor" href="#mft中10属性体"></a> MFT中10属性体</h4>
+<p><img src="/images/loading.gif" data-original="https://upload-images.jianshu.io/upload_images/18457849-6b31c1f17f2a23d0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="10属性"><img src="/images/loading.gif" data-original="/posts/579cc9c9/18457849-82c5a354f7e9fe2a.jpg" alt="10属性体"></p>
+<h4 id="mft中30属性体"><a class="markdownIt-Anchor" href="#mft中30属性体"></a> MFT中30属性体</h4>
+<p>MFT中30属性，最小为\x68（104）字节，最大为\x268（616）字节，可容纳<strong>255</strong>个<strong>Unicode</strong>字符的文件名<br>
+<img src="/images/loading.gif" data-original="/posts/579cc9c9/18457849-1bc5b85129e5f265.png" alt="30属性"><img src="/images/loading.gif" data-original="/posts/579cc9c9/18457849-dcb82694859880bf.jpg" alt><img src="/images/loading.gif" data-original="/posts/579cc9c9/18457849-8cfa26ccc068563d.jpg" alt="30属性体"></p>
+<p>其中<br>
+38-3B：<strong>类型依照加法原则</strong><br>
+40：文件名的长度为一个字节，因此文件名最大长度为FFh=255字节<br>
+41：文件命名类型 有 00 01 02 03</p>
+<h3 id="非常驻属性的数据结构"><a class="markdownIt-Anchor" href="#非常驻属性的数据结构"></a> 非常驻属性的数据结构</h3>
+<p><img src="/images/loading.gif" data-original="/posts/579cc9c9/18457849-3f373854254a202b.png" alt><img src="/images/loading.gif" data-original="/posts/579cc9c9/18457849-c2eff230fa120dfc.png" alt><img src="/images/loading.gif" data-original="/posts/579cc9c9/18457849-baa15cce6d05acd1.png" alt></p>
+<p>其中<strong>28-2F</strong>是<strong>属性体占用总空</strong>（<strong>字节数</strong>），亦即<strong>数据总大小</strong></p>
+<h4 id="80属性"><a class="markdownIt-Anchor" href="#80属性"></a> 80属性</h4>
+<p>80属性是存储文件数据内容。</p>
+<p>80属性有两种类型，一种是常驻80属性，一种是非常驻80属性。</p>
+<p><strong>常驻属性头比较小，体比较大；<br>
+非常驻属性头比较大，体比较小。</strong></p>
+<p>这在winhex很容易辨认。</p>
+<p>当文件大小<strong>不超过1024字节（一个扇区）<strong>是在一个簇里存，此时80属性为常驻属性；<br>
+当文件</strong>大于1024字节</strong>会变成簇流（非常驻）存储方式。<br>
+<strong>常驻80属性的属性体就是数据内容，可用winhex直接复制到新文件显示。</strong><br>
+<strong>非常驻的属性体是簇流存储地址</strong>。</p>
+<p>LCN(logical cluster number)：整个文件卷的相对位置，单位(簇)。<br>
+VCN(virtual cluster number)：文件内部的相对位置，单位(簇)。</p>
+<p>每个运行列表中第一个字节的低4位表示运行簇大小（filesize）的len，高4位表示起始簇（start）的len。如果一个运行列表后面的第一个字节是00，说明运行列表结束，后面的数值暂时不用管；如果不是00，则是下一个运行列表开始。</p>
+<h5 id="1常驻"><a class="markdownIt-Anchor" href="#1常驻"></a> ①常驻</h5>
+<p><img src="/images/loading.gif" data-original="/posts/579cc9c9/14508631-11621272c6efc0bd.png" alt="image"><br>
+<img src="/images/loading.gif" data-original="/posts/579cc9c9/18457849-542754aa8eb35476.png" alt></p>
+<h5 id="2非常驻一个运行列表"><a class="markdownIt-Anchor" href="#2非常驻一个运行列表"></a> ②非常驻–&gt;一个运行列表</h5>
+<p><img src="/images/loading.gif" data-original="/posts/579cc9c9/14508631-dd27efa0b29c1fee.png" alt="非常驻--&gt;一个运行列表"></p>
+<p>0x00~0x3F 是属性头；运行列表在橘黄色框中，0x40开始，可以得到运行列表 33 40 BC 00 00 00 0C。</p>
+<p>分析如下:<br>
+首先0x33，低4位是3，表示紧随其后的3Byte 0xBC40作为<strong>运行簇大小（簇个数）</strong>，即文件所占总大小；高4位是3，表示簇大小之后的3个Byte 0x0C0000 是<strong>起始簇</strong>，即文件起始，这里是说的是LCN。<br>
+<strong>划重点！！！</strong><br>
+<strong>通过该处簇总个数与28-2F的属性体占用总空间大小，可推算出一个簇的大小。</strong></p>
+<p>公式为<br>
+<strong>NTFS中一个簇包含的扇区=  (数据总大小(字节)/512)/簇总个数</strong></p>
+<h5 id="3非常驻多个运行列表"><a class="markdownIt-Anchor" href="#3非常驻多个运行列表"></a> ③非常驻–&gt;多个运行列表</h5>
+<p><img src="/images/loading.gif" data-original="/posts/579cc9c9/14508631-fb99bb4de13afb72.png" alt="非常驻--&gt;多个运行列表"></p>
+<p>分析如下：</p>
+<p>第一个运行列表，首先是0x31，低4位是1，表示紧接着的1Byte(03)是运行簇大小；高4位是3，表示紧接着3Byte(65 9A 00)是起始簇，这里说的是LCN；</p>
+<p>第二个运行列表，首先是0x11，低4位是1，表示紧接着的1Byte(01)是运行簇大小；高4位是1，表示紧接着3Byte(13)是起始簇，这里说的是VCN。</p>
+<p>注意，只有第一个运行列表的起始簇说的是LCN，从第二个运行列表开始每个运行列表的起始簇都说的是VCN。想要得到LCN需要按下面的公式计算：</p>
+<p><strong>第n个运行列表的LCN = 第一个运行列表的起始簇(LCN) + 第二个运行列表的起始簇(VCN) +…+第n个运行列表的起始簇(VCN)</strong></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+		<div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/posts/579cc9c9/">深究NTFS文件系统</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 Asymptotic-freedom 的个人博客">Asymptotic-freedom</a></p>
+  <p><span>发布时间:</span>2020年03月09日 - 17:47</p>
+  <p><span>最后更新:</span>2022年04月09日 - 23:16</p>
+  <p><span>原始链接:</span><a href="/posts/579cc9c9/" title="深究NTFS文件系统">https://asymptotic-freedom.xyz/posts/579cc9c9/</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://asymptotic-freedom.xyz/posts/579cc9c9/"  aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+      $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+        });
+    });  
+</script>
+
+      
+		</div>
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/posts/94961d67/" rel="next" title="数据恢复之磁盘分区删除恢复">
+                <i class="fa fa-chevron-left"></i> 数据恢复之磁盘分区删除恢复
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/posts/58a99ce/" rel="prev" title="磁盘显示未初始化修复">
+                磁盘显示未初始化修复 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.png"
+                alt="Asymptotic-freedom" />
+            
+              <p class="site-author-name" itemprop="name">Asymptotic-freedom</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                
+				<a href="/archives/">
+              
+                  <span class="site-state-item-count">58</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Aurthoria" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.jianshu.com/u/964586dd07f2" target="_blank" title="简书">
+                      
+                        <i class="fa fa-fw fa-edit"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="/atom.xml" target="_blank" title="RSS">
+                      
+                        <i class="fa fa-fw fa-rss"></i></a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          <script type="text/javascript" src="//rf.revolvermaps.com/0/0/8.js?i=5te927ym7vp&amp;m=0&amp;c=ff0000&amp;cr1=ffffff&amp;f=arial&amp;l=33" async="async"></script>
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ntfs介绍"><span class="nav-number">1.</span> <span class="nav-text"> NTFS介绍</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ntfs的结构类型"><span class="nav-number">2.</span> <span class="nav-text"> NTFS的结构类型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ntfs的dbr扇区"><span class="nav-number">3.</span> <span class="nav-text"> NTFS的DBR扇区</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ntfs文件系统的16个元文件"><span class="nav-number">4.</span> <span class="nav-text"> NTFS文件系统的16个元文件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#mft表"><span class="nav-number">5.</span> <span class="nav-text"> MFT表</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ntfs主文件分配表mft头"><span class="nav-number">5.1.</span> <span class="nav-text"> NTFS主文件分配表(MFT头)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mft头的数据结构"><span class="nav-number">5.2.</span> <span class="nav-text"> MFT头的数据结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mft属性"><span class="nav-number">5.3.</span> <span class="nav-text"> MFT属性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#常驻属性的数据结构"><span class="nav-number">5.3.1.</span> <span class="nav-text"> 常驻属性的数据结构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#mft中10属性体"><span class="nav-number">5.3.1.1.</span> <span class="nav-text"> MFT中10属性体</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mft中30属性体"><span class="nav-number">5.3.1.2.</span> <span class="nav-text"> MFT中30属性体</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#非常驻属性的数据结构"><span class="nav-number">5.3.2.</span> <span class="nav-text"> 非常驻属性的数据结构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#80属性"><span class="nav-number">5.3.2.1.</span> <span class="nav-text"> 80属性</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1常驻"><span class="nav-number">5.3.2.1.1.</span> <span class="nav-text"> ①常驻</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2非常驻一个运行列表"><span class="nav-number">5.3.2.1.2.</span> <span class="nav-text"> ②非常驻–&gt;一个运行列表</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3非常驻多个运行列表"><span class="nav-number">5.3.2.1.3.</span> <span class="nav-text"> ③非常驻–&gt;多个运行列表</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Asymptotic-freedom</span>
+
+  
+  <div class="powered-by">
+	<i class="fa fa-user-md"></i>
+	<span id="busuanzi_container_site_uv">
+		本站访客数:<span id="busuanzi_value_site_uv"></span>
+	</span>
+	<span class="post-meta-divider">|</span>
+	<span id="busuanzi_container_site_pv">
+		本站访问量<span id="busuanzi_value_site_pv"></span>
+	</span>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+  <script src='https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js'></script>
+  <script>
+    if (window.mermaid) {
+      mermaid.initialize({theme: 'forest'});
+    }
+  </script>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+	
+
+    
+	
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.jsdelivr.net/fastclick/1.0.6/fastclick.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.lazyload/1.9.3/jquery.lazyload.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.ui.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.pack.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.1/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  
+  <!-- 旋转魔方 -->
+
+   
+      <style>
+  /*最外层容器样式*/
+  .wrap {
+    width: 0px;
+    height: 0px;
+    /*margin: 80px;*/
+    /*position: relative;*/
+    position: fixed;
+      /*显示位置*/
+    bottom: 200px;
+    right: 70px;
+    z-index: 999;
+  }
+
+  /*包裹所有容器样式*/
+  .cube {
+    width: 0px;
+    height: 0px;
+    margin: 0 auto;
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    transform: rotateX(-30deg) rotateY(-80deg);
+    animation: rotate linear 10s infinite;
+  }
+
+  @-webkit-keyframes rotate {
+    from {
+      transform: rotateX(0deg) rotateY(0deg);
+    }
+    to {
+      transform: rotateX(360deg) rotateY(360deg);
+    }
+  }
+
+  .cube div {
+    position: absolute;
+    /*显示大小*/
+    width: 50px;
+    height: 50px;
+    opacity: 0.8;
+    transition: all .4s;
+  }
+
+  /*定义所有图片样式*/
+  .pic {
+    width: 50px;
+    height: 50px;
+  }
+
+  .cube .out_front {
+    transform: rotateY(0deg) translateZ(25px);
+  }
+
+  .cube .out_back {
+    transform: translateZ(-25px) rotateY(180deg);
+  }
+
+  .cube .out_left {
+    transform: rotateY(-90deg) translateZ(25px);
+  }
+
+  .cube .out_right {
+    transform: rotateY(90deg) translateZ(25px);
+  }
+
+  .cube .out_top {
+    transform: rotateX(90deg) translateZ(25px);
+  }
+
+  .cube .out_bottom {
+    transform: rotateX(-90deg) translateZ(25px);
+  }
+
+  /*定义小正方体样式*/
+  .cube span {
+    display: block;
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    top: 12px;
+    left: 12px;
+  }
+
+  .cube .in_pic {
+    width: 25px;
+    height:25px;
+  }
+
+  .cube .in_front {
+    transform: rotateY(0deg) translateZ(12px);
+  }
+
+  .cube .in_back {
+    transform: translateZ(-12px) rotateY(180deg);
+  }
+
+  .cube .in_left {
+    transform: rotateY(-90deg) translateZ(12px);
+  }
+
+  .cube .in_right {
+    transform: rotateY(90deg) translateZ(12px);
+  }
+
+  .cube .in_top {
+    transform: rotateX(90deg) translateZ(12px);
+  }
+
+  .cube .in_bottom {
+    transform: rotateX(-90deg) translateZ(12px);
+  }
+
+  /*鼠标移入后样式*/
+  .cube:hover .out_front {
+    transform: rotateY(0deg) translateZ(50px);
+  }
+
+  .cube:hover .out_back {
+    transform: translateZ(-50px) rotateY(180deg);
+  }
+
+  .cube:hover .out_left {
+    transform: rotateY(-90deg) translateZ(50px);
+  }
+
+  .cube:hover .out_right {
+    transform: rotateY(90deg) translateZ(50px);
+  }
+
+  .cube:hover .out_top {
+    transform: rotateX(90deg) translateZ(50px);
+  }
+
+  .cube:hover .out_bottom {
+    transform: rotateX(-90deg) translateZ(50px);
+  }
+</style>
+
+<!--图片路径https://raw.githubusercontent.com/Aurthoria/Pictures/master/img/20200309224636.png-->
+
+<div class="wrap">
+
+    <!--包裹所有元素的容器-->
+    <div class="cube">
+        <!--前面图片 -->
+        <div class="out_front">
+          <a onclick="back2top()">
+              <img src="https://img.rruu.net/image/5e677fbd492ae" class="pic" />
+            </a>
+        </div>
+        <!--后面图片 -->
+        <div class="out_back">
+            <a onclick="back2top()">
+              <img src="https://img.rruu.net/image/5e677fbd492ae" class="pic" />
+            </a>
+        </div>
+        <!--左面图片 -->
+        <div class="out_left">
+            <a onclick="back2top()">
+              <img src="https://img.rruu.net/image/5e677fbd492ae" class="pic" />
+            </a>
+        </div>
+        <!--右面图片 -->
+        <div class="out_right">
+            <a onclick="back2top()">
+                <img src="https://img.rruu.net/image/5e677fbd492ae" class="pic" />
+            </a>
+        </div>
+        <!--上面图片 -->
+        <div class="out_top">
+            <a onclick="back2top()">
+                <img src="https://img.rruu.net/image/5e677fbd492ae" class="pic" />
+            </a>
+        </div>
+        <!--下面图片 -->
+        <div class="out_bottom">
+            <a onclick="back2top()">
+                <img src="https://img.rruu.net/image/5e677fbd492ae" class="pic" />
+            </a>
+        </div>
+
+        <!--小正方体 -->
+        <span class="in_front">
+            <img src="https://img.rruu.net/image/5e677fbd492ae" class="in_pic" />
+        </span>
+        <span class="in_back">
+             <img src="https://img.rruu.net/image/5e677fbd492ae" class="in_pic" />
+        </span>
+        <span class="in_left">
+            <img src="https://img.rruu.net/image/5e677fbd492ae" class="in_pic" />
+        </span>
+        <span class="in_right">
+            <img src="https://img.rruu.net/image/5e677fbd492ae" class="in_pic" />
+        </span>
+        <span class="in_top">
+            <img src="https://img.rruu.net/image/5e677fbd492ae" class="in_pic" />
+        </span>
+        <span class="in_bottom">
+            <img src="https://img.rruu.net/image/5e677fbd492ae" class="in_pic" />
+        </span>
+    </div>
+</div>
+
+<script>
+  function back2top(){
+    $('html, body').animate({scrollTop: 0}, 500);
+  }
+</script>
+   
+
+
+
+  <canvas id="evanyou"></canvas>
+  <style>
+    #evanyou {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+  </style>
+  <script src="/js/evan-you.js"></script>
+
+
+<!-- 代码复制 -->
+<script type="text/javascript" src="/js/src/clipboard.min.js"></script>
+<script type="text/javascript" src="/js/src/clipboard-use.js"></script>
+
+
+
+  <script src="/js/activate-power-mode.min.js"></script>
+  <script>
+    POWERMODE.colorful = true;
+    POWERMODE.shake = false;
+    document.body.addEventListener('input', POWERMODE);
+  </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+<script>!function(e){var c=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function i(){for(var r=0;r<c.length;r++)t=c[r],0<=(n=t.getBoundingClientRect()).bottom&&0<=n.left&&n.top<=(e.innerHeight||document.documentElement.clientHeight)&&function(){var t,n,e,i,o=c[r];t=o,n=function(){c=c.filter(function(t){return o!==t})},e=new Image,i=t.getAttribute("data-original"),e.onload=function(){t.src=i,n&&n()},e.src=i}();var t,n}i(),e.addEventListener("scroll",function(){var t,n;t=i,n=e,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(n)},500)})}(this);</script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script></body>
+</html>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/clicklove.js"></script>
+<!-- 看板娘 -->
+<script src="/live2d-widget/autoload.js"></script>
+<!--崩溃欺骗-->
+<script type="text/javascript" src="/js/src/crash_cheat.js"></script>

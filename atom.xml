@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://asymptotic-freedom.xyz/"/>
-  <updated>2020-09-01T06:38:11.826Z</updated>
+  <updated>2022-04-09T15:16:20.642Z</updated>
   <id>https://asymptotic-freedom.xyz/</id>
   
   <author>
@@ -21,11 +21,13 @@
     <link href="https://asymptotic-freedom.xyz/posts/6bf2a5bf/"/>
     <id>https://asymptotic-freedom.xyz/posts/6bf2a5bf/</id>
     <published>2020-08-11T16:51:18.000Z</published>
-    <updated>2020-09-01T06:38:11.826Z</updated>
+    <updated>2022-04-09T15:16:20.642Z</updated>
     
     <summary type="html">
     
-      &lt;h1 id=&quot;Google-CTF-–-CHUNK-NORRIS&quot;&gt;&lt;a href=&quot;#Google-CTF-–-CHUNK-NORRIS&quot; class=&quot;headerlink&quot; title=&quot;Google CTF – CHUNK NORRIS&quot;&gt;&lt;/a&gt;Google CTF – CHUNK NORRIS&lt;/h1&gt;&lt;h2 id=&quot;题目&quot;&gt;&lt;a href=&quot;#题目&quot; class=&quot;headerlink&quot; title=&quot;题目&quot;&gt;&lt;/a&gt;题目&lt;/h2&gt;&lt;p&gt;&lt;img src=&quot;/posts/6bf2a5bf/image-20200824003337195.png&quot; alt=&quot;image-20200824003337195&quot;&gt;&lt;/p&gt;
+      &lt;h1 id=&quot;google-ctf-chunk-norris&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#google-ctf-chunk-norris&quot;&gt;&lt;/a&gt; Google CTF – CHUNK NORRIS&lt;/h1&gt;
+&lt;h2 id=&quot;题目&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#题目&quot;&gt;&lt;/a&gt; 题目&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&quot;/posts/6bf2a5bf/image-20200824003337195.png&quot; alt=&quot;image-20200824003337195&quot;&gt;&lt;/p&gt;
     
     </summary>
     
@@ -40,7 +42,7 @@
     <link href="https://asymptotic-freedom.xyz/posts/7a4984ba/"/>
     <id>https://asymptotic-freedom.xyz/posts/7a4984ba/</id>
     <published>2020-05-30T14:06:10.000Z</published>
-    <updated>2020-05-30T14:08:58.698Z</updated>
+    <updated>2022-04-09T15:16:20.711Z</updated>
     
     <summary type="html">
     
@@ -66,7 +68,7 @@
     <link href="https://asymptotic-freedom.xyz/posts/2cdd304c/"/>
     <id>https://asymptotic-freedom.xyz/posts/2cdd304c/</id>
     <published>2020-05-30T08:12:02.000Z</published>
-    <updated>2020-05-30T14:07:04.501Z</updated>
+    <updated>2022-04-09T15:16:20.539Z</updated>
     
     <summary type="html">
     
@@ -93,7 +95,7 @@
     <link href="https://asymptotic-freedom.xyz/posts/48714bfd/"/>
     <id>https://asymptotic-freedom.xyz/posts/48714bfd/</id>
     <published>2020-05-02T11:30:23.000Z</published>
-    <updated>2020-05-30T08:44:03.274Z</updated>
+    <updated>2022-04-09T15:16:20.628Z</updated>
     
     <summary type="html">
     
@@ -118,11 +120,12 @@
     <link href="https://asymptotic-freedom.xyz/posts/c606d982/"/>
     <id>https://asymptotic-freedom.xyz/posts/c606d982/</id>
     <published>2020-04-21T16:03:46.000Z</published>
-    <updated>2020-05-01T06:21:14.824Z</updated>
+    <updated>2022-04-09T15:16:20.687Z</updated>
     
     <summary type="html">
     
-      &lt;h1 id=&quot;实验目的&quot;&gt;&lt;a href=&quot;#实验目的&quot; class=&quot;headerlink&quot; title=&quot;实验目的&quot;&gt;&lt;/a&gt;实验目的&lt;/h1&gt;&lt;ul&gt;
+      &lt;h1 id=&quot;实验目的&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#实验目的&quot;&gt;&lt;/a&gt; 实验目的&lt;/h1&gt;
+&lt;ul&gt;
 &lt;li&gt;了解第一个用户进程创建过程&lt;/li&gt;
 &lt;li&gt;了解系统调用框架的实现机制&lt;/li&gt;
 &lt;li&gt;了解ucore如何实现系统调用sys_fork/sys_exec/sys_exit/sys_wait来进行进程管理&lt;/li&gt;&lt;/ul&gt;
@@ -142,11 +145,12 @@
     <link href="https://asymptotic-freedom.xyz/posts/50bc1597/"/>
     <id>https://asymptotic-freedom.xyz/posts/50bc1597/</id>
     <published>2020-04-21T15:12:48.000Z</published>
-    <updated>2020-04-24T09:04:10.118Z</updated>
+    <updated>2022-04-09T15:16:20.970Z</updated>
     
     <summary type="html">
     
-      &lt;h1 id=&quot;实验目的&quot;&gt;&lt;a href=&quot;#实验目的&quot; class=&quot;headerlink&quot; title=&quot;实验目的&quot;&gt;&lt;/a&gt;实验目的&lt;/h1&gt;&lt;ul&gt;
+      &lt;h1 id=&quot;实验目的&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#实验目的&quot;&gt;&lt;/a&gt; 实验目的&lt;/h1&gt;
+&lt;ul&gt;
 &lt;li&gt;了解内核线程创建/执行的管理过程&lt;/li&gt;
 &lt;li&gt;了解内核线程的切换和基本调度过程&lt;/li&gt;&lt;/ul&gt;
     
@@ -165,7 +169,7 @@
     <link href="https://asymptotic-freedom.xyz/posts/2f12bf9c/"/>
     <id>https://asymptotic-freedom.xyz/posts/2f12bf9c/</id>
     <published>2020-04-14T15:23:28.000Z</published>
-    <updated>2020-04-17T13:37:44.721Z</updated>
+    <updated>2022-04-09T15:16:20.927Z</updated>
     
     <summary type="html">
     
@@ -187,7 +191,7 @@
     <link href="https://asymptotic-freedom.xyz/posts/69d005/"/>
     <id>https://asymptotic-freedom.xyz/posts/69d005/</id>
     <published>2020-04-10T04:09:22.000Z</published>
-    <updated>2020-04-21T15:14:21.554Z</updated>
+    <updated>2022-04-09T15:16:20.872Z</updated>
     
     <summary type="html">
     
@@ -211,7 +215,7 @@
     <link href="https://asymptotic-freedom.xyz/posts/b04b3b51/"/>
     <id>https://asymptotic-freedom.xyz/posts/b04b3b51/</id>
     <published>2020-04-03T06:41:58.000Z</published>
-    <updated>2020-04-03T09:44:35.050Z</updated>
+    <updated>2022-04-09T15:16:20.871Z</updated>
     
     <summary type="html">
     
@@ -231,7 +235,7 @@
     <link href="https://asymptotic-freedom.xyz/posts/5acb07a3/"/>
     <id>https://asymptotic-freedom.xyz/posts/5acb07a3/</id>
     <published>2020-04-01T10:59:42.000Z</published>
-    <updated>2020-04-01T11:10:40.281Z</updated>
+    <updated>2022-04-09T15:16:20.628Z</updated>
     
     <summary type="html">
     
@@ -261,7 +265,7 @@
     <link href="https://asymptotic-freedom.xyz/posts/4026efe8/"/>
     <id>https://asymptotic-freedom.xyz/posts/4026efe8/</id>
     <published>2020-03-28T15:40:33.000Z</published>
-    <updated>2020-04-01T02:12:30.136Z</updated>
+    <updated>2022-04-09T15:16:20.986Z</updated>
     
     <summary type="html">
     
@@ -284,7 +288,7 @@
     <link href="https://asymptotic-freedom.xyz/posts/a87e5e21/"/>
     <id>https://asymptotic-freedom.xyz/posts/a87e5e21/</id>
     <published>2020-03-28T03:06:00.000Z</published>
-    <updated>2020-04-09T19:30:12.604Z</updated>
+    <updated>2022-04-09T15:16:20.994Z</updated>
     
     <summary type="html">
     
@@ -309,7 +313,7 @@
     <link href="https://asymptotic-freedom.xyz/posts/55d1396f/"/>
     <id>https://asymptotic-freedom.xyz/posts/55d1396f/</id>
     <published>2020-03-22T13:41:30.000Z</published>
-    <updated>2020-03-29T17:31:43.996Z</updated>
+    <updated>2022-04-09T15:16:20.644Z</updated>
     
     <summary type="html">
     
@@ -339,7 +343,9 @@
     
     <summary type="html">
     
-      &lt;h1 id=&quot;实验目的&quot;&gt;&lt;a href=&quot;#实验目的&quot; class=&quot;headerlink&quot; title=&quot;实验目的&quot;&gt;&lt;/a&gt;实验目的&lt;/h1&gt;&lt;p&gt;目的：学习和掌握距离向量算法&lt;br&gt;内容：编程实现并分析以下过程&lt;/p&gt;
+      &lt;h1 id=&quot;实验目的&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#实验目的&quot;&gt;&lt;/a&gt; 实验目的&lt;/h1&gt;
+&lt;p&gt;目的：学习和掌握距离向量算法&lt;br&gt;
+内容：编程实现并分析以下过程&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;模拟路由收敛&lt;/li&gt;
 &lt;li&gt;模拟拓扑变化&lt;/li&gt;
@@ -359,7 +365,7 @@
     <link href="https://asymptotic-freedom.xyz/posts/865a19fa/"/>
     <id>https://asymptotic-freedom.xyz/posts/865a19fa/</id>
     <published>2020-03-22T13:15:31.000Z</published>
-    <updated>2020-03-29T17:20:51.075Z</updated>
+    <updated>2022-04-09T15:16:20.867Z</updated>
     
     <summary type="html">
     
@@ -382,7 +388,7 @@
     <link href="https://asymptotic-freedom.xyz/posts/287ca37a/"/>
     <id>https://asymptotic-freedom.xyz/posts/287ca37a/</id>
     <published>2020-03-22T13:13:35.000Z</published>
-    <updated>2020-03-29T17:31:07.490Z</updated>
+    <updated>2022-04-09T15:16:20.711Z</updated>
     
     <summary type="html">
     
@@ -406,7 +412,7 @@
     <link href="https://asymptotic-freedom.xyz/posts/b12adb60/"/>
     <id>https://asymptotic-freedom.xyz/posts/b12adb60/</id>
     <published>2020-03-22T12:24:50.000Z</published>
-    <updated>2020-03-29T17:16:53.465Z</updated>
+    <updated>2022-04-09T15:16:20.599Z</updated>
     
     <summary type="html">
     
@@ -427,7 +433,7 @@
     <link href="https://asymptotic-freedom.xyz/posts/c9920544/"/>
     <id>https://asymptotic-freedom.xyz/posts/c9920544/</id>
     <published>2020-03-17T05:48:55.000Z</published>
-    <updated>2020-03-29T17:18:20.836Z</updated>
+    <updated>2022-04-09T15:16:20.966Z</updated>
     
     <summary type="html">
     
@@ -450,7 +456,7 @@
     <link href="https://asymptotic-freedom.xyz/posts/f4345ea0/"/>
     <id>https://asymptotic-freedom.xyz/posts/f4345ea0/</id>
     <published>2020-03-15T13:31:16.000Z</published>
-    <updated>2020-03-29T17:16:49.615Z</updated>
+    <updated>2022-04-09T15:16:20.643Z</updated>
     
     <summary type="html">
     
@@ -469,7 +475,7 @@
     <link href="https://asymptotic-freedom.xyz/posts/335ac3b4/"/>
     <id>https://asymptotic-freedom.xyz/posts/335ac3b4/</id>
     <published>2020-03-13T02:07:09.000Z</published>
-    <updated>2020-03-29T17:18:57.952Z</updated>
+    <updated>2022-04-09T15:16:20.585Z</updated>
     
     <summary type="html">
     

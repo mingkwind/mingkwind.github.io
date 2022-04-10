@@ -1,0 +1,1573 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-flash.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <link href="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+  
+
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/icon128.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/icon32.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/icon16.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="学习," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="实验目的  了解内核线程创建&#x2F;执行的管理过程 了解内核线程的切换和基本调度过程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="uCoreOs lab4 实验报告">
+<meta property="og:url" content="https://asymptotic-freedom.xyz/posts/50bc1597/index.html">
+<meta property="og:site_name" content="风屿の博客">
+<meta property="og:description" content="实验目的  了解内核线程创建&#x2F;执行的管理过程 了解内核线程的切换和基本调度过程">
+<meta property="og:image" content="https://asymptotic-freedom.xyz/images/loading.gif">
+<meta property="og:image" content="https://asymptotic-freedom.xyz/images/loading.gif">
+<meta property="og:image" content="https://asymptotic-freedom.xyz/images/loading.gif">
+<meta property="og:image" content="https://asymptotic-freedom.xyz/images/loading.gif">
+<meta property="article:published_time" content="2020-04-21T15:12:48.000Z">
+<meta property="article:modified_time" content="2022-04-09T15:16:20.970Z">
+<meta property="article:author" content="Asymptotic-freedom">
+<meta property="article:tag" content="学习">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://asymptotic-freedom.xyz/images/loading.gif">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"flipYIn","post_header":"perspectiveRightIn","post_body":"perspectiveLeftIn","coll_header":"perspectiveDownIn","sidebar":"perspectiveUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://asymptotic-freedom.xyz/posts/50bc1597/"/>
+
+
+
+
+
+  <title>uCoreOs lab4 实验报告 | 风屿の博客</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="风屿の博客" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+	<a href="https://github.com/Aurthoria" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#70B7FD; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">风屿の博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://asymptotic-freedom.xyz/posts/50bc1597/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Asymptotic-freedom">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="风屿の博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">uCoreOs lab4 实验报告</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-21T23:12:48+08:00">
+                2020-04-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" itemprop="url" rel="index">
+                    <span itemprop="name">操作系统</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  4k
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="实验目的"><a class="markdownIt-Anchor" href="#实验目的"></a> 实验目的</h1>
+<ul>
+<li>了解内核线程创建/执行的管理过程</li>
+<li>了解内核线程的切换和基本调度过程<a id="more"></a></li>
+</ul>
+<h1 id="实验内容"><a class="markdownIt-Anchor" href="#实验内容"></a> 实验内容</h1>
+<h2 id="练习0填写已有实验"><a class="markdownIt-Anchor" href="#练习0填写已有实验"></a> 练习0：填写已有实验</h2>
+<p>本实验依赖实验1/2/3。请把你做的实验1/2/3的代码填入本实验中代码中有“LAB1”,“LAB2”,“LAB3”的注释相应部分。</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">相对与实验三，实验四中主要改动如下：</span><br><span class="line">kern&#x2F;process&#x2F; （新增进程管理相关文件）</span><br><span class="line">proc.[ch]：新增：实现进程、线程相关功能，包括：创建进程&#x2F;线程，初始化进程&#x2F;线程，处理进程&#x2F;线程退出等功能</span><br><span class="line">entry.S：新增：内核线程入口函数kernel_thread_entry的实现</span><br><span class="line">switch.S：新增：上下文切换，利用堆栈保存、恢复进程上下文</span><br><span class="line">kern&#x2F;init&#x2F;</span><br><span class="line">init.c：修改：完成进程系统初始化，并在内核初始化后切入idle进程</span><br><span class="line">kern&#x2F;mm&#x2F; （基本上与本次实验没有太直接的联系，了解kmalloc和kfree如何使用即可）</span><br><span class="line">kmalloc.[ch]：新增：定义和实现了新的kmalloc&#x2F;kfree函数。具体实现是基于slab分配的简化算法 （只要求会调用这两个函数即可）</span><br><span class="line">memlayout.h：增加slab物理内存分配相关的定义与宏 （可不用理会）。</span><br><span class="line">pmm.[ch]：修改：在pmm.c中添加了调用kmalloc_init函数,取消了老的kmalloc&#x2F;kfree的实现；在pmm.h中取消了老的kmalloc&#x2F;kfree的定义</span><br><span class="line">swap.c：修改：取消了用于check的Line 185的执行</span><br><span class="line">vmm.c：修改：调用新的kmalloc&#x2F;kfree</span><br><span class="line">kern&#x2F;trap&#x2F;</span><br><span class="line">trapentry.S：增加了汇编写的函数forkrets，用于do_fork调用的返回处理。</span><br><span class="line">kern&#x2F;schedule&#x2F;</span><br><span class="line">sched.[ch]：新增：实现FIFO策略的进程调度</span><br><span class="line">kern&#x2F;libs</span><br><span class="line">rb_tree.[ch]：新增：实现红黑树，被slab分配的简化算法使用（可不用理会）</span><br></pre></td></tr></table></figure></div>
+<p>将实验3的<code>kdebug.c、trap.c、default_pmm.c、pmm.c、vmm.c、swap_fifo.c</code>进行相应补充即可，并注意并非所有的不同都要替换掉，要根据上述改动考虑是否改动</p>
+<h2 id="练习1分配并初始化一个进程控制块"><a class="markdownIt-Anchor" href="#练习1分配并初始化一个进程控制块"></a> 练习1：分配并初始化一个进程控制块</h2>
+<p>alloc_proc函数（位于kern/process/proc.c中）负责分配并返回一个新的struct proc_struct结构，用于存储新建立的内核线程的管理信息。ucore需要对这个结构进行最基本的初始化，你需要完成这个初始化过程。</p>
+<p>【提示】在alloc_proc函数的实现中，需要初始化的proc_struct结构中的成员变量至少包括: state/pid/runs/kstack/need_resched/parent/mm/context/tf/cr3/flags/name。</p>
+<p>请在实验报告中简要说明你的设计实现过程。请回答如下问题：</p>
+<ul>
+<li>请说明proc_struct中<code>struct context context</code>和<code>struct trapframe *tf</code>成员变量含义和在本实验中的作用是啥？（提示通过看代码和编程调试可以判断出来）</li>
+</ul>
+<h3 id="实验过程"><a class="markdownIt-Anchor" href="#实验过程"></a> 实验过程</h3>
+<p>所需要填写的代码</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="C"><figure class="iseeu highlight /c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// alloc_proc - alloc a proc_struct and init all fields of proc_struct</span></span><br><span class="line"><span class="keyword">static</span> <span class="class"><span class="keyword">struct</span> <span class="title">proc_struct</span> *</span></span><br><span class="line"><span class="class"><span class="title">alloc_proc</span>(<span class="title">void</span>) &#123;</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">proc_struct</span> *<span class="title">proc</span> = <span class="title">kmalloc</span>(<span class="title">sizeof</span>(<span class="title">struct</span> <span class="title">proc_struct</span>));</span></span><br><span class="line">    <span class="keyword">if</span> (proc != <span class="literal">NULL</span>) &#123;</span><br><span class="line">    <span class="comment">//LAB4:EXERCISE1 YOUR CODE</span></span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">     * below fields in proc_struct need to be initialized</span></span><br><span class="line"><span class="comment">     *       enum proc_state state;                      // Process state</span></span><br><span class="line"><span class="comment">     *       int pid;                                    // Process ID</span></span><br><span class="line"><span class="comment">     *       int runs;                                   // the running times of Proces</span></span><br><span class="line"><span class="comment">     *       uintptr_t kstack;                           // Process kernel stack</span></span><br><span class="line"><span class="comment">     *       volatile bool need_resched;                 // bool value: need to be rescheduled to release CPU?</span></span><br><span class="line"><span class="comment">     *       struct proc_struct *parent;                 // the parent process</span></span><br><span class="line"><span class="comment">     *       struct mm_struct *mm;                       // Process's memory management field</span></span><br><span class="line"><span class="comment">     *       struct context context;                     // Switch here to run process</span></span><br><span class="line"><span class="comment">     *       struct trapframe *tf;                       // Trap frame for current interrupt</span></span><br><span class="line"><span class="comment">     *       uintptr_t cr3;                              // CR3 register: the base addr of Page Directroy Table(PDT)</span></span><br><span class="line"><span class="comment">     *       uint32_t flags;                             // Process flag</span></span><br><span class="line"><span class="comment">     *       char name[PROC_NAME_LEN + 1];               // Process name</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> proc;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>查看proc.h各元素的定义说明</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="C"><figure class="iseeu highlight /c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> __KERN_PROCESS_PROC_H__</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> __KERN_PROCESS_PROC_H__</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;defs.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;list.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;trap.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;memlayout.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// process's state in his life cycle</span></span><br><span class="line"><span class="keyword">enum</span> proc_state &#123;</span><br><span class="line">    PROC_UNINIT = <span class="number">0</span>,  <span class="comment">// uninitialized //未初始状态  </span></span><br><span class="line">    PROC_SLEEPING,    <span class="comment">// sleeping //睡眠（阻塞）状态</span></span><br><span class="line">    PROC_RUNNABLE,    <span class="comment">// runnable(maybe running) //运行与就绪态  </span></span><br><span class="line">    PROC_ZOMBIE,      <span class="comment">// almost dead, and wait parent proc to reclaim his resource //僵尸状态 </span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Saved registers for kernel context switches.</span></span><br><span class="line"><span class="comment">// Don't need to save all the %fs etc. segment registers,</span></span><br><span class="line"><span class="comment">// because they are constant across kernel contexts.</span></span><br><span class="line"><span class="comment">// Save all the regular registers so we don't need to care</span></span><br><span class="line"><span class="comment">// which are caller save, but not the return register %eax.</span></span><br><span class="line"><span class="comment">// (Not saving %eax just simplifies the switching code.)</span></span><br><span class="line"><span class="comment">// The layout of context must match code in switch.S.</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">context</span> &#123;</span></span><br><span class="line">    <span class="keyword">uint32_t</span> eip;</span><br><span class="line">    <span class="keyword">uint32_t</span> esp;</span><br><span class="line">    <span class="keyword">uint32_t</span> ebx;</span><br><span class="line">    <span class="keyword">uint32_t</span> ecx;</span><br><span class="line">    <span class="keyword">uint32_t</span> edx;</span><br><span class="line">    <span class="keyword">uint32_t</span> esi;</span><br><span class="line">    <span class="keyword">uint32_t</span> edi;</span><br><span class="line">    <span class="keyword">uint32_t</span> ebp;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PROC_NAME_LEN               15</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAX_PROCESS                 4096</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAX_PID                     (MAX_PROCESS * 2)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">extern</span> <span class="keyword">list_entry_t</span> proc_list;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> le2proc(le, member)         \</span></span><br><span class="line">    to_struct((le), struct proc_struct, member)</span><br><span class="line"></span><br><span class="line"><span class="keyword">extern</span> <span class="class"><span class="keyword">struct</span> <span class="title">proc_struct</span> *<span class="title">idleproc</span>, *<span class="title">initproc</span>, *<span class="title">current</span>;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">proc_init</span><span class="params">(<span class="keyword">void</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">proc_run</span><span class="params">(struct proc_struct *proc)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">kernel_thread</span><span class="params">(<span class="keyword">int</span> (*fn)(<span class="keyword">void</span> *), <span class="keyword">void</span> *arg, <span class="keyword">uint32_t</span> clone_flags)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">char</span> *<span class="title">set_proc_name</span><span class="params">(struct proc_struct *proc, <span class="keyword">const</span> <span class="keyword">char</span> *name)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">char</span> *<span class="title">get_proc_name</span><span class="params">(struct proc_struct *proc)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">cpu_idle</span><span class="params">(<span class="keyword">void</span>)</span> __<span class="title">attribute__</span><span class="params">((noreturn))</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function">struct proc_struct *<span class="title">find_proc</span><span class="params">(<span class="keyword">int</span> pid)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">do_fork</span><span class="params">(<span class="keyword">uint32_t</span> clone_flags, <span class="keyword">uintptr_t</span> <span class="built_in">stack</span>, struct trapframe *tf)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">do_exit</span><span class="params">(<span class="keyword">int</span> error_code)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span> <span class="comment">/* !__KERN_PROCESS_PROC_H__ */</span></span></span><br></pre></td></tr></table></figure></div>
+<p>根据注释初始化进程结构体proc各元素即可</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="C"><figure class="iseeu highlight /c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// alloc_proc - alloc a proc_struct and init all fields of proc_struct</span></span><br><span class="line"><span class="keyword">static</span> <span class="class"><span class="keyword">struct</span> <span class="title">proc_struct</span> *</span></span><br><span class="line"><span class="class"><span class="title">alloc_proc</span>(<span class="title">void</span>) &#123;</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">proc_struct</span> *<span class="title">proc</span> = <span class="title">kmalloc</span>(<span class="title">sizeof</span>(<span class="title">struct</span> <span class="title">proc_struct</span>));</span></span><br><span class="line">    <span class="keyword">if</span> (proc != <span class="literal">NULL</span>) &#123;</span><br><span class="line">    <span class="comment">//LAB4:EXERCISE1 YOUR CODE</span></span><br><span class="line">        proc-&gt;state = PROC_UNINIT; <span class="comment">// 进程状态 设置了进程的状态为“初始”态 这表示进程已经 “出生”了</span></span><br><span class="line">        proc-&gt;pid = <span class="number">-1</span>; <span class="comment">// 进程ID 设置进程pid的未初始化值 这表示进程的“身份证号”还没有办好</span></span><br><span class="line">        proc-&gt;runs = <span class="number">0</span>; <span class="comment">// 刚刚初始化的进程 运行时间一定为零 </span></span><br><span class="line">        proc-&gt;kstack = <span class="number">0</span>; <span class="comment">// 为该进程分配的地址为0 因为还没有执行 也没有被重定位 因为默认地址都是从0开始的</span></span><br><span class="line">        proc-&gt;need_resched = <span class="literal">NULL</span>; <span class="comment">// 刚刚分配出来的进程 还未进入CPU 进程不能被调度</span></span><br><span class="line">        proc-&gt;parent = <span class="literal">NULL</span>; <span class="comment">// 父进程</span></span><br><span class="line">        proc-&gt;mm = <span class="literal">NULL</span>; <span class="comment">// 进程所用的虚拟内存</span></span><br><span class="line">        <span class="built_in">memset</span>(&amp;(proc-&gt;context), <span class="number">0</span>, <span class="keyword">sizeof</span>(struct context)); <span class="comment">// 进程的上下文</span></span><br><span class="line">        proc-&gt;tf = <span class="literal">NULL</span>; <span class="comment">// 中断帧指针置空</span></span><br><span class="line">        proc-&gt;cr3 = boot_cr3; <span class="comment">// 页目录表地址 设为 内核页目录表基址 由于该内核线程在内核中运行</span></span><br><span class="line">        proc-&gt;flags = <span class="number">0</span>; <span class="comment">// 标志位</span></span><br><span class="line">        <span class="built_in">memset</span>(&amp;(proc-&gt;name), <span class="number">0</span>, PROC_NAME_LEN); <span class="comment">// 初始化进程名称为空</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> proc;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<h3 id="回答问题"><a class="markdownIt-Anchor" href="#回答问题"></a> 回答问题</h3>
+<blockquote>
+<p>请说明proc_struct中<code>struct context context</code>和<code>struct trapframe *tf</code>成员变量含义和在本实验中的作用是啥？（提示通过看代码和编程调试可以判断出来）</p>
+</blockquote>
+<p><code>context</code>对x86系统而言，进程/线程上下文就是CPU内部的一堆寄存器的信息。<br>其定义在kern/process/proc.h中：</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="C"><figure class="iseeu highlight /c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">context</span> &#123;</span></span><br><span class="line">    <span class="keyword">uint32_t</span> eip;</span><br><span class="line">    <span class="keyword">uint32_t</span> esp;</span><br><span class="line">    <span class="keyword">uint32_t</span> ebx;</span><br><span class="line">    <span class="keyword">uint32_t</span> ecx;</span><br><span class="line">    <span class="keyword">uint32_t</span> edx;</span><br><span class="line">    <span class="keyword">uint32_t</span> esi;</span><br><span class="line">    <span class="keyword">uint32_t</span> edi;</span><br><span class="line">    <span class="keyword">uint32_t</span> ebp;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></div>
+<p><code>trapframe *tf</code> 用于保存前一个被（中断或异常）打断的进程的状态信息。<br>其定义在kern/trap/trap.h中：</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="C"><figure class="iseeu highlight /c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">trapframe</span> &#123;</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">pushregs</span> <span class="title">tf_regs</span>;</span></span><br><span class="line">    <span class="keyword">uint16_t</span> tf_gs;</span><br><span class="line">    <span class="keyword">uint16_t</span> tf_padding0;</span><br><span class="line">    <span class="keyword">uint16_t</span> tf_fs;</span><br><span class="line">    <span class="keyword">uint16_t</span> tf_padding1;</span><br><span class="line">    <span class="keyword">uint16_t</span> tf_es;</span><br><span class="line">    <span class="keyword">uint16_t</span> tf_padding2;</span><br><span class="line">    <span class="keyword">uint16_t</span> tf_ds;</span><br><span class="line">    <span class="keyword">uint16_t</span> tf_padding3;</span><br><span class="line">    <span class="keyword">uint32_t</span> tf_trapno;</span><br><span class="line">    <span class="comment">/* below here defined by x86 hardware */</span></span><br><span class="line">    <span class="keyword">uint32_t</span> tf_err;</span><br><span class="line">    <span class="keyword">uintptr_t</span> tf_eip;</span><br><span class="line">    <span class="keyword">uint16_t</span> tf_cs;</span><br><span class="line">    <span class="keyword">uint16_t</span> tf_padding4;</span><br><span class="line">    <span class="keyword">uint32_t</span> tf_eflags;</span><br><span class="line">    <span class="comment">/* below here only when crossing rings, such as from user to kernel */</span></span><br><span class="line">    <span class="keyword">uintptr_t</span> tf_esp;</span><br><span class="line">    <span class="keyword">uint16_t</span> tf_ss;</span><br><span class="line">    <span class="keyword">uint16_t</span> tf_padding5;</span><br><span class="line">&#125; __attribute__((packed));</span><br></pre></td></tr></table></figure></div>
+<h2 id="练习2为新创建的内核线程分配资源"><a class="markdownIt-Anchor" href="#练习2为新创建的内核线程分配资源"></a> 练习2：为新创建的内核线程分配资源</h2>
+<p>创建一个内核线程需要分配和设置好很多资源。kernel_thread函数通过调用<strong>do_fork</strong>函数完成具体内核线程的创建工作。do_kernel函数会调用alloc_proc函数来分配并初始化一个进程控制块，但alloc_proc只是找到了一小块内存用以记录进程的必要信息，并没有实际分配这些资源。ucore一般通过do_fork实际创建新的内核线程。do_fork的作用是，创建当前内核线程的一个副本，它们的执行上下文、代码、数据都一样，但是存储位置不同。在这个过程中，需要给新内核线程分配资源，并且复制原进程的状态。你需要完成在kern/process/proc.c中的do_fork函数中的处理过程。它的大致执行步骤包括：</p>
+<ul>
+<li>调用alloc_proc，首先获得一块用户信息块。</li>
+<li>为进程分配一个内核栈。</li>
+<li>复制原进程的内存管理信息到新进程（但内核线程不必做此事）</li>
+<li>复制原进程上下文到新进程</li>
+<li>将新进程添加到进程列表</li>
+<li>唤醒新进程</li>
+<li>返回新进程号</li>
+</ul>
+<p>请在实验报告中简要说明你的设计实现过程。请回答如下问题：</p>
+<ul>
+<li>请说明ucore是否做到给每个新fork的线程一个唯一的id？请说明你的分析和理由。</li>
+</ul>
+<h3 id="实验过程-2"><a class="markdownIt-Anchor" href="#实验过程-2"></a> 实验过程</h3>
+<p>查看proc.c</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="C"><figure class="iseeu highlight /c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* do_fork -     parent process for a new child process</span></span><br><span class="line"><span class="comment"> * @clone_flags: used to guide how to clone the child process</span></span><br><span class="line"><span class="comment"> * @stack:       the parent's user stack pointer. if stack==0, It means to fork a kernel thread.</span></span><br><span class="line"><span class="comment"> * @tf:          the trapframe info, which will be copied to child process's proc-&gt;tf</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">int</span></span><br><span class="line">do_fork(<span class="keyword">uint32_t</span> clone_flags, <span class="keyword">uintptr_t</span> <span class="built_in">stack</span>, struct trapframe *tf) &#123;</span><br><span class="line">    <span class="keyword">int</span> ret = -E_NO_FREE_PROC;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">proc_struct</span> *<span class="title">proc</span>;</span></span><br><span class="line">    <span class="keyword">if</span> (nr_process &gt;= MAX_PROCESS) &#123;</span><br><span class="line">        <span class="keyword">goto</span> fork_out;</span><br><span class="line">    &#125;</span><br><span class="line">    ret = -E_NO_MEM;</span><br><span class="line">    <span class="comment">//LAB4:EXERCISE2 YOUR CODE</span></span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">     * Some Useful MACROs, Functions and DEFINEs, you can use them in below implementation.</span></span><br><span class="line"><span class="comment">     * MACROs or Functions:</span></span><br><span class="line"><span class="comment">     *   alloc_proc:   create a proc struct and init fields (lab4:exercise1)</span></span><br><span class="line"><span class="comment">     *   setup_kstack: alloc pages with size KSTACKPAGE as process kernel stack</span></span><br><span class="line"><span class="comment">     *   copy_mm:      process "proc" duplicate OR share process "current"'s mm according clone_flags</span></span><br><span class="line"><span class="comment">     *                 if clone_flags &amp; CLONE_VM, then "share" ; else "duplicate"</span></span><br><span class="line"><span class="comment">     *   copy_thread:  setup the trapframe on the  process's kernel stack top and</span></span><br><span class="line"><span class="comment">     *                 setup the kernel entry point and stack of process</span></span><br><span class="line"><span class="comment">     *   hash_proc:    add proc into proc hash_list</span></span><br><span class="line"><span class="comment">     *   get_pid:      alloc a unique pid for process</span></span><br><span class="line"><span class="comment">     *   wakup_proc:   set proc-&gt;state = PROC_RUNNABLE</span></span><br><span class="line"><span class="comment">     * VARIABLES:</span></span><br><span class="line"><span class="comment">     *   proc_list:    the process set's list</span></span><br><span class="line"><span class="comment">     *   nr_process:   the number of process set</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//    1. call alloc_proc to allocate a proc_struct</span></span><br><span class="line">    <span class="comment">//    2. call setup_kstack to allocate a kernel stack for child process</span></span><br><span class="line">    <span class="comment">//    3. call copy_mm to dup OR share mm according clone_flag</span></span><br><span class="line">    <span class="comment">//    4. call copy_thread to setup tf &amp; context in proc_struct</span></span><br><span class="line">    <span class="comment">//    5. insert proc_struct into hash_list &amp;&amp; proc_list</span></span><br><span class="line">    <span class="comment">//    6. call wakup_proc to make the new child process RUNNABLE</span></span><br><span class="line">    <span class="comment">//    7. set ret vaule using child proc's pid</span></span><br><span class="line">fork_out:</span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line"></span><br><span class="line">bad_fork_cleanup_kstack:</span><br><span class="line">    put_kstack(proc);</span><br><span class="line">bad_fork_cleanup_proc:</span><br><span class="line">    kfree(proc);</span><br><span class="line">    <span class="keyword">goto</span> fork_out;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>根据提示写出代码有</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="C"><figure class="iseeu highlight /c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* do_fork -     parent process for a new child process</span></span><br><span class="line"><span class="comment"> * @clone_flags: used to guide how to clone the child process</span></span><br><span class="line"><span class="comment"> * @stack:       the parent's user stack pointer. if stack==0, It means to fork a kernel thread.</span></span><br><span class="line"><span class="comment"> * @tf:          the trapframe info, which will be copied to child process's proc-&gt;tf</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">int</span></span><br><span class="line">do_fork(<span class="keyword">uint32_t</span> clone_flags, <span class="keyword">uintptr_t</span> <span class="built_in">stack</span>, struct trapframe *tf) &#123;</span><br><span class="line">    <span class="keyword">int</span> ret = -E_NO_FREE_PROC; <span class="comment">//尝试为进程分配内存</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">proc_struct</span> *<span class="title">proc</span>;</span><span class="comment">//定义新进程</span></span><br><span class="line">    <span class="keyword">if</span> (nr_process &gt;= MAX_PROCESS) &#123;<span class="comment">//分配进程数大于4096,返回</span></span><br><span class="line">        <span class="keyword">goto</span> fork_out;<span class="comment">//返回</span></span><br><span class="line">    &#125;</span><br><span class="line">    ret = -E_NO_MEM; <span class="comment">//因内存不足而分配失败</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">//    1. call alloc_proc to allocate a proc_struct</span></span><br><span class="line">    proc = alloc_proc();</span><br><span class="line">    <span class="keyword">if</span> (!proc) &#123;<span class="comment">//申请内存块失败</span></span><br><span class="line">        <span class="keyword">goto</span> fork_out;<span class="comment">//返回</span></span><br><span class="line">    &#125;</span><br><span class="line">    proc-&gt;parent = current;<span class="comment">//设置父进程名字</span></span><br><span class="line">    <span class="comment">//    2. call setup_kstack to allocate a kernel stack for child process</span></span><br><span class="line">    <span class="keyword">if</span> (setup_kstack(proc) ! = <span class="number">0</span>) &#123;<span class="comment">//分配内核栈</span></span><br><span class="line">        <span class="keyword">goto</span> bad_fork_cleanup_proc;<span class="comment">//返回</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//    3. call copy_mm to dup OR share mm according clone_flag</span></span><br><span class="line">    <span class="keyword">if</span> (copy_mm(clone_flags, proc) != <span class="number">0</span>) &#123;<span class="comment">//复制父进程的内存信息到子进程</span></span><br><span class="line">        <span class="keyword">goto</span> bad_fork_cleanup_kstack;<span class="comment">//返回</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//    4. call copy_thread to setup tf &amp; context in proc_struct</span></span><br><span class="line">    copy_thread(proc, <span class="built_in">stack</span>, tf);<span class="comment">//复制父进程的中断帧和上下文信息</span></span><br><span class="line">    <span class="comment">//    5. insert proc_struct into hash_list &amp;&amp; proc_list</span></span><br><span class="line">    <span class="keyword">bool</span> intr_flag;</span><br><span class="line">    local_intr_save(intr_flag); <span class="comment">//屏蔽中断 intr_flag置为1</span></span><br><span class="line">    proc-&gt;pid = get_pid();<span class="comment">//获取当前进程PID</span></span><br><span class="line">    list_add(&amp;proc_list, &amp;proc-&gt;list_link);<span class="comment">//加入进程链表</span></span><br><span class="line">    hash_proc(proc);<span class="comment">//将新进程添加到进程的（hash）列表中</span></span><br><span class="line">    ++nr_process;<span class="comment">//进程数加1</span></span><br><span class="line">    local_intr_restore(intr_flag);<span class="comment">//恢复中断</span></span><br><span class="line">    <span class="comment">//    6. call wakeup_proc to make the new child process RUNNABLE</span></span><br><span class="line">    wakeup_proc(proc);<span class="comment">//唤醒子进程</span></span><br><span class="line">    <span class="comment">//    7. set ret vaule using child proc's pid</span></span><br><span class="line">    ret = proc-&gt;pid;<span class="comment">//返回子进程的pid</span></span><br><span class="line">    </span><br><span class="line">fork_out:<span class="comment">//已分配进程数大于4096</span></span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line"></span><br><span class="line">bad_fork_cleanup_kstack:<span class="comment">//分配内核栈失败</span></span><br><span class="line">    put_kstack(proc);</span><br><span class="line">bad_fork_cleanup_proc:</span><br><span class="line">    kfree(proc);</span><br><span class="line">    <span class="keyword">goto</span> fork_out;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<h3 id="回答问题-2"><a class="markdownIt-Anchor" href="#回答问题-2"></a> 回答问题</h3>
+<blockquote>
+<p>请说明ucore是否做到给每个新fork的线程一个唯一的id？请说明你的分析和理由。</p>
+</blockquote>
+<p>查看get_pid函数，了解PID的生成方法</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="C"><figure class="iseeu highlight /c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// get_pid - alloc a unique pid for process</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">int</span></span><br><span class="line">get_pid(<span class="keyword">void</span>) &#123;</span><br><span class="line">    <span class="keyword">static_assert</span>(MAX_PID &gt; MAX_PROCESS);</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">proc_struct</span> *<span class="title">proc</span>;</span></span><br><span class="line">    <span class="keyword">list_entry_t</span> *<span class="built_in">list</span> = &amp;proc_list, *le;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">int</span> next_safe = MAX_PID, last_pid = MAX_PID;</span><br><span class="line">    <span class="keyword">if</span> (++ last_pid &gt;= MAX_PID) &#123;</span><br><span class="line">        last_pid = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">goto</span> inside;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (last_pid &gt;= next_safe) &#123;</span><br><span class="line">    inside:</span><br><span class="line">        next_safe = MAX_PID;</span><br><span class="line">    repeat:</span><br><span class="line">        le = <span class="built_in">list</span>;</span><br><span class="line">        <span class="keyword">while</span> ((le = list_next(le)) != <span class="built_in">list</span>) &#123;</span><br><span class="line">            proc = le2proc(le, list_link);</span><br><span class="line">            <span class="keyword">if</span> (proc-&gt;pid == last_pid) &#123;</span><br><span class="line">                <span class="keyword">if</span> (++ last_pid &gt;= next_safe) &#123;</span><br><span class="line">                    <span class="keyword">if</span> (last_pid &gt;= MAX_PID) &#123;</span><br><span class="line">                        last_pid = <span class="number">1</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                    next_safe = MAX_PID;</span><br><span class="line">                    <span class="keyword">goto</span> repeat;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (proc-&gt;pid &gt; last_pid &amp;&amp; next_safe &gt; proc-&gt;pid) &#123;</span><br><span class="line">                next_safe = proc-&gt;pid;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> last_pid;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<img src="/images/loading.gif" data-original="/posts/50bc1597/image-20200421164903167.png" alt="image-20200421164903167" style="zoom: 67%;">
+<p>从上可知</p>
+<ul>
+<li>
+<p>在该函数中使用了两个变量next_dafe和last_pid，在初次进入函数时，若next_safe &gt; last_pid + 1，(last_pid，next_safe)的区间取值均是合法pid，如果满足条件，可直接返回last_pid + 1作为新的pid</p>
+</li>
+<li>
+<p>否则，进入循环，在循环之中首先通过<code>if (proc-&gt;pid == last_pid)</code>这一分支确保了不存在任何进程的pid与last_pid重合，然后再通过<code>if (proc-&gt;pid &gt; last_pid &amp;&amp; next_safe &gt; proc-&gt;pid)</code>这一判断语句保证了不存在任何已经存在的pid满足：last_pid&lt;pid&lt;next_safe，这样就确保了最后能够找到这么一个满足条件的区间，获得合法的pid；</p>
+</li>
+<li>
+<p>之所以在该函数中使用了如此曲折的方法，维护一个合法的pid的区间，是为了优化时间效率，如果简单的暴力的话，每次需要枚举所有的pid，并且遍历所有的线程，这就使得时间代价过大，并且不同的调用get_pid函数的时候不能利用到先前调用这个函数的中间结果</p>
+</li>
+</ul>
+<p>因此可以给每个新fork的线程一个唯一的id</p>
+<h2 id="练习3阅读代码理解-proc_run-函数和它调用的函数如何完成进程切换的"><a class="markdownIt-Anchor" href="#练习3阅读代码理解-proc_run-函数和它调用的函数如何完成进程切换的"></a> 练习3：阅读代码，理解 proc_run 函数和它调用的函数如何完成进程切换的。</h2>
+<p>请在实验报告中简要说明你对proc_run函数的分析。并回答如下问题：</p>
+<ul>
+<li>在本实验的执行过程中，创建且运行了几个内核线程？</li>
+<li>语句<code>local_intr_save(intr_flag);....local_intr_restore(intr_flag);</code>在这里有何作用?请说明理由</li>
+</ul>
+<h3 id="实验过程-3"><a class="markdownIt-Anchor" href="#实验过程-3"></a> 实验过程</h3>
+<p>查看proc_run函数</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="C"><figure class="iseeu highlight /c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// proc_run - make process "proc" running on cpu</span></span><br><span class="line"><span class="comment">// <span class="doctag">NOTE:</span> before call switch_to, should load  base addr of "proc"'s new PDT</span></span><br><span class="line"><span class="keyword">void</span></span><br><span class="line">proc_run(struct proc_struct *proc) &#123;</span><br><span class="line">    <span class="keyword">if</span> (proc != current) &#123; <span class="comment">// 判断需要运行的线程是否已经运行着了</span></span><br><span class="line">        <span class="keyword">bool</span> intr_flag;</span><br><span class="line">        <span class="class"><span class="keyword">struct</span> <span class="title">proc_struct</span> *<span class="title">prev</span> = <span class="title">current</span>, *<span class="title">next</span> = <span class="title">proc</span>;</span></span><br><span class="line">        local_intr_save(intr_flag); <span class="comment">//屏蔽中断 intr_flag置为1</span></span><br><span class="line">        &#123;</span><br><span class="line">            current = proc; </span><br><span class="line">            load_esp0(next-&gt;kstack + KSTACKSIZE); <span class="comment">// 设置TSS</span></span><br><span class="line">            lcr3(next-&gt;cr3); <span class="comment">// 修改当前的cr3寄存器成需要运行线程（进程）的页目录表</span></span><br><span class="line">            switch_to(&amp;(prev-&gt;context), &amp;(next-&gt;context)); <span class="comment">// 切换到新的线程</span></span><br><span class="line">        &#125;</span><br><span class="line">        local_intr_restore(intr_flag);<span class="comment">//恢复中断</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>1、让 current指向 next内核线程initproc；</p>
+<p>2、设置任务状态ts中特权态0下的栈顶指针esp0 为 next 内核线程 initproc 的内核栈的栈顶，即 next-&gt;kstack + KSTACKSIZE ；</p>
+<p>3、设置 CR3 寄存器的值为 next 内核线程 initproc 的页目录表起始地址 next-&gt;cr3，这实际上是完成进程间的页表切换；</p>
+<p>4、由 switch_to函数完成具体的两个线程的执行现场切换，即切换各个寄存器，当 switch_to 函数执行完“ret”指令后，就切换到initproc执行了。</p>
+<p>运行代码，输入<code>make qemu</code></p>
+<p><img src="/images/loading.gif" data-original="/posts/50bc1597/image-20200421181044250.png" alt="image-20200421181044250"></p>
+<p><img src="/images/loading.gif" data-original="/posts/50bc1597/image-20200421181204092.png" alt="image-20200421181204092"></p>
+<h3 id="回答问题-3"><a class="markdownIt-Anchor" href="#回答问题-3"></a> 回答问题</h3>
+<blockquote>
+<p>在本实验的执行过程中，创建且运行了几个内核线程？</p>
+</blockquote>
+<p><img src="/images/loading.gif" data-original="/posts/50bc1597/image-20200421191240247.png" alt="image-20200421191240247"></p>
+<p>查看proc_init函数</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="C"><figure class="iseeu highlight /c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// proc_init - set up the first kernel thread idleproc "idle" by itself and</span></span><br><span class="line"><span class="comment">//           - create the second kernel thread init_main</span></span><br><span class="line"><span class="keyword">void</span></span><br><span class="line">proc_init(<span class="keyword">void</span>) &#123;</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line"></span><br><span class="line">    list_init(&amp;proc_list);</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; HASH_LIST_SIZE; i ++) &#123;</span><br><span class="line">        list_init(hash_list + i);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> ((idleproc = alloc_proc()) == <span class="literal">NULL</span>) &#123;</span><br><span class="line">        panic(<span class="string">"cannot alloc idleproc.\n"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    idleproc-&gt;pid = <span class="number">0</span>;</span><br><span class="line">    idleproc-&gt;state = PROC_RUNNABLE;</span><br><span class="line">    idleproc-&gt;kstack = (<span class="keyword">uintptr_t</span>)bootstack;</span><br><span class="line">    idleproc-&gt;need_resched = <span class="number">1</span>;</span><br><span class="line">    set_proc_name(idleproc, <span class="string">"idle"</span>);</span><br><span class="line">    nr_process ++;</span><br><span class="line"></span><br><span class="line">    current = idleproc;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> pid = kernel_thread(init_main, <span class="string">"Hello world!!"</span>, <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">if</span> (pid &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">        panic(<span class="string">"create init_main failed.\n"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    initproc = find_proc(pid);</span><br><span class="line">    set_proc_name(initproc, <span class="string">"init"</span>);</span><br><span class="line"></span><br><span class="line">    assert(idleproc != <span class="literal">NULL</span> &amp;&amp; idleproc-&gt;pid == <span class="number">0</span>);</span><br><span class="line">    assert(initproc != <span class="literal">NULL</span> &amp;&amp; initproc-&gt;pid == <span class="number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>从代码可知，有</p>
+<ul>
+<li>idle_proc，为第 0 个内核线程，在完成新的内核线程的创建以及各种初始化工作之后，进入死循环，用于调度其他进程或线程；</li>
+<li>init_proc，被创建用于打印 “Hello World” 的线程。本次实验的内核线程，只用来打印字符串。</li>
+</ul>
+<blockquote>
+<p>语句<code>local_intr_save(intr_flag);....local_intr_restore(intr_flag);</code>在这里有何作用?请说明理由</p>
+</blockquote>
+<p>在进行进程切换的时候，需要避免出现中断干扰这个过程，所以需要在上下文切换期间清除 IF 位屏蔽中断，并且在进程恢复执行后恢复 IF 位。</p>
+<ul>
+<li>该语句是屏蔽中断操作，使得在这个语句块内的内容不会被其他中断打断，是一个<strong>原子操作</strong></li>
+<li>这就使得某些关键的代码不会被打断，从而不会一起不必要的错误</li>
+<li>例如在 proc_run 函数中，将 current 指向了要切换到的线程，但是此时还未真正将控制权转移过去，若此时出现其他中断打断这些操作，便会出现 current 中保存的并不是正在运行的线程的中断控制块，从而出现错误</li>
+</ul>
+<h1 id="实验总结"><a class="markdownIt-Anchor" href="#实验总结"></a> 实验总结</h1>
+<p>​         本次实验是关于内核线程的相关实验，实验涉及进程控制块的设计、内核线程分配问题，任务量较小，但是分析代码仍然是一件令人头疼的事情，get_pid函数中用到的多个跳转和循环使得代码难以理解。对于实验中出现的各种错误，还是得耐心debug…</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E5%AD%A6%E4%B9%A0/" rel="tag"><i class="fa fa-tag"></i> 学习</a>
+          
+        </div>
+      
+		<div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/posts/50bc1597/">uCoreOs lab4 实验报告</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 Asymptotic-freedom 的个人博客">Asymptotic-freedom</a></p>
+  <p><span>发布时间:</span>2020年04月21日 - 23:12</p>
+  <p><span>最后更新:</span>2022年04月09日 - 23:16</p>
+  <p><span>原始链接:</span><a href="/posts/50bc1597/" title="uCoreOs lab4 实验报告">https://asymptotic-freedom.xyz/posts/50bc1597/</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://asymptotic-freedom.xyz/posts/50bc1597/"  aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+      $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+        });
+    });  
+</script>
+
+      
+		</div>
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/posts/2f12bf9c/" rel="next" title="iptables之服务器应急响应及提供服务器防御解决方案实验">
+                <i class="fa fa-chevron-left"></i> iptables之服务器应急响应及提供服务器防御解决方案实验
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/posts/c606d982/" rel="prev" title="uCoreOs lab5 实验报告">
+                uCoreOs lab5 实验报告 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.png"
+                alt="Asymptotic-freedom" />
+            
+              <p class="site-author-name" itemprop="name">Asymptotic-freedom</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                
+				<a href="/archives/">
+              
+                  <span class="site-state-item-count">58</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Aurthoria" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.jianshu.com/u/964586dd07f2" target="_blank" title="简书">
+                      
+                        <i class="fa fa-fw fa-edit"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="/atom.xml" target="_blank" title="RSS">
+                      
+                        <i class="fa fa-fw fa-rss"></i></a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          <script type="text/javascript" src="//rf.revolvermaps.com/0/0/8.js?i=5te927ym7vp&amp;m=0&amp;c=ff0000&amp;cr1=ffffff&amp;f=arial&amp;l=33" async="async"></script>
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#实验目的"><span class="nav-number">1.</span> <span class="nav-text"> 实验目的</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实验内容"><span class="nav-number">2.</span> <span class="nav-text"> 实验内容</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#练习0填写已有实验"><span class="nav-number">2.1.</span> <span class="nav-text"> 练习0：填写已有实验</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#练习1分配并初始化一个进程控制块"><span class="nav-number">2.2.</span> <span class="nav-text"> 练习1：分配并初始化一个进程控制块</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#实验过程"><span class="nav-number">2.2.1.</span> <span class="nav-text"> 实验过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#回答问题"><span class="nav-number">2.2.2.</span> <span class="nav-text"> 回答问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#练习2为新创建的内核线程分配资源"><span class="nav-number">2.3.</span> <span class="nav-text"> 练习2：为新创建的内核线程分配资源</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#实验过程-2"><span class="nav-number">2.3.1.</span> <span class="nav-text"> 实验过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#回答问题-2"><span class="nav-number">2.3.2.</span> <span class="nav-text"> 回答问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#练习3阅读代码理解-proc_run-函数和它调用的函数如何完成进程切换的"><span class="nav-number">2.4.</span> <span class="nav-text"> 练习3：阅读代码，理解 proc_run 函数和它调用的函数如何完成进程切换的。</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#实验过程-3"><span class="nav-number">2.4.1.</span> <span class="nav-text"> 实验过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#回答问题-3"><span class="nav-number">2.4.2.</span> <span class="nav-text"> 回答问题</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实验总结"><span class="nav-number">3.</span> <span class="nav-text"> 实验总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Asymptotic-freedom</span>
+
+  
+  <div class="powered-by">
+	<i class="fa fa-user-md"></i>
+	<span id="busuanzi_container_site_uv">
+		本站访客数:<span id="busuanzi_value_site_uv"></span>
+	</span>
+	<span class="post-meta-divider">|</span>
+	<span id="busuanzi_container_site_pv">
+		本站访问量<span id="busuanzi_value_site_pv"></span>
+	</span>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+  <script src='https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js'></script>
+  <script>
+    if (window.mermaid) {
+      mermaid.initialize({theme: 'forest'});
+    }
+  </script>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+	
+
+    
+	
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.jsdelivr.net/fastclick/1.0.6/fastclick.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.lazyload/1.9.3/jquery.lazyload.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.ui.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.pack.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.1/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  
+  <!-- 旋转魔方 -->
+
+   
+      <style>
+  /*最外层容器样式*/
+  .wrap {
+    width: 0px;
+    height: 0px;
+    /*margin: 80px;*/
+    /*position: relative;*/
+    position: fixed;
+      /*显示位置*/
+    bottom: 200px;
+    right: 70px;
+    z-index: 999;
+  }
+
+  /*包裹所有容器样式*/
+  .cube {
+    width: 0px;
+    height: 0px;
+    margin: 0 auto;
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    transform: rotateX(-30deg) rotateY(-80deg);
+    animation: rotate linear 10s infinite;
+  }
+
+  @-webkit-keyframes rotate {
+    from {
+      transform: rotateX(0deg) rotateY(0deg);
+    }
+    to {
+      transform: rotateX(360deg) rotateY(360deg);
+    }
+  }
+
+  .cube div {
+    position: absolute;
+    /*显示大小*/
+    width: 50px;
+    height: 50px;
+    opacity: 0.8;
+    transition: all .4s;
+  }
+
+  /*定义所有图片样式*/
+  .pic {
+    width: 50px;
+    height: 50px;
+  }
+
+  .cube .out_front {
+    transform: rotateY(0deg) translateZ(25px);
+  }
+
+  .cube .out_back {
+    transform: translateZ(-25px) rotateY(180deg);
+  }
+
+  .cube .out_left {
+    transform: rotateY(-90deg) translateZ(25px);
+  }
+
+  .cube .out_right {
+    transform: rotateY(90deg) translateZ(25px);
+  }
+
+  .cube .out_top {
+    transform: rotateX(90deg) translateZ(25px);
+  }
+
+  .cube .out_bottom {
+    transform: rotateX(-90deg) translateZ(25px);
+  }
+
+  /*定义小正方体样式*/
+  .cube span {
+    display: block;
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    top: 12px;
+    left: 12px;
+  }
+
+  .cube .in_pic {
+    width: 25px;
+    height:25px;
+  }
+
+  .cube .in_front {
+    transform: rotateY(0deg) translateZ(12px);
+  }
+
+  .cube .in_back {
+    transform: translateZ(-12px) rotateY(180deg);
+  }
+
+  .cube .in_left {
+    transform: rotateY(-90deg) translateZ(12px);
+  }
+
+  .cube .in_right {
+    transform: rotateY(90deg) translateZ(12px);
+  }
+
+  .cube .in_top {
+    transform: rotateX(90deg) translateZ(12px);
+  }
+
+  .cube .in_bottom {
+    transform: rotateX(-90deg) translateZ(12px);
+  }
+
+  /*鼠标移入后样式*/
+  .cube:hover .out_front {
+    transform: rotateY(0deg) translateZ(50px);
+  }
+
+  .cube:hover .out_back {
+    transform: translateZ(-50px) rotateY(180deg);
+  }
+
+  .cube:hover .out_left {
+    transform: rotateY(-90deg) translateZ(50px);
+  }
+
+  .cube:hover .out_right {
+    transform: rotateY(90deg) translateZ(50px);
+  }
+
+  .cube:hover .out_top {
+    transform: rotateX(90deg) translateZ(50px);
+  }
+
+  .cube:hover .out_bottom {
+    transform: rotateX(-90deg) translateZ(50px);
+  }
+</style>
+
+<!--图片路径https://raw.githubusercontent.com/Aurthoria/Pictures/master/img/20200309224636.png-->
+
+<div class="wrap">
+
+    <!--包裹所有元素的容器-->
+    <div class="cube">
+        <!--前面图片 -->
+        <div class="out_front">
+          <a onclick="back2top()">
+              <img src="https://img.rruu.net/image/5e677fbd492ae" class="pic" />
+            </a>
+        </div>
+        <!--后面图片 -->
+        <div class="out_back">
+            <a onclick="back2top()">
+              <img src="https://img.rruu.net/image/5e677fbd492ae" class="pic" />
+            </a>
+        </div>
+        <!--左面图片 -->
+        <div class="out_left">
+            <a onclick="back2top()">
+              <img src="https://img.rruu.net/image/5e677fbd492ae" class="pic" />
+            </a>
+        </div>
+        <!--右面图片 -->
+        <div class="out_right">
+            <a onclick="back2top()">
+                <img src="https://img.rruu.net/image/5e677fbd492ae" class="pic" />
+            </a>
+        </div>
+        <!--上面图片 -->
+        <div class="out_top">
+            <a onclick="back2top()">
+                <img src="https://img.rruu.net/image/5e677fbd492ae" class="pic" />
+            </a>
+        </div>
+        <!--下面图片 -->
+        <div class="out_bottom">
+            <a onclick="back2top()">
+                <img src="https://img.rruu.net/image/5e677fbd492ae" class="pic" />
+            </a>
+        </div>
+
+        <!--小正方体 -->
+        <span class="in_front">
+            <img src="https://img.rruu.net/image/5e677fbd492ae" class="in_pic" />
+        </span>
+        <span class="in_back">
+             <img src="https://img.rruu.net/image/5e677fbd492ae" class="in_pic" />
+        </span>
+        <span class="in_left">
+            <img src="https://img.rruu.net/image/5e677fbd492ae" class="in_pic" />
+        </span>
+        <span class="in_right">
+            <img src="https://img.rruu.net/image/5e677fbd492ae" class="in_pic" />
+        </span>
+        <span class="in_top">
+            <img src="https://img.rruu.net/image/5e677fbd492ae" class="in_pic" />
+        </span>
+        <span class="in_bottom">
+            <img src="https://img.rruu.net/image/5e677fbd492ae" class="in_pic" />
+        </span>
+    </div>
+</div>
+
+<script>
+  function back2top(){
+    $('html, body').animate({scrollTop: 0}, 500);
+  }
+</script>
+   
+
+
+
+  <canvas id="evanyou"></canvas>
+  <style>
+    #evanyou {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+  </style>
+  <script src="/js/evan-you.js"></script>
+
+
+<!-- 代码复制 -->
+<script type="text/javascript" src="/js/src/clipboard.min.js"></script>
+<script type="text/javascript" src="/js/src/clipboard-use.js"></script>
+
+
+
+  <script src="/js/activate-power-mode.min.js"></script>
+  <script>
+    POWERMODE.colorful = true;
+    POWERMODE.shake = false;
+    document.body.addEventListener('input', POWERMODE);
+  </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+<script>!function(e){var c=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function i(){for(var r=0;r<c.length;r++)t=c[r],0<=(n=t.getBoundingClientRect()).bottom&&0<=n.left&&n.top<=(e.innerHeight||document.documentElement.clientHeight)&&function(){var t,n,e,i,o=c[r];t=o,n=function(){c=c.filter(function(t){return o!==t})},e=new Image,i=t.getAttribute("data-original"),e.onload=function(){t.src=i,n&&n()},e.src=i}();var t,n}i(),e.addEventListener("scroll",function(){var t,n;t=i,n=e,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(n)},500)})}(this);</script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script></body>
+</html>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/clicklove.js"></script>
+<!-- 看板娘 -->
+<script src="/live2d-widget/autoload.js"></script>
+<!--崩溃欺骗-->
+<script type="text/javascript" src="/js/src/crash_cheat.js"></script>

