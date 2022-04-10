@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>风屿の博客</title>
-  <icon>https://asymptotic-freedom.xyz/icon.png</icon>
+  <icon>http://yoursite.com/icon.png</icon>
   
   <link href="/atom.xml" rel="self"/>
   
-  <link href="https://asymptotic-freedom.xyz/"/>
+  <link href="http://yoursite.com/"/>
   <updated>2022-04-09T15:16:20.642Z</updated>
-  <id>https://asymptotic-freedom.xyz/</id>
+  <id>http://yoursite.com/</id>
   
   <author>
-    <name>Asymptotic-freedom</name>
+    <name>Mingkwind</name>
     
   </author>
   
@@ -18,8 +18,8 @@
   
   <entry>
     <title>关于RSA素数生成漏洞的CTF题</title>
-    <link href="https://asymptotic-freedom.xyz/posts/6bf2a5bf/"/>
-    <id>https://asymptotic-freedom.xyz/posts/6bf2a5bf/</id>
+    <link href="http://yoursite.com/posts/6bf2a5bf/"/>
+    <id>http://yoursite.com/posts/6bf2a5bf/</id>
     <published>2020-08-11T16:51:18.000Z</published>
     <updated>2022-04-09T15:16:20.642Z</updated>
     
@@ -32,15 +32,15 @@
     </summary>
     
     
-      <category term="CTF" scheme="https://asymptotic-freedom.xyz/categories/CTF/"/>
+      <category term="CTF" scheme="http://yoursite.com/categories/CTF/"/>
     
     
   </entry>
   
   <entry>
     <title>uCoreOs lab8 实验报告</title>
-    <link href="https://asymptotic-freedom.xyz/posts/7a4984ba/"/>
-    <id>https://asymptotic-freedom.xyz/posts/7a4984ba/</id>
+    <link href="http://yoursite.com/posts/7a4984ba/"/>
+    <id>http://yoursite.com/posts/7a4984ba/</id>
     <published>2020-05-30T14:06:10.000Z</published>
     <updated>2022-04-09T15:16:20.711Z</updated>
     
@@ -56,17 +56,17 @@
     </summary>
     
     
-      <category term="操作系统" scheme="https://asymptotic-freedom.xyz/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
+      <category term="操作系统" scheme="http://yoursite.com/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
     
     
-      <category term="学习" scheme="https://asymptotic-freedom.xyz/tags/%E5%AD%A6%E4%B9%A0/"/>
+      <category term="学习" scheme="http://yoursite.com/tags/%E5%AD%A6%E4%B9%A0/"/>
     
   </entry>
   
   <entry>
     <title>uCoreOs lab7 实验报告</title>
-    <link href="https://asymptotic-freedom.xyz/posts/2cdd304c/"/>
-    <id>https://asymptotic-freedom.xyz/posts/2cdd304c/</id>
+    <link href="http://yoursite.com/posts/2cdd304c/"/>
+    <id>http://yoursite.com/posts/2cdd304c/</id>
     <published>2020-05-30T08:12:02.000Z</published>
     <updated>2022-04-09T15:16:20.539Z</updated>
     
@@ -83,17 +83,17 @@
     </summary>
     
     
-      <category term="操作系统" scheme="https://asymptotic-freedom.xyz/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
+      <category term="操作系统" scheme="http://yoursite.com/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
     
     
-      <category term="学习" scheme="https://asymptotic-freedom.xyz/tags/%E5%AD%A6%E4%B9%A0/"/>
+      <category term="学习" scheme="http://yoursite.com/tags/%E5%AD%A6%E4%B9%A0/"/>
     
   </entry>
   
   <entry>
     <title>uCoreOS lab6 实验报告</title>
-    <link href="https://asymptotic-freedom.xyz/posts/48714bfd/"/>
-    <id>https://asymptotic-freedom.xyz/posts/48714bfd/</id>
+    <link href="http://yoursite.com/posts/48714bfd/"/>
+    <id>http://yoursite.com/posts/48714bfd/</id>
     <published>2020-05-02T11:30:23.000Z</published>
     <updated>2022-04-09T15:16:20.628Z</updated>
     
@@ -108,17 +108,17 @@
     </summary>
     
     
-      <category term="操作系统" scheme="https://asymptotic-freedom.xyz/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
+      <category term="操作系统" scheme="http://yoursite.com/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
     
     
-      <category term="学习" scheme="https://asymptotic-freedom.xyz/tags/%E5%AD%A6%E4%B9%A0/"/>
+      <category term="学习" scheme="http://yoursite.com/tags/%E5%AD%A6%E4%B9%A0/"/>
     
   </entry>
   
   <entry>
     <title>uCoreOs lab5 实验报告</title>
-    <link href="https://asymptotic-freedom.xyz/posts/c606d982/"/>
-    <id>https://asymptotic-freedom.xyz/posts/c606d982/</id>
+    <link href="http://yoursite.com/posts/c606d982/"/>
+    <id>http://yoursite.com/posts/c606d982/</id>
     <published>2020-04-21T16:03:46.000Z</published>
     <updated>2022-04-09T15:16:20.687Z</updated>
     
@@ -133,17 +133,17 @@
     </summary>
     
     
-      <category term="操作系统" scheme="https://asymptotic-freedom.xyz/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
+      <category term="操作系统" scheme="http://yoursite.com/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
     
     
-      <category term="学习" scheme="https://asymptotic-freedom.xyz/tags/%E5%AD%A6%E4%B9%A0/"/>
+      <category term="学习" scheme="http://yoursite.com/tags/%E5%AD%A6%E4%B9%A0/"/>
     
   </entry>
   
   <entry>
     <title>uCoreOs lab4 实验报告</title>
-    <link href="https://asymptotic-freedom.xyz/posts/50bc1597/"/>
-    <id>https://asymptotic-freedom.xyz/posts/50bc1597/</id>
+    <link href="http://yoursite.com/posts/50bc1597/"/>
+    <id>http://yoursite.com/posts/50bc1597/</id>
     <published>2020-04-21T15:12:48.000Z</published>
     <updated>2022-04-09T15:16:20.970Z</updated>
     
@@ -157,17 +157,17 @@
     </summary>
     
     
-      <category term="操作系统" scheme="https://asymptotic-freedom.xyz/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
+      <category term="操作系统" scheme="http://yoursite.com/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
     
     
-      <category term="学习" scheme="https://asymptotic-freedom.xyz/tags/%E5%AD%A6%E4%B9%A0/"/>
+      <category term="学习" scheme="http://yoursite.com/tags/%E5%AD%A6%E4%B9%A0/"/>
     
   </entry>
   
   <entry>
     <title>iptables之服务器应急响应及提供服务器防御解决方案实验</title>
-    <link href="https://asymptotic-freedom.xyz/posts/2f12bf9c/"/>
-    <id>https://asymptotic-freedom.xyz/posts/2f12bf9c/</id>
+    <link href="http://yoursite.com/posts/2f12bf9c/"/>
+    <id>http://yoursite.com/posts/2f12bf9c/</id>
     <published>2020-04-14T15:23:28.000Z</published>
     <updated>2022-04-09T15:16:20.927Z</updated>
     
@@ -179,17 +179,17 @@
     </summary>
     
     
-      <category term="信息安全学习" scheme="https://asymptotic-freedom.xyz/categories/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E5%AD%A6%E4%B9%A0/"/>
+      <category term="信息安全学习" scheme="http://yoursite.com/categories/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E5%AD%A6%E4%B9%A0/"/>
     
     
-      <category term="iptables" scheme="https://asymptotic-freedom.xyz/tags/iptables/"/>
+      <category term="iptables" scheme="http://yoursite.com/tags/iptables/"/>
     
   </entry>
   
   <entry>
     <title>uCoreOs lab3 实验报告</title>
-    <link href="https://asymptotic-freedom.xyz/posts/69d005/"/>
-    <id>https://asymptotic-freedom.xyz/posts/69d005/</id>
+    <link href="http://yoursite.com/posts/69d005/"/>
+    <id>http://yoursite.com/posts/69d005/</id>
     <published>2020-04-10T04:09:22.000Z</published>
     <updated>2022-04-09T15:16:20.872Z</updated>
     
@@ -203,17 +203,17 @@
     </summary>
     
     
-      <category term="操作系统" scheme="https://asymptotic-freedom.xyz/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
+      <category term="操作系统" scheme="http://yoursite.com/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
     
     
-      <category term="学习" scheme="https://asymptotic-freedom.xyz/tags/%E5%AD%A6%E4%B9%A0/"/>
+      <category term="学习" scheme="http://yoursite.com/tags/%E5%AD%A6%E4%B9%A0/"/>
     
   </entry>
   
   <entry>
     <title>实验3 递归下降法的语法分析器</title>
-    <link href="https://asymptotic-freedom.xyz/posts/b04b3b51/"/>
-    <id>https://asymptotic-freedom.xyz/posts/b04b3b51/</id>
+    <link href="http://yoursite.com/posts/b04b3b51/"/>
+    <id>http://yoursite.com/posts/b04b3b51/</id>
     <published>2020-04-03T06:41:58.000Z</published>
     <updated>2022-04-09T15:16:20.871Z</updated>
     
@@ -225,15 +225,15 @@
     </summary>
     
     
-      <category term="编译原理" scheme="https://asymptotic-freedom.xyz/categories/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/"/>
+      <category term="编译原理" scheme="http://yoursite.com/categories/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/"/>
     
     
   </entry>
   
   <entry>
     <title>scapy实现TCP Attacks</title>
-    <link href="https://asymptotic-freedom.xyz/posts/5acb07a3/"/>
-    <id>https://asymptotic-freedom.xyz/posts/5acb07a3/</id>
+    <link href="http://yoursite.com/posts/5acb07a3/"/>
+    <id>http://yoursite.com/posts/5acb07a3/</id>
     <published>2020-04-01T10:59:42.000Z</published>
     <updated>2022-04-09T15:16:20.628Z</updated>
     
@@ -253,17 +253,17 @@
     </summary>
     
     
-      <category term="信息安全学习" scheme="https://asymptotic-freedom.xyz/categories/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E5%AD%A6%E4%B9%A0/"/>
+      <category term="信息安全学习" scheme="http://yoursite.com/categories/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E5%AD%A6%E4%B9%A0/"/>
     
     
-      <category term="scapy" scheme="https://asymptotic-freedom.xyz/tags/scapy/"/>
+      <category term="scapy" scheme="http://yoursite.com/tags/scapy/"/>
     
   </entry>
   
   <entry>
     <title>MITM攻击之ARP毒化</title>
-    <link href="https://asymptotic-freedom.xyz/posts/4026efe8/"/>
-    <id>https://asymptotic-freedom.xyz/posts/4026efe8/</id>
+    <link href="http://yoursite.com/posts/4026efe8/"/>
+    <id>http://yoursite.com/posts/4026efe8/</id>
     <published>2020-03-28T15:40:33.000Z</published>
     <updated>2022-04-09T15:16:20.986Z</updated>
     
@@ -276,17 +276,17 @@
     </summary>
     
     
-      <category term="信息安全学习" scheme="https://asymptotic-freedom.xyz/categories/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E5%AD%A6%E4%B9%A0/"/>
+      <category term="信息安全学习" scheme="http://yoursite.com/categories/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E5%AD%A6%E4%B9%A0/"/>
     
     
-      <category term="scapy" scheme="https://asymptotic-freedom.xyz/tags/scapy/"/>
+      <category term="scapy" scheme="http://yoursite.com/tags/scapy/"/>
     
   </entry>
   
   <entry>
     <title>uCoreOs lab2 实验报告</title>
-    <link href="https://asymptotic-freedom.xyz/posts/a87e5e21/"/>
-    <id>https://asymptotic-freedom.xyz/posts/a87e5e21/</id>
+    <link href="http://yoursite.com/posts/a87e5e21/"/>
+    <id>http://yoursite.com/posts/a87e5e21/</id>
     <published>2020-03-28T03:06:00.000Z</published>
     <updated>2022-04-09T15:16:20.994Z</updated>
     
@@ -301,17 +301,17 @@
     </summary>
     
     
-      <category term="操作系统" scheme="https://asymptotic-freedom.xyz/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
+      <category term="操作系统" scheme="http://yoursite.com/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
     
     
-      <category term="学习" scheme="https://asymptotic-freedom.xyz/tags/%E5%AD%A6%E4%B9%A0/"/>
+      <category term="学习" scheme="http://yoursite.com/tags/%E5%AD%A6%E4%B9%A0/"/>
     
   </entry>
   
   <entry>
     <title>计网实验——运输层和应用层协议分析</title>
-    <link href="https://asymptotic-freedom.xyz/posts/55d1396f/"/>
-    <id>https://asymptotic-freedom.xyz/posts/55d1396f/</id>
+    <link href="http://yoursite.com/posts/55d1396f/"/>
+    <id>http://yoursite.com/posts/55d1396f/</id>
     <published>2020-03-22T13:41:30.000Z</published>
     <updated>2022-04-09T15:16:20.644Z</updated>
     
@@ -329,15 +329,15 @@
     </summary>
     
     
-      <category term="计算机网络通信实验" scheme="https://asymptotic-freedom.xyz/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1%E5%AE%9E%E9%AA%8C/"/>
+      <category term="计算机网络通信实验" scheme="http://yoursite.com/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1%E5%AE%9E%E9%AA%8C/"/>
     
     
   </entry>
   
   <entry>
     <title>计网实验——路由算法实验</title>
-    <link href="https://asymptotic-freedom.xyz/posts/ef2e418b/"/>
-    <id>https://asymptotic-freedom.xyz/posts/ef2e418b/</id>
+    <link href="http://yoursite.com/posts/ef2e418b/"/>
+    <id>http://yoursite.com/posts/ef2e418b/</id>
     <published>2020-03-22T13:40:04.000Z</published>
     <updated>2022-04-10T04:03:29.263Z</updated>
     
@@ -355,15 +355,15 @@
     </summary>
     
     
-      <category term="计算机网络通信实验" scheme="https://asymptotic-freedom.xyz/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1%E5%AE%9E%E9%AA%8C/"/>
+      <category term="计算机网络通信实验" scheme="http://yoursite.com/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1%E5%AE%9E%E9%AA%8C/"/>
     
     
   </entry>
   
   <entry>
     <title>计网实验——Socket编程</title>
-    <link href="https://asymptotic-freedom.xyz/posts/865a19fa/"/>
-    <id>https://asymptotic-freedom.xyz/posts/865a19fa/</id>
+    <link href="http://yoursite.com/posts/865a19fa/"/>
+    <id>http://yoursite.com/posts/865a19fa/</id>
     <published>2020-03-22T13:15:31.000Z</published>
     <updated>2022-04-09T15:16:20.867Z</updated>
     
@@ -378,15 +378,15 @@
     </summary>
     
     
-      <category term="计算机网络通信实验" scheme="https://asymptotic-freedom.xyz/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1%E5%AE%9E%E9%AA%8C/"/>
+      <category term="计算机网络通信实验" scheme="http://yoursite.com/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1%E5%AE%9E%E9%AA%8C/"/>
     
     
   </entry>
   
   <entry>
     <title>计网实验——数据帧和IP包分析</title>
-    <link href="https://asymptotic-freedom.xyz/posts/287ca37a/"/>
-    <id>https://asymptotic-freedom.xyz/posts/287ca37a/</id>
+    <link href="http://yoursite.com/posts/287ca37a/"/>
+    <id>http://yoursite.com/posts/287ca37a/</id>
     <published>2020-03-22T13:13:35.000Z</published>
     <updated>2022-04-09T15:16:20.711Z</updated>
     
@@ -402,15 +402,15 @@
     </summary>
     
     
-      <category term="计算机网络通信实验" scheme="https://asymptotic-freedom.xyz/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1%E5%AE%9E%E9%AA%8C/"/>
+      <category term="计算机网络通信实验" scheme="http://yoursite.com/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1%E5%AE%9E%E9%AA%8C/"/>
     
     
   </entry>
   
   <entry>
     <title>用bat创建带图标的桌面快捷方式</title>
-    <link href="https://asymptotic-freedom.xyz/posts/b12adb60/"/>
-    <id>https://asymptotic-freedom.xyz/posts/b12adb60/</id>
+    <link href="http://yoursite.com/posts/b12adb60/"/>
+    <id>http://yoursite.com/posts/b12adb60/</id>
     <published>2020-03-22T12:24:50.000Z</published>
     <updated>2022-04-09T15:16:20.599Z</updated>
     
@@ -421,17 +421,17 @@
     </summary>
     
     
-      <category term="Windows技巧" scheme="https://asymptotic-freedom.xyz/categories/Windows%E6%8A%80%E5%B7%A7/"/>
+      <category term="Windows技巧" scheme="http://yoursite.com/categories/Windows%E6%8A%80%E5%B7%A7/"/>
     
     
-      <category term="bat脚本" scheme="https://asymptotic-freedom.xyz/tags/bat%E8%84%9A%E6%9C%AC/"/>
+      <category term="bat脚本" scheme="http://yoursite.com/tags/bat%E8%84%9A%E6%9C%AC/"/>
     
   </entry>
   
   <entry>
     <title>Linux之vim编辑器</title>
-    <link href="https://asymptotic-freedom.xyz/posts/c9920544/"/>
-    <id>https://asymptotic-freedom.xyz/posts/c9920544/</id>
+    <link href="http://yoursite.com/posts/c9920544/"/>
+    <id>http://yoursite.com/posts/c9920544/</id>
     <published>2020-03-17T05:48:55.000Z</published>
     <updated>2022-04-09T15:16:20.966Z</updated>
     
@@ -444,17 +444,17 @@
     </summary>
     
     
-      <category term="linux" scheme="https://asymptotic-freedom.xyz/categories/linux/"/>
+      <category term="linux" scheme="http://yoursite.com/categories/linux/"/>
     
     
-      <category term="vim" scheme="https://asymptotic-freedom.xyz/tags/vim/"/>
+      <category term="vim" scheme="http://yoursite.com/tags/vim/"/>
     
   </entry>
   
   <entry>
     <title>修改hexo默认字体颜色</title>
-    <link href="https://asymptotic-freedom.xyz/posts/f4345ea0/"/>
-    <id>https://asymptotic-freedom.xyz/posts/f4345ea0/</id>
+    <link href="http://yoursite.com/posts/f4345ea0/"/>
+    <id>http://yoursite.com/posts/f4345ea0/</id>
     <published>2020-03-15T13:31:16.000Z</published>
     <updated>2022-04-09T15:16:20.643Z</updated>
     
@@ -465,15 +465,15 @@
     </summary>
     
     
-      <category term="hexo" scheme="https://asymptotic-freedom.xyz/categories/hexo/"/>
+      <category term="hexo" scheme="http://yoursite.com/categories/hexo/"/>
     
     
   </entry>
   
   <entry>
     <title>ucoreOS lab1 实验报告</title>
-    <link href="https://asymptotic-freedom.xyz/posts/335ac3b4/"/>
-    <id>https://asymptotic-freedom.xyz/posts/335ac3b4/</id>
+    <link href="http://yoursite.com/posts/335ac3b4/"/>
+    <id>http://yoursite.com/posts/335ac3b4/</id>
     <published>2020-03-13T02:07:09.000Z</published>
     <updated>2022-04-09T15:16:20.585Z</updated>
     
@@ -485,10 +485,10 @@
     </summary>
     
     
-      <category term="操作系统" scheme="https://asymptotic-freedom.xyz/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
+      <category term="操作系统" scheme="http://yoursite.com/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
     
     
-      <category term="学习" scheme="https://asymptotic-freedom.xyz/tags/%E5%AD%A6%E4%B9%A0/"/>
+      <category term="学习" scheme="http://yoursite.com/tags/%E5%AD%A6%E4%B9%A0/"/>
     
   </entry>
   
