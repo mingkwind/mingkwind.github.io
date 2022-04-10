@@ -385,7 +385,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  566
+                  557
                 </span>
               
 
@@ -411,37 +411,20 @@
 
       
         <p>杂碎知识。<a id="more"></a></p>
-<h1 id="机器学习的目的"><a class="markdownIt-Anchor" href="#机器学习的目的"></a> 机器学习的目的</h1>
-<p><strong>looking for a function from data</strong><br>
-function的集合{<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>f</mi><mn>1</mn></msub><mo separator="true">,</mo><msub><mi>f</mi><mn>2</mn></msub><mo separator="true">,</mo><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mo separator="true">,</mo><msub><mi>f</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">f_1,f_2,...,f_n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.10764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.10764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">.</span><span class="mord">.</span><span class="mord">.</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.10764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">n</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>}称之为model<br>
-由Training data 可测试function 的好坏<br>
-然后用新数据测试function，看f有没有举一反三的能力（泛化性能）</p>
-<h1 id="机器学习分类"><a class="markdownIt-Anchor" href="#机器学习分类"></a> 机器学习分类</h1>
-<p><img src="/images/loading.gif" data-original="/posts/d3534f1c/18457849-d0ffb9309fed5f16.png" alt></p>
-<h2 id="回归regression"><a class="markdownIt-Anchor" href="#回归regression"></a> 回归（regression）</h2>
-<p>The output of target function f is “scalar” - 能预测一个值</p>
-<h2 id="分类classification"><a class="markdownIt-Anchor" href="#分类classification"></a> 分类（classification）</h2>
-<p>二元（多元）分类，输出是否</p>
+<h1 id="机器学习的目的"><a href="#机器学习的目的" class="headerlink" title="机器学习的目的"></a>机器学习的目的</h1><p><strong>looking for a function from data</strong><br>function的集合{$f_1,f_2,…,f_n$}称之为model<br>由Training data 可测试function 的好坏<br>然后用新数据测试function，看f有没有举一反三的能力（泛化性能）</p>
+<h1 id="机器学习分类"><a href="#机器学习分类" class="headerlink" title="机器学习分类"></a>机器学习分类</h1><p><img src="/images/loading.gif" data-original="/posts/d3534f1c/18457849-d0ffb9309fed5f16.png" alt></p>
+<h2 id="回归（regression）"><a href="#回归（regression）" class="headerlink" title="回归（regression）"></a>回归（regression）</h2><p>The output of target function f is “scalar” - 能预测一个值</p>
+<h2 id="分类（classification）"><a href="#分类（classification）" class="headerlink" title="分类（classification）"></a>分类（classification）</h2><p>二元（多元）分类，输出是否</p>
 <p>以上二者被称之<strong>监督学习（supervised learning）</strong>，<strong>需要大量的training data</strong></p>
 <p>其次有<strong>半监督学习（semi-supervised learning）</strong>，其训练数据部分有答案，部分无答案，但是无答案部分对学习依然有利</p>
 <p>接着是<strong>迁移学习（Transfer learning）</strong> 例如我们的目的是分辨猫狗，然而学习资料含有其他图片</p>
 <p><strong>无监督学习（unsupervised learning）</strong> 是训练数据没有答案，例如聚类、给图片让机器自己画图</p>
-<p>**结构化学习（strctured learning）**beyond classfication，输出是具有一定结构性的东西，例如输入声音-&gt;f-&gt;输出文字（结构性），人脸识别<br>
-<img src="/images/loading.gif" data-original="/posts/d3534f1c/18457849-f44fa833b1e85169.png" alt></p>
-<p>**强化学习（Reinforcement learning）**给机器训练数据，数据不给正确答案，但是在每次训练后会告诉机器其正确率（分数），在评价中学习，只知道做得好不好，但是不知道哪里做得不好。近年来应用于阿尔法狗而广受关注，机器与机器对抗（下棋）。</p>
-<h1 id="回归"><a class="markdownIt-Anchor" href="#回归"></a> 回归</h1>
-<p>随着模型次数上升，越复杂的modle的训练数据loss越小，但是越容易产生<strong>过拟合（overfitting）</strong>，其表现为训练时情况很好，但是做新题时做得很差。</p>
+<p><strong>结构化学习（strctured learning）</strong>beyond classfication，输出是具有一定结构性的东西，例如输入声音-&gt;f-&gt;输出文字（结构性），人脸识别<br><img src="/images/loading.gif" data-original="/posts/d3534f1c/18457849-f44fa833b1e85169.png" alt></p>
+<p><strong>强化学习（Reinforcement learning）</strong>给机器训练数据，数据不给正确答案，但是在每次训练后会告诉机器其正确率（分数），在评价中学习，只知道做得好不好，但是不知道哪里做得不好。近年来应用于阿尔法狗而广受关注，机器与机器对抗（下棋）。</p>
+<h1 id="回归"><a href="#回归" class="headerlink" title="回归"></a>回归</h1><p>随着模型次数上升，越复杂的modle的训练数据loss越小，但是越容易产生<strong>过拟合（overfitting）</strong>，其表现为训练时情况很好，但是做新题时做得很差。</p>
 <p>解决overfitting用更多的data，增加数据减缓过拟合。</p>
-<p>在不同种类中，可能对其产生影响，因此可以引入<strong>虚拟变量</strong>，不同种类的宝可梦CP值变化不同，<br>
-<img src="/images/loading.gif" data-original="/posts/d3534f1c/18457849-4835ff380e878e08.png" alt><br>
-<img src="/images/loading.gif" data-original="/posts/d3534f1c/18457849-49371ca89dd0b4e8.png" alt></p>
-<h2 id="regularization正则化"><a class="markdownIt-Anchor" href="#regularization正则化"></a> Regularization（正则化）</h2>
-<p><img src="/images/loading.gif" data-original="/posts/d3534f1c/18457849-2f61e185c36cf205.png" alt><br>
-<img src="/images/loading.gif" data-original="/posts/d3534f1c/18457849-4ad01fa000662161.png" alt><br>
-由于过拟合是因为参数过大，对噪音过于敏感，因此对参数进行惩罚，参数越大惩罚度（<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>λ</mi></mrow><annotation encoding="application/x-tex">\lambda</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault">λ</span></span></span></span>）越大，使得函数更平滑。<br>
-但是呢，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>λ</mi></mrow><annotation encoding="application/x-tex">\lambda</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault">λ</span></span></span></span>越大，训练时的loss越大（<strong>欠拟合</strong>），但是Testing时的效果可能变小。<br>
-下图表现<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>λ</mi></mrow><annotation encoding="application/x-tex">\lambda</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault">λ</span></span></span></span>越大，参数值就会越来越小，变得很没效果。<br>
-<img src="/images/loading.gif" data-original="/posts/d3534f1c/18457849-0053bf2069aa4aed.jpg" alt></p>
+<p>在不同种类中，可能对其产生影响，因此可以引入<strong>虚拟变量</strong>，不同种类的宝可梦CP值变化不同，<br><img src="/images/loading.gif" data-original="/posts/d3534f1c/18457849-4835ff380e878e08.png" alt><br><img src="/images/loading.gif" data-original="/posts/d3534f1c/18457849-49371ca89dd0b4e8.png" alt></p>
+<h2 id="Regularization（正则化）"><a href="#Regularization（正则化）" class="headerlink" title="Regularization（正则化）"></a>Regularization（正则化）</h2><p><img src="/images/loading.gif" data-original="/posts/d3534f1c/18457849-2f61e185c36cf205.png" alt><br><img src="/images/loading.gif" data-original="/posts/d3534f1c/18457849-4ad01fa000662161.png" alt><br>由于过拟合是因为参数过大，对噪音过于敏感，因此对参数进行惩罚，参数越大惩罚度（$\lambda$）越大，使得函数更平滑。<br>但是呢，$\lambda$越大，训练时的loss越大（<strong>欠拟合</strong>），但是Testing时的效果可能变小。<br>下图表现$\lambda$越大，参数值就会越来越小，变得很没效果。<br><img src="/images/loading.gif" data-original="/posts/d3534f1c/18457849-0053bf2069aa4aed.jpg" alt></p>
 
       
     </div>
@@ -670,7 +653,7 @@ function的集合{<span class="katex"><span class="katex-mathml"><math><semantic
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#机器学习的目的"><span class="nav-number">1.</span> <span class="nav-text"> 机器学习的目的</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#机器学习分类"><span class="nav-number">2.</span> <span class="nav-text"> 机器学习分类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#回归regression"><span class="nav-number">2.1.</span> <span class="nav-text"> 回归（regression）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分类classification"><span class="nav-number">2.2.</span> <span class="nav-text"> 分类（classification）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#回归"><span class="nav-number">3.</span> <span class="nav-text"> 回归</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#regularization正则化"><span class="nav-number">3.1.</span> <span class="nav-text"> Regularization（正则化）</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#机器学习的目的"><span class="nav-number">1.</span> <span class="nav-text">机器学习的目的</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#机器学习分类"><span class="nav-number">2.</span> <span class="nav-text">机器学习分类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#回归（regression）"><span class="nav-number">2.1.</span> <span class="nav-text">回归（regression）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分类（classification）"><span class="nav-number">2.2.</span> <span class="nav-text">分类（classification）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#回归"><span class="nav-number">3.</span> <span class="nav-text">回归</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Regularization（正则化）"><span class="nav-number">3.1.</span> <span class="nav-text">Regularization（正则化）</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -1478,9 +1461,9 @@ function的集合{<span class="katex"><span class="katex-mathml"><math><semantic
     POWERMODE.colorful = true;
     POWERMODE.shake = false;
     document.body.addEventListener('input', POWERMODE);
-  </script>
+  </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
-<script>!function(e){var c=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function i(){for(var r=0;r<c.length;r++)t=c[r],0<=(n=t.getBoundingClientRect()).bottom&&0<=n.left&&n.top<=(e.innerHeight||document.documentElement.clientHeight)&&function(){var t,n,e,i,o=c[r];t=o,n=function(){c=c.filter(function(t){return o!==t})},e=new Image,i=t.getAttribute("data-original"),e.onload=function(){t.src=i,n&&n()},e.src=i}();var t,n}i(),e.addEventListener("scroll",function(){var t,n;t=i,n=e,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(n)},500)})}(this);</script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+<script>!function(e){var c=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function i(){for(var r=0;r<c.length;r++)t=c[r],0<=(n=t.getBoundingClientRect()).bottom&&0<=n.left&&n.top<=(e.innerHeight||document.documentElement.clientHeight)&&function(){var t,n,e,i,o=c[r];t=o,n=function(){c=c.filter(function(t){return o!==t})},e=new Image,i=t.getAttribute("data-original"),e.onload=function(){t.src=i,n&&n()},e.src=i}();var t,n}i(),e.addEventListener("scroll",function(){var t,n;t=i,n=e,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(n)},500)})}(this);</script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script></body>
 </html>
 <!-- 页面点击小红心 -->
 <script type="text/javascript" src="/js/src/clicklove.js"></script>

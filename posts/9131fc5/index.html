@@ -395,7 +395,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  495
+                  492
                 </span>
               
 
@@ -421,41 +421,12 @@
 
       
         <p>error 来源有<strong>bias</strong>和<strong>variance</strong>。<a id="more"></a></p>
-<p><img src="/images/loading.gif" data-original="/posts/9131fc5/18457849-0611d19a3d3c7467.png" alt><br>
-<img src="/images/loading.gif" data-original="/posts/9131fc5/18457849-1fb4665263e7a8f4.png" alt><br>
-<img src="/images/loading.gif" data-original="/posts/9131fc5/18457849-d50a3b6c3334ee9c.png" alt="注:LS反了"><br>
-当N比较大时，样本分布比较集中<br>
-<img src="/images/loading.gif" data-original="/posts/9131fc5/18457849-45959247998fbbbe.png" alt><br>
-<img src="/images/loading.gif" data-original="/posts/9131fc5/18457849-62a4c89bd86279c6.png" alt><br>
-<img src="/images/loading.gif" data-original="/posts/9131fc5/18457849-44e099999b5e87cc.png" alt><br>
-<img src="/images/loading.gif" data-original="/posts/9131fc5/18457849-869f09fb7279e01c.png" alt><br>
-模型越复杂拟合获得的<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mi>f</mi><mo>∗</mo></msup></mrow><annotation encoding="application/x-tex">f^*</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.688696em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mbin mtight">∗</span></span></span></span></span></span></span></span></span></span></span>散布越广<br>
-<img src="/images/loading.gif" data-original="/posts/9131fc5/18457849-9c6d02508feabd96.png" alt><br>
-为什么比较复杂的model散布就比较开？<br>
-因为简单的model比较不会受data的影响，正如复杂的系统稳定性就比较弱<br>
-<img src="/images/loading.gif" data-original="/posts/9131fc5/18457849-571963e22bfbd6bf.png" alt="image.png"><br>
-越复杂的模型，散布就比较开，但是平均起来是更接近的<br>
-<img src="/images/loading.gif" data-original="/posts/9131fc5/18457849-63ee1a4cb2b6d2c9.png" alt><br>
-越复杂的模型，bias越小，variance越大<br>
-应为一个简单的model，他的function set就限定比较小，可能就根本没有包含target，而复杂的model就会包含target<br>
-<img src="/images/loading.gif" data-original="/posts/9131fc5/18457849-a158fb3890e67ac6.png" alt><br>
-<img src="/images/loading.gif" data-original="/posts/9131fc5/18457849-30711b558dca66c6.png" alt><br>
-<img src="/images/loading.gif" data-original="/posts/9131fc5/18457849-65a7d4a168b5a90e.png" alt><br>
-增加数据的方法：</p>
+<p><img src="/images/loading.gif" data-original="/posts/9131fc5/18457849-0611d19a3d3c7467.png" alt><br><img src="/images/loading.gif" data-original="/posts/9131fc5/18457849-1fb4665263e7a8f4.png" alt><br><img src="/images/loading.gif" data-original="/posts/9131fc5/18457849-d50a3b6c3334ee9c.png" alt="注:LS反了"><br>当N比较大时，样本分布比较集中<br><img src="/images/loading.gif" data-original="/posts/9131fc5/18457849-45959247998fbbbe.png" alt><br><img src="/images/loading.gif" data-original="/posts/9131fc5/18457849-62a4c89bd86279c6.png" alt><br><img src="/images/loading.gif" data-original="/posts/9131fc5/18457849-44e099999b5e87cc.png" alt><br><img src="/images/loading.gif" data-original="/posts/9131fc5/18457849-869f09fb7279e01c.png" alt><br>模型越复杂拟合获得的$f^*$散布越广<br><img src="/images/loading.gif" data-original="/posts/9131fc5/18457849-9c6d02508feabd96.png" alt><br>为什么比较复杂的model散布就比较开？<br>因为简单的model比较不会受data的影响，正如复杂的系统稳定性就比较弱<br><img src="/images/loading.gif" data-original="/posts/9131fc5/18457849-571963e22bfbd6bf.png" alt="image.png"><br>越复杂的模型，散布就比较开，但是平均起来是更接近的<br><img src="/images/loading.gif" data-original="/posts/9131fc5/18457849-63ee1a4cb2b6d2c9.png" alt><br>越复杂的模型，bias越小，variance越大<br>应为一个简单的model，他的function set就限定比较小，可能就根本没有包含target，而复杂的model就会包含target<br><img src="/images/loading.gif" data-original="/posts/9131fc5/18457849-a158fb3890e67ac6.png" alt><br><img src="/images/loading.gif" data-original="/posts/9131fc5/18457849-30711b558dca66c6.png" alt><br><img src="/images/loading.gif" data-original="/posts/9131fc5/18457849-65a7d4a168b5a90e.png" alt><br>增加数据的方法：</p>
 <ul>
 <li>一是正常地获取数据</li>
-<li>二是，根据自己对这个问题的理解，制造假的data，即数据增强，例如在做手写辨识时，将已有的data图片进行旋转获得新的data，做动物识别时，可以将图片进行左右翻转获得新的data。还有就是声音辨识，将男女声音用变声器互相转化。将录音室的声音转化为公共场所的声音（加一些杂音）。<br>
-正则化：<br>
-正则化只保留那些平滑一些的曲线，但是可能误删正确的曲线。<br>
-<img src="/images/loading.gif" data-original="/posts/9131fc5/18457849-558cc092c62fafab.png" alt><br>
-测试集的误差会小于未有测试集（泛化性）的误差<br>
-如何解决测试集的误差和真实测试集的误差不同？：<br>
-<img src="/images/loading.gif" data-original="/posts/9131fc5/18457849-d4971e09f0ba5c1c.png" alt><br>
-交叉验证：<br>
-将训练集分为小训练集+验证集，用小训练集训练不同的model，用验证集得到具有最小err的Model，并用整个训练集去训练这个Model，这样得到的public testing set 的Err就和private  testing ser的Err差不多。但是呢，不要刻意让训练集得到的模型贴近于测试集的数据，因为这样做相当于把public Testing Set 当做了训练集。在测试性能之前，不要把测试集暴露给训练集。</li>
+<li>二是，根据自己对这个问题的理解，制造假的data，即数据增强，例如在做手写辨识时，将已有的data图片进行旋转获得新的data，做动物识别时，可以将图片进行左右翻转获得新的data。还有就是声音辨识，将男女声音用变声器互相转化。将录音室的声音转化为公共场所的声音（加一些杂音）。<br>正则化：<br>正则化只保留那些平滑一些的曲线，但是可能误删正确的曲线。<br><img src="/images/loading.gif" data-original="/posts/9131fc5/18457849-558cc092c62fafab.png" alt><br>测试集的误差会小于未有测试集（泛化性）的误差<br>如何解决测试集的误差和真实测试集的误差不同？：<br><img src="/images/loading.gif" data-original="/posts/9131fc5/18457849-d4971e09f0ba5c1c.png" alt><br>交叉验证：<br>将训练集分为小训练集+验证集，用小训练集训练不同的model，用验证集得到具有最小err的Model，并用整个训练集去训练这个Model，这样得到的public testing set 的Err就和private  testing ser的Err差不多。但是呢，不要刻意让训练集得到的模型贴近于测试集的数据，因为这样做相当于把public Testing Set 当做了训练集。在测试性能之前，不要把测试集暴露给训练集。</li>
 </ul>
-<p>交叉验证方法：（取平均误差）<br>
-<img src="/images/loading.gif" data-original="/posts/9131fc5/18457849-ffef0458c7e93ce4.png" alt></p>
+<p>交叉验证方法：（取平均误差）<br><img src="/images/loading.gif" data-original="/posts/9131fc5/18457849-ffef0458c7e93ce4.png" alt></p>
 
       
     </div>
@@ -1473,9 +1444,9 @@
     POWERMODE.colorful = true;
     POWERMODE.shake = false;
     document.body.addEventListener('input', POWERMODE);
-  </script>
+  </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
-<script>!function(e){var c=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function i(){for(var r=0;r<c.length;r++)t=c[r],0<=(n=t.getBoundingClientRect()).bottom&&0<=n.left&&n.top<=(e.innerHeight||document.documentElement.clientHeight)&&function(){var t,n,e,i,o=c[r];t=o,n=function(){c=c.filter(function(t){return o!==t})},e=new Image,i=t.getAttribute("data-original"),e.onload=function(){t.src=i,n&&n()},e.src=i}();var t,n}i(),e.addEventListener("scroll",function(){var t,n;t=i,n=e,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(n)},500)})}(this);</script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+<script>!function(e){var c=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function i(){for(var r=0;r<c.length;r++)t=c[r],0<=(n=t.getBoundingClientRect()).bottom&&0<=n.left&&n.top<=(e.innerHeight||document.documentElement.clientHeight)&&function(){var t,n,e,i,o=c[r];t=o,n=function(){c=c.filter(function(t){return o!==t})},e=new Image,i=t.getAttribute("data-original"),e.onload=function(){t.src=i,n&&n()},e.src=i}();var t,n}i(),e.addEventListener("scroll",function(){var t,n;t=i,n=e,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(n)},500)})}(this);</script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script></body>
 </html>
 <!-- 页面点击小红心 -->
 <script type="text/javascript" src="/js/src/clicklove.js"></script>

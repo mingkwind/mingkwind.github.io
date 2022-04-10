@@ -90,12 +90,12 @@
 
 
 
-<meta name="description" content="实验目的  理解操作系统的同步互斥的设计实现； 理解底层支撑技术：禁用中断、定时器、等待队列； 在ucore中理解信号量（semaphore）机制的具体实现； 理解管程机制，在ucore内核中增加基于管程（monitor）的条件变量（condition variable）的支持； 了解经典进程同步问题，并能使用同步机制解决进程同步问题。">
+<meta name="description" content="实验目的 理解操作系统的同步互斥的设计实现； 理解底层支撑技术：禁用中断、定时器、等待队列； 在ucore中理解信号量（semaphore）机制的具体实现； 理解管程机制，在ucore内核中增加基于管程（monitor）的条件变量（condition variable）的支持； 了解经典进程同步问题，并能使用同步机制解决进程同步问题。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="uCoreOs lab7 实验报告">
 <meta property="og:url" content="http://yoursite.com/posts/2cdd304c/index.html">
 <meta property="og:site_name" content="风屿の博客">
-<meta property="og:description" content="实验目的  理解操作系统的同步互斥的设计实现； 理解底层支撑技术：禁用中断、定时器、等待队列； 在ucore中理解信号量（semaphore）机制的具体实现； 理解管程机制，在ucore内核中增加基于管程（monitor）的条件变量（condition variable）的支持； 了解经典进程同步问题，并能使用同步机制解决进程同步问题。">
+<meta property="og:description" content="实验目的 理解操作系统的同步互斥的设计实现； 理解底层支撑技术：禁用中断、定时器、等待队列； 在ucore中理解信号量（semaphore）机制的具体实现； 理解管程机制，在ucore内核中增加基于管程（monitor）的条件变量（condition variable）的支持； 了解经典进程同步问题，并能使用同步机制解决进程同步问题。">
 <meta property="og:image" content="http://yoursite.com/images/loading.gif">
 <meta property="og:image" content="http://yoursite.com/images/loading.gif">
 <meta property="og:image" content="http://yoursite.com/images/loading.gif">
@@ -416,17 +416,14 @@
       
 
       
-        <h1 id="实验目的"><a class="markdownIt-Anchor" href="#实验目的"></a> 实验目的</h1>
-<ul>
+        <h1 id="实验目的"><a href="#实验目的" class="headerlink" title="实验目的"></a>实验目的</h1><ul>
 <li>理解操作系统的同步互斥的设计实现；</li>
 <li>理解底层支撑技术：禁用中断、定时器、等待队列；</li>
 <li>在ucore中理解信号量（semaphore）机制的具体实现；</li>
 <li>理解管程机制，在ucore内核中增加基于管程（monitor）的条件变量（condition variable）的支持；</li>
 <li>了解经典进程同步问题，并能使用同步机制解决进程同步问题。<a id="more"></a></li>
 </ul>
-<h1 id="实验内容"><a class="markdownIt-Anchor" href="#实验内容"></a> 实验内容</h1>
-<h2 id="练习0填写已有实验"><a class="markdownIt-Anchor" href="#练习0填写已有实验"></a> 练习0：填写已有实验</h2>
-<p>本实验依赖实验1/2/3/4/5/6。请把你做的实验1/2/3/4/5/6的代码填入本实验中代码中有“LAB1”/“LAB2”/“LAB3”/“LAB4”/“LAB5”/“LAB6”的注释相应部分。并确保编译通过。注意：为了能够正确执行lab7的测试应用程序，可能需对已完成的实验1/2/3/4/5/6的代码进行进一步改进。</p>
+<h1 id="实验内容"><a href="#实验内容" class="headerlink" title="实验内容"></a>实验内容</h1><h2 id="练习0：填写已有实验"><a href="#练习0：填写已有实验" class="headerlink" title="练习0：填写已有实验"></a>练习0：填写已有实验</h2><p>本实验依赖实验1/2/3/4/5/6。请把你做的实验1/2/3/4/5/6的代码填入本实验中代码中有“LAB1”/“LAB2”/“LAB3”/“LAB4”/“LAB5”/“LAB6”的注释相应部分。并确保编译通过。注意：为了能够正确执行lab7的测试应用程序，可能需对已完成的实验1/2/3/4/5/6的代码进行进一步改进。</p>
 <p>要修改的文件有<code>proc.c default_pmm.c pmm.c swap_fifo.c vmm.c trap.c kdebug.c</code></p>
 <p>并将lab6的<code>default_sched_stride.c</code>复制到lab7，并对<code>default_sched.h sched.c</code>做修改</p>
 <p>无需要在原代码基础上做进一步修改的代码</p>
@@ -437,8 +434,7 @@
 <p>修改后执行make grade</p>
 <p><img src="/images/loading.gif" data-original="/posts/2cdd304c/image-20200503010426035.png" alt="image-20200503010426035"></p>
 <p>测试均通过</p>
-<h2 id="练习1-理解内核级信号量的实现和基于内核级信号量的哲学家就餐问题"><a class="markdownIt-Anchor" href="#练习1-理解内核级信号量的实现和基于内核级信号量的哲学家就餐问题"></a> 练习1: 理解内核级信号量的实现和基于内核级信号量的哲学家就餐问题</h2>
-<p>完成练习0后，建议大家比较一下（可用meld等文件diff比较软件）个人完成的lab6和练习0完成后的刚修改的lab7之间的区别，分析了解lab7采用信号量的执行过程。执行<code>make grade</code>，大部分测试用例应该通过。</p>
+<h2 id="练习1-理解内核级信号量的实现和基于内核级信号量的哲学家就餐问题"><a href="#练习1-理解内核级信号量的实现和基于内核级信号量的哲学家就餐问题" class="headerlink" title="练习1: 理解内核级信号量的实现和基于内核级信号量的哲学家就餐问题"></a>练习1: 理解内核级信号量的实现和基于内核级信号量的哲学家就餐问题</h2><p>完成练习0后，建议大家比较一下（可用meld等文件diff比较软件）个人完成的lab6和练习0完成后的刚修改的lab7之间的区别，分析了解lab7采用信号量的执行过程。执行<code>make grade</code>，大部分测试用例应该通过。</p>
 <p>请在实验报告中给出内核级信号量的设计描述，并说明其大致执行流程。</p>
 <p>请在实验报告中给出给用户态进程/线程提供信号量机制的设计方案，并比较说明给内核级提供信号量机制的异同。</p>
 <blockquote>
@@ -481,19 +477,16 @@
 <p>由于是用户态进程，不可以直接使用内核态的信号量，因此应该将内核级的信号量操作封装成系统调用供用户态调用。</p>
 <p>异同点：</p>
 <ul>
-<li>相同点：
-<ul>
+<li>相同点：<ul>
 <li>提供信号量机制的代码实现逻辑是相同的；</li>
 </ul>
 </li>
-<li>不同点：
-<ul>
+<li>不同点：<ul>
 <li>由于实现原子操作的中断禁用、Test and Set指令等均需要在内核态下运行，因此提供给用户态进程的信号量机制是通过系统调用来实现的，而内核级线程只需要直接调用相应的函数就可以了</li>
 </ul>
 </li>
 </ul>
-<h2 id="练习2-完成内核级条件变量和基于内核级条件变量的哲学家就餐问题"><a class="markdownIt-Anchor" href="#练习2-完成内核级条件变量和基于内核级条件变量的哲学家就餐问题"></a> 练习2: 完成内核级条件变量和基于内核级条件变量的哲学家就餐问题</h2>
-<p>首先掌握管程机制，然后基于信号量实现完成条件变量实现，然后用管程机制实现哲学家就餐问题的解决方案（基于条件变量）。</p>
+<h2 id="练习2-完成内核级条件变量和基于内核级条件变量的哲学家就餐问题"><a href="#练习2-完成内核级条件变量和基于内核级条件变量的哲学家就餐问题" class="headerlink" title="练习2: 完成内核级条件变量和基于内核级条件变量的哲学家就餐问题"></a>练习2: 完成内核级条件变量和基于内核级条件变量的哲学家就餐问题</h2><p>首先掌握管程机制，然后基于信号量实现完成条件变量实现，然后用管程机制实现哲学家就餐问题的解决方案（基于条件变量）。</p>
 <p>执行：<code>make grade</code> 。如果所显示的应用程序检测都输出ok，则基本正确。如果只是某程序过不去，比如matrix.c，则可执行</p>
 <div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make run-matrix</span><br></pre></td></tr></table></figure></div>
 <p>命令来单独调试它。大致执行结果可看附录。</p>
@@ -526,8 +519,7 @@
 <li>相同点：基本的实现逻辑相同；</li>
 <li>不一样点：最终在用户态下实现管程和条件变量机制，须要使用到操做系统使用系统调用提供必定的支持; 而在内核态下实现条件变量是不需要的；</li>
 </ul>
-<h1 id="实验总结"><a class="markdownIt-Anchor" href="#实验总结"></a> 实验总结</h1>
-<p>本次实验是基于哲学家就餐问题所展开的，并分别用信号量机制和管程机制实现同步和互斥，本次实验代码较为复杂，但是所要编码的部分较为简单，其中管程部分较难理解，还是要多加学习。</p>
+<h1 id="实验总结"><a href="#实验总结" class="headerlink" title="实验总结"></a>实验总结</h1><p>本次实验是基于哲学家就餐问题所展开的，并分别用信号量机制和管程机制实现同步和互斥，本次实验代码较为复杂，但是所要编码的部分较为简单，其中管程部分较难理解，还是要多加学习。</p>
 
       
     </div>
@@ -762,7 +754,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#实验目的"><span class="nav-number">1.</span> <span class="nav-text"> 实验目的</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实验内容"><span class="nav-number">2.</span> <span class="nav-text"> 实验内容</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#练习0填写已有实验"><span class="nav-number">2.1.</span> <span class="nav-text"> 练习0：填写已有实验</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#练习1-理解内核级信号量的实现和基于内核级信号量的哲学家就餐问题"><span class="nav-number">2.2.</span> <span class="nav-text"> 练习1: 理解内核级信号量的实现和基于内核级信号量的哲学家就餐问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#练习2-完成内核级条件变量和基于内核级条件变量的哲学家就餐问题"><span class="nav-number">2.3.</span> <span class="nav-text"> 练习2: 完成内核级条件变量和基于内核级条件变量的哲学家就餐问题</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实验总结"><span class="nav-number">3.</span> <span class="nav-text"> 实验总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#实验目的"><span class="nav-number">1.</span> <span class="nav-text">实验目的</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实验内容"><span class="nav-number">2.</span> <span class="nav-text">实验内容</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#练习0：填写已有实验"><span class="nav-number">2.1.</span> <span class="nav-text">练习0：填写已有实验</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#练习1-理解内核级信号量的实现和基于内核级信号量的哲学家就餐问题"><span class="nav-number">2.2.</span> <span class="nav-text">练习1: 理解内核级信号量的实现和基于内核级信号量的哲学家就餐问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#练习2-完成内核级条件变量和基于内核级条件变量的哲学家就餐问题"><span class="nav-number">2.3.</span> <span class="nav-text">练习2: 完成内核级条件变量和基于内核级条件变量的哲学家就餐问题</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实验总结"><span class="nav-number">3.</span> <span class="nav-text">实验总结</span></a></li></ol></div>
             
 
           </div>
@@ -1570,9 +1562,9 @@
     POWERMODE.colorful = true;
     POWERMODE.shake = false;
     document.body.addEventListener('input', POWERMODE);
-  </script>
+  </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
-<script>!function(e){var c=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function i(){for(var r=0;r<c.length;r++)t=c[r],0<=(n=t.getBoundingClientRect()).bottom&&0<=n.left&&n.top<=(e.innerHeight||document.documentElement.clientHeight)&&function(){var t,n,e,i,o=c[r];t=o,n=function(){c=c.filter(function(t){return o!==t})},e=new Image,i=t.getAttribute("data-original"),e.onload=function(){t.src=i,n&&n()},e.src=i}();var t,n}i(),e.addEventListener("scroll",function(){var t,n;t=i,n=e,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(n)},500)})}(this);</script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+<script>!function(e){var c=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function i(){for(var r=0;r<c.length;r++)t=c[r],0<=(n=t.getBoundingClientRect()).bottom&&0<=n.left&&n.top<=(e.innerHeight||document.documentElement.clientHeight)&&function(){var t,n,e,i,o=c[r];t=o,n=function(){c=c.filter(function(t){return o!==t})},e=new Image,i=t.getAttribute("data-original"),e.onload=function(){t.src=i,n&&n()},e.src=i}();var t,n}i(),e.addEventListener("scroll",function(){var t,n;t=i,n=e,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(n)},500)})}(this);</script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script></body>
 </html>
 <!-- 页面点击小红心 -->
 <script type="text/javascript" src="/js/src/clicklove.js"></script>

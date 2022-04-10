@@ -90,12 +90,12 @@
 
 
 
-<meta name="description" content="【实验目的】 参考实验场景及实验步骤完成服务器应急响应工作并重新为服务器部署策略。">
+<meta name="description" content="【实验目的】参考实验场景及实验步骤完成服务器应急响应工作并重新为服务器部署策略。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="iptables之服务器应急响应及提供服务器防御解决方案实验">
 <meta property="og:url" content="http://yoursite.com/posts/2f12bf9c/index.html">
 <meta property="og:site_name" content="风屿の博客">
-<meta property="og:description" content="【实验目的】 参考实验场景及实验步骤完成服务器应急响应工作并重新为服务器部署策略。">
+<meta property="og:description" content="【实验目的】参考实验场景及实验步骤完成服务器应急响应工作并重新为服务器部署策略。">
 <meta property="og:image" content="http://yoursite.com/images/loading.gif">
 <meta property="og:image" content="http://yoursite.com/images/loading.gif">
 <meta property="og:image" content="http://yoursite.com/images/loading.gif">
@@ -430,28 +430,21 @@
       
 
       
-        <h1 id="实验目的"><a class="markdownIt-Anchor" href="#实验目的"></a> 【实验目的】</h1>
-<p>参考实验场景及实验步骤完成服务器应急响应工作并重新为服务器部署策略。</p>
+        <h1 id="【实验目的】"><a href="#【实验目的】" class="headerlink" title="【实验目的】"></a>【实验目的】</h1><p>参考实验场景及实验步骤完成服务器应急响应工作并重新为服务器部署策略。</p>
 <a id="more"></a>
-<h1 id="知识点"><a class="markdownIt-Anchor" href="#知识点"></a> 【知识点】</h1>
-<p>iptables使用</p>
-<h1 id="实验场景"><a class="markdownIt-Anchor" href="#实验场景"></a> 【实验场景】</h1>
-<p>某公司今天凌晨，运维中心收到警报，公司两台服务器（<strong>NAT</strong>服务器、<strong>Web</strong>服务器）<strong>cpu</strong>飙升。现你收到通知，需要你第一时间为这两台服务器进行应急处理。处理包括：<strong>1.<strong>解决服务器</strong>CPU</strong>飙升的情况；**2.**重新为服务器部署策略防止此类事情再次发生。</p>
-<h1 id="实验原理"><a class="markdownIt-Anchor" href="#实验原理"></a> 【实验原理】</h1>
-<p>iptables防火墙工作在网络层，针对TCP/IP数据包实施过滤和限制，iptables防火墙基于内核编码实现，具有非常稳定的性能和高效率；iptables属于“用户态”的防火墙管理体系。规则（rules）其实就是网络管理员预定义的条件，规则一般的定义为“如果数据包头符合这样的条件，就这样处理这个数据包”。规则存储在内核空间的信息包过滤表中，这些规则分别指定了源地址、目的地址、传输协议（如TCP、UDP、ICMP）和服务类型（如HTTP、FTP和SMTP）等。当数据包与规则匹配时，<strong>iptables</strong>就根据规则所定义的方法来处理这些数据包，如放行（<strong>accept</strong>）、拒绝（<strong>reject</strong>）和丢弃（<strong>drop</strong>）等。配置防火墙的主要工作就是添加、修改和删除这些规则。</p>
-<h1 id="实验设备"><a class="markdownIt-Anchor" href="#实验设备"></a> 【实验设备】</h1>
-<p>主机终端：<strong>Windows 7</strong>主机 *** 1**台，<strong>RedHat 7</strong> 服务器 *<strong>2</strong>台，<strong>RedHat 7</strong> 主机 *<strong>1</strong>台</p>
-<h1 id="实验拓扑"><a class="markdownIt-Anchor" href="#实验拓扑"></a> 【实验拓扑】</h1>
-<p><img src="/images/loading.gif" data-original="/posts/2f12bf9c/image-20200414231015217.png" alt="image-20200414231015217"></p>
-<h1 id="实验思路"><a class="markdownIt-Anchor" href="#实验思路"></a> 【实验思路】</h1>
-<p>1、在Web服务器上查看当前iptables规则。</p>
+<h1 id="【知识点】"><a href="#【知识点】" class="headerlink" title="【知识点】"></a>【知识点】</h1><p>iptables使用</p>
+<h1 id="【实验场景】"><a href="#【实验场景】" class="headerlink" title="【实验场景】"></a>【实验场景】</h1><p>某公司今天凌晨，运维中心收到警报，公司两台服务器（<strong>NAT</strong>服务器、<strong>Web</strong>服务器）<strong>cpu</strong>飙升。现你收到通知，需要你第一时间为这两台服务器进行应急处理。处理包括：<strong>1.</strong>解决服务器<strong>CPU</strong>飙升的情况；<strong>2.</strong>重新为服务器部署策略防止此类事情再次发生。</p>
+<h1 id="【实验原理】"><a href="#【实验原理】" class="headerlink" title="【实验原理】"></a>【实验原理】</h1><p>iptables防火墙工作在网络层，针对TCP/IP数据包实施过滤和限制，iptables防火墙基于内核编码实现，具有非常稳定的性能和高效率；iptables属于“用户态”的防火墙管理体系。规则（rules）其实就是网络管理员预定义的条件，规则一般的定义为“如果数据包头符合这样的条件，就这样处理这个数据包”。规则存储在内核空间的信息包过滤表中，这些规则分别指定了源地址、目的地址、传输协议（如TCP、UDP、ICMP）和服务类型（如HTTP、FTP和SMTP）等。当数据包与规则匹配时，<strong>iptables</strong>就根据规则所定义的方法来处理这些数据包，如放行（<strong>accept</strong>）、拒绝（<strong>reject</strong>）和丢弃（<strong>drop</strong>）等。配置防火墙的主要工作就是添加、修改和删除这些规则。</p>
+<h1 id="【实验设备】"><a href="#【实验设备】" class="headerlink" title="【实验设备】"></a>【实验设备】</h1><p>主机终端：<strong>Windows 7</strong>主机 <strong>* 1</strong>台，<strong>RedHat 7</strong> 服务器 <strong>*2</strong>台，<strong>RedHat 7</strong> 主机 <strong>*1</strong>台</p>
+<h1 id="【实验拓扑】"><a href="#【实验拓扑】" class="headerlink" title="【实验拓扑】"></a>【实验拓扑】</h1><p><img src="/images/loading.gif" data-original="/posts/2f12bf9c/image-20200414231015217.png" alt="image-20200414231015217"></p>
+<h1 id="【实验思路】"><a href="#【实验思路】" class="headerlink" title="【实验思路】"></a>【实验思路】</h1><p>1、在Web服务器上查看当前iptables规则。</p>
 <p>2、在Web服务器上增加iptables防火墙配置，禁止攻击源IP（Windows攻击机的IP地址）对该服务器的所有流量，然后查看iptables规则。</p>
 <p>3、在Web服务器上配置loopback回环通信。</p>
 <p>4、在Web服务器上增加iptables规则，禁止对该主机进行nmap扫描，然后查看下iptables规则。</p>
 <p>5、在Web服务器上设置禁止ICMP协议。</p>
 <p>6、在NAT服务器中增加部署iptables NAT代理，配置Web服务器只允许内网Linux客户端访问和通过代理服务器访问，并查看<strong>iptables</strong>规则。</p>
 <p>7、验证：登录Windows攻击机，打开浏览器访问Web服务器，可以看到配置策略后攻击源无法再次访问。</p>
-<p>8、验证：在Windows攻击机上使用nmap扫描Web服务器，可以看到配置禁止nmap扫描策略后扫描失败。</p>
+<p>8、验证：在Windows攻击机上使用nmap扫描Web服务器，可以看到配置禁止nmap扫描策略后扫描失败。 </p>
 <p>9、验证：在Windows攻击机上对Web服务器ip进行ping操作，发现配置禁止ICMP策略后无法ping通。</p>
 <p>10、验证：打开Linux客户端测试访问Web服务器，可以正常访问。</p>
 <p>11、验证：打开NAT服务器测试访问Web服务器，可以正常访问。</p>
@@ -464,21 +457,19 @@
 <p>18、在Web服务器上配置策略屏蔽3306端口，只允许本机访问。</p>
 <p>19、验证：在Linux客户端中访问Web服务器mysql服务，访问失败。</p>
 <p>20、验证：在Web服务器中访问mysql服务，访问成功。</p>
-<p>21、打开NAT服务器，增加iptables规则，禁止对该主机进行nmap扫描。</p>
+<p>21、打开NAT服务器，增加iptables规则，禁止对该主机进行nmap扫描。 </p>
 <p>22、验证：在Windows攻击机中使用nmap扫描NAT服务器，扫描失败。</p>
-<h1 id="实验预期"><a class="markdownIt-Anchor" href="#实验预期"></a> 【实验预期】</h1>
-<p>1、在Windows攻击机中打开浏览器访问Web服务器，配置好策略后攻击源无法访问。</p>
+<h1 id="【实验预期】"><a href="#【实验预期】" class="headerlink" title="【实验预期】"></a>【实验预期】</h1><p>1、在Windows攻击机中打开浏览器访问Web服务器，配置好策略后攻击源无法访问。</p>
 <p>2、在Windows攻击机上使用nmap扫描Web服务器，配置好策略后扫描失败。</p>
-<p>3、在Windows攻击机上对Web服务器ip进行ping操作，配置好策略后无法ping通。</p>
+<p>3、在Windows攻击机上对Web服务器ip进行ping操作，配置好策略后无法ping通。 </p>
 <p>4、分别打开Linux客户端和NAT服务器测试访问Web服务器，可以正常访问。</p>
 <p>5、在Windows攻击机中打开浏览器，配置好策略后通过代理访问，可以成功访问。</p>
 <p>6、在Windows攻击机中利用工具分别对Web服务器和NAT进行ssh连接，均连接失败。</p>
-<p>7、在Linux客户端中分别对Web服务器和NAT进行ssh连接，连接成功。</p>
+<p>7、在Linux客户端中分别对Web服务器和NAT进行ssh连接，连接成功。 </p>
 <p>8、在Linux客户端中访问Web服务器mysql服务，访问失败。</p>
 <p>9、在Web服务器中访问mysql服务，访问成功。</p>
 <p>10、在Windows攻击机中使用nmap扫描NAT服务器，扫描失败。</p>
-<h1 id="实验结果"><a class="markdownIt-Anchor" href="#实验结果"></a> 【实验结果】</h1>
-<p>1、登录Windows攻击机，打开浏览器访问Web服务器，可以看到策略配置后攻击源无法再次访问。</p>
+<h1 id="【实验结果】"><a href="#【实验结果】" class="headerlink" title="【实验结果】"></a>【实验结果】</h1><p>1、登录Windows攻击机，打开浏览器访问Web服务器，可以看到策略配置后攻击源无法再次访问。</p>
 <p>2、在Windows攻击机上打开命令行界面使用命令：nmap 192.168.1.101（Web服务器IP）扫描Web服务器，可以看到配置禁止nmap扫描策略后扫描失败。</p>
 <p>3、在Windows攻击机上对Web服务器ip使用ping命令：ping 192.168.1.101（Web服务器ip），发现配置禁止ICMP策略后无法<strong>ping</strong>通。</p>
 <p>4、打开Linux客户端使用命令：curl 192.168.1.101，测试访问Web服务器，可以正常访问。</p>
@@ -489,8 +480,7 @@
 <p>9、打开Linux客户端，在终端中输入命令：mysql –uroot –h192.168.1.101 –p（192.168.1.101为Web服务器ip），连接失败。</p>
 <p>10、打开Web服务器，在终端中输入命令：mysql –uroot –p，连接成功。</p>
 <p>11、在Windows攻击机上，打开命令行界面，输入命令：nmap -A 192.168.10.10（NAT服务器IP），扫描NAT服务器，扫描失败。</p>
-<h1 id="实验步骤"><a class="markdownIt-Anchor" href="#实验步骤"></a> 【实验步骤】</h1>
-<p>1、在Web服务器中打开终端，root用户下输入命令：<code>iptables –L</code>，查看当前iptables规则。如图所示：</p>
+<h1 id="【实验步骤】"><a href="#【实验步骤】" class="headerlink" title="【实验步骤】"></a>【实验步骤】</h1><p>1、在Web服务器中打开终端，root用户下输入命令：<code>iptables –L</code>，查看当前iptables规则。如图所示：</p>
 <p><img src="/images/loading.gif" data-original="/posts/2f12bf9c/image-20200408220456980.png" alt="image-20200408220456980"></p>
 <p>2、增加iptables防火墙配置，禁止攻击源IP（Windows攻击机的IP地址）对该服务器的所有流量,使用的命令是：<code>iptables -I INPUT –s 192.168.20.20 -j DROP</code>。其中192.168.20.20是Windows攻击机的IP地址，配置好后使用命令<code>iptables -L</code>查看当前所有iptables配置。如图所示：</p>
 <p><img src="/images/loading.gif" data-original="/posts/2f12bf9c/image-20200408221422123.png" alt="image-20200408221422123"></p>
@@ -557,8 +547,7 @@
 <p>可以发现只扫出了8080端口的开放信息，这是因为NAT服务器的8080端口开放为Web服务器设置转发。</p>
 <p><img src="/images/loading.gif" data-original="/posts/2f12bf9c/image-20200414161540279.png" alt="image-20200414161540279"></p>
 <p>对比NAT服务器的开放端口，可知iptables设置成功，nmap失效</p>
-<h1 id="实验思考"><a class="markdownIt-Anchor" href="#实验思考"></a> 【实验思考】</h1>
-<p>1、在上述实验中，配置禁止ICMP策略后将达到什么效果，配置NAT代理有什么好处？若缺少这一步可能会存在什么安全威胁？</p>
+<h1 id="【实验思考】"><a href="#【实验思考】" class="headerlink" title="【实验思考】"></a>【实验思考】</h1><p>1、在上述实验中，配置禁止ICMP策略后将达到什么效果，配置NAT代理有什么好处？若缺少这一步可能会存在什么安全威胁？</p>
 <p>答：</p>
 <p>（1）主机配置禁止ICMP策略后无法其他及其无法对该主机进行正常的ping回应</p>
 <p>（2）对外隐藏了内部管理的IP地址和隐藏了内部网络结构，从而降低了内部网络受到攻击的风险。</p>
@@ -566,8 +555,7 @@
 <p>2、在配置的端口映射的规则中PREROUTING、和POSTROUTING分别表示是什么样的一个动作？</p>
 <p>（1）PREROUTING是目的地址转换，对象是由外部公网发往内网的数据包，把外来的公网IP换成自建内部网络的IP，才可访问到自建内部网络受防火墙保护的机器。</p>
 <p>（2）POSTROUTING是源地址转换，对象是由内网发往外部公网的数据包，把自建内网地址转换成外部公网地址再向外发送。</p>
-<h1 id="扩展实验"><a class="markdownIt-Anchor" href="#扩展实验"></a> 【扩展实验】</h1>
-<p>请学员课后完成以下扩展实验，并提交实验报告：</p>
+<h1 id="【扩展实验】"><a href="#【扩展实验】" class="headerlink" title="【扩展实验】"></a>【扩展实验】</h1><p>请学员课后完成以下扩展实验，并提交实验报告：</p>
 <p>若对指定<strong>IP</strong>：<strong>192.168.1.101</strong>解除防火墙限制，执行该条配置命令：</p>
 <div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="SHELL"><figure class="iseeu highlight /shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -A INPUT -p tcp -s 192.168.1.101 --dport 3306 -j ACCEPT</span><br></pre></td></tr></table></figure></div>
 <p>保存重启后发现还是无法远程连接<strong>3306</strong>，原因是什么，正确配置是什么？</p>
@@ -584,12 +572,12 @@
 <p>设置root账户可以远程登录</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt;update user set host='%' where user='root' and host='localhost';</span><br><span class="line">mysql&gt;flush privilegses;</span><br></pre></td></tr></table></figure>
 <p><img src="/images/loading.gif" data-original="/posts/2f12bf9c/image-20200414184123331.png" alt="image-20200414184123331"></p>
-<p>成功更改host地址，<code>host='%'</code>表示所有机器。</p>
+<p>成功更改host地址，<code>host=&#39;%&#39;</code>表示所有机器。</p>
 <p>切换至linux客户端（192.168.1.102）</p>
 <p>登陆服务器sql</p>
 <div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="SHELL"><figure class="iseeu highlight /shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -uroot -h 192.168.1.101 -p123456</span><br></pre></td></tr></table></figure></div>
 <p><img src="/images/loading.gif" data-original="/posts/2f12bf9c/image-20200414184347549.png" alt="image-20200414184347549"></p>
-<p>成功远程登陆mysql</p>
+<p>成功远程登陆mysql </p>
 
       
     </div>
@@ -824,7 +812,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#实验目的"><span class="nav-number">1.</span> <span class="nav-text"> 【实验目的】</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#知识点"><span class="nav-number">2.</span> <span class="nav-text"> 【知识点】</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实验场景"><span class="nav-number">3.</span> <span class="nav-text"> 【实验场景】</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实验原理"><span class="nav-number">4.</span> <span class="nav-text"> 【实验原理】</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实验设备"><span class="nav-number">5.</span> <span class="nav-text"> 【实验设备】</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实验拓扑"><span class="nav-number">6.</span> <span class="nav-text"> 【实验拓扑】</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实验思路"><span class="nav-number">7.</span> <span class="nav-text"> 【实验思路】</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实验预期"><span class="nav-number">8.</span> <span class="nav-text"> 【实验预期】</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实验结果"><span class="nav-number">9.</span> <span class="nav-text"> 【实验结果】</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实验步骤"><span class="nav-number">10.</span> <span class="nav-text"> 【实验步骤】</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实验思考"><span class="nav-number">11.</span> <span class="nav-text"> 【实验思考】</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#扩展实验"><span class="nav-number">12.</span> <span class="nav-text"> 【扩展实验】</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#【实验目的】"><span class="nav-number">1.</span> <span class="nav-text">【实验目的】</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#【知识点】"><span class="nav-number">2.</span> <span class="nav-text">【知识点】</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#【实验场景】"><span class="nav-number">3.</span> <span class="nav-text">【实验场景】</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#【实验原理】"><span class="nav-number">4.</span> <span class="nav-text">【实验原理】</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#【实验设备】"><span class="nav-number">5.</span> <span class="nav-text">【实验设备】</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#【实验拓扑】"><span class="nav-number">6.</span> <span class="nav-text">【实验拓扑】</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#【实验思路】"><span class="nav-number">7.</span> <span class="nav-text">【实验思路】</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#【实验预期】"><span class="nav-number">8.</span> <span class="nav-text">【实验预期】</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#【实验结果】"><span class="nav-number">9.</span> <span class="nav-text">【实验结果】</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#【实验步骤】"><span class="nav-number">10.</span> <span class="nav-text">【实验步骤】</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#【实验思考】"><span class="nav-number">11.</span> <span class="nav-text">【实验思考】</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#【扩展实验】"><span class="nav-number">12.</span> <span class="nav-text">【扩展实验】</span></a></li></ol></div>
             
 
           </div>
@@ -1632,9 +1620,9 @@
     POWERMODE.colorful = true;
     POWERMODE.shake = false;
     document.body.addEventListener('input', POWERMODE);
-  </script>
+  </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
-<script>!function(e){var c=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function i(){for(var r=0;r<c.length;r++)t=c[r],0<=(n=t.getBoundingClientRect()).bottom&&0<=n.left&&n.top<=(e.innerHeight||document.documentElement.clientHeight)&&function(){var t,n,e,i,o=c[r];t=o,n=function(){c=c.filter(function(t){return o!==t})},e=new Image,i=t.getAttribute("data-original"),e.onload=function(){t.src=i,n&&n()},e.src=i}();var t,n}i(),e.addEventListener("scroll",function(){var t,n;t=i,n=e,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(n)},500)})}(this);</script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+<script>!function(e){var c=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function i(){for(var r=0;r<c.length;r++)t=c[r],0<=(n=t.getBoundingClientRect()).bottom&&0<=n.left&&n.top<=(e.innerHeight||document.documentElement.clientHeight)&&function(){var t,n,e,i,o=c[r];t=o,n=function(){c=c.filter(function(t){return o!==t})},e=new Image,i=t.getAttribute("data-original"),e.onload=function(){t.src=i,n&&n()},e.src=i}();var t,n}i(),e.addEventListener("scroll",function(){var t,n;t=i,n=e,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(n)},500)})}(this);</script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script></body>
 </html>
 <!-- 页面点击小红心 -->
 <script type="text/javascript" src="/js/src/clicklove.js"></script>

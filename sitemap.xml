@@ -572,14 +572,14 @@
   </url>
   
   <url>
-    <loc>http://yoursite.com/tags/Vagrant/</loc>
+    <loc>http://yoursite.com/tags/Window%E5%91%BD%E4%BB%A4/</loc>
     <lastmod>2022-04-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>http://yoursite.com/tags/Window%E5%91%BD%E4%BB%A4/</loc>
+    <loc>http://yoursite.com/tags/Vagrant/</loc>
     <lastmod>2022-04-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -614,14 +614,14 @@
   </url>
   
   <url>
-    <loc>http://yoursite.com/tags/iptables/</loc>
+    <loc>http://yoursite.com/tags/%E5%AD%A6%E4%B9%A0/</loc>
     <lastmod>2022-04-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>http://yoursite.com/tags/%E5%AD%A6%E4%B9%A0/</loc>
+    <loc>http://yoursite.com/tags/iptables/</loc>
     <lastmod>2022-04-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -721,14 +721,14 @@
   </url>
   
   <url>
-    <loc>http://yoursite.com/categories/%E8%B5%84%E6%BA%90%E5%88%86%E4%BA%AB/</loc>
+    <loc>http://yoursite.com/categories/Windows%E6%8A%80%E5%B7%A7/</loc>
     <lastmod>2022-04-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>http://yoursite.com/categories/Windows%E6%8A%80%E5%B7%A7/</loc>
+    <loc>http://yoursite.com/categories/%E8%B5%84%E6%BA%90%E5%88%86%E4%BA%AB/</loc>
     <lastmod>2022-04-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>

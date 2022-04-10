@@ -425,43 +425,27 @@
         <p>今入门电子数据恢复，磁盘使用的分区类型是<strong>MBR</strong>（<em>现大多数电脑的C盘和D盘使用的分区类型是</em> <strong>GPT</strong>  <em>，请勿用以下方法对其进行尝试，应该用使用MBR分区类型的磁盘进行操作</em>）,载入实验磁盘，右键此电脑打开管理中的磁盘管理，可看到加载入的磁盘2分成两个分区。<a id="more"></a></p>
 <p><img src="/images/loading.gif" data-original="/posts/94961d67/18457849-5754895848a9e7e1.png" alt>接下来将磁盘分区删除，新加卷右键点击删除</p>
 <p><img src="/images/loading.gif" data-original="/posts/94961d67/18457849-29510eab831db2f7.png" alt>得到效果如下</p>
-<p><img src="/images/loading.gif" data-original="/posts/94961d67/18457849-484b615047a55546.png" alt>糟糕，有重要文件呢，怎么办呀Σ(っ °Д °;)っ<br>
-别担心，恢复很简单！<br>
-前提是<strong>一定不能</strong>对这个磁盘做<strong>新建简单卷</strong>等其他会对磁盘进行写入或格式化的操作（在NTFS下格式化很多时候是无法恢复格式化前的数据的，FAT32则不然）</p>
-<p>这里先熟悉NTFS文件系统，其<strong>安全性高，可使用EFS加密</strong>，是现在绝大多数电脑磁盘分区使用的文件系统，因此我们恢复磁盘时，首先明确其是使用<strong>NTFS文件系统</strong>的磁盘。<br>
-<img src="/images/loading.gif" data-original="/posts/94961d67/18457849-2ec431e721b1be3e.png" alt>对于NTFS分区的DBR，我们只看前5行，此次恢复只需要使用<strong>文件系统总扇区数</strong>这个属性。</p>
+<p><img src="/images/loading.gif" data-original="/posts/94961d67/18457849-484b615047a55546.png" alt>糟糕，有重要文件呢，怎么办呀Σ(っ °Д °;)っ<br>别担心，恢复很简单！<br>前提是<strong>一定不能</strong>对这个磁盘做<strong>新建简单卷</strong>等其他会对磁盘进行写入或格式化的操作（在NTFS下格式化很多时候是无法恢复格式化前的数据的，FAT32则不然）</p>
+<p>这里先熟悉NTFS文件系统，其<strong>安全性高，可使用EFS加密</strong>，是现在绝大多数电脑磁盘分区使用的文件系统，因此我们恢复磁盘时，首先明确其是使用<strong>NTFS文件系统</strong>的磁盘。<br><img src="/images/loading.gif" data-original="/posts/94961d67/18457849-2ec431e721b1be3e.png" alt>对于NTFS分区的DBR，我们只看前5行，此次恢复只需要使用<strong>文件系统总扇区数</strong>这个属性。</p>
 <p>首先，用<strong>Winhex</strong>打开磁盘2<img src="/images/loading.gif" data-original="/posts/94961d67/18457849-9b67b4378471c867.png" alt></p>
 <p>可以看到两个分区图标是灰色的，分区表全为00，说明磁盘有损坏，但是也说明分区并未真正消失，于是我们对分区表进行修复即可。</p>
-<p>先熟悉<strong>分区表项</strong>属性<br>
-<img src="/images/loading.gif" data-original="/posts/94961d67/18457849-1458be69eed3151d.png" alt></p>
-<p>恢复分区关键在于分区正确填充<strong>分区类型值</strong>、<strong>分区起始扇区</strong>、<strong>分区总扇区数</strong>。<br>
-接下来我们查找第一个NTFS DBR扇区位置，十六进制查找输入<strong>55AA</strong></p>
-<p><img src="/images/loading.gif" data-original="/posts/94961d67/18457849-de486c0faab0b652.png" alt><br>
-PS：<strong>此处512=510表示是每512字节（一个扇区）忽略前510字节，只比较后两个字节进行查找</strong></p>
-<p>很快我们找到了第一个扇区<br>
-<img src="/images/loading.gif" data-original="/posts/94961d67/18457849-1ff076a7678868e0.png" alt><br>
-然后记下此DBR扇区位置：<strong>2048</strong> 总扇区数：<strong>47558655</strong></p>
-<p>接下来继续查找下一个MBR扇区位置，我们发现，即使做了优化，用十六进制查找还是非常的慢，这是因为第二个分区太大了，此时我们可以直接跳转查看，跳到2048+47558655**+1**（<strong>一定要+1</strong>，后面会说明原因，这是NTFS和FAT的区别之一）扇区，可以发现找到了第二个NTFS DBR扇区<br>
-<img src="/images/loading.gif" data-original="/posts/94961d67/18457849-53dc299ea40c3687.png" alt><br>
-记录下第二个DBR扇区位置：<strong>47560704</strong> 总扇区数：<strong>441071615</strong></p>
-<p>实际上，我们也可以通过逆向查找DBR扇区，将滑动条移到扇区末尾，<strong>向上</strong>查找<strong>55AA</strong><br>
-<img src="/images/loading.gif" data-original="/posts/94961d67/18457849-48fd58ec963404e2.png" alt></p>
-<p>也是同样可以找到的。<br>
-其实还有一种最简单的方法：直接点击分区就可以跳到相应分区的DBR扇区位置啦。</p>
+<p>先熟悉<strong>分区表项</strong>属性<br><img src="/images/loading.gif" data-original="/posts/94961d67/18457849-1458be69eed3151d.png" alt></p>
+<p>恢复分区关键在于分区正确填充<strong>分区类型值</strong>、<strong>分区起始扇区</strong>、<strong>分区总扇区数</strong>。<br>接下来我们查找第一个NTFS DBR扇区位置，十六进制查找输入<strong>55AA</strong></p>
+<p><img src="/images/loading.gif" data-original="/posts/94961d67/18457849-de486c0faab0b652.png" alt><br>PS：<strong>此处512=510表示是每512字节（一个扇区）忽略前510字节，只比较后两个字节进行查找</strong></p>
+<p>很快我们找到了第一个扇区<br><img src="/images/loading.gif" data-original="/posts/94961d67/18457849-1ff076a7678868e0.png" alt><br>然后记下此DBR扇区位置：<strong>2048</strong> 总扇区数：<strong>47558655</strong></p>
+<p>接下来继续查找下一个MBR扇区位置，我们发现，即使做了优化，用十六进制查找还是非常的慢，这是因为第二个分区太大了，此时我们可以直接跳转查看，跳到2048+47558655<strong>+1</strong>（<strong>一定要+1</strong>，后面会说明原因，这是NTFS和FAT的区别之一）扇区，可以发现找到了第二个NTFS DBR扇区<br><img src="/images/loading.gif" data-original="/posts/94961d67/18457849-53dc299ea40c3687.png" alt><br>记录下第二个DBR扇区位置：<strong>47560704</strong> 总扇区数：<strong>441071615</strong></p>
+<p>实际上，我们也可以通过逆向查找DBR扇区，将滑动条移到扇区末尾，<strong>向上</strong>查找<strong>55AA</strong><br><img src="/images/loading.gif" data-original="/posts/94961d67/18457849-48fd58ec963404e2.png" alt></p>
+<p>也是同样可以找到的。<br>其实还有一种最简单的方法：直接点击分区就可以跳到相应分区的DBR扇区位置啦。</p>
 <p>接下来填分区表，这边填数据有个技巧。</p>
 <p><strong>先选中数据区域，往数据解释器填入相应bit位的数值</strong></p>
 <p><img src="/images/loading.gif" data-original="/posts/94961d67/18457849-44f6276606ddf2c5.png" alt>再按<strong>回车</strong>即可填充十六进制数据</p>
 <p><img src="/images/loading.gif" data-original="/posts/94961d67/18457849-0999cfd059b23a42.png" alt>填完后效果如下</p>
-<p><img src="/images/loading.gif" data-original="/posts/94961d67/18457849-87e4f6d7babdd812.png" alt><br>
-最后，千万要记得加分区表的<strong>分区类型值</strong>！！！<br>
-在两个分区表项的第<strong>五</strong>个字节都填入<strong>07</strong>（代表NTFS分区）</p>
+<p><img src="/images/loading.gif" data-original="/posts/94961d67/18457849-87e4f6d7babdd812.png" alt><br>最后，千万要记得加分区表的<strong>分区类型值</strong>！！！<br>在两个分区表项的第<strong>五</strong>个字节都填入<strong>07</strong>（代表NTFS分区）</p>
 <p><img src="/images/loading.gif" data-original="/posts/94961d67/18457849-aa2d7b977b7df206.png" alt></p>
-<p>点击左上角<strong>保存</strong>按钮<br>
-进入磁盘管理，<strong>刷新磁盘管理</strong></p>
+<p>点击左上角<strong>保存</strong>按钮<br>进入磁盘管理，<strong>刷新磁盘管理</strong></p>
 <p><img src="/images/loading.gif" data-original="/posts/94961d67/18457849-9c719df0b9164470.png" alt></p>
 <p>发现一个问题，第二个扇区未成功恢复，这是什么原因呢？</p>
-<p><img src="/images/loading.gif" data-original="/posts/94961d67/18457849-6b9a95153660411f.png" alt="NTFS结构类型1"><br>
-<img src="/images/loading.gif" data-original="/posts/94961d67/18457849-042a647d1d1e8363.png" alt="NTFS结构类型2"></p>
+<p><img src="/images/loading.gif" data-original="/posts/94961d67/18457849-6b9a95153660411f.png" alt="NTFS结构类型1"><br><img src="/images/loading.gif" data-original="/posts/94961d67/18457849-042a647d1d1e8363.png" alt="NTFS结构类型2"></p>
 <p>原来，第二个扇区边有两个一样的DBR扇区，其中一个是和第一个DBR扇区是一样的（<strong>NTFS分区末尾会有一个备份DBR，但这个扇区并没有被计入总扇区数，有时候ntfs的总扇区数可能会少好几个扇区，因此直接用扇区位置+扇区总数计算下一个DBR位置时要注意跳转到的下一个DBR扇区是否是正确的，一般要向下浮动观察</strong>），填扇区时误填47560703，此时只要将第二个扇区位置改为47560703+1=47560704即可。</p>
 <p><img src="/images/loading.gif" data-original="/posts/94961d67/18457849-291badd017eeae07.png" alt></p>
 <p>再次<strong>保存</strong>，<strong>刷新磁盘管理</strong></p>
@@ -1478,9 +1462,9 @@ PS：<strong>此处512=510表示是每512字节（一个扇区）忽略前510字
     POWERMODE.colorful = true;
     POWERMODE.shake = false;
     document.body.addEventListener('input', POWERMODE);
-  </script>
+  </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
-<script>!function(e){var c=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function i(){for(var r=0;r<c.length;r++)t=c[r],0<=(n=t.getBoundingClientRect()).bottom&&0<=n.left&&n.top<=(e.innerHeight||document.documentElement.clientHeight)&&function(){var t,n,e,i,o=c[r];t=o,n=function(){c=c.filter(function(t){return o!==t})},e=new Image,i=t.getAttribute("data-original"),e.onload=function(){t.src=i,n&&n()},e.src=i}();var t,n}i(),e.addEventListener("scroll",function(){var t,n;t=i,n=e,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(n)},500)})}(this);</script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+<script>!function(e){var c=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function i(){for(var r=0;r<c.length;r++)t=c[r],0<=(n=t.getBoundingClientRect()).bottom&&0<=n.left&&n.top<=(e.innerHeight||document.documentElement.clientHeight)&&function(){var t,n,e,i,o=c[r];t=o,n=function(){c=c.filter(function(t){return o!==t})},e=new Image,i=t.getAttribute("data-original"),e.onload=function(){t.src=i,n&&n()},e.src=i}();var t,n}i(),e.addEventListener("scroll",function(){var t,n;t=i,n=e,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(n)},500)})}(this);</script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script></body>
 </html>
 <!-- 页面点击小红心 -->
 <script type="text/javascript" src="/js/src/clicklove.js"></script>

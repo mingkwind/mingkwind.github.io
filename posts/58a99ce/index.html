@@ -386,7 +386,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  172
+                  170
                 </span>
               
 
@@ -411,15 +411,8 @@
       
 
       
-        <p>本文主要介绍如何解决磁盘显示未初始化的问题。<a id="more"></a></p>
-<p>首先我们在磁盘管理导入实验磁盘<br>
-<img src="/images/loading.gif" data-original="/posts/58a99ce/18457849-9cad2d1d4323281e.png" alt><br>
-可以发现磁盘2显示<strong>未分配</strong>且可能<strong>弹出未初始化</strong><br>
-此时我们用Winhex打开磁盘<br>
-<img src="/images/loading.gif" data-original="/posts/58a99ce/18457849-a9539e303de5976a.png" alt>可以发现磁盘分区有两个且均为半透明，MBR扇区为空，分区类型均为NTFS<br>
-先在此扇区末尾补上55AA<br>
-<img src="/images/loading.gif" data-original="/posts/58a99ce/18457849-81d456f02b167ca8.png" alt>再将两个分区的分区类型值补上（07）<img src="/images/loading.gif" data-original="/posts/58a99ce/18457849-e113436358be6e3a.png" alt><br>
-再到每个分区的DBR扇区找到扇区地址和总扇区数<img src="/images/loading.gif" data-original="/posts/58a99ce/18457849-bc228e0a55400b69.png" alt><img src="/images/loading.gif" data-original="/posts/58a99ce/18457849-29f6d393c61d7d22.png" alt>回到MBR扇区填上DPT<img src="/images/loading.gif" data-original="/posts/58a99ce/18457849-792b15090705c5f3.png" alt>点击保存，回到磁盘管理刷新磁盘即可<img src="/images/loading.gif" data-original="/posts/58a99ce/18457849-6824514044931e16.png" alt>可以看到恢复成功！</p>
+        <p> 本文主要介绍如何解决磁盘显示未初始化的问题。<a id="more"></a></p>
+<p>首先我们在磁盘管理导入实验磁盘<br><img src="/images/loading.gif" data-original="/posts/58a99ce/18457849-9cad2d1d4323281e.png" alt><br>可以发现磁盘2显示<strong>未分配</strong>且可能<strong>弹出未初始化</strong><br>此时我们用Winhex打开磁盘<br><img src="/images/loading.gif" data-original="/posts/58a99ce/18457849-a9539e303de5976a.png" alt>可以发现磁盘分区有两个且均为半透明，MBR扇区为空，分区类型均为NTFS<br>先在此扇区末尾补上55AA<br><img src="/images/loading.gif" data-original="/posts/58a99ce/18457849-81d456f02b167ca8.png" alt>再将两个分区的分区类型值补上（07）<img src="/images/loading.gif" data-original="/posts/58a99ce/18457849-e113436358be6e3a.png" alt><br>再到每个分区的DBR扇区找到扇区地址和总扇区数<img src="/images/loading.gif" data-original="/posts/58a99ce/18457849-bc228e0a55400b69.png" alt><img src="/images/loading.gif" data-original="/posts/58a99ce/18457849-29f6d393c61d7d22.png" alt>回到MBR扇区填上DPT<img src="/images/loading.gif" data-original="/posts/58a99ce/18457849-792b15090705c5f3.png" alt>点击保存，回到磁盘管理刷新磁盘即可<img src="/images/loading.gif" data-original="/posts/58a99ce/18457849-6824514044931e16.png" alt>可以看到恢复成功！</p>
 
       
     </div>
@@ -1431,9 +1424,9 @@
     POWERMODE.colorful = true;
     POWERMODE.shake = false;
     document.body.addEventListener('input', POWERMODE);
-  </script>
+  </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
-<script>!function(e){var c=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function i(){for(var r=0;r<c.length;r++)t=c[r],0<=(n=t.getBoundingClientRect()).bottom&&0<=n.left&&n.top<=(e.innerHeight||document.documentElement.clientHeight)&&function(){var t,n,e,i,o=c[r];t=o,n=function(){c=c.filter(function(t){return o!==t})},e=new Image,i=t.getAttribute("data-original"),e.onload=function(){t.src=i,n&&n()},e.src=i}();var t,n}i(),e.addEventListener("scroll",function(){var t,n;t=i,n=e,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(n)},500)})}(this);</script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+<script>!function(e){var c=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function i(){for(var r=0;r<c.length;r++)t=c[r],0<=(n=t.getBoundingClientRect()).bottom&&0<=n.left&&n.top<=(e.innerHeight||document.documentElement.clientHeight)&&function(){var t,n,e,i,o=c[r];t=o,n=function(){c=c.filter(function(t){return o!==t})},e=new Image,i=t.getAttribute("data-original"),e.onload=function(){t.src=i,n&&n()},e.src=i}();var t,n}i(),e.addEventListener("scroll",function(){var t,n;t=i,n=e,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(n)},500)})}(this);</script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script></body>
 </html>
 <!-- 页面点击小红心 -->
 <script type="text/javascript" src="/js/src/clicklove.js"></script>

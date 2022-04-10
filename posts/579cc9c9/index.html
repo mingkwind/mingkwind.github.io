@@ -90,12 +90,12 @@
 
 
 
-<meta name="description" content="NTFS文件系统比FAT32复杂多了，小明我上课听得一头雾水。 接下来来详细介绍NTFS文件系统 NTFS文件系统原名为New Tecnology File System（这个称呼有点直接(・∀・)），是现在绝大多数电脑磁盘分区使用的文件系统。">
+<meta name="description" content="NTFS文件系统比FAT32复杂多了，小明我上课听得一头雾水。接下来来详细介绍NTFS文件系统NTFS文件系统原名为New Tecnology File System（这个称呼有点直接(・∀・)），是现在绝大多数电脑磁盘分区使用的文件系统。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="深究NTFS文件系统">
 <meta property="og:url" content="http://yoursite.com/posts/579cc9c9/index.html">
 <meta property="og:site_name" content="风屿の博客">
-<meta property="og:description" content="NTFS文件系统比FAT32复杂多了，小明我上课听得一头雾水。 接下来来详细介绍NTFS文件系统 NTFS文件系统原名为New Tecnology File System（这个称呼有点直接(・∀・)），是现在绝大多数电脑磁盘分区使用的文件系统。">
+<meta property="og:description" content="NTFS文件系统比FAT32复杂多了，小明我上课听得一头雾水。接下来来详细介绍NTFS文件系统NTFS文件系统原名为New Tecnology File System（这个称呼有点直接(・∀・)），是现在绝大多数电脑磁盘分区使用的文件系统。">
 <meta property="og:image" content="http://yoursite.com/images/loading.gif">
 <meta property="og:image" content="http://yoursite.com/images/loading.gif">
 <meta property="og:image" content="http://yoursite.com/images/loading.gif">
@@ -434,140 +434,84 @@
       
 
       
-        <p>NTFS文件系统比FAT32复杂多了，小明我上课听得一头雾水。<br>
-接下来来详细介绍NTFS文件系统<br>
-NTFS文件系统原名为New Tecnology File System（这个称呼有点直接(・∀・)），是现在绝大多数电脑磁盘分区使用的文件系统。<a id="more"></a></p>
-<h1 id="ntfs介绍"><a class="markdownIt-Anchor" href="#ntfs介绍"></a> NTFS介绍</h1>
-<p>其具有以下特点：<br>
-–<strong>安全性较高</strong>，NTFS文件系统有日志容错功能，所以安全性比FAT文件系统高。<br>
-–NTFS文件系统可以<strong>给文件设置访问权限</strong><br>
-–文件<strong>压缩</strong>和文件<strong>加密</strong>（<strong>EFS加密</strong>右键高级设置）<br>
-–<strong>磁盘配额</strong><br>
-–NTFS文件系统<strong>支持大分区</strong>（在MBR磁盘最大支持<strong>2T</strong> ，在GPT磁盘支持的分区更大）<br>
-–NTFS文件系统<strong>支持大文件</strong>（<strong>大于4G</strong>）<br>
-–NTFS下可创建超过<strong>2TB</strong>的磁盘（注：<strong>硬盘可创建超过其本身大小的虚拟磁盘</strong>，但是需要选择<strong>动态扩展</strong>而不是固定大小。其文件类型是<strong>vhdx</strong>。）</p>
-<p>接下来演示以下NTFS文件的压缩功能（文件系统本身支持的，不借助压缩软件）<br>
-右键属性，点击常规中的高级，勾上<strong>压缩内容以便节省磁盘空间</strong><br>
-<img src="/images/loading.gif" data-original="/posts/579cc9c9/18457849-9a397e0c0b67a24c.png" alt>点击确定即可<br>
-<img src="/images/loading.gif" data-original="/posts/579cc9c9/18457849-3cc2aebe432303fe.png" alt><br>
-可以发现文件占用空间变小了，且其属性图标发生了变化，多了两个小箭头<img src="/images/loading.gif" data-original="/posts/579cc9c9/18457849-07b65dbc0c933f83.png" alt>文件图标均发生变化，NTFS压缩是<strong>透明的</strong>，即外部程序可以直接访问压缩后的文件，而其他压缩软件，是不透明的，外部程序无法直接访问，需要解压后才可以访问，但是NTFS压缩相对来说比压缩软件压缩得比较<strong>少</strong>。</p>
-<h1 id="ntfs的结构类型"><a class="markdownIt-Anchor" href="#ntfs的结构类型"></a> NTFS的结构类型</h1>
-<p>结构类型有两种<img src="/images/loading.gif" data-original="/posts/579cc9c9/18457849-6b9a95153660411f.png" alt="NTFS结构类型1"><img src="/images/loading.gif" data-original="/posts/579cc9c9/18457849-042a647d1d1e8363.png" alt="NTFS结构类型2"><br>
-可以注意到分区末尾均有<strong>备份DBR</strong>。</p>
-<h1 id="ntfs的dbr扇区"><a class="markdownIt-Anchor" href="#ntfs的dbr扇区"></a> NTFS的DBR扇区</h1>
-<p><strong>查找NTFS DBR快速方法:十六进制查找EB5290</strong></p>
-<p><img src="/images/loading.gif" data-original="/posts/579cc9c9/18457849-c86afd628efa47da.png" alt="NTFS的DBR扇区"><br>
-<img src="/images/loading.gif" data-original="/posts/579cc9c9/18457849-863c873e44854b48.png" alt="DBR的数据结构"></p>
+        <p>NTFS文件系统比FAT32复杂多了，小明我上课听得一头雾水。<br>接下来来详细介绍NTFS文件系统<br>NTFS文件系统原名为New Tecnology File System（这个称呼有点直接(・∀・)），是现在绝大多数电脑磁盘分区使用的文件系统。<a id="more"></a></p>
+<h1 id="NTFS介绍"><a href="#NTFS介绍" class="headerlink" title="NTFS介绍"></a>NTFS介绍</h1><p>其具有以下特点：<br>–<strong>安全性较高</strong>，NTFS文件系统有日志容错功能，所以安全性比FAT文件系统高。<br>–NTFS文件系统可以<strong>给文件设置访问权限</strong><br>–文件<strong>压缩</strong>和文件<strong>加密</strong>（<strong>EFS加密</strong>右键高级设置）<br>–<strong>磁盘配额</strong><br>–NTFS文件系统<strong>支持大分区</strong>（在MBR磁盘最大支持<strong>2T</strong> ，在GPT磁盘支持的分区更大）<br>–NTFS文件系统<strong>支持大文件</strong>（<strong>大于4G</strong>）<br>–NTFS下可创建超过<strong>2TB</strong>的磁盘（注：<strong>硬盘可创建超过其本身大小的虚拟磁盘</strong>，但是需要选择<strong>动态扩展</strong>而不是固定大小。其文件类型是<strong>vhdx</strong>。）</p>
+<p>接下来演示以下NTFS文件的压缩功能（文件系统本身支持的，不借助压缩软件）<br>右键属性，点击常规中的高级，勾上<strong>压缩内容以便节省磁盘空间</strong><br><img src="/images/loading.gif" data-original="/posts/579cc9c9/18457849-9a397e0c0b67a24c.png" alt>点击确定即可<br><img src="/images/loading.gif" data-original="/posts/579cc9c9/18457849-3cc2aebe432303fe.png" alt><br>可以发现文件占用空间变小了，且其属性图标发生了变化，多了两个小箭头<img src="/images/loading.gif" data-original="/posts/579cc9c9/18457849-07b65dbc0c933f83.png" alt>文件图标均发生变化，NTFS压缩是<strong>透明的</strong>，即外部程序可以直接访问压缩后的文件，而其他压缩软件，是不透明的，外部程序无法直接访问，需要解压后才可以访问，但是NTFS压缩相对来说比压缩软件压缩得比较<strong>少</strong>。</p>
+<h1 id="NTFS的结构类型"><a href="#NTFS的结构类型" class="headerlink" title="NTFS的结构类型"></a>NTFS的结构类型</h1><p>结构类型有两种<img src="/images/loading.gif" data-original="/posts/579cc9c9/18457849-6b9a95153660411f.png" alt="NTFS结构类型1"><img src="/images/loading.gif" data-original="/posts/579cc9c9/18457849-042a647d1d1e8363.png" alt="NTFS结构类型2"><br>可以注意到分区末尾均有<strong>备份DBR</strong>。</p>
+<h1 id="NTFS的DBR扇区"><a href="#NTFS的DBR扇区" class="headerlink" title="NTFS的DBR扇区"></a>NTFS的DBR扇区</h1><p><strong>查找NTFS DBR快速方法:十六进制查找EB5290</strong></p>
+<p><img src="/images/loading.gif" data-original="/posts/579cc9c9/18457849-c86afd628efa47da.png" alt="NTFS的DBR扇区"><br><img src="/images/loading.gif" data-original="/posts/579cc9c9/18457849-863c873e44854b48.png" alt="DBR的数据结构"></p>
 <p>介绍一下一些特殊概念：</p>
 <p>1）<strong>15</strong>是代表<strong>介质描述符</strong>，<strong>F8</strong>代表<strong>硬盘介质</strong></p>
 <p>2）<strong>1C-1F</strong>代表<strong>隐含扇区数</strong>，是针对于主分区而言的隐含扇区，隐含扇区是NTFS分区前的物理扇区数，如果NTFS分区是在磁盘内，则和该扇区在磁盘位置数值一样，如NTFS分区是在扩展分区内，则是表示在该分区内<strong>相对偏移</strong>扇区。</p>
 <p>3）<strong>28-2F</strong>是<strong>文件系统扇区总数</strong>，其是8个字节，要用数据解析器的<strong>64bit位</strong>查看，其与NTFS实际扇区数<strong>可能有出入</strong>（NTFS的一种特点），但是硬盘的DPT（分区表项）写的分区总扇区数与其相同。</p>
-<p>4）<strong>30-37</strong>表示<strong>MFT起始簇号</strong>，MFT是NTFS的第0个元文件，<strong>38-3F</strong>表示MFTMirr的<strong>起始簇号</strong>,它是NFTS的第1个元文件，是MFT的镜像，紧跟在MFT后面，40是<strong>MFT项的大小</strong>，即其所占用的空间，一般是<strong>2个扇区</strong>（计算方法，选中40（数值为0xF6）查看数据解释器8 bit(±)为-10，利用公式<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mn>2</mn><mrow><mo>−</mo><mn>1</mn><mo>∗</mo><mo>−</mo><mn>10</mn></mrow></msup><mo>=</mo><msup><mn>2</mn><mn>10</mn></msup><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">2^{-1*-10}=2^{10}=2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">−</span><span class="mord mtight">1</span><span class="mbin mtight">∗</span><span class="mord mtight">−</span><span class="mord mtight">1</span><span class="mord mtight">0</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span><span class="mord mtight">0</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span></span></span></span>个扇区）。</p>
-<p>5）<strong>44</strong>表示<strong>每个索引块大小簇数****（待补充）</strong></p>
-<h1 id="ntfs文件系统的16个元文件"><a class="markdownIt-Anchor" href="#ntfs文件系统的16个元文件"></a> NTFS文件系统的16个元文件</h1>
-<p>这些元文件名都是以**$**开头的<img src="/images/loading.gif" data-original="/posts/579cc9c9/18457849-04b201371d0d26e2.png" alt><img src="/images/loading.gif" data-original="/posts/579cc9c9/18457849-7e735c56d1f5d3f4.png" alt></p>
+<p>4）<strong>30-37</strong>表示<strong>MFT起始簇号</strong>，MFT是NTFS的第0个元文件，<strong>38-3F</strong>表示MFTMirr的<strong>起始簇号</strong>,它是NFTS的第1个元文件，是MFT的镜像，紧跟在MFT后面，40是<strong>MFT项的大小</strong>，即其所占用的空间，一般是<strong>2个扇区</strong>（计算方法，选中40（数值为0xF6）查看数据解释器8 bit(±)为-10，利用公式$2^{-1*-10}=2^{10}=2$个扇区）。</p>
+<p>5）<strong>44</strong>表示<strong>每个索引块大小簇数**</strong>（待补充）**</p>
+<h1 id="NTFS文件系统的16个元文件"><a href="#NTFS文件系统的16个元文件" class="headerlink" title="NTFS文件系统的16个元文件"></a>NTFS文件系统的16个元文件</h1><p>这些元文件名都是以<strong>\$</strong>开头的<img src="/images/loading.gif" data-original="/posts/579cc9c9/18457849-04b201371d0d26e2.png" alt><img src="/images/loading.gif" data-original="/posts/579cc9c9/18457849-7e735c56d1f5d3f4.png" alt></p>
 <p>值得注意的是，<strong>元文件文件名和序号是严格对应</strong>，在NTFS分区内按序号排列。</p>
-<p>我们可以通过DBR扇区的$MFT起始簇号或者直接点击$MFT跳转到MFT元文件。</p>
+<p>我们可以通过DBR扇区的\$MFT起始簇号或者直接点击\$MFT跳转到MFT元文件。</p>
 <p><img src="/images/loading.gif" data-original="/posts/579cc9c9/18457849-2295ea2d28343976.png" alt></p>
-<p>可以看到$MFT字样，向下多次滑可以依次看到<br>
-$MFTMir、$LogFile、$Volume(当我们卷标显示时，要用unicode编码（点击Winhex查看字符集选择unicode可以看到“新加卷”字样，因为<strong>NTFS是用Unicode编码，FAT32是用ASCII编码</strong>)、$AttrDef等，但是$Root是不可见的。</p>
-<h1 id="mft表"><a class="markdownIt-Anchor" href="#mft表"></a> MFT表</h1>
-<p><strong>MFT表特点</strong></p>
+<p>可以看到\$MFT字样，向下多次滑可以依次看到<br>\$MFTMir、\$LogFile、\$Volume(当我们卷标显示时，要用unicode编码（点击Winhex查看字符集选择unicode可以看到“新加卷”字样，因为<strong>NTFS是用Unicode编码，FAT32是用ASCII编码</strong>)、\$AttrDef等，但是\$Root是不可见的。</p>
+<h1 id="MFT表"><a href="#MFT表" class="headerlink" title="MFT表"></a>MFT表</h1><p><strong>MFT表特点</strong></p>
 <ul>
-<li>
-<p>以明文**“FILE”**开头</p>
+<li><p>以明文<strong>“FILE”</strong>开头</p>
 </li>
-<li>
-<p>每个MFT项都占用<strong>1024</strong>字节，即<strong>两个扇区</strong></p>
+<li><p>每个MFT项都占用<strong>1024</strong>字节，即<strong>两个扇区</strong></p>
 </li>
-<li>
-<p>NTFS文件系统中的所有文件，都有一个MFT项记录相应的数据</p>
+<li><p>NTFS文件系统中的所有文件，都有一个MFT项记录相应的数据</p>
 </li>
-<li>
-<p>每个MFT项占用的两个扇区，<strong>最后两个字节</strong>是一个修正值，这个修正值和MFT项中的<strong>更新序列号</strong>相同，如果系统发现<strong>不同</strong>，就会认为这个MFT项<strong>错误</strong>，会把开头标志明文“FILE”改成**“BAAD”**</p>
+<li><p>每个MFT项占用的两个扇区，<strong>最后两个字节</strong>是一个修正值，这个修正值和MFT项中的<strong>更新序列号</strong>相同，如果系统发现<strong>不同</strong>，就会认为这个MFT项<strong>错误</strong>，会把开头标志明文“FILE”改成<strong>“BAAD”</strong></p>
 </li>
 </ul>
 <p><img src="/images/loading.gif" data-original="/posts/579cc9c9/18457849-ea56790dd30790f5.png" alt></p>
 <p>可以发现它是有颜色区分的！<strong>不同颜色块代表不同的属性</strong></p>
-<h2 id="ntfs主文件分配表mft头"><a class="markdownIt-Anchor" href="#ntfs主文件分配表mft头"></a> NTFS主文件分配表(MFT头)</h2>
-<p><img src="/images/loading.gif" data-original="/posts/579cc9c9/18457849-b627108f7f0cc0b7.png" alt></p>
-<h2 id="mft头的数据结构"><a class="markdownIt-Anchor" href="#mft头的数据结构"></a> MFT头的数据结构</h2>
-<p><img src="/images/loading.gif" data-original="/posts/579cc9c9/18457849-9a6c6aecba0240fb.png" alt><img src="/images/loading.gif" data-original="/posts/579cc9c9/18457849-fe140369ee885b30.png" alt></p>
+<h2 id="NTFS主文件分配表-MFT头"><a href="#NTFS主文件分配表-MFT头" class="headerlink" title="NTFS主文件分配表(MFT头)"></a>NTFS主文件分配表(MFT头)</h2><p><img src="/images/loading.gif" data-original="/posts/579cc9c9/18457849-b627108f7f0cc0b7.png" alt></p>
+<h2 id="MFT头的数据结构"><a href="#MFT头的数据结构" class="headerlink" title="MFT头的数据结构"></a>MFT头的数据结构</h2><p><img src="/images/loading.gif" data-original="/posts/579cc9c9/18457849-9a6c6aecba0240fb.png" alt><img src="/images/loading.gif" data-original="/posts/579cc9c9/18457849-fe140369ee885b30.png" alt></p>
 <p>1）这边重点提一下<strong>04-05 06-07</strong>指<strong>更新序列号的偏移和个数</strong>，一般来说，04-05是30 00（其实是0x0030），则由偏移找到MFT头的30位置，看到04 00，这个就是更新序列号，06-07是指更新序列号的个数，一个MFT表一般有3个更新序列号，分别位于<strong>30、第一个扇区末尾，第二个扇区末尾</strong>，如下图</p>
 <p><img src="/images/loading.gif" data-original="/posts/579cc9c9/18457849-74bc8f8dae201cdc.png" alt><strong>如果系统发现这几个更新序列号不同，就会认为这个MFT项错误，会把开头标志明文“FILE”改成“BAAD”</strong></p>
 <p>2）<strong>14-15</strong>代表<strong>第一个属性的偏移地址</strong>，图上写的是0x0038，转向38块，可以发现这是10属性的开头。</p>
 <p>3）<strong>16-17</strong>代表着<strong>文件或目录的状态</strong>，<strong>00：文件被删除，01：文件正常，02：目录被删除，03：目录正常</strong></p>
-<p>4）<strong>18-1B</strong>、<strong>1C-1F</strong>分别代表MFT项的<strong>逻辑长度（有效长度 ）<strong>和</strong>物理长度（占用长度）</strong>，单位是<strong>字节</strong>，可以看到图中物理长度是0x00 00 04 00字节=1024字节=2个扇区。</p>
-<p>5）<strong>2C-2F</strong>代表<strong>MFT项的索引号****（待补充）</strong></p>
-<h2 id="mft属性"><a class="markdownIt-Anchor" href="#mft属性"></a> MFT属性</h2>
-<p>每个MFT的属性都可以分成两部分：<strong>属性头</strong>和<strong>属性体</strong></p>
+<p>4）<strong>18-1B</strong>、<strong>1C-1F</strong>分别代表MFT项的<strong>逻辑长度（有效长度 ）</strong>和<strong>物理长度（占用长度）</strong>，单位是<strong>字节</strong>，可以看到图中物理长度是0x00 00 04 00字节=1024字节=2个扇区。</p>
+<p>5）<strong>2C-2F</strong>代表<strong>MFT项的索引号**</strong>（待补充）**</p>
+<h2 id="MFT属性"><a href="#MFT属性" class="headerlink" title="MFT属性"></a>MFT属性</h2><p>每个MFT的属性都可以分成两部分：<strong>属性头</strong>和<strong>属性体</strong></p>
 <p>MFT属性的分类:</p>
 <ul>
-<li><strong>常驻属性</strong>：直接在<strong>MFT项中</strong>记录属性体，例如10 30
-<ul>
+<li><strong>常驻属性</strong>：直接在<strong>MFT项中</strong>记录属性体，例如10 30<ul>
 <li>优点：直接在MFT项中记录属体，访问速度<strong>快</strong></li>
 <li>缺点：只能记录<strong>少量</strong>的数据</li>
 </ul>
 </li>
-<li><strong>非常驻属性</strong>：在<strong>MFT之外</strong>的区域记录属性体，例如80
-<ul>
+<li><strong>非常驻属性</strong>：在<strong>MFT之外</strong>的区域记录属性体，例如80<ul>
 <li>优点：用簇流记录文件存储的数据区域，可以记录很<strong>大</strong>的数据</li>
 <li>缺点：访问速度较<strong>慢</strong></li>
 </ul>
 </li>
 </ul>
 <p><strong>属性类型</strong></p>
-<p><img src="/images/loading.gif" data-original="/posts/579cc9c9/18457849-4f7bf1aaa733a70d.png" alt><img src="/images/loading.gif" data-original="/posts/579cc9c9/18457849-981ce1374bc402e1.png" alt><br>
-一个属性分为<strong>属性头</strong>和<strong>属性体</strong>，<strong>用同一种颜色的浅深区分</strong></p>
-<h3 id="常驻属性的数据结构"><a class="markdownIt-Anchor" href="#常驻属性的数据结构"></a> 常驻属性的数据结构</h3>
-<p><strong>常驻属性的属性头</strong><br>
-<img src="/images/loading.gif" data-original="/posts/579cc9c9/18457849-6b31c1f17f2a23d0.png" alt="常驻属性的属性头"><br>
-<img src="/images/loading.gif" data-original="/posts/579cc9c9/18457849-ffff50d825b4fbab.png" alt></p>
-<p>其中注意以下几点：<br>
-1）<strong>00-03</strong>是指<strong>属性类型</strong></p>
+<p><img src="/images/loading.gif" data-original="/posts/579cc9c9/18457849-4f7bf1aaa733a70d.png" alt><img src="/images/loading.gif" data-original="/posts/579cc9c9/18457849-981ce1374bc402e1.png" alt><br>一个属性分为<strong>属性头</strong>和<strong>属性体</strong>，<strong>用同一种颜色的浅深区分</strong></p>
+<h3 id="常驻属性的数据结构"><a href="#常驻属性的数据结构" class="headerlink" title="常驻属性的数据结构"></a>常驻属性的数据结构</h3><p><strong>常驻属性的属性头</strong><br><img src="/images/loading.gif" data-original="/posts/579cc9c9/18457849-6b31c1f17f2a23d0.png" alt="常驻属性的属性头"><br><img src="/images/loading.gif" data-original="/posts/579cc9c9/18457849-ffff50d825b4fbab.png" alt></p>
+<p>其中注意以下几点：<br>1）<strong>00-03</strong>是指<strong>属性类型</strong></p>
 <p>2）<strong>04-07</strong>是指<strong>整个属性的总字节数</strong></p>
 <p>3）<strong>08</strong>代表<strong>属性类型</strong>（<strong>0常驻 or 1非常驻</strong>）</p>
 <p>4）<strong>10-13</strong>代表<strong>属性体的字节数</strong>（与实际颜色块字节数可能不同，因为颜色块是8字节为一块划分的）</p>
 <p>5）<strong>14-15</strong>代表<strong>属性体偏移的字节数</strong>，是相对于属性头开头位置的偏移量，亦即代表<strong>属性头的字节数</strong></p>
-<h4 id="mft中10属性体"><a class="markdownIt-Anchor" href="#mft中10属性体"></a> MFT中10属性体</h4>
-<p><img src="/images/loading.gif" data-original="https://upload-images.jianshu.io/upload_images/18457849-6b31c1f17f2a23d0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="10属性"><img src="/images/loading.gif" data-original="/posts/579cc9c9/18457849-82c5a354f7e9fe2a.jpg" alt="10属性体"></p>
-<h4 id="mft中30属性体"><a class="markdownIt-Anchor" href="#mft中30属性体"></a> MFT中30属性体</h4>
-<p>MFT中30属性，最小为\x68（104）字节，最大为\x268（616）字节，可容纳<strong>255</strong>个<strong>Unicode</strong>字符的文件名<br>
-<img src="/images/loading.gif" data-original="/posts/579cc9c9/18457849-1bc5b85129e5f265.png" alt="30属性"><img src="/images/loading.gif" data-original="/posts/579cc9c9/18457849-dcb82694859880bf.jpg" alt><img src="/images/loading.gif" data-original="/posts/579cc9c9/18457849-8cfa26ccc068563d.jpg" alt="30属性体"></p>
-<p>其中<br>
-38-3B：<strong>类型依照加法原则</strong><br>
-40：文件名的长度为一个字节，因此文件名最大长度为FFh=255字节<br>
-41：文件命名类型 有 00 01 02 03</p>
-<h3 id="非常驻属性的数据结构"><a class="markdownIt-Anchor" href="#非常驻属性的数据结构"></a> 非常驻属性的数据结构</h3>
-<p><img src="/images/loading.gif" data-original="/posts/579cc9c9/18457849-3f373854254a202b.png" alt><img src="/images/loading.gif" data-original="/posts/579cc9c9/18457849-c2eff230fa120dfc.png" alt><img src="/images/loading.gif" data-original="/posts/579cc9c9/18457849-baa15cce6d05acd1.png" alt></p>
+<h4 id="MFT中10属性体"><a href="#MFT中10属性体" class="headerlink" title="MFT中10属性体"></a>MFT中10属性体</h4><p><img src="/images/loading.gif" data-original="https://upload-images.jianshu.io/upload_images/18457849-6b31c1f17f2a23d0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="10属性"><img src="/images/loading.gif" data-original="/posts/579cc9c9/18457849-82c5a354f7e9fe2a.jpg" alt="10属性体"></p>
+<h4 id="MFT中30属性体"><a href="#MFT中30属性体" class="headerlink" title="MFT中30属性体"></a>MFT中30属性体</h4><p>MFT中30属性，最小为\x68（104）字节，最大为\x268（616）字节，可容纳<strong>255</strong>个<strong>Unicode</strong>字符的文件名<br><img src="/images/loading.gif" data-original="/posts/579cc9c9/18457849-1bc5b85129e5f265.png" alt="30属性"><img src="/images/loading.gif" data-original="/posts/579cc9c9/18457849-dcb82694859880bf.jpg" alt><img src="/images/loading.gif" data-original="/posts/579cc9c9/18457849-8cfa26ccc068563d.jpg" alt="30属性体"></p>
+<p>其中<br>38-3B：<strong>类型依照加法原则</strong><br>40：文件名的长度为一个字节，因此文件名最大长度为FFh=255字节<br>41：文件命名类型 有 00 01 02 03</p>
+<h3 id="非常驻属性的数据结构"><a href="#非常驻属性的数据结构" class="headerlink" title="非常驻属性的数据结构"></a>非常驻属性的数据结构</h3><p><img src="/images/loading.gif" data-original="/posts/579cc9c9/18457849-3f373854254a202b.png" alt><img src="/images/loading.gif" data-original="/posts/579cc9c9/18457849-c2eff230fa120dfc.png" alt><img src="/images/loading.gif" data-original="/posts/579cc9c9/18457849-baa15cce6d05acd1.png" alt></p>
 <p>其中<strong>28-2F</strong>是<strong>属性体占用总空</strong>（<strong>字节数</strong>），亦即<strong>数据总大小</strong></p>
-<h4 id="80属性"><a class="markdownIt-Anchor" href="#80属性"></a> 80属性</h4>
-<p>80属性是存储文件数据内容。</p>
+<h4 id="80属性"><a href="#80属性" class="headerlink" title="80属性"></a>80属性</h4><p>80属性是存储文件数据内容。</p>
 <p>80属性有两种类型，一种是常驻80属性，一种是非常驻80属性。</p>
-<p><strong>常驻属性头比较小，体比较大；<br>
-非常驻属性头比较大，体比较小。</strong></p>
+<p><strong>常驻属性头比较小，体比较大；<br>非常驻属性头比较大，体比较小。</strong></p>
 <p>这在winhex很容易辨认。</p>
-<p>当文件大小<strong>不超过1024字节（一个扇区）<strong>是在一个簇里存，此时80属性为常驻属性；<br>
-当文件</strong>大于1024字节</strong>会变成簇流（非常驻）存储方式。<br>
-<strong>常驻80属性的属性体就是数据内容，可用winhex直接复制到新文件显示。</strong><br>
-<strong>非常驻的属性体是簇流存储地址</strong>。</p>
-<p>LCN(logical cluster number)：整个文件卷的相对位置，单位(簇)。<br>
-VCN(virtual cluster number)：文件内部的相对位置，单位(簇)。</p>
+<p>当文件大小<strong>不超过1024字节（一个扇区）</strong>是在一个簇里存，此时80属性为常驻属性；<br>当文件<strong>大于1024字节</strong>会变成簇流（非常驻）存储方式。<br><strong>常驻80属性的属性体就是数据内容，可用winhex直接复制到新文件显示。</strong><br><strong>非常驻的属性体是簇流存储地址</strong>。</p>
+<p>LCN(logical cluster number)：整个文件卷的相对位置，单位(簇)。<br>VCN(virtual cluster number)：文件内部的相对位置，单位(簇)。</p>
 <p>每个运行列表中第一个字节的低4位表示运行簇大小（filesize）的len，高4位表示起始簇（start）的len。如果一个运行列表后面的第一个字节是00，说明运行列表结束，后面的数值暂时不用管；如果不是00，则是下一个运行列表开始。</p>
-<h5 id="1常驻"><a class="markdownIt-Anchor" href="#1常驻"></a> ①常驻</h5>
-<p><img src="/images/loading.gif" data-original="/posts/579cc9c9/14508631-11621272c6efc0bd.png" alt="image"><br>
-<img src="/images/loading.gif" data-original="/posts/579cc9c9/18457849-542754aa8eb35476.png" alt></p>
-<h5 id="2非常驻一个运行列表"><a class="markdownIt-Anchor" href="#2非常驻一个运行列表"></a> ②非常驻–&gt;一个运行列表</h5>
-<p><img src="/images/loading.gif" data-original="/posts/579cc9c9/14508631-dd27efa0b29c1fee.png" alt="非常驻--&gt;一个运行列表"></p>
+<h5 id="①常驻"><a href="#①常驻" class="headerlink" title="①常驻"></a>①常驻</h5><p><img src="/images/loading.gif" data-original="/posts/579cc9c9/14508631-11621272c6efc0bd.png" alt="image"><br><img src="/images/loading.gif" data-original="/posts/579cc9c9/18457849-542754aa8eb35476.png" alt></p>
+<h5 id="②非常驻—-gt-一个运行列表"><a href="#②非常驻—-gt-一个运行列表" class="headerlink" title="②非常驻—&gt;一个运行列表"></a>②非常驻—&gt;一个运行列表</h5><p><img src="/images/loading.gif" data-original="/posts/579cc9c9/14508631-dd27efa0b29c1fee.png" alt="非常驻--&gt;一个运行列表"></p>
 <p>0x00~0x3F 是属性头；运行列表在橘黄色框中，0x40开始，可以得到运行列表 33 40 BC 00 00 00 0C。</p>
-<p>分析如下:<br>
-首先0x33，低4位是3，表示紧随其后的3Byte 0xBC40作为<strong>运行簇大小（簇个数）</strong>，即文件所占总大小；高4位是3，表示簇大小之后的3个Byte 0x0C0000 是<strong>起始簇</strong>，即文件起始，这里是说的是LCN。<br>
-<strong>划重点！！！</strong><br>
-<strong>通过该处簇总个数与28-2F的属性体占用总空间大小，可推算出一个簇的大小。</strong></p>
-<p>公式为<br>
-<strong>NTFS中一个簇包含的扇区=  (数据总大小(字节)/512)/簇总个数</strong></p>
-<h5 id="3非常驻多个运行列表"><a class="markdownIt-Anchor" href="#3非常驻多个运行列表"></a> ③非常驻–&gt;多个运行列表</h5>
-<p><img src="/images/loading.gif" data-original="/posts/579cc9c9/14508631-fb99bb4de13afb72.png" alt="非常驻--&gt;多个运行列表"></p>
+<p>分析如下:<br>首先0x33，低4位是3，表示紧随其后的3Byte 0xBC40作为<strong>运行簇大小（簇个数）</strong>，即文件所占总大小；高4位是3，表示簇大小之后的3个Byte 0x0C0000 是<strong>起始簇</strong>，即文件起始，这里是说的是LCN。<br><strong>划重点！！！</strong><br><strong>通过该处簇总个数与28-2F的属性体占用总空间大小，可推算出一个簇的大小。</strong></p>
+<p>公式为<br><strong>NTFS中一个簇包含的扇区=  (数据总大小(字节)/512)/簇总个数</strong></p>
+<h5 id="③非常驻—-gt-多个运行列表"><a href="#③非常驻—-gt-多个运行列表" class="headerlink" title="③非常驻—&gt;多个运行列表"></a>③非常驻—&gt;多个运行列表</h5><p><img src="/images/loading.gif" data-original="/posts/579cc9c9/14508631-fb99bb4de13afb72.png" alt="非常驻--&gt;多个运行列表"></p>
 <p>分析如下：</p>
 <p>第一个运行列表，首先是0x31，低4位是1，表示紧接着的1Byte(03)是运行簇大小；高4位是3，表示紧接着3Byte(65 9A 00)是起始簇，这里说的是LCN；</p>
 <p>第二个运行列表，首先是0x11，低4位是1，表示紧接着的1Byte(01)是运行簇大小；高4位是1，表示紧接着3Byte(13)是起始簇，这里说的是VCN。</p>
@@ -801,7 +745,7 @@ VCN(virtual cluster number)：文件内部的相对位置，单位(簇)。</p>
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ntfs介绍"><span class="nav-number">1.</span> <span class="nav-text"> NTFS介绍</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ntfs的结构类型"><span class="nav-number">2.</span> <span class="nav-text"> NTFS的结构类型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ntfs的dbr扇区"><span class="nav-number">3.</span> <span class="nav-text"> NTFS的DBR扇区</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ntfs文件系统的16个元文件"><span class="nav-number">4.</span> <span class="nav-text"> NTFS文件系统的16个元文件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#mft表"><span class="nav-number">5.</span> <span class="nav-text"> MFT表</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ntfs主文件分配表mft头"><span class="nav-number">5.1.</span> <span class="nav-text"> NTFS主文件分配表(MFT头)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mft头的数据结构"><span class="nav-number">5.2.</span> <span class="nav-text"> MFT头的数据结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mft属性"><span class="nav-number">5.3.</span> <span class="nav-text"> MFT属性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#常驻属性的数据结构"><span class="nav-number">5.3.1.</span> <span class="nav-text"> 常驻属性的数据结构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#mft中10属性体"><span class="nav-number">5.3.1.1.</span> <span class="nav-text"> MFT中10属性体</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mft中30属性体"><span class="nav-number">5.3.1.2.</span> <span class="nav-text"> MFT中30属性体</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#非常驻属性的数据结构"><span class="nav-number">5.3.2.</span> <span class="nav-text"> 非常驻属性的数据结构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#80属性"><span class="nav-number">5.3.2.1.</span> <span class="nav-text"> 80属性</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1常驻"><span class="nav-number">5.3.2.1.1.</span> <span class="nav-text"> ①常驻</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2非常驻一个运行列表"><span class="nav-number">5.3.2.1.2.</span> <span class="nav-text"> ②非常驻–&gt;一个运行列表</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3非常驻多个运行列表"><span class="nav-number">5.3.2.1.3.</span> <span class="nav-text"> ③非常驻–&gt;多个运行列表</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#NTFS介绍"><span class="nav-number">1.</span> <span class="nav-text">NTFS介绍</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#NTFS的结构类型"><span class="nav-number">2.</span> <span class="nav-text">NTFS的结构类型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#NTFS的DBR扇区"><span class="nav-number">3.</span> <span class="nav-text">NTFS的DBR扇区</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#NTFS文件系统的16个元文件"><span class="nav-number">4.</span> <span class="nav-text">NTFS文件系统的16个元文件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MFT表"><span class="nav-number">5.</span> <span class="nav-text">MFT表</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#NTFS主文件分配表-MFT头"><span class="nav-number">5.1.</span> <span class="nav-text">NTFS主文件分配表(MFT头)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MFT头的数据结构"><span class="nav-number">5.2.</span> <span class="nav-text">MFT头的数据结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MFT属性"><span class="nav-number">5.3.</span> <span class="nav-text">MFT属性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#常驻属性的数据结构"><span class="nav-number">5.3.1.</span> <span class="nav-text">常驻属性的数据结构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#MFT中10属性体"><span class="nav-number">5.3.1.1.</span> <span class="nav-text">MFT中10属性体</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MFT中30属性体"><span class="nav-number">5.3.1.2.</span> <span class="nav-text">MFT中30属性体</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#非常驻属性的数据结构"><span class="nav-number">5.3.2.</span> <span class="nav-text">非常驻属性的数据结构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#80属性"><span class="nav-number">5.3.2.1.</span> <span class="nav-text">80属性</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#①常驻"><span class="nav-number">5.3.2.1.1.</span> <span class="nav-text">①常驻</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#②非常驻—-gt-一个运行列表"><span class="nav-number">5.3.2.1.2.</span> <span class="nav-text">②非常驻—&gt;一个运行列表</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#③非常驻—-gt-多个运行列表"><span class="nav-number">5.3.2.1.3.</span> <span class="nav-text">③非常驻—&gt;多个运行列表</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></div>
             
 
           </div>
@@ -1609,9 +1553,9 @@ VCN(virtual cluster number)：文件内部的相对位置，单位(簇)。</p>
     POWERMODE.colorful = true;
     POWERMODE.shake = false;
     document.body.addEventListener('input', POWERMODE);
-  </script>
+  </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
-<script>!function(e){var c=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function i(){for(var r=0;r<c.length;r++)t=c[r],0<=(n=t.getBoundingClientRect()).bottom&&0<=n.left&&n.top<=(e.innerHeight||document.documentElement.clientHeight)&&function(){var t,n,e,i,o=c[r];t=o,n=function(){c=c.filter(function(t){return o!==t})},e=new Image,i=t.getAttribute("data-original"),e.onload=function(){t.src=i,n&&n()},e.src=i}();var t,n}i(),e.addEventListener("scroll",function(){var t,n;t=i,n=e,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(n)},500)})}(this);</script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+<script>!function(e){var c=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function i(){for(var r=0;r<c.length;r++)t=c[r],0<=(n=t.getBoundingClientRect()).bottom&&0<=n.left&&n.top<=(e.innerHeight||document.documentElement.clientHeight)&&function(){var t,n,e,i,o=c[r];t=o,n=function(){c=c.filter(function(t){return o!==t})},e=new Image,i=t.getAttribute("data-original"),e.onload=function(){t.src=i,n&&n()},e.src=i}();var t,n}i(),e.addEventListener("scroll",function(){var t,n;t=i,n=e,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(n)},500)})}(this);</script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script></body>
 </html>
 <!-- 页面点击小红心 -->
 <script type="text/javascript" src="/js/src/clicklove.js"></script>

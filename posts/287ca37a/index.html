@@ -90,12 +90,12 @@
 
 
 
-<meta name="description" content="实验目的  捕获和分析网络数据 掌握以太网MAC帧、802.11数据帧和IPv4数据包的构成，了解字段含义 掌握ICMP和ARP协议的请求&#x2F;响应机理 掌握ping、arp和tracert指令">
+<meta name="description" content="实验目的 捕获和分析网络数据 掌握以太网MAC帧、802.11数据帧和IPv4数据包的构成，了解字段含义 掌握ICMP和ARP协议的请求&#x2F;响应机理 掌握ping、arp和tracert指令">
 <meta property="og:type" content="article">
 <meta property="og:title" content="计网实验——数据帧和IP包分析">
 <meta property="og:url" content="http://yoursite.com/posts/287ca37a/index.html">
 <meta property="og:site_name" content="风屿の博客">
-<meta property="og:description" content="实验目的  捕获和分析网络数据 掌握以太网MAC帧、802.11数据帧和IPv4数据包的构成，了解字段含义 掌握ICMP和ARP协议的请求&#x2F;响应机理 掌握ping、arp和tracert指令">
+<meta property="og:description" content="实验目的 捕获和分析网络数据 掌握以太网MAC帧、802.11数据帧和IPv4数据包的构成，了解字段含义 掌握ICMP和ARP协议的请求&#x2F;响应机理 掌握ping、arp和tracert指令">
 <meta property="og:image" content="http://yoursite.com/images/loading.gif">
 <meta property="og:image" content="http://yoursite.com/images/loading.gif">
 <meta property="og:image" content="http://yoursite.com/images/loading.gif">
@@ -494,45 +494,40 @@
       
 
       
-        <h1 id="实验目的"><a class="markdownIt-Anchor" href="#实验目的"></a> 实验目的</h1>
-<ul>
+        <h1 id="实验目的"><a href="#实验目的" class="headerlink" title="实验目的"></a>实验目的</h1><ul>
 <li>捕获和分析网络数据</li>
 <li>掌握以太网MAC帧、802.11数据帧和IPv4数据包的构成，了解字段含义</li>
 <li>掌握ICMP和ARP协议的请求/响应机理</li>
 <li>掌握ping、arp和tracert指令<a id="more"></a></li>
 </ul>
-<h1 id="实验内容与分析"><a class="markdownIt-Anchor" href="#实验内容与分析"></a> 实验内容与分析</h1>
-<h2 id="任务1wireshark抓包"><a class="markdownIt-Anchor" href="#任务1wireshark抓包"></a> 任务1：Wireshark抓包</h2>
-<p>作者使用window10的系统，安装wireshark3.0.3进行抓包。</p>
-<h3 id="过滤器的使用"><a class="markdownIt-Anchor" href="#过滤器的使用"></a> 过滤器的使用</h3>
-<p>① 过滤特定端口<br>tcp.port eq 80 ：显示源端口或目的端口为80的报文<br>tcp.srcport eq 80：显示源端口为80的报文<br>tcp.dstport eq 55332：显示目的端口为55332的报文<br>②按长度进行过滤<br>tcp.len &gt;0：过滤具有有效载荷的tcp报文<br>udp.length == 26 ：过滤长度为26字节的udp包<br>ip.len eq 1500 ：过滤长度为1500字节的IP数据包。<br>frame.len le 128: 过滤数据帧总体长度小于128B的记录<br>③过滤IP地址<br>ip.src eq 192.168.1.107 ：按源IP地址过滤的数据包<br>ip.dst eq 192.168.1.107 ：按目的IP地址过滤的数据包<br>ip.addr eq 192.168.1.107：不区分源和目的IP地址过滤的数据包<br>④过滤包含特定字符串域名的报文，如：http.host contains “xmu”<br>⑤多个过滤条件，例如满足http以及且端口为80的过滤规则 ：http &amp;&amp; tcp.port == 80<br>PS：<br>1.此处tcp数据包长度+tcp头部（20）+ip头部(20)+以太网头部（14）=整体数据帧的长度。<br>2.此处udp数据包长度+ip头部长度（20）+以太网头部（14）=整体数据帧的长度。<br>3.此处ip数据包长度+以太网头(14)=整体数据帧的长度。<br>4.在组合表达式中使用“!=”操作符，像eth.addr,ip.addr,tcp.port,udp.port等元素可能会产生非预期效果。<br>5.MAC层地址的过滤是同样的道理<br>6.组合符号有and&amp;&amp; 且 or,||,或 not,! 取反这几种。</p>
+<h1 id="实验内容与分析"><a href="#实验内容与分析" class="headerlink" title="实验内容与分析"></a>实验内容与分析</h1><h2 id="任务1：Wireshark抓包"><a href="#任务1：Wireshark抓包" class="headerlink" title="任务1：Wireshark抓包"></a>任务1：Wireshark抓包</h2><p> 作者使用window10的系统，安装wireshark3.0.3进行抓包。</p>
+<h3 id="过滤器的使用"><a href="#过滤器的使用" class="headerlink" title="过滤器的使用"></a>过滤器的使用</h3><p>① 过滤特定端口<br>tcp.port eq 80 ：显示源端口或目的端口为80的报文<br>tcp.srcport eq 80：显示源端口为80的报文<br>tcp.dstport eq 55332：显示目的端口为55332的报文<br>②按长度进行过滤<br>tcp.len &gt;0：过滤具有有效载荷的tcp报文<br>udp.length == 26 ：过滤长度为26字节的udp包<br>ip.len eq 1500 ：过滤长度为1500字节的IP数据包。<br>frame.len le 128: 过滤数据帧总体长度小于128B的记录<br>③过滤IP地址<br>ip.src eq 192.168.1.107 ：按源IP地址过滤的数据包<br>ip.dst eq 192.168.1.107 ：按目的IP地址过滤的数据包<br>ip.addr eq 192.168.1.107：不区分源和目的IP地址过滤的数据包<br>④过滤包含特定字符串域名的报文，如：http.host contains “xmu”<br>⑤多个过滤条件，例如满足http以及且端口为80的过滤规则 ：http &amp;&amp; tcp.port == 80<br>PS：<br>1.此处tcp数据包长度+tcp头部（20）+ip头部(20)+以太网头部（14）=整体数据帧的长度。<br>2.此处udp数据包长度+ip头部长度（20）+以太网头部（14）=整体数据帧的长度。<br>3.此处ip数据包长度+以太网头(14)=整体数据帧的长度。<br>4.在组合表达式中使用“!=”操作符，像eth.addr,ip.addr,tcp.port,udp.port等元素可能会产生非预期效果。<br>5.MAC层地址的过滤是同样的道理<br>6.组合符号有and&amp;&amp; 且 or,||,或 not,! 取反这几种。</p>
 <p><img src="/images/loading.gif" data-original="/posts/287ca37a/image-20200322204719904.png" alt="image-20200322204719904"></p>
 <p>在上图的数据包中，我发现有不少数据帧是小于60字节的(MAC帧尾部4字节已被网络设备过滤)，但是我们知道Wireshark是工作在数据链路层的，在以太网传输的最小帧长度为64字节，这显然与课上所学不符。查阅相关网络资料得到解答</p>
 <p><img src="/images/loading.gif" data-original="/posts/287ca37a/image-20200322204753951.png" alt="image-20200322204753951"></p>
 <p><img src="/images/loading.gif" data-original="/posts/287ca37a/image-20200322204809793.png" alt="image-20200322204809793"></p>
 <p>由于Wireshark在传输帧离开主机进入网络适配器之前就捕获了传输帧，此时的帧并未经过填充至64字节进入以太网，因此可能会捕获到小于60字节的数据帧，并且抓到的数据帧中只有本机发送的数据帧可能会小于60字节，而接收的数据帧一定不会小于60字节。</p>
-<h2 id="任务2捕获分析以太网mac帧和ipv4数据包"><a class="markdownIt-Anchor" href="#任务2捕获分析以太网mac帧和ipv4数据包"></a> 任务2：捕获分析以太网MAC帧和IPv4数据包</h2>
-<p>通过ping内网和外网，从捕获的数据包来分析以太网MAC帧和IPv4数据包</p>
+<h2 id="任务2：捕获分析以太网MAC帧和IPv4数据包"><a href="#任务2：捕获分析以太网MAC帧和IPv4数据包" class="headerlink" title="任务2：捕获分析以太网MAC帧和IPv4数据包"></a>任务2：捕获分析以太网MAC帧和IPv4数据包</h2><p> 通过ping内网和外网，从捕获的数据包来分析以太网MAC帧和IPv4数据包 </p>
 <p>ping 的实质：发送一个icmp回显请求报文给目的的主机，并等待回显的icmp应答。然后打印出回显报文。回显的结果包括：字节数、反应时间、TTL（生存时间）</p>
 <p>ping的功能如下图</p>
 <p><img src="/images/loading.gif" data-original="/posts/287ca37a/image-20200322204820969.png" alt="image-20200322204820969"></p>
-<h3 id="任务要求"><a class="markdownIt-Anchor" href="#任务要求"></a> 任务要求：</h3>
-<p><img src="/images/loading.gif" data-original="/posts/287ca37a/image-20200322204828688.png" alt="image-20200322204828688"></p>
+<h3 id="任务要求："><a href="#任务要求：" class="headerlink" title="任务要求："></a>任务要求：</h3><p><img src="/images/loading.gif" data-original="/posts/287ca37a/image-20200322204828688.png" alt="image-20200322204828688"></p>
 <p>一、内网</p>
 <p>(1)首先查看本机的ip地址，再使用ipscan查看当前局域网内有哪些主机可以ping通</p>
 <p><img src="/images/loading.gif" data-original="/posts/287ca37a/image-20200322204857746.png" alt="image-20200322204857746"></p>
 <p>可知本机ip是192.168.2.180，子网掩码为255.255.255.0，则子网为192.168.2.0</p>
 <p><img src="/images/loading.gif" data-original="/posts/287ca37a/image-20200322204910870.png" alt="image-20200322204910870"></p>
-<p>（1）局域网内另一台主机ip为192.168.2.102 <br>通过以下代码ping通该主机</p>
+<p>（1）局域网内另一台主机ip为192.168.2.102 &lt;/br&gt;通过以下代码ping通该主机</p>
 <div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="SHELL"><figure class="iseeu highlight /shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ping 192.168.2.102 -t</span><br></pre></td></tr></table></figure></div>
 <p>同时打开wireshark捕获数据包</p>
 <p><img src="/images/loading.gif" data-original="/posts/287ca37a/image-20200322204923503.png" alt="image-20200322204923503"></p>
-<p>（2）可以看到图中共有5对ICMP请求帧和回应帧<br>用以下语句过滤得到ICMP报文</p>
+<p>（2）可以看到图中共有5对ICMP请求帧和回应帧&lt;/br&gt;用以下语句过滤得到ICMP报文</p>
 <div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">icmp</span><br></pre></td></tr></table></figure></div>
 <p>（3）①</p>
-<p>1°观察第一个编号为1的Echo (ping) request 数据帧</p>
+<p>1°观察第一个编号为1的Echo (ping) request 数据帧 </p>
 <p><img src="/images/loading.gif" data-original="/posts/287ca37a/image-20200322204949289.png" alt="image-20200322204949289"></p>
 <p>如上图所示，这个数据帧的结构如下</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -548,9 +543,11 @@
 </tr>
 </tbody>
 </table>
+</div>
 <p>2°进一步观察Ethernet II（MAC帧）的内容</p>
 <p><img src="/images/loading.gif" data-original="/posts/287ca37a/image-20200322204958262.png" alt="image-20200322204958262"></p>
 <p>其数据帧格式如下</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -571,20 +568,17 @@
 </tr>
 </tbody>
 </table>
+</div>
 <p>图中：<br>Destination: 代表目的MAC地址，有6个字节，图中目的MAC地址为a0:86:c6:8c:da:d5<br>Source: 代表源MAC地址，有6个字节，图中源MAC地址we为3c:a0:67:16:06:f3<br>Type: 代表类型，有2个字节，图中类型值为0x0800，代表类型为IPv4<br>Data: wireshark将数据解析在下一层<br>FCS:  表示帧校验序列，有 4 个字节，用于校验帧是否出错。该字段内容已被网络设备滤去，抓包软件已无法获取</p>
 <p>3°观察IP数据报的内容</p>
 <p><img src="/images/loading.gif" data-original="/posts/287ca37a/image-20200322205009186.png" alt="image-20200322205009186"></p>
 <p><img src="/images/loading.gif" data-original="/posts/287ca37a/image-20200322205024843.png" alt="image-20200322205024843"></p>
-<p>图中：<br>Version:版本号，占4位，4,代表IPv4<br> Header Length:首部长度，占4位，5, 表示 5 个以 <strong>32 bit</strong> 为单位的字，即 20 bytes<br> Differentiated Services Field:区分服务，占8位<br>Total Length:总长度,占16位，最大为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mn>2</mn><mn>16</mn></msup><mo>−</mo><mn>1</mn><mo>=</mo><mn>65535</mn></mrow><annotation encoding="application/x-tex">2^{16}-1=65535</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.897438em;vertical-align:-0.08333em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span><span class="mord mtight">6</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">6</span><span class="mord">5</span><span class="mord">5</span><span class="mord">3</span><span class="mord">5</span></span></span></span>字节，图中为60字节<br>Identification:标识，占16位<br>Flags:标志(占3位)和片位移(占13位)，共占16字节，其中标识中MF=1标识后面“还有分片”的数据报，MF=0表示这已是若干数据报片中的最后一个。DF意思是“不能分片”，当DF=1才允许分片。片位移以8个字节（64位）为偏移单位。<br>Time to live:生存时间，占8位，TTL<br>Protocol:协议，占8位，图中1代表ICMP<br>Header checksum:首部校验和，占16位，只检验数据报的首部，但不包括数据部分。<br>Source:源地址，占32位，图中为192.168.2.180<br>Destination:目的地址，占32位，图中为192.168.2.102</p>
+<p>图中：<br>Version:版本号，占4位，4,代表IPv4<br> Header Length:首部长度，占4位，5, 表示 5 个以 <strong>32 bit</strong> 为单位的字，即 20 bytes<br> Differentiated Services Field:区分服务，占8位<br>Total Length:总长度,占16位，最大为$2^{16}-1=65535$字节，图中为60字节<br>Identification:标识，占16位<br>Flags:标志(占3位)和片位移(占13位)，共占16字节，其中标识中MF=1标识后面“还有分片”的数据报，MF=0表示这已是若干数据报片中的最后一个。DF意思是“不能分片”，当DF=1才允许分片。片位移以8个字节（64位）为偏移单位。<br>Time to live:生存时间，占8位，TTL<br>Protocol:协议，占8位，图中1代表ICMP<br>Header checksum:首部校验和，占16位，只检验数据报的首部，但不包括数据部分。<br>Source:源地址，占32位，图中为192.168.2.180<br>Destination:目的地址，占32位，图中为192.168.2.102</p>
 <p>4°观察ICMP数据报的内容</p>
 <p><img src="/images/loading.gif" data-original="/posts/287ca37a/image-20200322205034914.png" alt="image-20200322205034914"></p>
 <p>其数据帧格式如下</p>
-<style>
-    th,td
-    {
-        text-align:center;
-    }
-</style>
+<p><style><br>    th,td<br>    {<br>        text-align:center;<br>    }
+</style></p>
 <table>
     <col style="width: 25%">
     <col style="width: 25%">
@@ -607,13 +601,15 @@
      <td colspan="3">数据</td>
   </tr>
 </table>
-<p>图中：<br>Type：类型，占8位，包括差错报告报文（3：终点不可达，11：时间超过，12：参数问题，5：改变路由）和询问报文（8或0：回送（Echo）请求或回答，13或14：时间戳请求或回答），图中类型值为8，PING请求<br>Code：代码，占8位，是为了进一步区分某种类型中的几种不同情况<br>Checksum：校验和，占16位，用于检验整个ICMP报文<br>Identifier：标识符， 占8位用于匹配 Request/Reply 的标识符。<br>Sequence number：序列号， 占8位，用于匹配 Request/Reply 的序列号 <br>Data :数据</p>
+
+
+<p>图中：<br>Type：类型，占8位，包括差错报告报文（3：终点不可达，11：时间超过，12：参数问题，5：改变路由）和询问报文（8或0：回送（Echo）请求或回答，13或14：时间戳请求或回答），图中类型值为8，PING请求<br>Code：代码，占8位，是为了进一步区分某种类型中的几种不同情况<br>Checksum：校验和，占16位，用于检验整个ICMP报文<br>Identifier：标识符， 占8位用于匹配 Request/Reply 的标识符。<br>Sequence number：序列号， 占8位，用于匹配 Request/Reply 的序列号 <br>Data :数据 </p>
 <p>可以注意到，上面图中标识符有<strong>BE</strong>和<strong>LE</strong>两种，具体什么意思呢？</p>
 <p><img src="/images/loading.gif" data-original="/posts/287ca37a/image-20200322205048138.png" alt="image-20200322205048138"></p>
 <p><img src="/images/loading.gif" data-original="/posts/287ca37a/image-20200322205055034.png" alt="image-20200322205055034"></p>
 <p><img src="/images/loading.gif" data-original="/posts/287ca37a/image-20200322205102930.png" alt="image-20200322205102930"></p>
 <p><img src="/images/loading.gif" data-original="/posts/287ca37a/image-20200322205112285.png" alt="image-20200322205112285"></p>
-<p>由上面四张图可以看出，标识符和序列号的BE和LE对应的是相同的内容，但是读写顺序不一样，于是到WireShark官网查看解释https://www.wireshark.org/lists/wireshark-bugs/200909/msg00439.html，发现这样一段话</p>
+<p>由上面四张图可以看出，标识符和序列号的BE和LE对应的是相同的内容，但是读写顺序不一样，于是到WireShark官网查看解释<a href="https://www.wireshark.org/lists/wireshark-bugs/200909/msg00439.html，发现这样一段话">https://www.wireshark.org/lists/wireshark-bugs/200909/msg00439.html，发现这样一段话</a></p>
 <p><img src="/images/loading.gif" data-original="/posts/287ca37a/image-20200322205125041.png" alt="image-20200322205125041"></p>
 <p>由此可知， wireshark考虑到window系统与Linux系统发出的ping报文（主要指ping应用字段而非包含IP头的ping包）的字节顺序不一样 ，<strong>BE表示linux系统的big-endian（大头位序）</strong>，<strong>LE表示Windows系统的小头位序</strong>， 开发者将其分别显示出来 。</p>
 <p>②</p>
@@ -622,7 +618,7 @@
 <p><img src="/images/loading.gif" data-original="/posts/287ca37a/image-20200322205246938.png" alt="image-20200322205246938"></p>
 <p>由上图可知IP数据报长度为<strong>60字节</strong>，二者关系为：IP数据报是属于MAC帧的数据部分，如下图所示</p>
 <p><img src="/images/loading.gif" data-original="/posts/287ca37a/image-20200322205256793.png" alt="image-20200322205256793"></p>
-<p>（4）比较ICMP请求帧和回应帧的结构和IP头部字段的变化</p>
+<p>（4）比较ICMP请求帧和回应帧的结构和IP头部字段的变化 </p>
 <p><img src="/images/loading.gif" data-original="/posts/287ca37a/image-20200322205313252.png" alt="image-20200322205313252"></p>
 <p><img src="/images/loading.gif" data-original="/posts/287ca37a/image-20200322205351873.png" alt="image-20200322205351873"></p>
 <p>从上图可知ICMP请求帧和回应帧的结构相同，但是在内容上，目的地址和源地址交换，ICMP报文的Type和Checksum不同。<br>观察IP数据报首部</p>
@@ -634,14 +630,14 @@
 <div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="SHELL"><figure class="iseeu highlight /shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ping www.baidu.com -t</span><br></pre></td></tr></table></figure></div>
 <p><img src="/images/loading.gif" data-original="/posts/287ca37a/image-20200322205417907.png" alt="image-20200322205417907"></p>
 <p>经过观察发现ping外网和ping内网的得到的ICMP帧在结构上并无太大区别</p>
-<p>三、改变ping包的大小，观察IP数据包分片</p>
-<p>使用下面的命令</p>
+<p> 三、改变ping包的大小，观察IP数据包分片  </p>
+<p>使用下面的命令  </p>
 <div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="SHELL"><figure class="iseeu highlight /shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ping 192.168.2.102 -t -l 4000</span><br><span class="line">ping 192.168.2.102 -t -l 10000</span><br><span class="line">ping 192.168.2.102 -t -l 20000</span><br><span class="line">ping 192.168.2.102 -t -l 65500</span><br></pre></td></tr></table></figure></div>
 <p><img src="/images/loading.gif" data-original="/posts/287ca37a/image-20200322205432789.png" alt="image-20200322205432789"></p>
 <p><img src="/images/loading.gif" data-original="/posts/287ca37a/image-20200322205440125.png" alt="image-20200322205440125"></p>
 <p><img src="/images/loading.gif" data-original="/posts/287ca37a/image-20200322205448653.png" alt="image-20200322205448653"></p>
 <p><img src="/images/loading.gif" data-original="/posts/287ca37a/image-20200322205503865.png" alt="image-20200322205503865"></p>
-<p>可见一个帧的MTU值为1500（1480+20）字节</p>
+<p>可见一个帧的MTU值为1500（1480+20）字节  </p>
 <p>可以注意到显示的ICMP帧内有所有的分片，以第一张图为例，然而ICMP帧的长度为1082字节，却有4008字节的IP数据报，这显然不合常理，后研究发现，这只是因为wireshark的人性化显示方式，将其他IP帧放在一起显示。</p>
 <p><img src="/images/loading.gif" data-original="/posts/287ca37a/image-20200322205512820.png" alt="image-20200322205512820"></p>
 <p>查看IPv4协议帧和ICMP协议帧的结构</p>
@@ -649,18 +645,17 @@
 <p><img src="/images/loading.gif" data-original="/posts/287ca37a/image-20200322205531927.png" alt="image-20200322205531927"></p>
 <p><img src="/images/loading.gif" data-original="/posts/287ca37a/image-20200322205539334.png" alt="image-20200322205539334"></p>
 <p>经过分析，我做出以下推断：<br>①ICMP报文是放在IP数据报里的，在ping指令中的-l，其发送的数据字节数并不包括ICMP首部的8个字节，是指ICMP报文的数据总长度<br>②ICMP报文分片是从包含ICMP首部的部分开始分片的，wireshark抓到的包ICMP协议显示在最后收到只是WireShark的显示问题。<br>③ping命令发送和接受的ICMP报文内部填充数据是“a-w”23个字母的循环填充。</p>
-<p>接着尝试ping外网的大数据包</p>
+<p>接着尝试ping外网的大数据包  </p>
 <div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="SHELL"><figure class="iseeu highlight /shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ping www.baidu.com -l 1472</span><br><span class="line">ping www.baidu.com -l 1473</span><br></pre></td></tr></table></figure></div>
 <p><img src="/images/loading.gif" data-original="/posts/287ca37a/image-20200322205627168.png" alt="image-20200322205627168"></p>
-<p>发现如上图的异常，查阅相关资料得知百度网站这是百度网站设置的拒绝服务，PING1500字节以上被baidu.com认为是PING洪水攻击，对于其有可能造成瘫痪，因此拒绝返回ICMP报文，但是图中在1473字节便拒绝服务，这是为什么呢？</p>
-<p>我使用以下两条命令得到测试结果，其中-f表示在数据包中设置“不分段”标记(仅适用于 IPv4)。</p>
+<p>发现如上图的异常，查阅相关资料得知百度网站这是百度网站设置的拒绝服务，PING1500字节以上被baidu.com认为是PING洪水攻击，对于其有可能造成瘫痪，因此拒绝返回ICMP报文，但是图中在1473字节便拒绝服务，这是为什么呢？  </p>
+<p>我使用以下两条命令得到测试结果，其中-f表示在数据包中设置“不分段”标记(仅适用于 IPv4)。 </p>
 <div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ping 4399.com -l 1472 -f</span><br><span class="line">ping 4399.com -l 1473 -f</span><br></pre></td></tr></table></figure></div>
 <p><img src="/images/loading.gif" data-original="/posts/287ca37a/image-20200322205639411.png" alt="image-20200322205639411"></p>
 <p>在前文笔者提到，ping的-l只表示ICMP报文的数据部分长度，并不包括ICMP报文的首部8个字节和IP数据报的首部20个字节，由于MTU为1500，因此ping在不分片的情况下-l参数最大为1500-8-20=1472字节</p>
 <p>作为对比，笔者ping如下另外两个外网IP，均无异常</p>
 <p><img src="/images/loading.gif" data-original="/posts/287ca37a/image-20200322205649060.png" alt="image-20200322205649060"></p>
-<h2 id="arp协议工作原理分析"><a class="markdownIt-Anchor" href="#arp协议工作原理分析"></a> ARP协议工作原理分析</h2>
-<p><img src="/images/loading.gif" data-original="/posts/287ca37a/image-20200322205725388.png" alt="image-20200322205725388">首先使用arp –d命令，清空本机已有的ARP缓存</p>
+<h2 id="ARP协议工作原理分析"><a href="#ARP协议工作原理分析" class="headerlink" title="ARP协议工作原理分析"></a>ARP协议工作原理分析</h2><p><img src="/images/loading.gif" data-original="/posts/287ca37a/image-20200322205725388.png" alt="image-20200322205725388">首先使用arp –d命令，清空本机已有的ARP缓存</p>
 <div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="SHELL"><figure class="iseeu highlight /shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">arp -d</span><br></pre></td></tr></table></figure></div>
 <p><img src="/images/loading.gif" data-original="/posts/287ca37a/image-20200322205749760.png" alt="image-20200322205749760"></p>
 <p>产生如上错误，是因为权限不够<br>到C:\Windows\System32右键<strong>使用管理员身份</strong>运行cmd.exe，成功清空本机已有的ARP缓存</p>
@@ -670,27 +665,27 @@
 <p>上面红框内是一对arp协议<br>首先观察MAC帧</p>
 <p><img src="/images/loading.gif" data-original="/posts/287ca37a/image-20200322205816587.png" alt="image-20200322205816587"></p>
 <p>上面可以发现与ICMP协议数据报的两点不同：Type是ARP以及多了Trailer这一项</p>
-<p>Trailer这一项是指附加数据。在以太网中，每个数据包最小是64字节。如果数据包不足64字节，就会由网卡进行填充。由于填充的部分不属于实际数据，就会被Wireshark单独解析出来，以Trailer字段进行表示，称为附加数据。附加数据虽然只是为了格式需要，但也可以用来传递数据，如传递协议不支持的数据。</p>
+<p> Trailer这一项是指附加数据。在以太网中，每个数据包最小是64字节。如果数据包不足64字节，就会由网卡进行填充。由于填充的部分不属于实际数据，就会被Wireshark单独解析出来，以Trailer字段进行表示，称为附加数据。附加数据虽然只是为了格式需要，但也可以用来传递数据，如传递协议不支持的数据。 </p>
 <p>接着观察arp数据报</p>
 <p><img src="/images/loading.gif" data-original="/posts/287ca37a/image-20200322205828009.png" alt="image-20200322205828009"></p>
 <p><img src="/images/loading.gif" data-original="/posts/287ca37a/image-20200322205837277.png" alt="image-20200322205837277"></p>
 <p>Arp报文总共占了28个字节</p>
 <p>Hadware type:硬件类型，占2字节，表示ARP报文可以在哪种类型的网络上传输，值为1时表示为以太网地址。<br>Protocol:上层协议类型，占2字节，表示硬件地址要映射的协议地址类型，映射IP地址时的值为0x0800。<br>Hardware size：MAC地址长度，占1字节，标识MAC地址长度，以字节为单位，此处为6。<br>Protocol size：IP协议地址长度：占1字节，标识IP得知长度，以字节为单位，此处为4。<br>Opcode：操作类型：占2字节，指定本次ARP报文类型。1标识ARP请求报文，2标识ARP应答报文。<br>Sender MAC address：源MAC地址，占6字节，标识发送设备的硬件地址。<br>Sender IP address：源IP地址，占4字节，标识发送方设备的IP地址。<br>Target MAC address：目的MAC地址，占6字节，表示接收方设备的硬件地址，在请求报文中该字段值全为0，即00-00-00-00-00-00，表示<strong>任意地址</strong>，因为现在不知道这个MAC地址。<br>Target IP address：目的IP地址，占4字节，表示接受方的IP地址。</p>
-<p>图中共有两种ARP报文: ARP请求报文和ARP回复报文</p>
+<p>图中共有两种ARP报文: ARP请求报文和ARP回复报文 </p>
 <p><img src="/images/loading.gif" data-original="/posts/287ca37a/image-20200322205851066.png" alt="image-20200322205851066"></p>
 <p>如上图是ARP请求报文，既有广播又有单播，当为广播时，其目的是发送到每一个IP地址，以得到命中IP地址关于其MAC地址的回应，当为单播时，其为ARP请求确认报文，如下图</p>
 <p><img src="/images/loading.gif" data-original="/posts/287ca37a/image-20200322205857831.png" alt="image-20200322205857831"></p>
 <p><img src="/images/loading.gif" data-original="/posts/287ca37a/image-20200322205903379.png" alt="image-20200322205903379"></p>
 <p>从上图可以看到，经常有这种“明知故问”的arp单播请求报文，而且还会重复发多次，这是为什么呢？查阅相关资料</p>
 <p><img src="/images/loading.gif" data-original="/posts/287ca37a/image-20200322205912900.png" alt="image-20200322205912900"></p>
-<p>ARP对于高速缓存中的每一个映射地址项目都有设置有生存时间，凡超过生存时间就从高速缓存中删掉。从https://www.cnblogs.com/lipx9527/p/9436019.html找到以下答案</p>
+<p>ARP对于高速缓存中的每一个映射地址项目都有设置有生存时间，凡超过生存时间就从高速缓存中删掉。从<a href="https://www.cnblogs.com/lipx9527/p/9436019.html找到以下答案">https://www.cnblogs.com/lipx9527/p/9436019.html找到以下答案</a> </p>
 <p><img src="/images/loading.gif" data-original="/posts/287ca37a/image-20200322205920121.png" alt="image-20200322205920121"></p>
 <p>对于ARP回复报文，wireshark捕获到两种:arp单播回复报文和arp广播回复报文</p>
 <p><img src="/images/loading.gif" data-original="/posts/287ca37a/image-20200322205926963.png" alt="image-20200322205926963"></p>
 <p>上图是ARP单播回复报文，其作用是告诉目的IP自己的MAC地址</p>
 <p><img src="/images/loading.gif" data-original="/posts/287ca37a/image-20200322205935732.png" alt="image-20200322205935732"></p>
-<p>上图是ARP广播回复报文，其目的是：主动告诉广播域里的其它主机，IP= 10.30.0.1 对应的MAC = 04:40:a9:68:82:01，其它主机都会将这个对应关系缓存（Cache）下来，即ARP Table Cache，这样可以避免别的主机和10.30.0.1 通信时，事先还需要先ARP广播请求，大大减少ARP广播。下图源自https://blog.csdn.net/bobozai86/article/details/82693339</p>
-<p><img src="/images/loading.gif" data-original="/posts/287ca37a/image-20200322205948828.png" alt="image-20200322205948828">分别ping同一局域网的计算机和局域网外的计算机<br>使用以下命令ping内网</p>
+<p>上图是ARP广播回复报文，其目的是：主动告诉广播域里的其它主机，IP= 10.30.0.1 对应的MAC = 04:40:a9:68:82:01，其它主机都会将这个对应关系缓存（Cache）下来，即ARP Table Cache，这样可以避免别的主机和10.30.0.1 通信时，事先还需要先ARP广播请求，大大减少ARP广播。下图源自<a href="https://blog.csdn.net/bobozai86/article/details/82693339">https://blog.csdn.net/bobozai86/article/details/82693339</a></p>
+<p><img src="/images/loading.gif" data-original="/posts/287ca37a/image-20200322205948828.png" alt="image-20200322205948828">分别ping同一局域网的计算机和局域网外的计算机<br>使用以下命令ping内网 </p>
 <div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="SHELL"><figure class="iseeu highlight /shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ping 10.30.27.181</span><br></pre></td></tr></table></figure></div>
 <p><img src="/images/loading.gif" data-original="/posts/287ca37a/image-20200322210001977.png" alt="image-20200322210001977"></p>
 <p>可以得到一对单播请求和回复报文</p>
@@ -699,10 +694,8 @@
 <p><img src="/images/loading.gif" data-original="/posts/287ca37a/image-20200322210020802.png" alt="image-20200322210020802"></p>
 <p>并没有抓到关于外网网址的ARP请求包和回复包</p>
 <p>这是因为，ARP是解决同一个局域网上的主机或路由器的IP地址和硬件地址的映射问题。源主机A首先比较目的IP地址与自己的IP地址是否在同一子网中，如果在同一子网，则向本网发送ARP广播，获得目标IP所对应的MAC地址；如果不在同一子网，就通过ARP询问默认网关对应的MAC地址，将数据帧送到路由器上 。（参考<a href="https://blog.csdn.net/u011740322/article/details/10899147">ARP地址解析过程（同一子网和不同子网）</a>)</p>
-<h2 id="tracert分析"><a class="markdownIt-Anchor" href="#tracert分析"></a> tracert分析</h2>
-<p><img src="/images/loading.gif" data-original="/posts/287ca37a/image-20200322210031435.png" alt="image-20200322210031435"></p>
-<p>Tracert 的实质：利用ICMP数据报和IP数据报头部中的TTL值。TTL（Time To Live）是一个IP数据报的生存时间，当每个IP数据报经过路由器的时候都回把TTL值减去1或者减去在路由器中停留的时间，但是大多数数据报在路由器中停留的时间都小于1秒种，因此实际上就是在TTL值减去了1。这样，TTL值就相当于一个路由器的计数器。<br><br>
-当路由器接收到一个TTL为0或者1的IP数据报的时候，路由器就不再转发这个数据了，而直接丢弃，并且发送一个ICMP“超时”信息给源主机。Tracert程序的关键就是这个回显的ICMP报文的IP报头的信源地址就是这个路由器的IP地址。同时，如果到达了目的主机，我们并不能知道，于是，Tracert还同时发送一个UDP信息给目的主机，并且选择一个很大的值作为UDP的端口，使主机的任何一个应用程序都不使用这个端口。所以，当达到目的主机的时候，UDP模块就产生一个“端口不可到达”的错误，这样就能判断是否是到达目的地了。</p>
+<h2 id="tracert分析"><a href="#tracert分析" class="headerlink" title="tracert分析"></a>tracert分析</h2><p><img src="/images/loading.gif" data-original="/posts/287ca37a/image-20200322210031435.png" alt="image-20200322210031435"></p>
+<p>Tracert 的实质：利用ICMP数据报和IP数据报头部中的TTL值。TTL（Time To Live）是一个IP数据报的生存时间，当每个IP数据报经过路由器的时候都回把TTL值减去1或者减去在路由器中停留的时间，但是大多数数据报在路由器中停留的时间都小于1秒种，因此实际上就是在TTL值减去了1。这样，TTL值就相当于一个路由器的计数器。<br><br>当路由器接收到一个TTL为0或者1的IP数据报的时候，路由器就不再转发这个数据了，而直接丢弃，并且发送一个ICMP“超时”信息给源主机。Tracert程序的关键就是这个回显的ICMP报文的IP报头的信源地址就是这个路由器的IP地址。同时，如果到达了目的主机，我们并不能知道，于是，Tracert还同时发送一个UDP信息给目的主机，并且选择一个很大的值作为UDP的端口，使主机的任何一个应用程序都不使用这个端口。所以，当达到目的主机的时候，UDP模块就产生一个“端口不可到达”的错误，这样就能判断是否是到达目的地了。</p>
 <p>Windows tracert参数如下</p>
 <p><img src="/images/loading.gif" data-original="/posts/287ca37a/image-20200322210040274.png" alt="image-20200322210040274"></p>
 <p>使用如下命令并用wireshark抓包</p>
@@ -722,11 +715,10 @@
 <p>从上面可以看到，发起tracert命令的主机每种TTL发一组ICMP探测包，每次发送3个，途径路由器会相应发送回TTLE ICMP超时通知，当收到收到目的主机发送回来的Echo(ping)reply包，便会停止发送ICMP探测</p>
 <p><img src="/images/loading.gif" data-original="/posts/287ca37a/image-20200322210218392.png" alt="image-20200322210218392"></p>
 <p>如上图取一个ICMP超时通知包，我们可以发现ICMP报文注明了类型，上面的TTL=252，而TTL最大是255，可知其传回来经过了3个路由器</p>
-<p>于是可知tracert的工作原理如下:<br>①从源地址发出一个ICMP请求回显（ICMP Echo Request）数据包到目的地址，并将TTL设置为1<br>②到达路由器时，将TTL减1<br>③当TTL变为0时，包被丢弃，路由器向源地址发回一个ICMP超时通知（Time-to-live Exceeded），内含送IP包的源地址，IP包的所有内容及路由器的IP地址<br>④当源地址收到该ICMP包时，显示这一跳路由信息<br>⑤重复①～④，并每次设置TTL加1<br>⑥直至目标地址收到探测数据包，并返回ICMP回应答复（ICMP Echo Reply）<br>⑦当源地址收到ICMP Echo Reply包时停止tracert</p>
+<p>于是可知tracert的工作原理如下:<br>①从源地址发出一个ICMP请求回显（ICMP Echo Request）数据包到目的地址，并将TTL设置为1<br>②到达路由器时，将TTL减1<br>③当TTL变为0时，包被丢弃，路由器向源地址发回一个ICMP超时通知（Time-to-live Exceeded），内含送IP包的源地址，IP包的所有内容及路由器的IP地址<br>④当源地址收到该ICMP包时，显示这一跳路由信息<br>⑤重复①～④，并每次设置TTL加1<br>⑥直至目标地址收到探测数据包，并返回ICMP回应答复（ICMP Echo Reply）<br>⑦当源地址收到ICMP Echo Reply包时停止tracert  </p>
 <p>下为以中转两个路由器为例的图示</p>
 <p><img src="/images/loading.gif" data-original="/posts/287ca37a/image-20200322210228353.png" alt="image-20200322210228353"></p>
-<h2 id="任务3抓取80211数据报并分析"><a class="markdownIt-Anchor" href="#任务3抓取80211数据报并分析"></a> 任务3：抓取802.11数据报并分析</h2>
-<p><img src="/images/loading.gif" data-original="/posts/287ca37a/image-20200322210236466.png" alt="image-20200322210236466"></p>
+<h2 id="任务3：抓取802-11数据报并分析"><a href="#任务3：抓取802-11数据报并分析" class="headerlink" title="任务3：抓取802.11数据报并分析"></a>任务3：抓取802.11数据报并分析</h2><p><img src="/images/loading.gif" data-original="/posts/287ca37a/image-20200322210236466.png" alt="image-20200322210236466"></p>
 <p>1°首先搭建环境抓取802.11协议包<br>由于自身笔记本性能太差，搭载不懂双系统，另外也想尝试使用树莓派（微型单片机电脑）搭载kali系统（系统装在32Gtf卡中）,<br>连接方式：通过笔记本开启wifi网络共享用网线直连树莓派再用ssh远程登录树莓派kali系统</p>
 <p><img src="/images/loading.gif" data-original="/posts/287ca37a/image-20200322210244616.png" alt="image-20200322210244616"></p>
 <p>利用putty ssh登录树莓派kali系统</p>
@@ -747,6 +739,7 @@
 <p>将网卡监听模式关闭，否则CPU耗费过大而死机</p>
 <p><img src="/images/loading.gif" data-original="/posts/287ca37a/image-20200322210525279.png" alt="image-20200322210525279"></p>
 <p>2°分析802.11协议帧</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -853,9 +846,11 @@
 </tr>
 </tbody>
 </table>
+</div>
 <p>效果如下图所示</p>
 <p><img src="/images/loading.gif" data-original="/posts/287ca37a/image-20200322210618302.png" alt="image-20200322210618302"></p>
 <p>802.11共有三种帧：<strong>控制帧</strong>、<strong>数据帧</strong>、<strong>管理帧</strong>，其作用如下</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -898,6 +893,8 @@
 </tr>
 </tbody>
 </table>
+</div>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -936,6 +933,8 @@
 </tr>
 </tbody>
 </table>
+</div>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -958,8 +957,8 @@
 </tr>
 </tbody>
 </table>
-<h2 id="任务4探索wireshark更丰富的功能"><a class="markdownIt-Anchor" href="#任务4探索wireshark更丰富的功能"></a> 任务4：探索Wireshark更丰富的功能</h2>
-<p>1°数据流追踪<br>如下图操作可以追踪TCP流</p>
+</div>
+<h2 id="任务4：探索Wireshark更丰富的功能"><a href="#任务4：探索Wireshark更丰富的功能" class="headerlink" title="任务4：探索Wireshark更丰富的功能"></a>任务4：探索Wireshark更丰富的功能</h2><p>1°数据流追踪<br>如下图操作可以追踪TCP流</p>
 <p><img src="/images/loading.gif" data-original="/posts/287ca37a/image-20200322210700866.png" alt="image-20200322210700866"></p>
 <p><img src="/images/loading.gif" data-original="/posts/287ca37a/image-20200322210708126.png" alt="image-20200322210708126"></p>
 <p>根据上图的ASCII显示数据，我们可以利用文件格式的文件头和文件尾找到对应的数据并将其提取成新文件。</p>
@@ -974,8 +973,7 @@
 <p>下图为网络会话功能</p>
 <p><img src="/images/loading.gif" data-original="/posts/287ca37a/image-20200322210747764.png" alt="image-20200322210747764"></p>
 <p><img src="/images/loading.gif" data-original="/posts/287ca37a/image-20200322210754039.png" alt="image-20200322210754039"></p>
-<h1 id="实验小结"><a class="markdownIt-Anchor" href="#实验小结"></a> 实验小结</h1>
-<p>本次实验我通过使用Wireshark，对各种网络协议有了进一步的了解。实验中常常会遇到与课本所学知识有所出入的问题，例如所熟知的“ARP广播请求和单播回复”，但是在实验中便遇到了“明知故问”的ARP单播请求和陌生的ARP广播回复，但是在认真分析以及查阅相关资料，便了解到ARP请求并不是只能广播，ARP回复也可以广播。再比如Wireshark捕获到的数据帧有可能小于60字节。此外，我加深了对各个协议的结构，内容，作用的认识，理解了各种网络指令的工作原理与应用。此次实验收获颇多，今后会进一步学习使用Wireshark抓包，掌握更多的技巧与知识，在网络安全学习方面进行应用。</p>
+<h1 id="实验小结"><a href="#实验小结" class="headerlink" title="实验小结"></a>实验小结</h1><p>  本次实验我通过使用Wireshark，对各种网络协议有了进一步的了解。实验中常常会遇到与课本所学知识有所出入的问题，例如所熟知的“ARP广播请求和单播回复”，但是在实验中便遇到了“明知故问”的ARP单播请求和陌生的ARP广播回复，但是在认真分析以及查阅相关资料，便了解到ARP请求并不是只能广播，ARP回复也可以广播。再比如Wireshark捕获到的数据帧有可能小于60字节。此外，我加深了对各个协议的结构，内容，作用的认识，理解了各种网络指令的工作原理与应用。此次实验收获颇多，今后会进一步学习使用Wireshark抓包，掌握更多的技巧与知识，在网络安全学习方面进行应用。</p>
 
       
     </div>
@@ -1204,7 +1202,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#实验目的"><span class="nav-number">1.</span> <span class="nav-text"> 实验目的</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实验内容与分析"><span class="nav-number">2.</span> <span class="nav-text"> 实验内容与分析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#任务1wireshark抓包"><span class="nav-number">2.1.</span> <span class="nav-text"> 任务1：Wireshark抓包</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#过滤器的使用"><span class="nav-number">2.1.1.</span> <span class="nav-text"> 过滤器的使用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#任务2捕获分析以太网mac帧和ipv4数据包"><span class="nav-number">2.2.</span> <span class="nav-text"> 任务2：捕获分析以太网MAC帧和IPv4数据包</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#任务要求"><span class="nav-number">2.2.1.</span> <span class="nav-text"> 任务要求：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#arp协议工作原理分析"><span class="nav-number">2.3.</span> <span class="nav-text"> ARP协议工作原理分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tracert分析"><span class="nav-number">2.4.</span> <span class="nav-text"> tracert分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#任务3抓取80211数据报并分析"><span class="nav-number">2.5.</span> <span class="nav-text"> 任务3：抓取802.11数据报并分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#任务4探索wireshark更丰富的功能"><span class="nav-number">2.6.</span> <span class="nav-text"> 任务4：探索Wireshark更丰富的功能</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实验小结"><span class="nav-number">3.</span> <span class="nav-text"> 实验小结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#实验目的"><span class="nav-number">1.</span> <span class="nav-text">实验目的</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实验内容与分析"><span class="nav-number">2.</span> <span class="nav-text">实验内容与分析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#任务1：Wireshark抓包"><span class="nav-number">2.1.</span> <span class="nav-text">任务1：Wireshark抓包</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#过滤器的使用"><span class="nav-number">2.1.1.</span> <span class="nav-text">过滤器的使用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#任务2：捕获分析以太网MAC帧和IPv4数据包"><span class="nav-number">2.2.</span> <span class="nav-text">任务2：捕获分析以太网MAC帧和IPv4数据包</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#任务要求："><span class="nav-number">2.2.1.</span> <span class="nav-text">任务要求：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ARP协议工作原理分析"><span class="nav-number">2.3.</span> <span class="nav-text">ARP协议工作原理分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tracert分析"><span class="nav-number">2.4.</span> <span class="nav-text">tracert分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#任务3：抓取802-11数据报并分析"><span class="nav-number">2.5.</span> <span class="nav-text">任务3：抓取802.11数据报并分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#任务4：探索Wireshark更丰富的功能"><span class="nav-number">2.6.</span> <span class="nav-text">任务4：探索Wireshark更丰富的功能</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实验小结"><span class="nav-number">3.</span> <span class="nav-text">实验小结</span></a></li></ol></div>
             
 
           </div>
@@ -2012,9 +2010,9 @@
     POWERMODE.colorful = true;
     POWERMODE.shake = false;
     document.body.addEventListener('input', POWERMODE);
-  </script>
+  </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
-<script>!function(e){var c=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function i(){for(var r=0;r<c.length;r++)t=c[r],0<=(n=t.getBoundingClientRect()).bottom&&0<=n.left&&n.top<=(e.innerHeight||document.documentElement.clientHeight)&&function(){var t,n,e,i,o=c[r];t=o,n=function(){c=c.filter(function(t){return o!==t})},e=new Image,i=t.getAttribute("data-original"),e.onload=function(){t.src=i,n&&n()},e.src=i}();var t,n}i(),e.addEventListener("scroll",function(){var t,n;t=i,n=e,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(n)},500)})}(this);</script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+<script>!function(e){var c=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function i(){for(var r=0;r<c.length;r++)t=c[r],0<=(n=t.getBoundingClientRect()).bottom&&0<=n.left&&n.top<=(e.innerHeight||document.documentElement.clientHeight)&&function(){var t,n,e,i,o=c[r];t=o,n=function(){c=c.filter(function(t){return o!==t})},e=new Image,i=t.getAttribute("data-original"),e.onload=function(){t.src=i,n&&n()},e.src=i}();var t,n}i(),e.addEventListener("scroll",function(){var t,n;t=i,n=e,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(n)},500)})}(this);</script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script></body>
 </html>
 <!-- 页面点击小红心 -->
 <script type="text/javascript" src="/js/src/clicklove.js"></script>

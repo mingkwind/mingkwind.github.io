@@ -25,9 +25,7 @@
     
     <summary type="html">
     
-      &lt;h1 id=&quot;google-ctf-chunk-norris&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#google-ctf-chunk-norris&quot;&gt;&lt;/a&gt; Google CTF – CHUNK NORRIS&lt;/h1&gt;
-&lt;h2 id=&quot;题目&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#题目&quot;&gt;&lt;/a&gt; 题目&lt;/h2&gt;
-&lt;p&gt;&lt;img src=&quot;/posts/6bf2a5bf/image-20200824003337195.png&quot; alt=&quot;image-20200824003337195&quot;&gt;&lt;/p&gt;
+      &lt;h1 id=&quot;Google-CTF-–-CHUNK-NORRIS&quot;&gt;&lt;a href=&quot;#Google-CTF-–-CHUNK-NORRIS&quot; class=&quot;headerlink&quot; title=&quot;Google CTF – CHUNK NORRIS&quot;&gt;&lt;/a&gt;Google CTF – CHUNK NORRIS&lt;/h1&gt;&lt;h2 id=&quot;题目&quot;&gt;&lt;a href=&quot;#题目&quot; class=&quot;headerlink&quot; title=&quot;题目&quot;&gt;&lt;/a&gt;题目&lt;/h2&gt;&lt;p&gt;&lt;img src=&quot;/posts/6bf2a5bf/image-20200824003337195.png&quot; alt=&quot;image-20200824003337195&quot;&gt;&lt;/p&gt;
     
     </summary>
     
@@ -46,8 +44,7 @@
     
     <summary type="html">
     
-      &lt;h1 id=&quot;实验目的&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#实验目的&quot;&gt;&lt;/a&gt; 实验目的&lt;/h1&gt;
-&lt;p&gt;通过完成本次实验，希望能达到以下目标&lt;/p&gt;
+      &lt;h1 id=&quot;实验目的&quot;&gt;&lt;a href=&quot;#实验目的&quot; class=&quot;headerlink&quot; title=&quot;实验目的&quot;&gt;&lt;/a&gt;实验目的&lt;/h1&gt;&lt;p&gt;通过完成本次实验，希望能达到以下目标&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;了解基本的文件系统系统调用的实现方法；&lt;/li&gt;
 &lt;li&gt;了解一个基于索引节点组织方式的Simple FS文件系统的设计与实现；&lt;/li&gt;
@@ -72,8 +69,7 @@
     
     <summary type="html">
     
-      &lt;h1 id=&quot;实验目的&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#实验目的&quot;&gt;&lt;/a&gt; 实验目的&lt;/h1&gt;
-&lt;ul&gt;
+      &lt;h1 id=&quot;实验目的&quot;&gt;&lt;a href=&quot;#实验目的&quot; class=&quot;headerlink&quot; title=&quot;实验目的&quot;&gt;&lt;/a&gt;实验目的&lt;/h1&gt;&lt;ul&gt;
 &lt;li&gt;理解操作系统的同步互斥的设计实现；&lt;/li&gt;
 &lt;li&gt;理解底层支撑技术：禁用中断、定时器、等待队列；&lt;/li&gt;
 &lt;li&gt;在ucore中理解信号量（semaphore）机制的具体实现；&lt;/li&gt;
@@ -99,8 +95,7 @@
     
     <summary type="html">
     
-      &lt;h1 id=&quot;实验目的&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#实验目的&quot;&gt;&lt;/a&gt; 实验目的&lt;/h1&gt;
-&lt;ul&gt;
+      &lt;h1 id=&quot;实验目的&quot;&gt;&lt;a href=&quot;#实验目的&quot; class=&quot;headerlink&quot; title=&quot;实验目的&quot;&gt;&lt;/a&gt;实验目的&lt;/h1&gt;&lt;ul&gt;
 &lt;li&gt;理解操作系统的调度管理机制&lt;/li&gt;
 &lt;li&gt;熟悉 ucore 的系统调度器框架，以及缺省的Round-Robin 调度算法&lt;/li&gt;
 &lt;li&gt;基于调度器框架实现一个(Stride Scheduling)调度算法来替换缺省的调度算法&lt;/li&gt;&lt;/ul&gt;
@@ -124,8 +119,7 @@
     
     <summary type="html">
     
-      &lt;h1 id=&quot;实验目的&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#实验目的&quot;&gt;&lt;/a&gt; 实验目的&lt;/h1&gt;
-&lt;ul&gt;
+      &lt;h1 id=&quot;实验目的&quot;&gt;&lt;a href=&quot;#实验目的&quot; class=&quot;headerlink&quot; title=&quot;实验目的&quot;&gt;&lt;/a&gt;实验目的&lt;/h1&gt;&lt;ul&gt;
 &lt;li&gt;了解第一个用户进程创建过程&lt;/li&gt;
 &lt;li&gt;了解系统调用框架的实现机制&lt;/li&gt;
 &lt;li&gt;了解ucore如何实现系统调用sys_fork/sys_exec/sys_exit/sys_wait来进行进程管理&lt;/li&gt;&lt;/ul&gt;
@@ -149,8 +143,7 @@
     
     <summary type="html">
     
-      &lt;h1 id=&quot;实验目的&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#实验目的&quot;&gt;&lt;/a&gt; 实验目的&lt;/h1&gt;
-&lt;ul&gt;
+      &lt;h1 id=&quot;实验目的&quot;&gt;&lt;a href=&quot;#实验目的&quot; class=&quot;headerlink&quot; title=&quot;实验目的&quot;&gt;&lt;/a&gt;实验目的&lt;/h1&gt;&lt;ul&gt;
 &lt;li&gt;了解内核线程创建/执行的管理过程&lt;/li&gt;
 &lt;li&gt;了解内核线程的切换和基本调度过程&lt;/li&gt;&lt;/ul&gt;
     
@@ -173,8 +166,7 @@
     
     <summary type="html">
     
-      &lt;h1 id=&quot;实验目的&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#实验目的&quot;&gt;&lt;/a&gt; 【实验目的】&lt;/h1&gt;
-&lt;p&gt;参考实验场景及实验步骤完成服务器应急响应工作并重新为服务器部署策略。&lt;/p&gt;
+      &lt;h1 id=&quot;【实验目的】&quot;&gt;&lt;a href=&quot;#【实验目的】&quot; class=&quot;headerlink&quot; title=&quot;【实验目的】&quot;&gt;&lt;/a&gt;【实验目的】&lt;/h1&gt;&lt;p&gt;参考实验场景及实验步骤完成服务器应急响应工作并重新为服务器部署策略。&lt;/p&gt;
     
     </summary>
     
@@ -195,8 +187,7 @@
     
     <summary type="html">
     
-      &lt;h1 id=&quot;实验目的&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#实验目的&quot;&gt;&lt;/a&gt; 实验目的&lt;/h1&gt;
-&lt;ul&gt;
+      &lt;h1 id=&quot;实验目的&quot;&gt;&lt;a href=&quot;#实验目的&quot; class=&quot;headerlink&quot; title=&quot;实验目的&quot;&gt;&lt;/a&gt;实验目的&lt;/h1&gt;&lt;ul&gt;
 &lt;li&gt;了解虚拟内存的Page Fault异常处理实现&lt;/li&gt;
 &lt;li&gt;了解页替换算法在操作系统中的实现&lt;/li&gt;&lt;/ul&gt;
     
@@ -219,8 +210,7 @@
     
     <summary type="html">
     
-      &lt;h1 id=&quot;实验目的&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#实验目的&quot;&gt;&lt;/a&gt; 实验目的&lt;/h1&gt;
-&lt;p&gt;掌握语法分析器的构造原理，掌握递归下降法的编程方法。&lt;/p&gt;
+      &lt;h1 id=&quot;实验目的&quot;&gt;&lt;a href=&quot;#实验目的&quot; class=&quot;headerlink&quot; title=&quot;实验目的&quot;&gt;&lt;/a&gt;实验目的&lt;/h1&gt;&lt;p&gt;掌握语法分析器的构造原理，掌握递归下降法的编程方法。&lt;/p&gt;
     
     </summary>
     
@@ -239,16 +229,11 @@
     
     <summary type="html">
     
-      &lt;h1 id=&quot;实验目的&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#实验目的&quot;&gt;&lt;/a&gt; 实验目的&lt;/h1&gt;
-&lt;ul&gt;
-&lt;li&gt;Task1. SYN Flooding Attack&lt;br&gt;
-用Scapy构造SYN包，观察攻击效果，解释现象及原因。&lt;/li&gt;
-&lt;li&gt;Task2.TCP RST Attacks on telnet and ssh Connections&lt;br&gt;
-应用Scapy，解释需要构造报文中的关键数据及其值获取&lt;/li&gt;
-&lt;li&gt;Task3.TCP Session Hijacking&lt;br&gt;
-回显主机上的文件（自行取）内容。在受害机上Wireshark观察劫持后，与服务器的TCP通信信息，解释原因。&lt;/li&gt;
-&lt;li&gt;Task4.Creating Reverse Shell using TCP Hijacking&lt;br&gt;
-将受害主机外壳反弹至攻击机&lt;/li&gt;&lt;/ul&gt;
+      &lt;h1 id=&quot;实验目的&quot;&gt;&lt;a href=&quot;#实验目的&quot; class=&quot;headerlink&quot; title=&quot;实验目的&quot;&gt;&lt;/a&gt;实验目的&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;Task1. SYN Flooding Attack&lt;br&gt;用Scapy构造SYN包，观察攻击效果，解释现象及原因。&lt;/li&gt;
+&lt;li&gt;Task2.TCP RST Attacks on telnet and ssh Connections&lt;br&gt;应用Scapy，解释需要构造报文中的关键数据及其值获取&lt;/li&gt;
+&lt;li&gt;Task3.TCP Session Hijacking&lt;br&gt;回显主机上的文件（自行取）内容。在受害机上Wireshark观察劫持后，与服务器的TCP通信信息，解释原因。&lt;/li&gt;
+&lt;li&gt;Task4.Creating Reverse Shell using TCP Hijacking&lt;br&gt;将受害主机外壳反弹至攻击机&lt;/li&gt;&lt;/ul&gt;
     
     </summary>
     
@@ -269,8 +254,7 @@
     
     <summary type="html">
     
-      &lt;h1 id=&quot;实验目的&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#实验目的&quot;&gt;&lt;/a&gt; 实验目的&lt;/h1&gt;
-&lt;blockquote&gt;
+      &lt;h1 id=&quot;实验目的&quot;&gt;&lt;a href=&quot;#实验目的&quot; class=&quot;headerlink&quot; title=&quot;实验目的&quot;&gt;&lt;/a&gt;实验目的&lt;/h1&gt;&lt;blockquote&gt;
 &lt;p&gt;&lt;img src=&quot;/posts/4026efe8/image-20200325211150567.png&quot; alt=&quot;image-20200325211150567&quot; style=&quot;zoom: 50%;&quot;&gt;&lt;/p&gt;&lt;/blockquote&gt;
     
     </summary>
@@ -292,8 +276,7 @@
     
     <summary type="html">
     
-      &lt;h1 id=&quot;实验目的&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#实验目的&quot;&gt;&lt;/a&gt; 实验目的&lt;/h1&gt;
-&lt;ul&gt;
+      &lt;h1 id=&quot;实验目的&quot;&gt;&lt;a href=&quot;#实验目的&quot; class=&quot;headerlink&quot; title=&quot;实验目的&quot;&gt;&lt;/a&gt;实验目的&lt;/h1&gt;&lt;ul&gt;
 &lt;li&gt;理解基于段页式内存地址的转换机制&lt;/li&gt;
 &lt;li&gt;理解页表的建立和使用方法&lt;/li&gt;
 &lt;li&gt;理解物理内存的管理方法&lt;/li&gt;&lt;/ul&gt;
@@ -317,9 +300,7 @@
     
     <summary type="html">
     
-      &lt;h1 id=&quot;实验目的&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#实验目的&quot;&gt;&lt;/a&gt; 实验目的&lt;/h1&gt;
-&lt;p&gt;目的：分析TCP和重要的应用层协议&lt;br&gt;
-内容：&lt;/p&gt;
+      &lt;h1 id=&quot;实验目的&quot;&gt;&lt;a href=&quot;#实验目的&quot; class=&quot;headerlink&quot; title=&quot;实验目的&quot;&gt;&lt;/a&gt;实验目的&lt;/h1&gt;&lt;p&gt;目的：分析TCP和重要的应用层协议&lt;br&gt;内容：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;任务1：DNS服务&lt;/li&gt;
 &lt;li&gt;任务2：TCP协议分析&lt;/li&gt;
@@ -343,9 +324,7 @@
     
     <summary type="html">
     
-      &lt;h1 id=&quot;实验目的&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#实验目的&quot;&gt;&lt;/a&gt; 实验目的&lt;/h1&gt;
-&lt;p&gt;目的：学习和掌握距离向量算法&lt;br&gt;
-内容：编程实现并分析以下过程&lt;/p&gt;
+      &lt;h1 id=&quot;实验目的&quot;&gt;&lt;a href=&quot;#实验目的&quot; class=&quot;headerlink&quot; title=&quot;实验目的&quot;&gt;&lt;/a&gt;实验目的&lt;/h1&gt;&lt;p&gt;目的：学习和掌握距离向量算法&lt;br&gt;内容：编程实现并分析以下过程&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;模拟路由收敛&lt;/li&gt;
 &lt;li&gt;模拟拓扑变化&lt;/li&gt;
@@ -369,8 +348,7 @@
     
     <summary type="html">
     
-      &lt;h1 id=&quot;实验目的&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#实验目的&quot;&gt;&lt;/a&gt; 实验目的&lt;/h1&gt;
-&lt;ul&gt;
+      &lt;h1 id=&quot;实验目的&quot;&gt;&lt;a href=&quot;#实验目的&quot; class=&quot;headerlink&quot; title=&quot;实验目的&quot;&gt;&lt;/a&gt;实验目的&lt;/h1&gt;&lt;ul&gt;
 &lt;li&gt;掌握TCP和UDP协议主要特点和工作原理&lt;/li&gt;
 &lt;li&gt;理解socket的基本概念和工作原理&lt;/li&gt;
 &lt;li&gt;编程实现socket网络通信（C++ &amp;amp; Python）&lt;/li&gt;&lt;/ul&gt;
@@ -392,8 +370,7 @@
     
     <summary type="html">
     
-      &lt;h1 id=&quot;实验目的&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#实验目的&quot;&gt;&lt;/a&gt; 实验目的&lt;/h1&gt;
-&lt;ul&gt;
+      &lt;h1 id=&quot;实验目的&quot;&gt;&lt;a href=&quot;#实验目的&quot; class=&quot;headerlink&quot; title=&quot;实验目的&quot;&gt;&lt;/a&gt;实验目的&lt;/h1&gt;&lt;ul&gt;
 &lt;li&gt;捕获和分析网络数据&lt;/li&gt;
 &lt;li&gt;掌握以太网MAC帧、802.11数据帧和IPv4数据包的构成，了解字段含义&lt;/li&gt;
 &lt;li&gt;掌握ICMP和ARP协议的请求/响应机理&lt;/li&gt;
@@ -416,7 +393,7 @@
     
     <summary type="html">
     
-      &lt;p&gt;利用桌面“创建桌面快捷方式.bat&amp;quot;为Nessus_start.bat创建以nessus_favicon.ico为图标的快捷方式。&lt;/p&gt;
+      &lt;p&gt;利用桌面“创建桌面快捷方式.bat”为Nessus_start.bat创建以nessus_favicon.ico为图标的快捷方式。&lt;/p&gt;
     
     </summary>
     
@@ -438,7 +415,7 @@
     <summary type="html">
     
       &lt;blockquote&gt;
-&lt;p&gt;Q：如何生成一个随机字符串？&lt;/p&gt;
+&lt;p&gt;Q：如何生成一个随机字符串？ &lt;/p&gt;
 &lt;p&gt;A：让新手退出Vim。&lt;/p&gt;&lt;/blockquote&gt;
     
     </summary>
@@ -479,8 +456,7 @@
     
     <summary type="html">
     
-      &lt;h1 id=&quot;练习1理解通过make生成执行文件的过程&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#练习1理解通过make生成执行文件的过程&quot;&gt;&lt;/a&gt; 练习1：理解通过make生成执行文件的过程。&lt;/h1&gt;
-&lt;p&gt;列出本实验各练习中对应的OS原理的知识点，并说明本实验中的实现部分如何对应和体现了原理中的基本概念和关键知识点&lt;/p&gt;
+      &lt;h1 id=&quot;练习1：理解通过make生成执行文件的过程。&quot;&gt;&lt;a href=&quot;#练习1：理解通过make生成执行文件的过程。&quot; class=&quot;headerlink&quot; title=&quot;练习1：理解通过make生成执行文件的过程。&quot;&gt;&lt;/a&gt;练习1：理解通过make生成执行文件的过程。&lt;/h1&gt;&lt;p&gt;列出本实验各练习中对应的OS原理的知识点，并说明本实验中的实现部分如何对应和体现了原理中的基本概念和关键知识点&lt;/p&gt;
     
     </summary>
     

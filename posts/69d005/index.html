@@ -90,12 +90,12 @@
 
 
 
-<meta name="description" content="实验目的  了解虚拟内存的Page Fault异常处理实现 了解页替换算法在操作系统中的实现">
+<meta name="description" content="实验目的 了解虚拟内存的Page Fault异常处理实现 了解页替换算法在操作系统中的实现">
 <meta property="og:type" content="article">
 <meta property="og:title" content="uCoreOs lab3 实验报告">
 <meta property="og:url" content="http://yoursite.com/posts/69d005/index.html">
 <meta property="og:site_name" content="风屿の博客">
-<meta property="og:description" content="实验目的  了解虚拟内存的Page Fault异常处理实现 了解页替换算法在操作系统中的实现">
+<meta property="og:description" content="实验目的 了解虚拟内存的Page Fault异常处理实现 了解页替换算法在操作系统中的实现">
 <meta property="og:image" content="http://yoursite.com/images/loading.gif">
 <meta property="og:image" content="http://yoursite.com/images/loading.gif">
 <meta property="og:image" content="http://yoursite.com/images/loading.gif">
@@ -423,42 +423,32 @@
       
 
       
-        <h1 id="实验目的"><a class="markdownIt-Anchor" href="#实验目的"></a> 实验目的</h1>
-<ul>
+        <h1 id="实验目的"><a href="#实验目的" class="headerlink" title="实验目的"></a>实验目的</h1><ul>
 <li>了解虚拟内存的Page Fault异常处理实现</li>
 <li>了解页替换算法在操作系统中的实现<a id="more"></a></li>
 </ul>
-<h1 id="实验内容"><a class="markdownIt-Anchor" href="#实验内容"></a> 实验内容</h1>
-<h2 id="练习介绍"><a class="markdownIt-Anchor" href="#练习介绍"></a> 练习介绍</h2>
-<p>​		本次实验是在实验二的基础上，借助于页表机制和实验一中涉及的中断异常处理机制，完成Page Fault异常处理和FIFO页替换算法的实现，结合磁盘提供的缓存空间，从而能够支持虚存管理，提供一个比实际物理内存空间“更大”的虚拟内存空间给系统使用。这个实验与实际操作系统中的实现比较起来要简单，不过需要了解实验一和实验二的具体实现。实际操作系统系统中的虚拟内存管理设计与实现是相当复杂的，涉及到与进程管理系统、文件系统等的交叉访问。如果大家有余力，可以尝试完成扩展练习，实现extended　clock页替换算法。</p>
-<h2 id="虚存管理介绍"><a class="markdownIt-Anchor" href="#虚存管理介绍"></a> 虚存管理介绍</h2>
-<ul>
-<li>
-<p>内存地址虚拟化能有效隔离不同进程的内存访问空间：在有了分页机制后，程序员或CPU“看到”的地址已经不是实际的物理地址了，这已经有一层虚拟化，我们可简称为内存地址虚拟化。有了内存地址虚拟化，我们就可以通过设置页表项来限定软件运行时的访问空间，确保软件运行不越界，完成内存访问保护的功能。</p>
+<h1 id="实验内容"><a href="#实验内容" class="headerlink" title="实验内容"></a>实验内容</h1><h2 id="练习介绍"><a href="#练习介绍" class="headerlink" title="练习介绍"></a>练习介绍</h2><p>​        本次实验是在实验二的基础上，借助于页表机制和实验一中涉及的中断异常处理机制，完成Page Fault异常处理和FIFO页替换算法的实现，结合磁盘提供的缓存空间，从而能够支持虚存管理，提供一个比实际物理内存空间“更大”的虚拟内存空间给系统使用。这个实验与实际操作系统中的实现比较起来要简单，不过需要了解实验一和实验二的具体实现。实际操作系统系统中的虚拟内存管理设计与实现是相当复杂的，涉及到与进程管理系统、文件系统等的交叉访问。如果大家有余力，可以尝试完成扩展练习，实现extended　clock页替换算法。</p>
+<h2 id="虚存管理介绍"><a href="#虚存管理介绍" class="headerlink" title="虚存管理介绍"></a>虚存管理介绍</h2><ul>
+<li><p>内存地址虚拟化能有效隔离不同进程的内存访问空间：在有了分页机制后，程序员或CPU“看到”的地址已经不是实际的物理地址了，这已经有一层虚拟化，我们可简称为内存地址虚拟化。有了内存地址虚拟化，我们就可以通过设置页表项来限定软件运行时的访问空间，确保软件运行不越界，完成内存访问保护的功能。</p>
 </li>
-<li>
-<p>内存地址虚拟化能提供更大的内存“空间”：</p>
+<li><p>内存地址虚拟化能提供更大的内存“空间”：</p>
 <ul>
 <li>按需分页：通过内存地址虚拟化，可以使得软件在没有访问某虚拟内存地址时不分配具体的物理内存，而只有在实际访问某虚拟内存地址时，操作系统再动态地分配物理内存，建立虚拟内存到物理内存的页映射关系，这种技术称为按需分页（demand paging） 。</li>
 <li>页换入换出：把不经常访问的数据所占的内存空间临时写到硬盘上，这样可以腾出更多的空闲内存空间给经常访问的数据；当CPU访问到不经常访问的数据时，再把这些数据从硬盘读入到内存中，这种技术称为页换入换出（page swap in/out） 。这种内存管理技术给了程序员更大的内存“空间”，从而可以让更多的程序在内存中并发运行。</li>
 </ul>
 </li>
 </ul>
-<h2 id="虚存管理总体框架"><a class="markdownIt-Anchor" href="#虚存管理总体框架"></a> 虚存管理总体框架</h2>
-<p>​	1.<strong>完成初始化虚拟内存管理机制：IDE 硬盘读写，缺页异常处理</strong></p>
-<p>​	2.<strong>设置虚拟页空间和物理页帧空间，表述不在物理内存中的“合法”虚拟页</strong></p>
-<p>​	3.<strong>完善建立页表映射、页访问异常处理操作等函数实现</strong></p>
-<p>​	4.<strong>执行访存测试，查看建立的页表项是否能够正确完成虚实地址映射</strong></p>
-<p>​	5.<strong>执行访存测试，查看是否正确描述了虚拟内存页在物理内存中还是在硬盘上</strong></p>
-<p>​	6.<strong>执行访存测试，查看是否能够正确把虚拟内存页在物理内存和硬盘之间进行传递</strong></p>
-<p>​	7.<strong>执行访存测试，查看是否正确实现了页面替换算法等</strong></p>
-<h1 id="实验过程"><a class="markdownIt-Anchor" href="#实验过程"></a> 实验过程</h1>
-<h2 id="练习0填写已有实验"><a class="markdownIt-Anchor" href="#练习0填写已有实验"></a> 练习0：填写已有实验</h2>
-<p>本实验依赖实验1/2。请把你做的实验1/2的代码填入本实验中代码中有“LAB1”,“LAB2”的注释相应部分。</p>
+<h2 id="虚存管理总体框架"><a href="#虚存管理总体框架" class="headerlink" title="虚存管理总体框架"></a>虚存管理总体框架</h2><p>​    1.<strong>完成初始化虚拟内存管理机制：IDE 硬盘读写，缺页异常处理</strong></p>
+<p>​    2.<strong>设置虚拟页空间和物理页帧空间，表述不在物理内存中的“合法”虚拟页</strong></p>
+<p>​    3.<strong>完善建立页表映射、页访问异常处理操作等函数实现</strong></p>
+<p>​    4.<strong>执行访存测试，查看建立的页表项是否能够正确完成虚实地址映射</strong></p>
+<p>​    5.<strong>执行访存测试，查看是否正确描述了虚拟内存页在物理内存中还是在硬盘上</strong></p>
+<p>​    6.<strong>执行访存测试，查看是否能够正确把虚拟内存页在物理内存和硬盘之间进行传递</strong></p>
+<p>​    7.<strong>执行访存测试，查看是否正确实现了页面替换算法等</strong></p>
+<h1 id="实验过程"><a href="#实验过程" class="headerlink" title="实验过程"></a>实验过程</h1><h2 id="练习0：填写已有实验"><a href="#练习0：填写已有实验" class="headerlink" title="练习0：填写已有实验"></a>练习0：填写已有实验</h2><p>本实验依赖实验1/2。请把你做的实验1/2的代码填入本实验中代码中有“LAB1”,“LAB2”的注释相应部分。</p>
 <p>用meld工具比较两个文件夹的差异</p>
 <p>只需对<code>kdebug.c、trap.c、default_pmm.c、pmm.c</code>四个文件进行相应补充即可</p>
-<h2 id="练习1给未被映射的地址映射上物理页"><a class="markdownIt-Anchor" href="#练习1给未被映射的地址映射上物理页"></a> 练习1：给未被映射的地址映射上物理页</h2>
-<p>完成do_pgfault（mm/vmm.c）函数，给未被映射的地址映射上物理页。设置访问权限 的时候需要参考页面所在 VMA 的权限，同时需要注意映射物理页时需要操作内存控制 结构所指定的页表，而不是内核的页表。注意：在LAB3 EXERCISE 1处填写代码。执行</p>
+<h2 id="练习1：给未被映射的地址映射上物理页"><a href="#练习1：给未被映射的地址映射上物理页" class="headerlink" title="练习1：给未被映射的地址映射上物理页"></a>练习1：给未被映射的地址映射上物理页</h2><p>完成do_pgfault（mm/vmm.c）函数，给未被映射的地址映射上物理页。设置访问权限 的时候需要参考页面所在 VMA 的权限，同时需要注意映射物理页时需要操作内存控制 结构所指定的页表，而不是内核的页表。注意：在LAB3 EXERCISE 1处填写代码。执行</p>
 <div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="SHELL"><figure class="iseeu highlight /shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make　qemu</span><br></pre></td></tr></table></figure></div>
 <p>后，如果通过check_pgfault函数的测试后，会有“check_pgfault() succeeded!”的输出，表示练习1基本正确。</p>
 <p>请在实验报告中简要说明你的设计实现过程。请回答如下问题：</p>
@@ -466,8 +456,7 @@
 <li>请描述页目录项（Page Directory Entry）和页表项（Page Table Entry）中组成部分对ucore实现页替换算法的潜在用处。</li>
 <li>如果ucore的缺页服务例程在执行过程中访问内存，出现了页访问异常，请问硬件要做哪些事情？</li>
 </ul>
-<h3 id="实验过程-2"><a class="markdownIt-Anchor" href="#实验过程-2"></a> 实验过程</h3>
-<p>查看init.c函数</p>
+<h3 id="实验过程-1"><a href="#实验过程-1" class="headerlink" title="实验过程"></a>实验过程</h3><p>查看init.c函数</p>
 <p><img src="/images/loading.gif" data-original="/posts/69d005/image-20200409204157428.png" alt="image-20200409204157428"></p>
 <p>可以看出虚拟内存初始化前便进行了物理内存初始化</p>
 <p>查看vmm.h相关结构体内容：</p>
@@ -481,8 +470,7 @@
 <p>make qemu</p>
 <p><img src="/images/loading.gif" data-original="/posts/69d005/image-20200409235404911.png" alt="image-20200409235404911"></p>
 <p>显示成功，但check_swap()错误，出现了缺页错误</p>
-<h3 id="回答问题"><a class="markdownIt-Anchor" href="#回答问题"></a> 回答问题</h3>
-<p>本练习问题和lab2的练习2完全一致</p>
+<h3 id="回答问题"><a href="#回答问题" class="headerlink" title="回答问题"></a>回答问题</h3><p>本练习问题和lab2的练习2完全一致</p>
 <blockquote>
 <p>请描述页目录项（Page Directory Entry）和页表项（Page Table Entry）中每个组成部分的含义以及对ucore而言的潜在用处。</p>
 </blockquote>
@@ -516,6 +504,7 @@
 <p><strong>使能页机制</strong>：</p>
 <p><img src="/images/loading.gif" data-original="/posts/69d005/image-20200328093548814.png" alt="image-20200328093548814"></p>
 <p><strong>Cr0系列的控制寄存器：</strong></p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -546,14 +535,14 @@
 </tr>
 </tbody>
 </table>
+</div>
 <p>如果出现了页访问异常，那么硬件将引发页访问异常的地址将被保存在cr2寄存器中，设置错误代码，然后触发Page Fault异常。</p>
 <p>下图为页访问异常的各种情况：</p>
 <p><img src="/images/loading.gif" data-original="/posts/69d005/image-20200410020310883.png" alt="image-20200410020310883"></p>
 <p>页访问异常（Page Fault）</p>
 <ul>
 <li>在程序的执行过程中由于某种原因（页框不存在/写只读页等） 而使 CPU 无法最终访问到相应的物理内存单元，即无法完成从虚拟地址到物理地址映射时，CPU 会产生一次页访问异常，从而需要进行相应的页访问异常的中断服务例程。这个页访问异常处理的时机被操作系统充分利用来完成虚存管理，即实现“按需调页”/“页换入换出”处理的执行时机。当相关处理完成后，页访问异常服务例程会返回到产生异常的指令处重新执行，使得应用软件可以继续正常运行下去。</li>
-<li>具体而言，当启动分页机制以后，如果一条指令或数据的虚拟地址所对应的物理页框不在内存中或者访问的类型有错误（比如写一个只读页或用户态程序访问内核态的数据等） ，就会发生页访问异常。产生页访问异常的原因主要有：
-<ul>
+<li>具体而言，当启动分页机制以后，如果一条指令或数据的虚拟地址所对应的物理页框不在内存中或者访问的类型有错误（比如写一个只读页或用户态程序访问内核态的数据等） ，就会发生页访问异常。产生页访问异常的原因主要有：<ul>
 <li>目标页帧不存在（页表项全为0，即该线性地址与物理地址尚未建立映射或者已经撤销)</li>
 <li>相应的物理页帧不在内存中（页表项非空，但Present标志位=0，比如在swap分区或磁盘文件上)</li>
 <li>不满足访问权限(此时页表项P标志=1，但低权限的程序试图访问高权限的地址空间，或者有程序试图写只读页面)</li>
@@ -562,23 +551,20 @@
 <li>CPU会把产生异常的线性地址存储在CR2中，并且把表示页访问异常类型的值（简称页访问异常错误码，errorCode）保存在中断栈中。页访问异常错误码有32位。位0为1表示对应物理页不存在；位1为1表示写异常（比如写了只读页）；位2为1表示访问权限异常（比如用户态程序访问内核空间的数据）</li>
 <li>CR2是页故障线性地址寄存器，保存最后一次出现页故障的全32位线性地址。CR2用于发生页异常时报告出错信息。当发生页异常时，处理器把引起页异常的线性地址保存在CR2中。操作系统中对应的中断服务例程可以检查CR2的内容，从而查出线性地址空间中的哪个页引起本次异常。</li>
 </ul>
-<h2 id="练习2补充完成基于fifo的页面替换算法"><a class="markdownIt-Anchor" href="#练习2补充完成基于fifo的页面替换算法"></a> 练习2：补充完成基于FIFO的页面替换算法</h2>
-<p>完成vmm.c中的do_pgfault函数，并且在实现FIFO算法的swap_fifo.c中完成map_swappable和swap_out_victim函数。通过对swap的测试。注意：在LAB3 EXERCISE 2处填写代码。执行</p>
+<h2 id="练习2：补充完成基于FIFO的页面替换算法"><a href="#练习2：补充完成基于FIFO的页面替换算法" class="headerlink" title="练习2：补充完成基于FIFO的页面替换算法"></a>练习2：补充完成基于FIFO的页面替换算法</h2><p>完成vmm.c中的do_pgfault函数，并且在实现FIFO算法的swap_fifo.c中完成map_swappable和swap_out_victim函数。通过对swap的测试。注意：在LAB3 EXERCISE 2处填写代码。执行</p>
 <div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="SHELL"><figure class="iseeu highlight /shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make　qemu</span><br></pre></td></tr></table></figure></div>
 <p>后，如果通过check_swap函数的测试后，会有“check_swap() succeeded!”的输出，表示练习2基本正确。</p>
 <p>请在实验报告中简要说明你的设计实现过程。</p>
 <p>请在实验报告中回答如下问题：</p>
 <ul>
-<li>如果要在ucore上实现&quot;extended clock页替换算法&quot;请给你的设计方案，现有的swap_manager框架是否足以支持在ucore中实现此算法？如果是，请给你的设计方案。如果不是，请给出你的新的扩展和基此扩展的设计方案。并需要回答如下问题
-<ul>
+<li>如果要在ucore上实现”extended clock页替换算法”请给你的设计方案，现有的swap_manager框架是否足以支持在ucore中实现此算法？如果是，请给你的设计方案。如果不是，请给出你的新的扩展和基此扩展的设计方案。并需要回答如下问题<ul>
 <li>需要被换出的页的特征是什么？</li>
 <li>在ucore中如何判断具有这样特征的页？</li>
 <li>何时进行换入和换出操作？</li>
 </ul>
 </li>
 </ul>
-<h3 id="实验过程-3"><a class="markdownIt-Anchor" href="#实验过程-3"></a> 实验过程</h3>
-<p>查看vmm.c中lab2注释</p>
+<h3 id="实验过程-2"><a href="#实验过程-2" class="headerlink" title="实验过程"></a>实验过程</h3><p>查看vmm.c中lab2注释</p>
 <p><img src="/images/loading.gif" data-original="/posts/69d005/image-20200410001251895.png" alt="image-20200410001251895"></p>
 <p>根据注释写代码</p>
 <div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="C"><figure class="iseeu highlight /c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">else</span> &#123; <span class="comment">// 如果 PTE 存在 说明此时 P 位为 0 该页被换出到外存中 需要将其换入内存</span></span><br><span class="line">        <span class="keyword">if</span>(swap_init_ok) &#123; <span class="comment">// 是否可以换入页面</span></span><br><span class="line">            struct Page *page = <span class="literal">NULL</span>;</span><br><span class="line">            ret = swap_in(mm, addr, &amp;page); <span class="comment">// 根据 PTE 找到 换出那页所在的硬盘地址 并将其从外存中换入</span></span><br><span class="line">            <span class="keyword">if</span> (ret != <span class="number">0</span>) &#123;</span><br><span class="line">                cprintf(<span class="string">"swap_in in do_pgfault failed\n"</span>);</span><br><span class="line">                <span class="keyword">goto</span> failed;</span><br><span class="line">            &#125;</span><br><span class="line">            page_insert(mm-&gt;pgdir, page, addr, perm); <span class="comment">// 建立虚拟地址和物理地址之间的对应关系(更新 PTE 因为 已经被换入到内存中了)</span></span><br><span class="line">            swap_map_swappable(mm, addr, page, <span class="number">0</span>); <span class="comment">// 使这一页可以置换</span></span><br><span class="line">            page-&gt;pra_vaddr = addr; <span class="comment">// 设置 这一页的虚拟地址</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            cprintf(<span class="string">"no swap_init_ok but ptep is %x, failed\n"</span>,*ptep);</span><br><span class="line">            <span class="keyword">goto</span> failed;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
@@ -596,9 +582,8 @@
 <p><img src="/images/loading.gif" data-original="/posts/69d005/image-20200410135030537.png" alt="image-20200410135030537"></p>
 <div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="C"><figure class="iseeu highlight /c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">swap.c</span><br><span class="line"><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keyword">void</span></span><br><span class="line">check_content_set(<span class="keyword">void</span>)</span><br><span class="line">&#123;</span><br><span class="line">     *(<span class="keyword">unsigned</span> <span class="keyword">char</span> *)<span class="number">0x1000</span> = <span class="number">0x0a</span>;</span><br><span class="line">     assert(pgfault_num==<span class="number">1</span>);</span><br><span class="line">     *(<span class="keyword">unsigned</span> <span class="keyword">char</span> *)<span class="number">0x1010</span> = <span class="number">0x0a</span>;</span><br><span class="line">     assert(pgfault_num==<span class="number">1</span>);</span><br><span class="line">     *(<span class="keyword">unsigned</span> <span class="keyword">char</span> *)<span class="number">0x2000</span> = <span class="number">0x0b</span>;</span><br><span class="line">     assert(pgfault_num==<span class="number">2</span>);</span><br><span class="line">     *(<span class="keyword">unsigned</span> <span class="keyword">char</span> *)<span class="number">0x2010</span> = <span class="number">0x0b</span>;</span><br><span class="line">     assert(pgfault_num==<span class="number">2</span>);</span><br><span class="line">     *(<span class="keyword">unsigned</span> <span class="keyword">char</span> *)<span class="number">0x3000</span> = <span class="number">0x0c</span>;</span><br><span class="line">     assert(pgfault_num==<span class="number">3</span>);</span><br><span class="line">     *(<span class="keyword">unsigned</span> <span class="keyword">char</span> *)<span class="number">0x3010</span> = <span class="number">0x0c</span>;</span><br><span class="line">     assert(pgfault_num==<span class="number">3</span>);</span><br><span class="line">     *(<span class="keyword">unsigned</span> <span class="keyword">char</span> *)<span class="number">0x4000</span> = <span class="number">0x0d</span>;</span><br><span class="line">     assert(pgfault_num==<span class="number">4</span>);</span><br><span class="line">     *(<span class="keyword">unsigned</span> <span class="keyword">char</span> *)<span class="number">0x4010</span> = <span class="number">0x0d</span>;</span><br><span class="line">     assert(pgfault_num==<span class="number">4</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
 <div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="C"><figure class="iseeu highlight /c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">swap_fifo.c</span><br><span class="line"><span class="keyword">static</span> <span class="keyword">int</span></span><br><span class="line">_fifo_check_swap(<span class="keyword">void</span>) &#123;</span><br><span class="line">    cprintf(<span class="string">"write Virt Page c in fifo_check_swap\n"</span>);</span><br><span class="line">    *(<span class="keyword">unsigned</span> <span class="keyword">char</span> *)<span class="number">0x3000</span> = <span class="number">0x0c</span>;</span><br><span class="line">    assert(pgfault_num==<span class="number">4</span>);</span><br><span class="line">    cprintf(<span class="string">"write Virt Page a in fifo_check_swap\n"</span>);</span><br><span class="line">    *(<span class="keyword">unsigned</span> <span class="keyword">char</span> *)<span class="number">0x1000</span> = <span class="number">0x0a</span>;</span><br><span class="line">    assert(pgfault_num==<span class="number">4</span>);</span><br><span class="line">    cprintf(<span class="string">"write Virt Page d in fifo_check_swap\n"</span>);</span><br><span class="line">    *(<span class="keyword">unsigned</span> <span class="keyword">char</span> *)<span class="number">0x4000</span> = <span class="number">0x0d</span>;</span><br><span class="line">    assert(pgfault_num==<span class="number">4</span>);</span><br><span class="line">    cprintf(<span class="string">"write Virt Page b in fifo_check_swap\n"</span>);</span><br><span class="line">    *(<span class="keyword">unsigned</span> <span class="keyword">char</span> *)<span class="number">0x2000</span> = <span class="number">0x0b</span>;</span><br><span class="line">    assert(pgfault_num==<span class="number">4</span>);</span><br><span class="line">    cprintf(<span class="string">"write Virt Page e in fifo_check_swap\n"</span>);</span><br><span class="line">    *(<span class="keyword">unsigned</span> <span class="keyword">char</span> *)<span class="number">0x5000</span> = <span class="number">0x0e</span>;</span><br><span class="line">    assert(pgfault_num==<span class="number">5</span>);</span><br><span class="line">    cprintf(<span class="string">"write Virt Page b in fifo_check_swap\n"</span>);</span><br><span class="line">    *(<span class="keyword">unsigned</span> <span class="keyword">char</span> *)<span class="number">0x2000</span> = <span class="number">0x0b</span>;</span><br><span class="line">    assert(pgfault_num==<span class="number">5</span>);</span><br><span class="line">    cprintf(<span class="string">"write Virt Page a in fifo_check_swap\n"</span>);</span><br><span class="line">    *(<span class="keyword">unsigned</span> <span class="keyword">char</span> *)<span class="number">0x1000</span> = <span class="number">0x0a</span>;</span><br><span class="line">    assert(pgfault_num==<span class="number">6</span>);</span><br><span class="line">    cprintf(<span class="string">"write Virt Page b in fifo_check_swap\n"</span>);</span><br><span class="line">    *(<span class="keyword">unsigned</span> <span class="keyword">char</span> *)<span class="number">0x2000</span> = <span class="number">0x0b</span>;</span><br><span class="line">    assert(pgfault_num==<span class="number">7</span>);</span><br><span class="line">    cprintf(<span class="string">"write Virt Page c in fifo_check_swap\n"</span>);</span><br><span class="line">    *(<span class="keyword">unsigned</span> <span class="keyword">char</span> *)<span class="number">0x3000</span> = <span class="number">0x0c</span>;</span><br><span class="line">    assert(pgfault_num==<span class="number">8</span>);</span><br><span class="line">    cprintf(<span class="string">"write Virt Page d in fifo_check_swap\n"</span>);</span><br><span class="line">    *(<span class="keyword">unsigned</span> <span class="keyword">char</span> *)<span class="number">0x4000</span> = <span class="number">0x0d</span>;</span><br><span class="line">    assert(pgfault_num==<span class="number">9</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-<h3 id="回答问题-2"><a class="markdownIt-Anchor" href="#回答问题-2"></a> 回答问题</h3>
-<blockquote>
-<p>如果要在ucore上实现&quot;extended clock页替换算法&quot;请给你的设计方案，现有的swap_manager框架是否足以支持在ucore中实现此算法？如果是，请给你的设计方案。如果不是，请给出你的新的扩展和基此扩展的设计方案。并需要回答如下问题</p>
+<h3 id="回答问题-1"><a href="#回答问题-1" class="headerlink" title="回答问题"></a>回答问题</h3><blockquote>
+<p>如果要在ucore上实现”extended clock页替换算法”请给你的设计方案，现有的swap_manager框架是否足以支持在ucore中实现此算法？如果是，请给你的设计方案。如果不是，请给出你的新的扩展和基此扩展的设计方案。并需要回答如下问题</p>
 <ul>
 <li>需要被换出的页的特征是什么？</li>
 <li>在ucore中如何判断具有这样特征的页？</li>
@@ -611,22 +596,17 @@
 <p><img src="/images/loading.gif" data-original="/posts/69d005/image-20200410032433658.png" alt="image-20200410032433658"></p>
 <p>其中的PTE_A和PTE_D可用于实现extended clock页替换算法，可对swap_fifo.c做相应修改即可。</p>
 <ul>
-<li>
-<p>需要被换出的页的特征是什么？</p>
+<li><p>需要被换出的页的特征是什么？</p>
 <p>页表项的修改位 D（Dirty Bit）为 0 的页 且访问位 A（ Access Bit） 为 0 的页。</p>
 </li>
-<li>
-<p>在 ucore 中如何判断具有这样特征的页？</p>
+<li><p>在 ucore 中如何判断具有这样特征的页？</p>
 <p>检查页表项的访问位和修改位是不是1。当内存页被访问后，MMU 将在对应的页表项的 <code>PTE_A</code> 这一位设为1，当内存页被修改后，MMU 将在对应的页表项的 <code>PTE_D</code> 这一位设为1。</p>
 </li>
-<li>
-<p>何时进行换入和换出操作？</p>
+<li><p>何时进行换入和换出操作？</p>
 <p>当进程访问的物理页没有在内存中缓存而是保存在磁盘中（缺页且内容在磁盘中）时，需要进行换入操作； 当位于物理页中的内存由于物理页帧满被页面替换算法选择换出（<code>alloc_page</code>返回<strong>NULL</strong>）时，需要进行换出操作。</p>
 </li>
 </ul>
-<h2 id="扩展练习-challenge-1实现识别dirty-bit的-extended-clock页替换算法"><a class="markdownIt-Anchor" href="#扩展练习-challenge-1实现识别dirty-bit的-extended-clock页替换算法"></a> 扩展练习 Challenge 1：实现识别dirty bit的 extended clock页替换算法</h2>
-<h3 id="实验过程-4"><a class="markdownIt-Anchor" href="#实验过程-4"></a> 实验过程</h3>
-<p>实现基础：</p>
+<h2 id="扩展练习-Challenge-1：实现识别dirty-bit的-extended-clock页替换算法"><a href="#扩展练习-Challenge-1：实现识别dirty-bit的-extended-clock页替换算法" class="headerlink" title="扩展练习 Challenge 1：实现识别dirty bit的 extended clock页替换算法"></a>扩展练习 Challenge 1：实现识别dirty bit的 extended clock页替换算法</h2><h3 id="实验过程-3"><a href="#实验过程-3" class="headerlink" title="实验过程"></a>实验过程</h3><p>实现基础：</p>
 <p><img src="/images/loading.gif" data-original="/posts/69d005/Users/Asymptotic_freedom/Desktop/%25E6%2593%258D%25E4%25BD%259C%25E7%25B3%25BB%25E7%25BB%259F/%25E5%25AE%259E%25E9%25AA%258C%25E4%25BD%259C%25E4%25B8%259A/lab3/image-20200410033815992.png" alt="image-20200410033815992"></p>
 <p>复制swap_fifo.c和swap_fifo.h到同原文件夹并重命名为swap_clock.c和swap_clock.h</p>
 <p>对照_fifo_swap_out_victim函数结构</p>
@@ -649,8 +629,7 @@
 <p>成功运行</p>
 <p>swap_check()函数通过</p>
 <p>另外，此实验的页面访问权限为内核态，对于lab1的challenge 2，如果按3切换到用户态后会出现缺页中断，因为用户态不能访问只能内核态可以访问的页表，即无法访问内存。用户态没有权限访问虚拟地址对应的物理页面；该虚拟地址也不在合法的虚拟地址空间里，由于只设置了很小的合法虚拟地址空间。在内核态下，由于这部分虚拟地址对应的是操作系统内核代码，在启动虚拟内存管理之前就，已经装入了内存，建立好页的映射关系，是不会发生缺页中断的，不会被换出的。</p>
-<h1 id="实验总结"><a class="markdownIt-Anchor" href="#实验总结"></a> 实验总结</h1>
-<p>​		本次实验是关于虚拟内存管理，主要有Page Fault异常处理页替换算法的相关实验，了解了相关操作。本次实验题目量较少，需要查找分析代码里宏定义和函数定义来完成对已有代码的理解和要完成代码的使用。通过本次实验我深入理解了虚拟内存管理机制，对课程内容有了更深的理解。</p>
+<h1 id="实验总结"><a href="#实验总结" class="headerlink" title="实验总结"></a>实验总结</h1><p>​        本次实验是关于虚拟内存管理，主要有Page Fault异常处理页替换算法的相关实验，了解了相关操作。本次实验题目量较少，需要查找分析代码里宏定义和函数定义来完成对已有代码的理解和要完成代码的使用。通过本次实验我深入理解了虚拟内存管理机制，对课程内容有了更深的理解。</p>
 
       
     </div>
@@ -885,7 +864,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#实验目的"><span class="nav-number">1.</span> <span class="nav-text"> 实验目的</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实验内容"><span class="nav-number">2.</span> <span class="nav-text"> 实验内容</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#练习介绍"><span class="nav-number">2.1.</span> <span class="nav-text"> 练习介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#虚存管理介绍"><span class="nav-number">2.2.</span> <span class="nav-text"> 虚存管理介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#虚存管理总体框架"><span class="nav-number">2.3.</span> <span class="nav-text"> 虚存管理总体框架</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实验过程"><span class="nav-number">3.</span> <span class="nav-text"> 实验过程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#练习0填写已有实验"><span class="nav-number">3.1.</span> <span class="nav-text"> 练习0：填写已有实验</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#练习1给未被映射的地址映射上物理页"><span class="nav-number">3.2.</span> <span class="nav-text"> 练习1：给未被映射的地址映射上物理页</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#实验过程-2"><span class="nav-number">3.2.1.</span> <span class="nav-text"> 实验过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#回答问题"><span class="nav-number">3.2.2.</span> <span class="nav-text"> 回答问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#练习2补充完成基于fifo的页面替换算法"><span class="nav-number">3.3.</span> <span class="nav-text"> 练习2：补充完成基于FIFO的页面替换算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#实验过程-3"><span class="nav-number">3.3.1.</span> <span class="nav-text"> 实验过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#回答问题-2"><span class="nav-number">3.3.2.</span> <span class="nav-text"> 回答问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#扩展练习-challenge-1实现识别dirty-bit的-extended-clock页替换算法"><span class="nav-number">3.4.</span> <span class="nav-text"> 扩展练习 Challenge 1：实现识别dirty bit的 extended clock页替换算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#实验过程-4"><span class="nav-number">3.4.1.</span> <span class="nav-text"> 实验过程</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实验总结"><span class="nav-number">4.</span> <span class="nav-text"> 实验总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#实验目的"><span class="nav-number">1.</span> <span class="nav-text">实验目的</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实验内容"><span class="nav-number">2.</span> <span class="nav-text">实验内容</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#练习介绍"><span class="nav-number">2.1.</span> <span class="nav-text">练习介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#虚存管理介绍"><span class="nav-number">2.2.</span> <span class="nav-text">虚存管理介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#虚存管理总体框架"><span class="nav-number">2.3.</span> <span class="nav-text">虚存管理总体框架</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实验过程"><span class="nav-number">3.</span> <span class="nav-text">实验过程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#练习0：填写已有实验"><span class="nav-number">3.1.</span> <span class="nav-text">练习0：填写已有实验</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#练习1：给未被映射的地址映射上物理页"><span class="nav-number">3.2.</span> <span class="nav-text">练习1：给未被映射的地址映射上物理页</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#实验过程-1"><span class="nav-number">3.2.1.</span> <span class="nav-text">实验过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#回答问题"><span class="nav-number">3.2.2.</span> <span class="nav-text">回答问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#练习2：补充完成基于FIFO的页面替换算法"><span class="nav-number">3.3.</span> <span class="nav-text">练习2：补充完成基于FIFO的页面替换算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#实验过程-2"><span class="nav-number">3.3.1.</span> <span class="nav-text">实验过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#回答问题-1"><span class="nav-number">3.3.2.</span> <span class="nav-text">回答问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#扩展练习-Challenge-1：实现识别dirty-bit的-extended-clock页替换算法"><span class="nav-number">3.4.</span> <span class="nav-text">扩展练习 Challenge 1：实现识别dirty bit的 extended clock页替换算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#实验过程-3"><span class="nav-number">3.4.1.</span> <span class="nav-text">实验过程</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实验总结"><span class="nav-number">4.</span> <span class="nav-text">实验总结</span></a></li></ol></div>
             
 
           </div>
@@ -1693,9 +1672,9 @@
     POWERMODE.colorful = true;
     POWERMODE.shake = false;
     document.body.addEventListener('input', POWERMODE);
-  </script>
+  </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
-<script>!function(e){var c=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function i(){for(var r=0;r<c.length;r++)t=c[r],0<=(n=t.getBoundingClientRect()).bottom&&0<=n.left&&n.top<=(e.innerHeight||document.documentElement.clientHeight)&&function(){var t,n,e,i,o=c[r];t=o,n=function(){c=c.filter(function(t){return o!==t})},e=new Image,i=t.getAttribute("data-original"),e.onload=function(){t.src=i,n&&n()},e.src=i}();var t,n}i(),e.addEventListener("scroll",function(){var t,n;t=i,n=e,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(n)},500)})}(this);</script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+<script>!function(e){var c=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function i(){for(var r=0;r<c.length;r++)t=c[r],0<=(n=t.getBoundingClientRect()).bottom&&0<=n.left&&n.top<=(e.innerHeight||document.documentElement.clientHeight)&&function(){var t,n,e,i,o=c[r];t=o,n=function(){c=c.filter(function(t){return o!==t})},e=new Image,i=t.getAttribute("data-original"),e.onload=function(){t.src=i,n&&n()},e.src=i}();var t,n}i(),e.addEventListener("scroll",function(){var t,n;t=i,n=e,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(n)},500)})}(this);</script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script></body>
 </html>
 <!-- 页面点击小红心 -->
 <script type="text/javascript" src="/js/src/clicklove.js"></script>

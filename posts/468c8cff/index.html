@@ -401,7 +401,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  977
+                  974
                 </span>
               
 
@@ -427,53 +427,37 @@
 
       
         <p>本文案例对象：分区类型：MBR，文件系统：FAT32<a id="more"></a></p>
-<p><strong>用Winhex对数据内容进行查找提取</strong></p>
-<h1 id="目标1数据恢复教程txt"><a class="markdownIt-Anchor" href="#目标1数据恢复教程txt"></a> 目标1：数据恢复教程.txt</h1>
-<p>首先将“数据恢复教程”转化为ASCII码<img src="/images/loading.gif" data-original="/posts/468c8cff/18457849-83e700c8791ed88b.png" alt></p>
-<p>由于它是长文件名（超过8个字节），因此只取前6个字节：CAFDBEDDBBD6<br>
-点击Winhex分区的根目录，用十六进制查找文件名</p>
+<p> <strong>用Winhex对数据内容进行查找提取</strong></p>
+<h1 id="目标1：数据恢复教程-txt"><a href="#目标1：数据恢复教程-txt" class="headerlink" title="目标1：数据恢复教程.txt"></a>目标1：数据恢复教程.txt</h1><p>首先将“数据恢复教程”转化为ASCII码<img src="/images/loading.gif" data-original="/posts/468c8cff/18457849-83e700c8791ed88b.png" alt></p>
+<p>由于它是长文件名（超过8个字节），因此只取前6个字节：CAFDBEDDBBD6<br>点击Winhex分区的根目录，用十六进制查找文件名</p>
 <p><img src="/images/loading.gif" data-original="/posts/468c8cff/18457849-6d2716c643c58c92.png" alt><img src="/images/loading.gif" data-original="/posts/468c8cff/18457849-015a050604c8dd77.png" alt><img src="/images/loading.gif" data-original="/posts/468c8cff/18457849-e6c8fbc304454144.png" alt="目录项.png"><img src="/images/loading.gif" data-original="/posts/468c8cff/18457849-290664d798144e0b.png" alt></p>
-<p>可得文件的起始簇号=132331，文件大小=16字节<br>
-转到指定簇得</p>
+<p>可得文件的起始簇号=132331，文件大小=16字节<br>转到指定簇得</p>
 <p><img src="/images/loading.gif" data-original="/posts/468c8cff/18457849-40c6a9124f1018bf.png" alt></p>
-<p>可以看到文件的内容部分<br>
-在文件头右键选块起始，若使用十进制数据，点击左侧Offset纵栏将显示进制转化为十进制，点击Winhex上方小箭头转到偏移量，将文件大小16填入</p>
+<p>可以看到文件的内容部分<br>在文件头右键选块起始，若使用十进制数据，点击左侧Offset纵栏将显示进制转化为十进制，点击Winhex上方小箭头转到偏移量，将文件大小16填入</p>
 <p><img src="/images/loading.gif" data-original="/posts/468c8cff/18457849-dfbeea07f33f1bc3.png" alt><img src="/images/loading.gif" data-original="/posts/468c8cff/18457849-3a161c68348d67f3.png" alt></p>
 <p>可得到文件的末位+1的位置，点击选块结束，即可选定数据范围</p>
 <p><img src="/images/loading.gif" data-original="/posts/468c8cff/18457849-d0cf42a66026cb39.png" alt></p>
 <p>选块右键点击<strong>编辑</strong>，复制选块至新文件，选择好位置，并输入带后缀的文件名，即可将其人工拷贝至新位置。</p>
-<p><img src="/images/loading.gif" data-original="/posts/468c8cff/18457849-cee5bded5f6c91f4.png" alt><br>
-<img src="/images/loading.gif" data-original="/posts/468c8cff/18457849-496e0e60d14bb3cd.png" alt></p>
-<h1 id="目标2数据恢复教程rar"><a class="markdownIt-Anchor" href="#目标2数据恢复教程rar"></a> 目标2：数据恢复教程.rar</h1>
-<p>此次使用的是另一块虚拟磁盘，此次文件非常多，我们尝试在根目录下进行文件名搜索<img src="/images/loading.gif" data-original="/posts/468c8cff/18457849-2da11da797a45148.png" alt></p>
+<p><img src="/images/loading.gif" data-original="/posts/468c8cff/18457849-cee5bded5f6c91f4.png" alt><br><img src="/images/loading.gif" data-original="/posts/468c8cff/18457849-496e0e60d14bb3cd.png" alt></p>
+<h1 id="目标2：数据恢复教程-rar"><a href="#目标2：数据恢复教程-rar" class="headerlink" title="目标2：数据恢复教程.rar"></a>目标2：数据恢复教程.rar</h1><p>此次使用的是另一块虚拟磁盘，此次文件非常多，我们尝试在根目录下进行文件名搜索<img src="/images/loading.gif" data-original="/posts/468c8cff/18457849-2da11da797a45148.png" alt></p>
 <p>发现需要很长时间，这是因为该磁盘内文件很多，根目录很大。于是我们需要用FAT表进行文件目录下一簇号的查找。</p>
 <p><img src="/images/loading.gif" data-original="/posts/468c8cff/18457849-1c4a61787d671cf8.png" alt></p>
-<p>其中Fat的第二表项标注根目录存放情况，此处第三个四字节并不是FFFFFF0F，而是410f0000(0xF41)，我们可知存放根目录的下一个簇号是0xF41<br>
-于是我们转到该簇号，进行进一步的文件名查找</p>
+<p>其中Fat的第二表项标注根目录存放情况，此处第三个四字节并不是FFFFFF0F，而是410f0000(0xF41)，我们可知存放根目录的下一个簇号是0xF41<br>于是我们转到该簇号，进行进一步的文件名查找</p>
 <p><img src="/images/loading.gif" data-original="/posts/468c8cff/18457849-7502418b06b7332c.png" alt></p>
-<p>发现查找依然要很久<br>
-返回FAT表，查看存放根目录的下一个簇号，如何查看呢？<br>
-由于FAT表每四个字节记录一个簇号的使用情况，因此我们可以将FAT表偏移量设置为3905*4(0xF41*4)即可找到存放根目录的下一个簇号<br>
-将鼠标点击FAT表初始位置F8，点击Winhex上面转到偏移量</p>
+<p>发现查找依然要很久<br>返回FAT表，查看存放根目录的下一个簇号，如何查看呢？<br>由于FAT表每四个字节记录一个簇号的使用情况，因此我们可以将FAT表偏移量设置为3905*4(0xF41*4)即可找到存放根目录的下一个簇号<br>将鼠标点击FAT表初始位置F8，点击Winhex上面转到偏移量</p>
 <p><img src="/images/loading.gif" data-original="/posts/468c8cff/18457849-1915fc0e624cd7a5.png" alt><img src="/images/loading.gif" data-original="/posts/468c8cff/18457849-3fca51caf73a6790.png" alt></p>
 <p>于是我们找到了存放根目录的下一个簇号7117，依然跳转到该簇查询文件，发现依然很慢（一时出不来），接着重复操作，在FAT表转到偏移量7117*4得到下一个簇号为10081，进行查找，无果，再在FAT表转到偏移量10081*4得到下一个簇号为13671，很快就找到了文件目录（按F3跳到下一个匹配对象）</p>
 <p><img src="/images/loading.gif" data-original="/posts/468c8cff/18457849-22433509e3e947dd.png" alt></p>
 <p>文件所在簇为0x13599（79257）文件大小为0x63（99）字节【注：字节数一定不能少，不然压缩包打开会报错】，即可将其进行提取</p>
 <p><img src="/images/loading.gif" data-original="/posts/468c8cff/18457849-60d32ae8dfc57b6d.png" alt></p>
-<p>这边我们加对FAT表的理解：<br>
-FAT表是描述文件簇流存放的情况，他用FAT表项以链表的形式将其文件存放情况描述出来，存放数据（包括根目录）的第一个簇是<strong>2号簇</strong>，对于第k个四字节位置，它存放的是<strong>使用第k个簇存放文件后下一个簇的位置</strong>。</p>
-<h1 id="目标3恢复删除的文件"><a class="markdownIt-Anchor" href="#目标3恢复删除的文件"></a> 目标3：恢复删除的文件</h1>
-<p>打开另一个新磁盘<img src="/images/loading.gif" data-original="/posts/468c8cff/18457849-73ad6fb2a6983a0b.png" alt></p>
-<p>在分区内我们发现一个被删除的文件&quot;?INHEX.zip&quot;，这边的**?<strong>是因为被删除文件的文件名首字节会被替换成</strong>E5**标记，我们分别使用Winhex自带功能恢复和人工恢复。</p>
+<p>这边我们加对FAT表的理解：<br>FAT表是描述文件簇流存放的情况，他用FAT表项以链表的形式将其文件存放情况描述出来，存放数据（包括根目录）的第一个簇是<strong>2号簇</strong>，对于第k个四字节位置，它存放的是<strong>使用第k个簇存放文件后下一个簇的位置</strong>。</p>
+<h1 id="目标3：恢复删除的文件"><a href="#目标3：恢复删除的文件" class="headerlink" title="目标3：恢复删除的文件"></a>目标3：恢复删除的文件</h1><p>打开另一个新磁盘<img src="/images/loading.gif" data-original="/posts/468c8cff/18457849-73ad6fb2a6983a0b.png" alt></p>
+<p>在分区内我们发现一个被删除的文件”?INHEX.zip”，这边的<strong>?</strong>是因为被删除文件的文件名首字节会被替换成<strong>E5</strong>标记，我们分别使用Winhex自带功能恢复和人工恢复。</p>
 <p>对于被删除的文件，右键点击恢复</p>
-<p><img src="/images/loading.gif" data-original="/posts/468c8cff/18457849-d7fb35b42dbc8c0d.png" alt>这就可以很轻松恢复了。<br>
-<br>人工恢复呢，则是采用目标1和目标2的方法进行恢复。<br>
-首先将WINHEX转化为ASCII码</p>
+<p><img src="/images/loading.gif" data-original="/posts/468c8cff/18457849-d7fb35b42dbc8c0d.png" alt>这就可以很轻松恢复了。<br><br>人工恢复呢，则是采用目标1和目标2的方法进行恢复。<br>首先将WINHEX转化为ASCII码</p>
 <p><img src="/images/loading.gif" data-original="/posts/468c8cff/18457849-3c839a1183b57143.png" alt></p>
-<p>这边只取后5个字节，因为被删除文件第一个字节被标志为<strong>E5</strong><br>
-输入十六进制搜索框搜索，偏移量设置为1（因为E5不进行比较）</p>
-<p><img src="/images/loading.gif" data-original="/posts/468c8cff/18457849-64de46afa3faf4b7.png" alt><br>
-<img src="/images/loading.gif" data-original="/posts/468c8cff/18457849-4914e51764829ad9.png" alt></p>
+<p>这边只取后5个字节，因为被删除文件第一个字节被标志为<strong>E5</strong><br>输入十六进制搜索框搜索，偏移量设置为1（因为E5不进行比较）</p>
+<p><img src="/images/loading.gif" data-original="/posts/468c8cff/18457849-64de46afa3faf4b7.png" alt><br><img src="/images/loading.gif" data-original="/posts/468c8cff/18457849-4914e51764829ad9.png" alt></p>
 <p>查找到文件目录，即可进行恢复。</p>
 
       
@@ -703,7 +687,7 @@ FAT表是描述文件簇流存放的情况，他用FAT表项以链表的形式�
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#目标1数据恢复教程txt"><span class="nav-number">1.</span> <span class="nav-text"> 目标1：数据恢复教程.txt</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#目标2数据恢复教程rar"><span class="nav-number">2.</span> <span class="nav-text"> 目标2：数据恢复教程.rar</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#目标3恢复删除的文件"><span class="nav-number">3.</span> <span class="nav-text"> 目标3：恢复删除的文件</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#目标1：数据恢复教程-txt"><span class="nav-number">1.</span> <span class="nav-text">目标1：数据恢复教程.txt</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#目标2：数据恢复教程-rar"><span class="nav-number">2.</span> <span class="nav-text">目标2：数据恢复教程.rar</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#目标3：恢复删除的文件"><span class="nav-number">3.</span> <span class="nav-text">目标3：恢复删除的文件</span></a></li></ol></div>
             
 
           </div>
@@ -1511,9 +1495,9 @@ FAT表是描述文件簇流存放的情况，他用FAT表项以链表的形式�
     POWERMODE.colorful = true;
     POWERMODE.shake = false;
     document.body.addEventListener('input', POWERMODE);
-  </script>
+  </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
-<script>!function(e){var c=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function i(){for(var r=0;r<c.length;r++)t=c[r],0<=(n=t.getBoundingClientRect()).bottom&&0<=n.left&&n.top<=(e.innerHeight||document.documentElement.clientHeight)&&function(){var t,n,e,i,o=c[r];t=o,n=function(){c=c.filter(function(t){return o!==t})},e=new Image,i=t.getAttribute("data-original"),e.onload=function(){t.src=i,n&&n()},e.src=i}();var t,n}i(),e.addEventListener("scroll",function(){var t,n;t=i,n=e,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(n)},500)})}(this);</script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+<script>!function(e){var c=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function i(){for(var r=0;r<c.length;r++)t=c[r],0<=(n=t.getBoundingClientRect()).bottom&&0<=n.left&&n.top<=(e.innerHeight||document.documentElement.clientHeight)&&function(){var t,n,e,i,o=c[r];t=o,n=function(){c=c.filter(function(t){return o!==t})},e=new Image,i=t.getAttribute("data-original"),e.onload=function(){t.src=i,n&&n()},e.src=i}();var t,n}i(),e.addEventListener("scroll",function(){var t,n;t=i,n=e,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(n)},500)})}(this);</script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script></body>
 </html>
 <!-- 页面点击小红心 -->
 <script type="text/javascript" src="/js/src/clicklove.js"></script>

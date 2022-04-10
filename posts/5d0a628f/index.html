@@ -383,7 +383,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  280
+                  311
                 </span>
               
 
@@ -409,26 +409,10 @@
 
       
         <p>本文介绍如何用winhex查看磁盘分区的问题并将其修复。<a id="more"></a></p>
-<p>用Winhex打开一个镜像文件（后缀名为.dd）,点击专业工具中的将镜像转化为磁盘<br>
-<img src="/images/loading.gif" data-original="/posts/5d0a628f/18457849-db9b8fd0a2da207a.png" alt="打开镜像文件并将其转化为磁盘.png"></p>
+<p>用Winhex打开一个镜像文件（后缀名为.dd）,点击专业工具中的将镜像转化为磁盘<br><img src="/images/loading.gif" data-original="/posts/5d0a628f/18457849-db9b8fd0a2da207a.png" alt="打开镜像文件并将其转化为磁盘.png"></p>
 <p><strong>有三种方法判断磁盘分区出问题的方法：</strong></p>
-<p><strong>1）分区颜色为灰色，像是被锁定一样</strong><br>
-<img src="/images/loading.gif" data-original="/posts/5d0a628f/18457849-bccb2a0eb32021b9.png" alt="分区2、3图标为灰色.png"><br>
-<strong>2）点击15后的倒三角按钮可看到丢失</strong><br>
-<img src="/images/loading.gif" data-original="/posts/5d0a628f/18457849-17cf337cdf3581af.png" alt="丢失.png"><br>
-<strong>3）观察分区起始扇区</strong><br>
-<img src="/images/loading.gif" data-original="/posts/5d0a628f/18457849-fe0547e563ae8b62.png" alt="可看到第2、3表项的起始扇区均异常.png"></p>
-<p><strong>修复方法：</strong><br>
-<strong>利用各分区表的数值关系，修正第2、3表项的起始扇区数值</strong><br>
-第二分区起始扇区=第一分区起始扇区+第一分区总扇区数<br>
-        =00 00 00 3F+00 00 3E 82<br>
-        =00 00 3E C1<br>
-第三分区起始扇区=第二分区起始扇区+第二分区总扇区数<br>
-        =00 00 3E C1+00 00 3E C1<br>
-        =00 00 7D 82<br>
-按**大头位序法（从右往左）**填入即可<br>
-通过相机状的按钮进行磁盘快照（这个老是失效，我也不知道什么原因）或者关闭文件后再打开并转化为磁盘，可以发现磁盘修复成功！<br>
-<img src="/images/loading.gif" data-original="/posts/5d0a628f/18457849-117b7a1380b9b894.png" alt="修复成功.png"></p>
+<p><strong>1）分区颜色为灰色，像是被锁定一样</strong><br><img src="/images/loading.gif" data-original="/posts/5d0a628f/18457849-bccb2a0eb32021b9.png" alt="分区2、3图标为灰色.png"><br><strong>2）点击15后的倒三角按钮可看到丢失</strong><br><img src="/images/loading.gif" data-original="/posts/5d0a628f/18457849-17cf337cdf3581af.png" alt="丢失.png"><br><strong>3）观察分区起始扇区</strong><br><img src="/images/loading.gif" data-original="/posts/5d0a628f/18457849-fe0547e563ae8b62.png" alt="可看到第2、3表项的起始扇区均异常.png"></p>
+<p><strong>修复方法：</strong><br><strong>利用各分区表的数值关系，修正第2、3表项的起始扇区数值</strong><br>第二分区起始扇区=第一分区起始扇区+第一分区总扇区数<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;=00 00 00 3F+00 00 3E 82<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;=00 00 3E C1<br>第三分区起始扇区=第二分区起始扇区+第二分区总扇区数<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;=00 00 3E C1+00 00 3E C1<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;=00 00 7D 82<br>按<strong>大头位序法（从右往左）</strong>填入即可<br>通过相机状的按钮进行磁盘快照（这个老是失效，我也不知道什么原因）或者关闭文件后再打开并转化为磁盘，可以发现磁盘修复成功！<br><img src="/images/loading.gif" data-original="/posts/5d0a628f/18457849-117b7a1380b9b894.png" alt="修复成功.png"></p>
 
       
     </div>
@@ -1440,9 +1424,9 @@
     POWERMODE.colorful = true;
     POWERMODE.shake = false;
     document.body.addEventListener('input', POWERMODE);
-  </script>
+  </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
-<script>!function(e){var c=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function i(){for(var r=0;r<c.length;r++)t=c[r],0<=(n=t.getBoundingClientRect()).bottom&&0<=n.left&&n.top<=(e.innerHeight||document.documentElement.clientHeight)&&function(){var t,n,e,i,o=c[r];t=o,n=function(){c=c.filter(function(t){return o!==t})},e=new Image,i=t.getAttribute("data-original"),e.onload=function(){t.src=i,n&&n()},e.src=i}();var t,n}i(),e.addEventListener("scroll",function(){var t,n;t=i,n=e,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(n)},500)})}(this);</script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+<script>!function(e){var c=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function i(){for(var r=0;r<c.length;r++)t=c[r],0<=(n=t.getBoundingClientRect()).bottom&&0<=n.left&&n.top<=(e.innerHeight||document.documentElement.clientHeight)&&function(){var t,n,e,i,o=c[r];t=o,n=function(){c=c.filter(function(t){return o!==t})},e=new Image,i=t.getAttribute("data-original"),e.onload=function(){t.src=i,n&&n()},e.src=i}();var t,n}i(),e.addEventListener("scroll",function(){var t,n;t=i,n=e,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(n)},500)})}(this);</script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script></body>
 </html>
 <!-- 页面点击小红心 -->
 <script type="text/javascript" src="/js/src/clicklove.js"></script>
