@@ -429,9 +429,14 @@
 
       
         <p>本实验是XMU网安系小学期电子数据擦除与恢复技术实验三，主要是学会看EBR和DBR分区表的结构。使用的软件有Winhex和DiskGenius。<a id="more"></a></p>
-<h3 id="一、实验目的"><a href="#一、实验目的" class="headerlink" title="一、实验目的"></a>一、实验目的</h3><p>理解EBR、DBR在磁盘中的作用；<br>熟悉EBR、DBR分区表结构,能熟练找到磁盘中的EBR分区表。</p>
-<h3 id="二、实验平台"><a href="#二、实验平台" class="headerlink" title="二、实验平台"></a>二、实验平台</h3><p> 操作系统：Windows X；<br>VHD虚拟磁盘</p>
-<h3 id="三、实验要求"><a href="#三、实验要求" class="headerlink" title="三、实验要求"></a>三、实验要求</h3><ol>
+<h3 id="一-实验目的"><a class="markdownIt-Anchor" href="#一-实验目的"></a> 一、实验目的</h3>
+<p>理解EBR、DBR在磁盘中的作用；<br>
+熟悉EBR、DBR分区表结构,能熟练找到磁盘中的EBR分区表。</p>
+<h3 id="二-实验平台"><a class="markdownIt-Anchor" href="#二-实验平台"></a> 二、实验平台</h3>
+<p>操作系统：Windows X；<br>
+VHD虚拟磁盘</p>
+<h3 id="三-实验要求"><a class="markdownIt-Anchor" href="#三-实验要求"></a> 三、实验要求</h3>
+<ol>
 <li>创建VHD虚拟磁盘；</li>
 <li>创建虚拟磁盘500MB；</li>
 <li>创建主分区80MB FAT32；</li>
@@ -443,7 +448,6 @@
 <li>剩余空间创建逻辑分区 FAT32</li>
 <li>请找出以上分区的MBR、EBR、DBR所在的扇区,并在以下表格中标记出相关扇区数的十进制值</li>
 </ol>
-<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -516,24 +520,89 @@
 <td style="text-align:right"></td>
 <td style="text-align:right"></td>
 <td style="text-align:right"></td>
+<td style="text-align:right"></td>
 </tr>
 </tbody>
 </table>
-</div>
-<h1 id="那就开始愉快地操作吧！"><a href="#那就开始愉快地操作吧！" class="headerlink" title="那就开始愉快地操作吧！"></a>那就开始愉快地操作吧！</h1><p>首先按要求创建VHD创建虚拟磁盘<br><strong>右键此电脑打开管理</strong><br><img src="/images/loading.gif" data-original="/posts/c5c6674d/18457849-a80ec10a973a527c.png" alt="1.png"><br><strong>打开磁盘管理，选择创建VHD</strong><br><img src="/images/loading.gif" data-original="/posts/c5c6674d/18457849-6cd233b455bdc607.png" alt="2.jpg"><br><img src="/images/loading.gif" data-original="/posts/c5c6674d/18457849-fb337a9fceba4ee1.png" alt="3.png"><br><strong>接着打开DiskGenius创建创建主分区80MB FAT32、100MB NTFS、50MB FAT32</strong><br>点击新建分区<br><img src="/images/loading.gif" data-original="https://upload-images.jianshu.io/upload_images/18457849-df3e08045b60f0e6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="4.png"><br><img src="/images/loading.gif" data-original="/posts/c5c6674d/18457849-bb45284857df211e.png" alt="5.png"><br><img src="/images/loading.gif" data-original="/posts/c5c6674d/18457849-f2602c53f55880e2.png" alt="6.png"><br><strong>接着用剩余空间创建扩展分区</strong><br><img src="/images/loading.gif" data-original="/posts/c5c6674d/18457849-e376c380c9be33a2.png" alt="7.png"><br><strong>点击保存更改（一定要点）！全部点“是”“是”“是”【滑稽.jpg】</strong><br><strong>接着在扩展分区创建逻辑分区90MB FAT32、110MB FAT32,用剩余空间创建逻辑分区 FAT32</strong><br><img src="/images/loading.gif" data-original="/posts/c5c6674d/18457849-3b6deb569df97352.png" alt="8.png"><br>这边只能选择逻辑分区<br><strong>全部建完后保存更改！！！</strong><br>效果如下<br><img src="/images/loading.gif" data-original="/posts/c5c6674d/18457849-616e7a51e94bc451.png" alt="9.png"></p>
-<h3 id="打开Winhex，点击工具，打开磁盘，打开已建立的虚拟磁盘"><a href="#打开Winhex，点击工具，打开磁盘，打开已建立的虚拟磁盘" class="headerlink" title="打开Winhex，点击工具，打开磁盘，打开已建立的虚拟磁盘"></a>打开Winhex，点击工具，打开磁盘，打开已建立的虚拟磁盘</h3><p>在扇区0可以看到整个磁盘的MBR(<strong>PS：MBR既可以指第一个扇区，又可以指第一个扇区的前446字节，要根据上下文分析</strong>）<br><em>补充知识</em><br><strong>MBR:又称主引导记录，位于0柱面0磁道1扇区，是整个磁盘的第一个扇区(一个扇区是512字节)，整个磁盘的第一个512字节，是【数据恢复的基础】<br>一个硬盘只有一个MBR，一个MBR对应三部分:<br>1、引导代码(MBR)：前446字(节无论是哪种系统，都差不多)<br>2、磁盘分区表(DPT): 64字节(80-55前之间，不同系统有区别)<br>3、2字节的结束标志: 55AA</strong><br>下图是第一分区表项的各项信息<br><img src="/images/loading.gif" data-original="/posts/c5c6674d/18457849-1458be69eed3151d.png" alt="分区表.png"></p>
-<p>共16字节，80是引导标记符，<em>2 3 4字节是CHS起始寻址地址(无用)</em>，<strong>5字节是分区类型值(83 linux分区 07 NTFS)</strong>，<em>6 7 8字节是CHS寻址方式扇区总数(无用)</em> ,<strong>9 10 11 12字节是分区起始扇区数</strong> ,<strong>13 14 15 16字节是分区总扇区数</strong><br><img src="/images/loading.gif" data-original="https://upload-images.jianshu.io/upload_images/18457849-9777ee197ec4cad5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="10.png"><br>可以看到2这一排对下来的0B 07 0B 05,分别表示FAT32 NTFS FAT32 扩展分区这四个分区， 然后可以看到9-12的各个分区的分区起始扇区，13-16是各个分区的分区总扇区数，（PS:选取数据要从右往左，采用大头位序法(数据的高位是放在内存的低位)），可以发现，第二个分区的起始扇区是第一个分区的起始扇区+第一个分区的分区总扇区数，其他分区亦是如此。<br><br><br><strong>由于硬盘仅仅为分区表保留了64个字节的存储空间，而每个分区的参数占据16个字节，故主引导扇区中总计只能存储4个分区的数据，最多只能建立四个分区！但是微软想到一个绝妙的方案，它让前三个分区都做主分区，后一个分区做扩展分区，然后可在扩展分区建新的逻辑分区，实现建立多个分区</strong><br><img src="/images/loading.gif" data-original="/posts/c5c6674d/18457849-37395d5a188f7845.png" alt="EBR.png"><br><img src="/images/loading.gif" data-original="/posts/c5c6674d/18457849-7324e494ff53e08f.png" alt="扩展分区结构.png"></p>
-<p><img src="/images/loading.gif" data-original="https://upload-images.jianshu.io/upload_images/18457849-896fba35f109103e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="EBR.png"><br><strong>EBR扇区和MBR非常类似，一个EBR扇区对应一个逻辑分区，其有用部分仅有其DPT(即64字节区)前两个表项，第一个表项表示本扩展分区(图中逻辑驱动器P)的起始地址和扇区数量，但是该地址为相对偏移，实际的起始扇区为本扇区的实际地址加上相对偏移量，这个起始扇区其实是第一个逻辑驱动器的DBR扇区，第二个表项记录了下一个扩展分区（逻辑驱动器Q）的EBR扇区的起始地址和扇区总数量。每个逻辑分区的DBR扇区(即用Winhex直接点击分区跳转到的扇区)之前都有一个EBR扇区，对于最后一个扇区，其EBR仅有第一表项，因为它没有后继EBR扇区，也就没有所谓的第二表项。<br>各个逻辑分区用类似链表的EBR扇区链接起来，不受四个分区表项的限制，因此可以创建超过四个的(逻辑)磁盘分区。</strong></p>
-<h1 id="寻找逻辑分区EBR的方法："><a href="#寻找逻辑分区EBR的方法：" class="headerlink" title="寻找逻辑分区EBR的方法："></a>寻找逻辑分区EBR的方法：</h1><p><strong>1）利用计算公式，在MBR分区表找到扩展分区的起始扇区，这个起始扇区就是第一个扩展分区的EBR所在扇区，每个EBR均有也仅有两个有效表项，上面有提到，第二个表项记录着下一个EBR的起始位置，但是该位置是相对偏移地址，需要加上当前EBR所在扇区方可的到下一个EBR的起始扇区，以此类推。<br>2）在上课做上机实验时，我突然发现邻座同学填EBR所在扇区位置很快，原来EBR位置是可以直接查看的！<br><img src="/images/loading.gif" data-original="https://upload-images.jianshu.io/upload_images/18457849-f7a350cc84fba5c6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="分区间隙.png"><br>注意Winhex这个大小为分区间隙，其实这个分区间隙的第一个扇区就是EBR所在扇区。其地址可以通过点击分区间隙通过左下角扇区位置查看，也可以直接看分区间隙后的链接地址。</strong></p>
+<p>#那就开始愉快地操作吧！<br>
+首先按要求创建VHD创建虚拟磁盘<br>
+<strong>右键此电脑打开管理</strong><br>
+<img src="/images/loading.gif" data-original="/posts/c5c6674d/18457849-a80ec10a973a527c.png" alt="1.png"><br>
+<strong>打开磁盘管理，选择创建VHD</strong><br>
+<img src="/images/loading.gif" data-original="/posts/c5c6674d/18457849-6cd233b455bdc607.png" alt="2.jpg"><br>
+<img src="/images/loading.gif" data-original="/posts/c5c6674d/18457849-fb337a9fceba4ee1.png" alt="3.png"><br>
+<strong>接着打开DiskGenius创建创建主分区80MB FAT32、100MB NTFS、50MB FAT32</strong><br>
+点击新建分区<br>
+<img src="/images/loading.gif" data-original="https://upload-images.jianshu.io/upload_images/18457849-df3e08045b60f0e6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="4.png"><br>
+<img src="/images/loading.gif" data-original="/posts/c5c6674d/18457849-bb45284857df211e.png" alt="5.png"><br>
+<img src="/images/loading.gif" data-original="/posts/c5c6674d/18457849-f2602c53f55880e2.png" alt="6.png"><br>
+<strong>接着用剩余空间创建扩展分区</strong><br>
+<img src="/images/loading.gif" data-original="/posts/c5c6674d/18457849-e376c380c9be33a2.png" alt="7.png"><br>
+<strong>点击保存更改（一定要点）！全部点“是”“是”“是”【滑稽.jpg】</strong><br>
+<strong>接着在扩展分区创建逻辑分区90MB FAT32、110MB FAT32,用剩余空间创建逻辑分区 FAT32</strong><br>
+<img src="/images/loading.gif" data-original="/posts/c5c6674d/18457849-3b6deb569df97352.png" alt="8.png"><br>
+这边只能选择逻辑分区<br>
+<strong>全部建完后保存更改！！！</strong><br>
+效果如下<br>
+<img src="/images/loading.gif" data-original="/posts/c5c6674d/18457849-616e7a51e94bc451.png" alt="9.png"><br>
+###打开Winhex，点击工具，打开磁盘，打开已建立的虚拟磁盘<br>
+在扇区0可以看到整个磁盘的MBR(<strong>PS：MBR既可以指第一个扇区，又可以指第一个扇区的前446字节，要根据上下文分析</strong>）<br>
+<em>补充知识</em><br>
+<strong>MBR:又称主引导记录，位于0柱面0磁道1扇区，是整个磁盘的第一个扇区(一个扇区是512字节)，整个磁盘的第一个512字节，是【数据恢复的基础】<br>
+一个硬盘只有一个MBR，一个MBR对应三部分:<br>
+1、引导代码(MBR)：前446字(节无论是哪种系统，都差不多)<br>
+2、磁盘分区表(DPT): 64字节(80-55前之间，不同系统有区别)<br>
+3、2字节的结束标志: 55AA</strong><br>
+下图是第一分区表项的各项信息<br>
+<img src="/images/loading.gif" data-original="/posts/c5c6674d/18457849-1458be69eed3151d.png" alt="分区表.png"></p>
+<p>共16字节，80是引导标记符，<em>2 3 4字节是CHS起始寻址地址(无用)</em>，<strong>5字节是分区类型值(83 linux分区 07 NTFS)</strong>，<em>6 7 8字节是CHS寻址方式扇区总数(无用)</em> ,<strong>9 10 11 12字节是分区起始扇区数</strong> ,<strong>13 14 15 16字节是分区总扇区数</strong><br>
+<img src="/images/loading.gif" data-original="https://upload-images.jianshu.io/upload_images/18457849-9777ee197ec4cad5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="10.png"><br>
+可以看到2这一排对下来的0B 07 0B 05,分别表示FAT32 NTFS FAT32 扩展分区这四个分区， 然后可以看到9-12的各个分区的分区起始扇区，13-16是各个分区的分区总扇区数，（PS:选取数据要从右往左，采用大头位序法(数据的高位是放在内存的低位)），可以发现，第二个分区的起始扇区是第一个分区的起始扇区+第一个分区的分区总扇区数，其他分区亦是如此。<br>
+<br><br>
+<strong>由于硬盘仅仅为分区表保留了64个字节的存储空间，而每个分区的参数占据16个字节，故主引导扇区中总计只能存储4个分区的数据，最多只能建立四个分区！但是微软想到一个绝妙的方案，它让前三个分区都做主分区，后一个分区做扩展分区，然后可在扩展分区建新的逻辑分区，实现建立多个分区</strong><br>
+<img src="/images/loading.gif" data-original="/posts/c5c6674d/18457849-37395d5a188f7845.png" alt="EBR.png"><br>
+<img src="/images/loading.gif" data-original="/posts/c5c6674d/18457849-7324e494ff53e08f.png" alt="扩展分区结构.png"></p>
+<p><img src="/images/loading.gif" data-original="https://upload-images.jianshu.io/upload_images/18457849-896fba35f109103e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="EBR.png"><br>
+<strong>EBR扇区和MBR非常类似，一个EBR扇区对应一个逻辑分区，其有用部分仅有其DPT(即64字节区)前两个表项，第一个表项表示本扩展分区(图中逻辑驱动器P)的起始地址和扇区数量，但是该地址为相对偏移，实际的起始扇区为本扇区的实际地址加上相对偏移量，这个起始扇区其实是第一个逻辑驱动器的DBR扇区，第二个表项记录了下一个扩展分区（逻辑驱动器Q）的EBR扇区的起始地址和扇区总数量。每个逻辑分区的DBR扇区(即用Winhex直接点击分区跳转到的扇区)之前都有一个EBR扇区，对于最后一个扇区，其EBR仅有第一表项，因为它没有后继EBR扇区，也就没有所谓的第二表项。<br>
+各个逻辑分区用类似链表的EBR扇区链接起来，不受四个分区表项的限制，因此可以创建超过四个的(逻辑)磁盘分区。</strong></p>
+<p>#寻找逻辑分区EBR的方法：<br>
+<strong>1）利用计算公式，在MBR分区表找到扩展分区的起始扇区，这个起始扇区就是第一个扩展分区的EBR所在扇区，每个EBR均有也仅有两个有效表项，上面有提到，第二个表项记录着下一个EBR的起始位置，但是该位置是相对偏移地址，需要加上当前EBR所在扇区方可的到下一个EBR的起始扇区，以此类推。<br>
+2）在上课做上机实验时，我突然发现邻座同学填EBR所在扇区位置很快，原来EBR位置是可以直接查看的！<br>
+<img src="/images/loading.gif" data-original="https://upload-images.jianshu.io/upload_images/18457849-f7a350cc84fba5c6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="分区间隙.png"><br>
+注意Winhex这个大小为分区间隙，其实这个分区间隙的第一个扇区就是EBR所在扇区。其地址可以通过点击分区间隙通过左下角扇区位置查看，也可以直接看分区间隙后的链接地址。</strong></p>
 <p>MBR最大可以识别最大2TB的分区，GPT可以识别最大256TB的分区</p>
-<h5 id="接下来看文件系统结构"><a href="#接下来看文件系统结构" class="headerlink" title="接下来看文件系统结构"></a>接下来看文件系统结构</h5><p><strong>对于文件系统，用扇区这个最小单位来衡量已经过于庞大，而是用簇来衡量，文件系统的最小单位是簇。<br>扇区:是硬盘的最小单位<br>簇:是文件系统的最小单位</strong><br><strong>若簇的大小是4kb=4096字节=8个扇区（不同文件不一定一样）<br>18kb的文件要5个簇存</strong><br><img src="/images/loading.gif" data-original="/posts/c5c6674d/18457849-e8c70db2f22f2a3f.png" alt="16.png"><br><strong>文件残留区:删除文本后剩下的空间</strong><br>由上图可以看到，虽然只有3字节，但是却占用4kb的空间，除3kb外剩余的空间被称为<strong>文件残留区</strong></p>
+<h5 id="接下来看文件系统结构"><a class="markdownIt-Anchor" href="#接下来看文件系统结构"></a> 接下来看文件系统结构</h5>
+<p><strong>对于文件系统，用扇区这个最小单位来衡量已经过于庞大，而是用簇来衡量，文件系统的最小单位是簇。<br>
+扇区:是硬盘的最小单位<br>
+簇:是文件系统的最小单位</strong><br>
+<strong>若簇的大小是4kb=4096字节=8个扇区（不同文件不一定一样）<br>
+18kb的文件要5个簇存</strong><br>
+<img src="/images/loading.gif" data-original="/posts/c5c6674d/18457849-e8c70db2f22f2a3f.png" alt="16.png"><br>
+<strong>文件残留区:删除文本后剩下的空间</strong><br>
+由上图可以看到，虽然只有3字节，但是却占用4kb的空间，除3kb外剩余的空间被称为<strong>文件残留区</strong></p>
 <p><img src="/images/loading.gif" data-original="/posts/c5c6674d/18457849-03739599abdb5b9d.png" alt="FAT32文件系统主要结构.png"></p>
 <p><strong>上图FAT表作用:指向文件存储位置，fat32有两个完全相同的FAT表（另一个作为副本）</strong></p>
 <p><img src="/images/loading.gif" data-original="/posts/c5c6674d/18457849-f32a977170fb1964.png" alt="FAT32DBR.png"></p>
-<p><strong>DBR只看前三行：<br>1）在DBR前有三个字节代表文件系统跳转指令：<br>&emsp;&emsp;FAT32文件系统跳转指令:EB 58 90<br>&emsp;&emsp;FAT16文件系统跳转指令:EB 3C 90<br>&emsp;&emsp;NTFS 文件系统跳转指令:EB 52 90<br>&emsp;&emsp;exfat 文件系统跳转指令:EB 76 90<br>2）各结构联系<br>第一个FAT表起始位置=当前位置+FAT表前保留扇区数<br>第二个起始位置=第一个+每个FAT表扇区数<br>数据区起始位置=第二个+每个FAT表扇区数<br>3）文件系统总扇区数<br>由上图可知是4个字节，由此可知其最大可有FF FF FF FFh个扇区=fffffffh$\times$512字节=2047GB&lt;2TB，所以fat32文件系统最大容量不可超过2TB</strong><br><img src="/images/loading.gif" data-original="https://upload-images.jianshu.io/upload_images/18457849-b714b59635429a64.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="FAT表.png"></p>
-<h2 id="熟悉以上内容于是我们可以开始愉快地填表啦"><a href="#熟悉以上内容于是我们可以开始愉快地填表啦" class="headerlink" title="熟悉以上内容于是我们可以开始愉快地填表啦"></a>熟悉以上内容于是我们可以开始愉快地填表啦</h2><p><img src="/images/loading.gif" data-original="https://upload-images.jianshu.io/upload_images/18457849-8fe3f82236f6587e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="17.png"><br><img src="/images/loading.gif" data-original="/posts/c5c6674d/18457849-ff9e9ae9094b910c.png" alt="18.png"><br><img src="/images/loading.gif" data-original="https://upload-images.jianshu.io/upload_images/18457849-9ab82496b8911fb4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="19.png"><br><img src="/images/loading.gif" data-original="/posts/c5c6674d/18457849-410b62a022474996.png" alt="20.png"><br><img src="/images/loading.gif" data-original="https://upload-images.jianshu.io/upload_images/18457849-c30f04298ba83370.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="21.png"></p>
+<p><strong>DBR只看前三行：<br>
+1）在DBR前有三个字节代表文件系统跳转指令：<br>
+  FAT32文件系统跳转指令:EB 58 90<br>
+  FAT16文件系统跳转指令:EB 3C 90<br>
+  NTFS 文件系统跳转指令:EB 52 90<br>
+  exfat 文件系统跳转指令:EB 76 90<br>
+2）各结构联系<br>
+第一个FAT表起始位置=当前位置+FAT表前保留扇区数<br>
+第二个起始位置=第一个+每个FAT表扇区数<br>
+数据区起始位置=第二个+每个FAT表扇区数<br>
+3）文件系统总扇区数<br>
+由上图可知是4个字节，由此可知其最大可有FF FF FF FFh个扇区=fffffffh$\times$512字节=2047GB&lt;2TB，所以fat32文件系统最大容量不可超过2TB</strong><br>
+<img src="/images/loading.gif" data-original="https://upload-images.jianshu.io/upload_images/18457849-b714b59635429a64.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="FAT表.png"></p>
+<p>##熟悉以上内容于是我们可以开始愉快地填表啦<br>
+<img src="/images/loading.gif" data-original="https://upload-images.jianshu.io/upload_images/18457849-8fe3f82236f6587e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="17.png"><br>
+<img src="/images/loading.gif" data-original="/posts/c5c6674d/18457849-ff9e9ae9094b910c.png" alt="18.png"><br>
+<img src="/images/loading.gif" data-original="https://upload-images.jianshu.io/upload_images/18457849-9ab82496b8911fb4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="19.png"><br>
+<img src="/images/loading.gif" data-original="/posts/c5c6674d/18457849-410b62a022474996.png" alt="20.png"><br>
+<img src="/images/loading.gif" data-original="https://upload-images.jianshu.io/upload_images/18457849-c30f04298ba83370.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="21.png"></p>
 <p><img src="/images/loading.gif" data-original="https://upload-images.jianshu.io/upload_images/18457849-df54b69ec8740ca6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="22.png"></p>
-<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -554,7 +623,7 @@
 <td style="text-align:right">FAT32</td>
 <td style="text-align:right">无</td>
 <td style="text-align:right">2048</td>
-<td style="text-align:right">00028000h=$80*2^{11}$</td>
+<td style="text-align:right">00028000h=<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>80</mn><mo>∗</mo><msup><mn>2</mn><mn>11</mn></msup></mrow><annotation encoding="application/x-tex">80*2^{11}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">8</span><span class="mord">0</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span><span class="mord mtight">1</span></span></span></span></span></span></span></span></span></span></span></span></td>
 <td style="text-align:right">38</td>
 <td style="text-align:right">027Bh*512=325120</td>
 </tr>
@@ -606,12 +675,13 @@
 <td style="text-align:right"></td>
 <td style="text-align:right"></td>
 <td style="text-align:right"></td>
+<td style="text-align:right"></td>
 </tr>
 </tbody>
 </table>
-</div>
-<p><strong>填了一个，剩下自己填吧。。。</strong></p>
-<h1 id="【明】"><a href="#【明】" class="headerlink" title="【明】"></a>【明】</h1>
+<p><strong>填了一个，剩下自己填吧。。。</strong><br>
+#【明】</p>
+
       
     </div>
     
@@ -839,7 +909,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、实验目的"><span class="nav-number">1.</span> <span class="nav-text">一、实验目的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、实验平台"><span class="nav-number">2.</span> <span class="nav-text">二、实验平台</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、实验要求"><span class="nav-number">3.</span> <span class="nav-text">三、实验要求</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#那就开始愉快地操作吧！"><span class="nav-number"></span> <span class="nav-text">那就开始愉快地操作吧！</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#打开Winhex，点击工具，打开磁盘，打开已建立的虚拟磁盘"><span class="nav-number">1.</span> <span class="nav-text">打开Winhex，点击工具，打开磁盘，打开已建立的虚拟磁盘</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#寻找逻辑分区EBR的方法："><span class="nav-number"></span> <span class="nav-text">寻找逻辑分区EBR的方法：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#接下来看文件系统结构"><span class="nav-number">0.0.1.</span> <span class="nav-text">接下来看文件系统结构</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#熟悉以上内容于是我们可以开始愉快地填表啦"><span class="nav-number"></span> <span class="nav-text">熟悉以上内容于是我们可以开始愉快地填表啦</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#【明】"><span class="nav-number"></span> <span class="nav-text">【明】</span></a></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一-实验目的"><span class="nav-number">1.</span> <span class="nav-text"> 一、实验目的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二-实验平台"><span class="nav-number">2.</span> <span class="nav-text"> 二、实验平台</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三-实验要求"><span class="nav-number">3.</span> <span class="nav-text"> 三、实验要求</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#接下来看文件系统结构"><span class="nav-number">3.0.1.</span> <span class="nav-text"> 接下来看文件系统结构</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
@@ -1612,7 +1682,7 @@
         </span>
     </div>
 </div>
-https://i.imgur.com/AZULc9Y.png
+
 <script>
   function back2top(){
     $('html, body').animate({scrollTop: 0}, 500);
@@ -1647,9 +1717,9 @@ https://i.imgur.com/AZULc9Y.png
     POWERMODE.colorful = true;
     POWERMODE.shake = false;
     document.body.addEventListener('input', POWERMODE);
-  </script>
+  </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
-<script>!function(e){var c=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function i(){for(var r=0;r<c.length;r++)t=c[r],0<=(n=t.getBoundingClientRect()).bottom&&0<=n.left&&n.top<=(e.innerHeight||document.documentElement.clientHeight)&&function(){var t,n,e,i,o=c[r];t=o,n=function(){c=c.filter(function(t){return o!==t})},e=new Image,i=t.getAttribute("data-original"),e.onload=function(){t.src=i,n&&n()},e.src=i}();var t,n}i(),e.addEventListener("scroll",function(){var t,n;t=i,n=e,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(n)},500)})}(this);</script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+<script>!function(e){var c=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function i(){for(var r=0;r<c.length;r++)t=c[r],0<=(n=t.getBoundingClientRect()).bottom&&0<=n.left&&n.top<=(e.innerHeight||document.documentElement.clientHeight)&&function(){var t,n,e,i,o=c[r];t=o,n=function(){c=c.filter(function(t){return o!==t})},e=new Image,i=t.getAttribute("data-original"),e.onload=function(){t.src=i,n&&n()},e.src=i}();var t,n}i(),e.addEventListener("scroll",function(){var t,n;t=i,n=e,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(n)},500)})}(this);</script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script></body>
 </html>
 <!-- 页面点击小红心 -->
 <script type="text/javascript" src="/js/src/clicklove.js"></script>

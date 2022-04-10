@@ -90,12 +90,12 @@
 
 
 
-<meta name="description" content="Vagrant 利用ss加速下载，会出现如下情况此时我们需先配置命令行代理">
+<meta name="description" content="Vagrant 利用ss加速下载，会出现如下情况  此时我们需先配置命令行代理">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Vagrant利用ss加速下载">
 <meta property="og:url" content="http://yoursite.com/posts/6e90a67c/index.html">
 <meta property="og:site_name" content="风屿の博客">
-<meta property="og:description" content="Vagrant 利用ss加速下载，会出现如下情况此时我们需先配置命令行代理">
+<meta property="og:description" content="Vagrant 利用ss加速下载，会出现如下情况  此时我们需先配置命令行代理">
 <meta property="og:image" content="http://yoursite.com/images/loading.gif">
 <meta property="og:image" content="http://yoursite.com/images/loading.gif">
 <meta property="og:image" content="http://yoursite.com/images/loading.gif">
@@ -383,7 +383,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  170
+                  173
                 </span>
               
 
@@ -408,14 +408,28 @@
       
 
       
-        <p>Vagrant 利用ss加速下载，会出现如下情况<br><img src="/images/loading.gif" data-original="/posts/6e90a67c/18457849-619c394b2e354d5b.png" alt><br>此时我们需先配置命令行代理<a id="more"></a></p>
+        <p>Vagrant 利用ss加速下载，会出现如下情况<br>
+<img src="/images/loading.gif" data-original="/posts/6e90a67c/18457849-619c394b2e354d5b.png" alt><br>
+此时我们需先配置命令行代理<a id="more"></a></p>
 <ul>
-<li>CMD 内<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">set http_proxy&#x3D;127.0.0.1:1080</span><br><span class="line">set https_proxy&#x3D;127.0.0.1:1080</span><br></pre></td></tr></table></figure></div>
-补充一下，一定要用cmd命令行，别用powershell，否则无效。另外，测试是否成功用curl <a href="https://www.google.com">https://www.google.com</a>, 别用ping。(1080是默认端口号）</li>
-<li>git 内<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global http.https:&#x2F;&#x2F;github.com.proxy socks5:&#x2F;&#x2F;127.0.0.1:1080</span><br><span class="line">git config --global https.https:&#x2F;&#x2F;github.com.proxy socks5:&#x2F;&#x2F;127.0.0.1:1080</span><br></pre></td></tr></table></figure></div>
-<img src="/images/loading.gif" data-original="/posts/6e90a67c/18457849-60dc892df48fcd59.png" alt><br>下载成功<br>同时解决vagrant up慢的问题<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vagrant plugin install vagrant-proxyconf</span><br></pre></td></tr></table></figure></div>
-然后编辑相关项目的Vagrantfile<br><img src="/images/loading.gif" data-original="/posts/6e90a67c/18457849-de0cf5f424cdf0de.png" alt="Vagrant"><br><img src="/images/loading.gif" data-original="/posts/6e90a67c/18457849-422daed6cac8d8cd.png" alt="图片.png"><br>保存即可<br>重新运行Vagrant up<br>参考链接<a href="https://learnku.com/articles/34949">https://learnku.com/articles/34949</a></li>
+<li>CMD 内</li>
 </ul>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">set http_proxy&#x3D;127.0.0.1:1080</span><br><span class="line">set https_proxy&#x3D;127.0.0.1:1080</span><br></pre></td></tr></table></figure></div>
+<p>补充一下，一定要用cmd命令行，别用powershell，否则无效。另外，测试是否成功用curl <a href="https://www.google.com">https://www.google.com</a>, 别用ping。(1080是默认端口号）</p>
+<ul>
+<li>git 内</li>
+</ul>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global http.https:&#x2F;&#x2F;github.com.proxy socks5:&#x2F;&#x2F;127.0.0.1:1080</span><br><span class="line">git config --global https.https:&#x2F;&#x2F;github.com.proxy socks5:&#x2F;&#x2F;127.0.0.1:1080</span><br></pre></td></tr></table></figure></div>
+<p><img src="/images/loading.gif" data-original="/posts/6e90a67c/18457849-60dc892df48fcd59.png" alt><br>
+下载成功<br>
+同时解决vagrant up慢的问题</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vagrant plugin install vagrant-proxyconf</span><br></pre></td></tr></table></figure></div>
+<p>然后编辑相关项目的Vagrantfile<br>
+<img src="/images/loading.gif" data-original="/posts/6e90a67c/18457849-de0cf5f424cdf0de.png" alt="Vagrant"><br>
+<img src="/images/loading.gif" data-original="/posts/6e90a67c/18457849-422daed6cac8d8cd.png" alt="图片.png"><br>
+保存即可<br>
+重新运行Vagrant up<br>
+参考链接<a href="https://learnku.com/articles/34949">https://learnku.com/articles/34949</a></p>
 
       
     </div>
@@ -1398,7 +1412,7 @@
         </span>
     </div>
 </div>
-https://i.imgur.com/AZULc9Y.png
+
 <script>
   function back2top(){
     $('html, body').animate({scrollTop: 0}, 500);
@@ -1433,9 +1447,9 @@ https://i.imgur.com/AZULc9Y.png
     POWERMODE.colorful = true;
     POWERMODE.shake = false;
     document.body.addEventListener('input', POWERMODE);
-  </script>
+  </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
-<script>!function(e){var c=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function i(){for(var r=0;r<c.length;r++)t=c[r],0<=(n=t.getBoundingClientRect()).bottom&&0<=n.left&&n.top<=(e.innerHeight||document.documentElement.clientHeight)&&function(){var t,n,e,i,o=c[r];t=o,n=function(){c=c.filter(function(t){return o!==t})},e=new Image,i=t.getAttribute("data-original"),e.onload=function(){t.src=i,n&&n()},e.src=i}();var t,n}i(),e.addEventListener("scroll",function(){var t,n;t=i,n=e,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(n)},500)})}(this);</script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+<script>!function(e){var c=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function i(){for(var r=0;r<c.length;r++)t=c[r],0<=(n=t.getBoundingClientRect()).bottom&&0<=n.left&&n.top<=(e.innerHeight||document.documentElement.clientHeight)&&function(){var t,n,e,i,o=c[r];t=o,n=function(){c=c.filter(function(t){return o!==t})},e=new Image,i=t.getAttribute("data-original"),e.onload=function(){t.src=i,n&&n()},e.src=i}();var t,n}i(),e.addEventListener("scroll",function(){var t,n;t=i,n=e,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(n)},500)})}(this);</script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script></body>
 </html>
 <!-- 页面点击小红心 -->
 <script type="text/javascript" src="/js/src/clicklove.js"></script>

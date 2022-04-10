@@ -416,17 +416,47 @@
 
       
         <p>FAT（文件分配表）文件系统是Windows操作系统所使用的一种文件系统，它的发展过程经历了FAT12  FAT16 FAT32三个阶段。<a id="more"></a></p>
-<h1 id="FAT文件系统"><a href="#FAT文件系统" class="headerlink" title="FAT文件系统"></a>FAT文件系统</h1><p>FAT文件系统用“<strong>簇</strong>”作为数据单元，一个“簇”由一组连续的扇区组成，簇所含的扇区数必须是<strong>2的整数次幂</strong>。簇的最大值为64个扇区，即32KB。所有簇从<strong>2</strong>开始进行编号，每个簇都有一个自己的地址编号。用户文件和目录都存储在簇中。FAT文件系统的数据结构中有两个重要的结构：文件分配表和目录项。</p>
+<h1 id="fat文件系统"><a class="markdownIt-Anchor" href="#fat文件系统"></a> FAT文件系统</h1>
+<p>FAT文件系统用“<strong>簇</strong>”作为数据单元，一个“簇”由一组连续的扇区组成，簇所含的扇区数必须是<strong>2的整数次幂</strong>。簇的最大值为64个扇区，即32KB。所有簇从<strong>2</strong>开始进行编号，每个簇都有一个自己的地址编号。用户文件和目录都存储在簇中。FAT文件系统的数据结构中有两个重要的结构：文件分配表和目录项。</p>
 <p>文件和文件夹内容存储在簇中，如果一个文件或文件夹需要多余一个簇的空间，则用FAT表来描述如何找到另外的簇。FAT结构用于指出文件的下一个簇，同时也说明了簇的分配状态，FAT12  FAT16  FAT32这三种文件系统之间的主要区别在于与FAT项的大小不同。</p>
 <p>FAT文件系统的每一个文件和文件夹都被分配到一个目录项，目录项中记录中文件名，大小，文件内容起始地址以及其他一些元数据。</p>
 <p>在FAT文件系统中，文件系统的数据记录在“<strong>引导扇区中（DBR）</strong>”中，引导扇区位于整个文件系统的<strong>0号扇区</strong>，是文件系统隐藏区域（也称为保留区）的一部分，我们称其为DBR（DOS引导记录）扇区，DBR中记录着文件系统的起始位置，大小，FAT表个数以及大小等相关信息。在FAT文件系统中，同时使用“<strong>扇区地址</strong>”和“<strong>簇地址</strong>”两种地址管理方式，这是因为只有存储用户数据的数据区使用簇进行管理（FAT12 FAT16的根目录除外），所有簇都位于数据区，其他文件系统管理数据区域是不以簇进行管理的，这部分区域使用扇区地址进行管理。文件系统的起始扇区为<strong>0号扇区。</strong></p>
-<p>接下来在桌面上新建一个文件1.txt，将其拖入逻辑分区J（PS:不要在磁盘内右击新建，而是应该在桌面新建再拉进去）<br><img src="/images/loading.gif" data-original="/posts/53072925/18457849-4840b2b4fc90c591.png" alt="分区J.png"><br><strong>目的：找到分区4(fat32分区）的FAT1,2的起始扇区的位置和数据区的起始位置</strong><br>回顾上一期的内容<br><img src="/images/loading.gif" data-original="/posts/53072925/18457849-9c0041b0e4b11c7e.png" alt="FAT32文件系统主要结构.png"><br><strong>1.    保留区含有一个重要的数据结构———-系统引导扇区（DBR）。FAT12  FAT16的保留区通常只有一个扇区，而FAT32D 保留区要多一些，除0号扇区外，还有其他一些扇区，其中包括了DBR的备份扇区。<br>2.    FAT区由来是各个大小相等的FAT表组成——-FAT1  FAT2,FAT2紧跟在FAT1之后。<br>3.    FAT12 FAT16的根目录虽然也属于数据区，但是他们并不由簇进行管理，也就是说FAT12  FAT16的根目录使没有簇号的，他们的2号簇从根目录之后开始。而FAT32的根目录通常位于2号簇。</strong></p>
+<p>接下来在桌面上新建一个文件1.txt，将其拖入逻辑分区J（PS:不要在磁盘内右击新建，而是应该在桌面新建再拉进去）<br>
+<img src="/images/loading.gif" data-original="/posts/53072925/18457849-4840b2b4fc90c591.png" alt="分区J.png"><br>
+<strong>目的：找到分区4(fat32分区）的FAT1,2的起始扇区的位置和数据区的起始位置</strong><br>
+回顾上一期的内容<br>
+<img src="/images/loading.gif" data-original="/posts/53072925/18457849-9c0041b0e4b11c7e.png" alt="FAT32文件系统主要结构.png"><br>
+<strong>1.	保留区含有一个重要的数据结构-------系统引导扇区（DBR）。FAT12  FAT16的保留区通常只有一个扇区，而FAT32D 保留区要多一些，除0号扇区外，还有其他一些扇区，其中包括了DBR的备份扇区。<br>2.	FAT区由来是各个大小相等的FAT表组成-----FAT1  FAT2,FAT2紧跟在FAT1之后。<br>3.	FAT12 FAT16的根目录虽然也属于数据区，但是他们并不由簇进行管理，也就是说FAT12  FAT16的根目录使没有簇号的，他们的2号簇从根目录之后开始。而FAT32的根目录通常位于2号簇。</strong></p>
 <p>FAT32的保留扇区数，比较常见的为<strong>32  34 38</strong>扇区</p>
-<p><img src="/images/loading.gif" data-original="/posts/53072925/18457849-7d3c92c67735c9f8.png" alt="FAT32DBR.png"><br><img src="/images/loading.gif" data-original="/posts/53072925/18457849-99543aa21fe47e1b.png" alt="上期知识点.jpg"><br><strong>数据区起始扇区号即是根目录扇区号</strong><br><strong>以上扇区均可在Winhex中直接点击分区内的各区域位置，但是此时下面对应的扇区均为相对偏移地址，在硬盘外查看要加上当前分区DBR的偏移地址</strong></p>
-<p>于是第一个FAT表起始位置=352256+0026h=352294<br><img src="/images/loading.gif" data-original="/posts/53072925/18457849-5274a2a457f9c01d.png" alt="第一个FAT表.jpg"><br>第二个FAT表起始位置=352294+000001C9h=352751<br><img src="/images/loading.gif" data-original="/posts/53072925/18457849-ce23913228434727.png" alt="第二个FAT表.png"><br>可以看出FAT2和FAT1完全一样<br>因为FAT表很重要，于是微软为它做了备份FAT2<br>数据区起始位置=352751+000001C9h=353208<br><img src="/images/loading.gif" data-original="/posts/53072925/18457849-afaf0a0834c2173c.png" alt="数据区起始位置.jpg"><br>可以看到1 TXT文件名字样，这边属于数据区的根目录区<br>多向下滑几面，可以看到1.txt的文本内容<br><img src="/images/loading.gif" data-original="/posts/53072925/18457849-514c7f4185e20759.png" alt="文本内容.png"><br>保留扇区中DBR的下一个扇区是FSINFO扇区<br><img src="/images/loading.gif" data-original="/posts/53072925/18457849-17252fdfab8e362e.jpg" alt="FSINFO扇区.jpg"><br>在签名标志“rrAa”后<br><strong>1E8-1EB</strong>是表示<strong>空闲簇数</strong><br><strong>1EC-1EF</strong>是表示<strong>下个可用簇号</strong></p>
-<h1 id="FAT表"><a href="#FAT表" class="headerlink" title="FAT表"></a>FAT表</h1><p><strong>FAT表中文名称是文件分配表，其作用是指向文件存储位置，接下来介绍它的结构</strong><br><img src="/images/loading.gif" data-original="/posts/53072925/18457849-ba2c26be4019e348.png" alt="FAT表.png"><br>对于FAT32来说每4个字节算一个表项，其中：</p>
-<p>0号表项，0x0<strong>F8FFFF0F</strong>是FAT表起始固定标识；<br>1号表项，0x0<strong>FFFFFFFF</strong>，系统默认占用，不使用，默认值；<br>2号表项，0x0<strong>FFFFFF0F</strong>，标识文件结束，表项对应2号簇，根目录所在簇。</p>
-<p>每一个文件均存放在簇里<br>1）如果某个簇未被分配使用，它所对应的FAT表项内的FAT表项值即用<strong>0</strong>进行填充，表示该FAT表项所对应的簇未被分配。</p>
+<p><img src="/images/loading.gif" data-original="/posts/53072925/18457849-7d3c92c67735c9f8.png" alt="FAT32DBR.png"><br>
+<img src="/images/loading.gif" data-original="/posts/53072925/18457849-99543aa21fe47e1b.png" alt="上期知识点.jpg"><br>
+<strong>数据区起始扇区号即是根目录扇区号</strong><br>
+<strong>以上扇区均可在Winhex中直接点击分区内的各区域位置，但是此时下面对应的扇区均为相对偏移地址，在硬盘外查看要加上当前分区DBR的偏移地址</strong></p>
+<p>于是第一个FAT表起始位置=352256+0026h=352294<br>
+<img src="/images/loading.gif" data-original="/posts/53072925/18457849-5274a2a457f9c01d.png" alt="第一个FAT表.jpg"><br>
+第二个FAT表起始位置=352294+000001C9h=352751<br>
+<img src="/images/loading.gif" data-original="/posts/53072925/18457849-ce23913228434727.png" alt="第二个FAT表.png"><br>
+可以看出FAT2和FAT1完全一样<br>
+因为FAT表很重要，于是微软为它做了备份FAT2<br>
+数据区起始位置=352751+000001C9h=353208<br>
+<img src="/images/loading.gif" data-original="/posts/53072925/18457849-afaf0a0834c2173c.png" alt="数据区起始位置.jpg"><br>
+可以看到1 TXT文件名字样，这边属于数据区的根目录区<br>
+多向下滑几面，可以看到1.txt的文本内容<br>
+<img src="/images/loading.gif" data-original="/posts/53072925/18457849-514c7f4185e20759.png" alt="文本内容.png"><br>
+保留扇区中DBR的下一个扇区是FSINFO扇区<br>
+<img src="/images/loading.gif" data-original="/posts/53072925/18457849-17252fdfab8e362e.jpg" alt="FSINFO扇区.jpg"><br>
+在签名标志“rrAa”后<br>
+<strong>1E8-1EB</strong>是表示<strong>空闲簇数</strong><br>
+<strong>1EC-1EF</strong>是表示<strong>下个可用簇号</strong></p>
+<h1 id="fat表"><a class="markdownIt-Anchor" href="#fat表"></a> FAT表</h1>
+<p><strong>FAT表中文名称是文件分配表，其作用是指向文件存储位置，接下来介绍它的结构</strong><br>
+<img src="/images/loading.gif" data-original="/posts/53072925/18457849-ba2c26be4019e348.png" alt="FAT表.png"><br>
+对于FAT32来说每4个字节算一个表项，其中：</p>
+<p>0号表项，0x0<strong>F8FFFF0F</strong>是FAT表起始固定标识；<br>
+1号表项，0x0<strong>FFFFFFFF</strong>，系统默认占用，不使用，默认值；<br>
+2号表项，0x0<strong>FFFFFF0F</strong>，标识文件结束，表项对应2号簇，根目录所在簇。</p>
+<p>每一个文件均存放在簇里<br>
+1）如果某个簇未被分配使用，它所对应的FAT表项内的FAT表项值即用<strong>0</strong>进行填充，表示该FAT表项所对应的簇未被分配。</p>
 <p>2）当某个簇已被分配使用时，则它对应的FAT表项内的FAT表项值也就是该文件的下一个存储位置的簇号，如果该文件结束与该簇，则在它的FAT表项中记录的是一个文件结束标志，对于FAT32而言，代表文件结束的FAT表项值为<strong>0x0FFFFFFFF</strong>。</p>
 <p>3）由于簇号起始于2号，所以FAT表项的0号表项与1号表项不与任何簇对应。FAT32的0号表项值总是“<strong>F8FFFF0F</strong>”</p>
 <p>4）1号表项可能被用于记录<strong>脏标志</strong>，以说明<strong>文件系统没有被正常卸载或者磁盘表面存在错误</strong>。不过这个值并不重要。正常情况下1号表项的值为“<strong>FFFFFFFF</strong>”或者“<strong>FFFFFF0F</strong>”。</p>
@@ -434,13 +464,19 @@
 <p>6）在文件系统中新建文件时，如果新建的文件值占用一个簇，<strong>为其分配的簇对应的FAT表项中将会写入结束标记</strong>。如果新建的文件不止占用一个簇，则<strong>在其所占用的每个簇对应的FAT表项中写入为其分配的下一簇的簇号，在最后一个簇对应的FAT表项中写入结束标记</strong>。</p>
 <p>7）新建目录时，只为其分配<strong>一个簇</strong>的空间，对应的FAT表项中写入<strong>结束标记</strong>。当目录增大超过一个簇的大小是，将会在<strong>空闲空间</strong>中为其分配一个簇，并在FAT表中为其建立<strong>FAT表链</strong>以描述它所占用簇情况。</p>
 <p>8）对文件或目录进项操作时，它们所对应FAT表项将会被清空，设置为<strong>0</strong>以表示其所对应的簇处于未分配状态。</p>
-<p>FAT表另一个作用是<strong>声明当前簇是否被占用</strong>，因为文件存储过程是在找未使用的簇，然后又填入（对于较大的文件，如果是找连续的簇空间存放，则之前那些未使用的簇将会被浪费掉），删除文件后根目录的文件名首字节会用<strong>E5标志</strong>替代表示该文件扇区，如果再往该文件所在簇空间写入数据，亦即被删除文件的数据没有被覆盖掉，被删除文件就可以恢复过来。<br><img src="/images/loading.gif" data-original="/posts/53072925/18457849-0fabddbbcd2a8dfa.png" alt="最后两行是被删除文件的目录项.png"></p>
-<h1 id="目录项"><a href="#目录项" class="headerlink" title="目录项"></a>目录项</h1><p><img src="/images/loading.gif" data-original="/posts/53072925/18457849-e6c8fbc304454144.png" alt="目录项.png"><br>目录项中每两行划分为一个文件单位，</p>
+<p>FAT表另一个作用是<strong>声明当前簇是否被占用</strong>，因为文件存储过程是在找未使用的簇，然后又填入（对于较大的文件，如果是找连续的簇空间存放，则之前那些未使用的簇将会被浪费掉），删除文件后根目录的文件名首字节会用<strong>E5标志</strong>替代表示该文件扇区，如果再往该文件所在簇空间写入数据，亦即被删除文件的数据没有被覆盖掉，被删除文件就可以恢复过来。<br>
+<img src="/images/loading.gif" data-original="/posts/53072925/18457849-0fabddbbcd2a8dfa.png" alt="最后两行是被删除文件的目录项.png"></p>
+<h1 id="目录项"><a class="markdownIt-Anchor" href="#目录项"></a> 目录项</h1>
+<p><img src="/images/loading.gif" data-original="/posts/53072925/18457849-e6c8fbc304454144.png" alt="目录项.png"><br>
+目录项中每两行划分为一个文件单位，</p>
 <p>1）在第一行中，0到7字节是<strong>文件名</strong>，其中，对于短文件名（不超过8字节）而言，未用完的字节用0x<strong>20</strong>填充；对于长文件名而言，它在目录项只能显示<strong>6个字节</strong>，后面两个字节用“<strong>~1</strong>”进行系统填充，表示其为长文件名。</p>
 <p>2）8 9 10字节是<strong>文件后缀名</strong>，只用三个字节存，这也就是为什么绝大多数文件后缀名均只有3个字节，如果文件后缀名超过三个字节，它在此处也只显示前三个字节的内容。</p>
 <p>3）第11（B）字节是代表<strong>文件属性</strong>，这边有个有趣的属性标记方式，若此处字节为03，则文件属性为只读<strong>且</strong>隐藏（采用加法）。</p>
-<p>4）13(D)字节是文件创建时间的10毫秒位<br>5）14(0xE) 15(0xF)是<strong>文件创建时间</strong> 0x10 0x11是<strong>文件创建日期</strong>，0x16 0x17是<strong>最近文件修改时间</strong> 0x18 0x19是<strong>最近文件修改日期</strong><br>如何查看时间呢？可以点击Winhex的选项中的数据解释器，将<strong>DOS Date+Time(32bit)</strong>后面勾上。就可以通过选中在数据解释器可以看到时间。</p>
-<p>6）0x14 0x15是<strong>文件起始簇号的高16位</strong>，0x1A 0x1B是<strong>文件起始簇号的低16位</strong><br><strong>文件起始簇号</strong>=低16位的数值+（高16位的数字<strong>65536</strong>（0x10000））,通常高16位为00 00</p>
+<p>4）13(D)字节是文件创建时间的10毫秒位<br>
+5）14(0xE) 15(0xF)是<strong>文件创建时间</strong> 0x10 0x11是<strong>文件创建日期</strong>，0x16 0x17是<strong>最近文件修改时间</strong> 0x18 0x19是<strong>最近文件修改日期</strong><br>
+如何查看时间呢？可以点击Winhex的选项中的数据解释器，将**DOS Date+Time(32bit)**后面勾上。就可以通过选中在数据解释器可以看到时间。</p>
+<p>6）0x14 0x15是<strong>文件起始簇号的高16位</strong>，0x1A 0x1B是<strong>文件起始簇号的低16位</strong><br>
+<strong>文件起始簇号</strong>=低16位的数值+（高16位的数字<strong>65536</strong>（0x10000））,通常高16位为00 00</p>
 <p>7）0x1C 到0x1F是文件的大小（长度），单位是<strong>字节</strong>（Byte=8bits），但是对于<strong>文件夹</strong>而言，此处均是00 00 00 00（错误的数据）；同时，4个字节的存放位置决定了文件大小的上限为FF FF FF FF字节=4GB-1</p>
 
       
@@ -670,7 +706,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#FAT文件系统"><span class="nav-number">1.</span> <span class="nav-text">FAT文件系统</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#FAT表"><span class="nav-number">2.</span> <span class="nav-text">FAT表</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#目录项"><span class="nav-number">3.</span> <span class="nav-text">目录项</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#fat文件系统"><span class="nav-number">1.</span> <span class="nav-text"> FAT文件系统</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#fat表"><span class="nav-number">2.</span> <span class="nav-text"> FAT表</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#目录项"><span class="nav-number">3.</span> <span class="nav-text"> 目录项</span></a></li></ol></div>
             
 
           </div>
@@ -1443,7 +1479,7 @@
         </span>
     </div>
 </div>
-https://i.imgur.com/AZULc9Y.png
+
 <script>
   function back2top(){
     $('html, body').animate({scrollTop: 0}, 500);
@@ -1478,9 +1514,9 @@ https://i.imgur.com/AZULc9Y.png
     POWERMODE.colorful = true;
     POWERMODE.shake = false;
     document.body.addEventListener('input', POWERMODE);
-  </script>
+  </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
-<script>!function(e){var c=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function i(){for(var r=0;r<c.length;r++)t=c[r],0<=(n=t.getBoundingClientRect()).bottom&&0<=n.left&&n.top<=(e.innerHeight||document.documentElement.clientHeight)&&function(){var t,n,e,i,o=c[r];t=o,n=function(){c=c.filter(function(t){return o!==t})},e=new Image,i=t.getAttribute("data-original"),e.onload=function(){t.src=i,n&&n()},e.src=i}();var t,n}i(),e.addEventListener("scroll",function(){var t,n;t=i,n=e,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(n)},500)})}(this);</script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+<script>!function(e){var c=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function i(){for(var r=0;r<c.length;r++)t=c[r],0<=(n=t.getBoundingClientRect()).bottom&&0<=n.left&&n.top<=(e.innerHeight||document.documentElement.clientHeight)&&function(){var t,n,e,i,o=c[r];t=o,n=function(){c=c.filter(function(t){return o!==t})},e=new Image,i=t.getAttribute("data-original"),e.onload=function(){t.src=i,n&&n()},e.src=i}();var t,n}i(),e.addEventListener("scroll",function(){var t,n;t=i,n=e,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(n)},500)})}(this);</script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script></body>
 </html>
 <!-- 页面点击小红心 -->
 <script type="text/javascript" src="/js/src/clicklove.js"></script>

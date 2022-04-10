@@ -380,7 +380,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  241
+                  242
                 </span>
               
 
@@ -406,11 +406,19 @@
 
       
         <p>本文将介绍利用1080端口代理解决git clone速度太慢的问题。<a id="more"></a></p>
-<p>git的网络配置文件在如下位置<br><img src="/images/loading.gif" data-original="/posts/f0ef31cd/18457849-822ab3367e8efe1f.png" alt></p>
+<p>git的网络配置文件在如下位置<br>
+<img src="/images/loading.gif" data-original="/posts/f0ef31cd/18457849-822ab3367e8efe1f.png" alt></p>
 <p>假设你已经有了ss（我开PAC是OK的）</p>
-<p>在cmd中输入以下指令：<br><div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global http.proxy socks5:&#x2F;&#x2F;127.0.0.1:1080</span><br><span class="line">git config --global https.proxy socks5:&#x2F;&#x2F;127.0.0.1:1080</span><br></pre></td></tr></table></figure></div><br>（端口号看你自己的配置，一般都是1080）</p>
-<p>如果要取消代理修改：<br><div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global --unset http.proxy</span><br><span class="line">git config --global --unset https.proxy</span><br></pre></td></tr></table></figure></div></p>
-<p>问题补充<br>上述方法挂了全局代理，但是如果要克隆码云、coding等国内仓库，速度就会很慢。更好的方法是只对github进行代理，不会影响国内仓库：<br><div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global http.https:&#x2F;&#x2F;github.com.proxy socks5:&#x2F;&#x2F;127.0.0.1:1080</span><br><span class="line">git config --global https.https:&#x2F;&#x2F;github.com.proxy socks5:&#x2F;&#x2F;127.0.0.1:1080</span><br></pre></td></tr></table></figure></div><br>代理后git clone速度真的快了很多~我这边能到1MB/s以上<br>原文链接：<a href="https://blog.csdn.net/qq_37409292/article/details/83005919">https://blog.csdn.net/qq_37409292/article/details/83005919</a></p>
+<p>在cmd中输入以下指令：</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global http.proxy socks5:&#x2F;&#x2F;127.0.0.1:1080</span><br><span class="line">git config --global https.proxy socks5:&#x2F;&#x2F;127.0.0.1:1080</span><br></pre></td></tr></table></figure></div>
+<p>（端口号看你自己的配置，一般都是1080）</p>
+<p>如果要取消代理修改：</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global --unset http.proxy</span><br><span class="line">git config --global --unset https.proxy</span><br></pre></td></tr></table></figure></div>
+<p>问题补充<br>
+上述方法挂了全局代理，但是如果要克隆码云、coding等国内仓库，速度就会很慢。更好的方法是只对github进行代理，不会影响国内仓库：</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global http.https:&#x2F;&#x2F;github.com.proxy socks5:&#x2F;&#x2F;127.0.0.1:1080</span><br><span class="line">git config --global https.https:&#x2F;&#x2F;github.com.proxy socks5:&#x2F;&#x2F;127.0.0.1:1080</span><br></pre></td></tr></table></figure></div>
+<p>代理后git clone速度真的快了很多~我这边能到1MB/s以上<br>
+原文链接：<a href="https://blog.csdn.net/qq_37409292/article/details/83005919">https://blog.csdn.net/qq_37409292/article/details/83005919</a></p>
 
       
     </div>
@@ -1393,7 +1401,7 @@
         </span>
     </div>
 </div>
-https://i.imgur.com/AZULc9Y.png
+
 <script>
   function back2top(){
     $('html, body').animate({scrollTop: 0}, 500);
@@ -1428,9 +1436,9 @@ https://i.imgur.com/AZULc9Y.png
     POWERMODE.colorful = true;
     POWERMODE.shake = false;
     document.body.addEventListener('input', POWERMODE);
-  </script>
+  </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
-<script>!function(e){var c=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function i(){for(var r=0;r<c.length;r++)t=c[r],0<=(n=t.getBoundingClientRect()).bottom&&0<=n.left&&n.top<=(e.innerHeight||document.documentElement.clientHeight)&&function(){var t,n,e,i,o=c[r];t=o,n=function(){c=c.filter(function(t){return o!==t})},e=new Image,i=t.getAttribute("data-original"),e.onload=function(){t.src=i,n&&n()},e.src=i}();var t,n}i(),e.addEventListener("scroll",function(){var t,n;t=i,n=e,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(n)},500)})}(this);</script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+<script>!function(e){var c=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function i(){for(var r=0;r<c.length;r++)t=c[r],0<=(n=t.getBoundingClientRect()).bottom&&0<=n.left&&n.top<=(e.innerHeight||document.documentElement.clientHeight)&&function(){var t,n,e,i,o=c[r];t=o,n=function(){c=c.filter(function(t){return o!==t})},e=new Image,i=t.getAttribute("data-original"),e.onload=function(){t.src=i,n&&n()},e.src=i}();var t,n}i(),e.addEventListener("scroll",function(){var t,n;t=i,n=e,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(n)},500)})}(this);</script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script></body>
 </html>
 <!-- 页面点击小红心 -->
 <script type="text/javascript" src="/js/src/clicklove.js"></script>

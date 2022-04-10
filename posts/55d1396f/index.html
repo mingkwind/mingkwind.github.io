@@ -90,12 +90,12 @@
 
 
 
-<meta name="description" content="实验目的目的：分析TCP和重要的应用层协议内容：  任务1：DNS服务 任务2：TCP协议分析 任务3：HTTP协议分析 任务4：FTP协议分析">
+<meta name="description" content="实验目的 目的：分析TCP和重要的应用层协议 内容：  任务1：DNS服务 任务2：TCP协议分析 任务3：HTTP协议分析 任务4：FTP协议分析">
 <meta property="og:type" content="article">
 <meta property="og:title" content="计网实验——运输层和应用层协议分析">
 <meta property="og:url" content="http://yoursite.com/posts/55d1396f/index.html">
 <meta property="og:site_name" content="风屿の博客">
-<meta property="og:description" content="实验目的目的：分析TCP和重要的应用层协议内容：  任务1：DNS服务 任务2：TCP协议分析 任务3：HTTP协议分析 任务4：FTP协议分析">
+<meta property="og:description" content="实验目的 目的：分析TCP和重要的应用层协议 内容：  任务1：DNS服务 任务2：TCP协议分析 任务3：HTTP协议分析 任务4：FTP协议分析">
 <meta property="og:image" content="http://yoursite.com/images/loading.gif">
 <meta property="og:image" content="http://yoursite.com/images/loading.gif">
 <meta property="og:image" content="http://yoursite.com/images/loading.gif">
@@ -427,7 +427,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  5.3k
+                  5.2k
                 </span>
               
 
@@ -452,17 +452,23 @@
       
 
       
-        <h1 id="实验目的"><a href="#实验目的" class="headerlink" title="实验目的"></a>实验目的</h1><p>目的：分析TCP和重要的应用层协议<br>内容：</p>
+        <h1 id="实验目的"><a class="markdownIt-Anchor" href="#实验目的"></a> 实验目的</h1>
+<p>目的：分析TCP和重要的应用层协议<br>
+内容：</p>
 <ul>
 <li>任务1：DNS服务</li>
 <li>任务2：TCP协议分析</li>
 <li>任务3：HTTP协议分析</li>
 <li>任务4：FTP协议分析<a id="more"></a></li>
 </ul>
-<h1 id="实验内容与分析"><a href="#实验内容与分析" class="headerlink" title="实验内容与分析"></a>实验内容与分析</h1><h2 id="任务1：DNS服务"><a href="#任务1：DNS服务" class="headerlink" title="任务1：DNS服务"></a>任务1：DNS服务</h2><h3 id="任务要求"><a href="#任务要求" class="headerlink" title="任务要求"></a>任务要求</h3><p><img src="/images/loading.gif" data-original="/posts/55d1396f/image-20191227154352387.png" alt="image-20191227154352387"></p>
+<h1 id="实验内容与分析"><a class="markdownIt-Anchor" href="#实验内容与分析"></a> 实验内容与分析</h1>
+<h2 id="任务1dns服务"><a class="markdownIt-Anchor" href="#任务1dns服务"></a> 任务1：DNS服务</h2>
+<h3 id="任务要求"><a class="markdownIt-Anchor" href="#任务要求"></a> 任务要求</h3>
+<p><img src="/images/loading.gif" data-original="/posts/55d1396f/image-20191227154352387.png" alt="image-20191227154352387"></p>
 <p><img src="/images/loading.gif" data-original="/posts/55d1396f/image-20191227154429602.png" alt="image-20191227154429602"></p>
 <p><img src="/images/loading.gif" data-original="/posts/55d1396f/image-20191225153235283.png" alt="image-20191225153235283"></p>
-<h3 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h3><p>（1）</p>
+<h3 id="solution"><a class="markdownIt-Anchor" href="#solution"></a> Solution</h3>
+<p>（1）</p>
 <p>在配置完DNS环境后，首先要清空DNS缓存</p>
 <div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="SHELL"><figure class="iseeu highlight /shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ipconfig /flushdns</span><br></pre></td></tr></table></figure></div>
 <p>开启Wireshark进行抓包，笔者自己电脑的DNS服务器是<strong>172.16.9.1</strong>，首先将DNS服务器指向自己电脑，进行对自己配置的域名和邻居配置的域名的查询</p>
@@ -476,8 +482,12 @@
 <p><img src="/images/loading.gif" data-original="/posts/55d1396f/image-20191227180830966.png" alt="image-20191227180830966"></p>
 <p><img src="/images/loading.gif" data-original="/posts/55d1396f/image-20191227180914682.png" alt="image-20191227180914682"></p>
 <p>DNS报文格式如下</p>
-<p><style><br>    th,td<br>    {<br>        text-align:center;<br>    }
-</style></p>
+<style>
+    th,td
+    {
+        text-align:center;
+    }
+</style>
 <table>
     <col style="width: 50%">
     <col style="width: 50%">
@@ -510,8 +520,7 @@
     <td colspan="2">额外信息</td>
   </tr>  
 </table>
-
-<p>Transaction ID: 标识字段，客户通过标识字段来确定DNS响应是否与查询请求匹配，占16位。图中请求和回复报文该值均为0x2e15。<br>Flags: 标志，占16位，请求报文为0x0000，回复报文为0x8480，分为下面10个标志<br>&emsp;&emsp;Response: 占1位，操作类型：0：查询报文1：响应报文<br>&emsp;&emsp;Opcode: 占1位，查询类型：0：标准查询1：反向查询2：服务器状态查询3～15：保留未用 反向查询是客户端请求服务器根据回答生成导致此回答的问题，这个查询类型的使用并不多。<br> &emsp;&emsp;Authoritative: 占1位，若置位，则表示该域名解析服务器是授权回答该域的。<br> &emsp;&emsp;Truncated: 占1位，若置位，则表示报文被截断。 使用UDP传输时，应答的总长度超过512字节时，只返回报文的前512个字节内容。<br>&emsp;&emsp;Recursion desired: 占1位，客户端希望域名解析服务器采取的解析方式： 0：表示希望域名解析服务器采取迭代解析1：表示希望域名解析服务器采取递归解析<br> &emsp;&emsp;Recursion available: 占1位，域名解析服务器采取的解析方式： 0：表示域名解析服务器采取迭代解析1：表示域名解析服务器采取递归解析<br>&emsp;&emsp;Z: 占3位，全部置0，保留未用。<br>&emsp;&emsp;Answer authenticated: 占1位，应答认证：应答/权限部分未由服务器进行认证 ，0为应答服务器未验证了该查询相关的 DNSSEC 数字签名，1 为应答服务器已经验证了该查询相关的 DNSSEC 数字签名<br>&emsp;&emsp;Non-authenticated data: 占1位，非授权数据访问，0表示不可接受，1表示可接受<br> &emsp;&emsp;Reply code: 占4位，响应类型： 0：无差错1：查询格式错2：服务器失效3：域名不存在4：查询没有被执行5：查询被拒绝6-15: 保留未用<br>Questions:无符号16位整数表示报文请求段中的问题记录数，占16位。<br>Answer RRs:无符号16位整数表示报文回答段中的回答记录数，占16位<br>Authority RRs:无符号16位整数表示报文授权段中的授权记录数，占16位<br>Additional RRs:无符号16位整数表示报文附加段中的附加记录数，占16位<br>Queries:查询的问题<br>Anwers:问题的回答<br>Authoritative nameservers:授权信息<br>Additional records:额外信息</p>
+<p>Transaction ID: 标识字段，客户通过标识字段来确定DNS响应是否与查询请求匹配，占16位。图中请求和回复报文该值均为0x2e15。<br>Flags: 标志，占16位，请求报文为0x0000，回复报文为0x8480，分为下面10个标志<br>  Response: 占1位，操作类型：0：查询报文1：响应报文<br>  Opcode: 占1位，查询类型：0：标准查询1：反向查询2：服务器状态查询3～15：保留未用 反向查询是客户端请求服务器根据回答生成导致此回答的问题，这个查询类型的使用并不多。<br>   Authoritative: 占1位，若置位，则表示该域名解析服务器是授权回答该域的。<br>   Truncated: 占1位，若置位，则表示报文被截断。 使用UDP传输时，应答的总长度超过512字节时，只返回报文的前512个字节内容。<br>  Recursion desired: 占1位，客户端希望域名解析服务器采取的解析方式： 0：表示希望域名解析服务器采取迭代解析1：表示希望域名解析服务器采取递归解析<br>   Recursion available: 占1位，域名解析服务器采取的解析方式： 0：表示域名解析服务器采取迭代解析1：表示域名解析服务器采取递归解析<br>  Z: 占3位，全部置0，保留未用。<br>  Answer authenticated: 占1位，应答认证：应答/权限部分未由服务器进行认证 ，0为应答服务器未验证了该查询相关的 DNSSEC 数字签名，1 为应答服务器已经验证了该查询相关的 DNSSEC 数字签名<br>  Non-authenticated data: 占1位，非授权数据访问，0表示不可接受，1表示可接受<br>   Reply code: 占4位，响应类型： 0：无差错1：查询格式错2：服务器失效3：域名不存在4：查询没有被执行5：查询被拒绝6-15: 保留未用<br>Questions:无符号16位整数表示报文请求段中的问题记录数，占16位。<br>Answer RRs:无符号16位整数表示报文回答段中的回答记录数，占16位<br>Authority RRs:无符号16位整数表示报文授权段中的授权记录数，占16位<br>Additional RRs:无符号16位整数表示报文附加段中的附加记录数，占16位<br>Queries:查询的问题<br>Anwers:问题的回答<br>Authoritative nameservers:授权信息<br>Additional records:额外信息</p>
 <p>（2）</p>
 <p><img src="/images/loading.gif" data-original="/posts/55d1396f/image-20191227181801707.png" alt="image-20191227181801707"></p>
 <p>这些DNS报文的作用是用于标准查询或者反向查询域名。</p>
@@ -521,43 +530,52 @@
 <p>从6161(递归查询),6162(迭代查询)可以看出，当用自己的主机作为域名服务器，查询邻居域名时，先进行递归查询（向本地DNS服务器询问)，再进行迭代查询(本地DNS服务器向其他DNS服务器询问）</p>
 <p>（3）</p>
 <p>上述步骤中，当用域名查询IP时，nslookup返回的结果是<strong>非权威的</strong>，如果将DNS服务器指向该邻居，再查询域名，这时nslookup返回的结果是<strong>权威的</strong>。这是因为如果DNS服务器在自己的区域文件里找到了客户端需要查询的记录，就会返回一个权威性应答，否则是非权威性应答。</p>
-<h2 id="任务2：-TCP协议分析"><a href="#任务2：-TCP协议分析" class="headerlink" title="任务2： TCP协议分析"></a>任务2： TCP协议分析</h2><h3 id="任务要求1"><a href="#任务要求1" class="headerlink" title="任务要求1"></a>任务要求1</h3><p><img src="/images/loading.gif" data-original="/posts/55d1396f/image-20191225170741851.png" alt="image-20191225170741851"></p>
-<h3 id="Solution1"><a href="#Solution1" class="headerlink" title="Solution1"></a>Solution1</h3><p>在虚拟机内输入如下命令,同时开启Wireshark</p>
+<h2 id="任务2-tcp协议分析"><a class="markdownIt-Anchor" href="#任务2-tcp协议分析"></a> 任务2： TCP协议分析</h2>
+<h3 id="任务要求1"><a class="markdownIt-Anchor" href="#任务要求1"></a> 任务要求1</h3>
+<p><img src="/images/loading.gif" data-original="/posts/55d1396f/image-20191225170741851.png" alt="image-20191225170741851"></p>
+<h3 id="solution1"><a class="markdownIt-Anchor" href="#solution1"></a> Solution1</h3>
+<p>在虚拟机内输入如下命令,同时开启Wireshark</p>
 <div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="SHELL"><figure class="iseeu highlight /shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget ischoolgu.xmu.edu.cn –-no-http-keep-alive</span><br></pre></td></tr></table></figure></div>
 <p>抓到如下报文</p>
 <p><img src="/images/loading.gif" data-original="/posts/55d1396f/image-20191225175506916.png" alt="image-20191225175506916"></p>
-<h4 id="1°分析报文"><a href="#1°分析报文" class="headerlink" title="1°分析报文"></a>1°分析报文</h4><p>选取一TCP报文</p>
+<h4 id="1分析报文"><a class="markdownIt-Anchor" href="#1分析报文"></a> 1°分析报文</h4>
+<p>选取一TCP报文</p>
 <p><img src="/images/loading.gif" data-original="/posts/55d1396f/20191225180610.png" alt="20191225180610"></p>
 <p>TCP首部格式如下</p>
 <p><img src="/images/loading.gif" data-original="/posts/55d1396f/20180324192146298.png" alt="img"></p>
-<p>图中：<br>Source Port:源端口，占16位，图中为62960<br> Destination Port:目的端口，占16位，图中为678<br>[Stream index]: 流索引，流索引是内部Wireshark映射到：<strong>[IP地址A，TCP端口A，IP地址B，TCP端口B]</strong>，具有相同tcp.stream值的所有数据包对于这些字段应具有相同的值（尽管src/dest将针对A-&gt; B和B-&gt; A数据包进行切换），在Wireshark中的“统计信息/对话/ TCP”选项卡以显示这些流的摘要<br>[TCP Segment Len]:TCP报文段数据部分长度，点击这一项，其指向和Header Length同一字段，这是因为Wireshark根据IP层的数据总长度233减去IP首部长度20再减去TCP首部长度20计算得来的长度193字节<br>Sequence number(relative sequence number)：序号，占16位，TCP报文每个字节都按顺序编号，这个序号指的是本报文段所发送数据的第一个字节序号，图中为168<br>[Next sequence number(relative sequence number)]:下一个序号，Wireshark根据Sequence number+TCP Segment Len=168+193=361算出来的结果，<br>Acknowledgment number(relative ack number):确认号，占16位，是期望收到对方下一个报文段的第一个数据字节的序号，<strong>若确认号为= N，则表明：到序号N-1为止的所有数据都已正确收到</strong>。图中为108<br>Header Length: 20 bytes:数据偏移，它指出TCP报文段的数据起始处距离TCP报文段的起始处有多远，这个字段实际上是指出<strong>TCP报文段的首部长度</strong>，占4位，<strong>其单位为32位字（4字节）</strong>图中为20bytes<br>Flags: 控制位，用来说明本报文段的性质，占12位，其中前6位是<strong>保留字段</strong>，后面6位代表以下6个控制位：<br>&emsp;紧急URG（URGent）：当URG=1时，表明紧急指针字段有效。它告诉系统此报文段中有紧急数据，应尽快发送（相当于高优先级的数据），而不要按原来的排队顺序来传送。例如，已经发送了很长的一个程序要在远地的主机上运行。但后来发现了一些问题，需要取消该程序的运行，因此用户从键盘发出中断命令。如果不使用紧急数据，那么这两个字符将存储在接收TCP的缓存末尾。只有在所有的数据被处理完毕后这两个字符才被交付接收方的应用进程。这样做就浪费了很多时间。<br>当URG置为1时，发送应用进程就告诉发送方的TCP有紧急数据要传送。于是发送方TCP就把紧急数据插入到本报文段数据的最前面，而在紧急数据后面的数据仍然是普通数据。这时要与首部中紧急指针（Urgent Pointer）字段配合使用，图中为0<br>&emsp;确认ACK（ACKnowledgment）:仅当ACK = 1时确认号字段才有效，当ACK = 0时确认号无效。TCP规定，在连接建立后所有的传送的报文段都必须把ACK置为1。图中为1<br>&emsp;推送 PSH（PuSH）:当两个应用进程进行交互式的通信时，有时在一端的应用进程希望在键入一个命令后立即就能收到对方的响应。在这种情况下，TCP就可以使用推送（push）操作。这时，发送方TCP把PSH置为1，并立即创建一个报文段发送出去。接收方TCP收到PSH=1的报文段，就尽快地（即“推送”向前）交付接收应用进程。而不用再等到整个缓存都填满了后再向上交付。图中为1<br>&emsp;复位RST（ReSeT）:当RST=1时，表名TCP连接中出现了严重错误（如由于主机崩溃或其他原因），必须释放连接，然后再重新建立传输连接。RST置为1还用来拒绝一个非法的报文段或拒绝打开一个连接。图中为0<br>&emsp;同步SYN（SYNchronization）       在连接建立时用来同步序号。当SYN=1而ACK=0时，表明这是一个连接请求报文段。对方若同意建立连接，则应在响应的报文段中使SYN=1和ACK=1，因此SYN置为1就表示这是一个连接请求或连接接受报文。图中为0<br>&emsp;终止FIN（FINis，意思是“完”“终”）          用来释放一个连接。当FIN=1时，表明此报文段的发送发的数据已发送完毕，并要求释放运输连接。图中为0<br>Window size value:窗口大小，占2字节，<strong>窗口指的是发送本报文段的一方的接受窗口（而不是自己的发送窗口）</strong>，以字节为单位，<strong>窗口值作为接收方让发送方设置其发送窗口的依据</strong>。图中为256<br>[Calculated window size]:窗口实际可用大小，由Window size value乘以Window size scaling factor计算而来图中为65536<br>[Window size scaling factor]:这是一个放大倍数，图中为256，实际上用16位表示窗口大小已经满足不了现在的需求。在TCP三次握手过程中，可以通过<strong>SYN</strong>包开启TCP选项Window Size Scaling，设计出这个选项是因为如今的带宽已经大规模提升，千兆到桌面也是一件常事儿，因此，65535长度的窗口大小已经显得有些小了，为了突破这个限制，便有了Window Size Scaling选项</p>
+<p>图中：<br>Source Port:源端口，占16位，图中为62960<br> Destination Port:目的端口，占16位，图中为678<br>[Stream index]: 流索引，流索引是内部Wireshark映射到：<strong>[IP地址A，TCP端口A，IP地址B，TCP端口B]</strong>，具有相同tcp.stream值的所有数据包对于这些字段应具有相同的值（尽管src/dest将针对A-&gt; B和B-&gt; A数据包进行切换），在Wireshark中的“统计信息/对话/ TCP”选项卡以显示这些流的摘要<br>[TCP Segment Len]:TCP报文段数据部分长度，点击这一项，其指向和Header Length同一字段，这是因为Wireshark根据IP层的数据总长度233减去IP首部长度20再减去TCP首部长度20计算得来的长度193字节<br>Sequence number(relative sequence number)：序号，占16位，TCP报文每个字节都按顺序编号，这个序号指的是本报文段所发送数据的第一个字节序号，图中为168<br>[Next sequence number(relative sequence number)]:下一个序号，Wireshark根据Sequence number+TCP Segment Len=168+193=361算出来的结果，<br>Acknowledgment number(relative ack number):确认号，占16位，是期望收到对方下一个报文段的第一个数据字节的序号，<strong>若确认号为= N，则表明：到序号N-1为止的所有数据都已正确收到</strong>。图中为108<br>Header Length: 20 bytes:数据偏移，它指出TCP报文段的数据起始处距离TCP报文段的起始处有多远，这个字段实际上是指出<strong>TCP报文段的首部长度</strong>，占4位，<strong>其单位为32位字（4字节）<strong>图中为20bytes<br>Flags: 控制位，用来说明本报文段的性质，占12位，其中前6位是</strong>保留字段</strong>，后面6位代表以下6个控制位：<br> 紧急URG（URGent）：当URG=1时，表明紧急指针字段有效。它告诉系统此报文段中有紧急数据，应尽快发送（相当于高优先级的数据），而不要按原来的排队顺序来传送。例如，已经发送了很长的一个程序要在远地的主机上运行。但后来发现了一些问题，需要取消该程序的运行，因此用户从键盘发出中断命令。如果不使用紧急数据，那么这两个字符将存储在接收TCP的缓存末尾。只有在所有的数据被处理完毕后这两个字符才被交付接收方的应用进程。这样做就浪费了很多时间。<br>
+当URG置为1时，发送应用进程就告诉发送方的TCP有紧急数据要传送。于是发送方TCP就把紧急数据插入到本报文段数据的最前面，而在紧急数据后面的数据仍然是普通数据。这时要与首部中紧急指针（Urgent Pointer）字段配合使用，图中为0<br> 确认ACK（ACKnowledgment）:仅当ACK = 1时确认号字段才有效，当ACK = 0时确认号无效。TCP规定，在连接建立后所有的传送的报文段都必须把ACK置为1。图中为1<br> 推送 PSH（PuSH）:当两个应用进程进行交互式的通信时，有时在一端的应用进程希望在键入一个命令后立即就能收到对方的响应。在这种情况下，TCP就可以使用推送（push）操作。这时，发送方TCP把PSH置为1，并立即创建一个报文段发送出去。接收方TCP收到PSH=1的报文段，就尽快地（即“推送”向前）交付接收应用进程。而不用再等到整个缓存都填满了后再向上交付。图中为1<br> 复位RST（ReSeT）:当RST=1时，表名TCP连接中出现了严重错误（如由于主机崩溃或其他原因），必须释放连接，然后再重新建立传输连接。RST置为1还用来拒绝一个非法的报文段或拒绝打开一个连接。图中为0<br> 同步SYN（SYNchronization）       在连接建立时用来同步序号。当SYN=1而ACK=0时，表明这是一个连接请求报文段。对方若同意建立连接，则应在响应的报文段中使SYN=1和ACK=1，因此SYN置为1就表示这是一个连接请求或连接接受报文。图中为0<br> 终止FIN（FINis，意思是“完”“终”）          用来释放一个连接。当FIN=1时，表明此报文段的发送发的数据已发送完毕，并要求释放运输连接。图中为0<br>Window size value:窗口大小，占2字节，<strong>窗口指的是发送本报文段的一方的接受窗口（而不是自己的发送窗口）</strong>，以字节为单位，<strong>窗口值作为接收方让发送方设置其发送窗口的依据</strong>。图中为256<br>[Calculated window size]:窗口实际可用大小，由Window size value乘以Window size scaling factor计算而来图中为65536<br>[Window size scaling factor]:这是一个放大倍数，图中为256，实际上用16位表示窗口大小已经满足不了现在的需求。在TCP三次握手过程中，可以通过<strong>SYN</strong>包开启TCP选项Window Size Scaling，设计出这个选项是因为如今的带宽已经大规模提升，千兆到桌面也是一件常事儿，因此，65535长度的窗口大小已经显得有些小了，为了突破这个限制，便有了Window Size Scaling选项</p>
 <p>打开一个另一个SNK报文，在<strong>选项</strong>发现如下字段:</p>
 <p><img src="/images/loading.gif" data-original="/posts/55d1396f/image-20191225202839967.png" alt="image-20191225202839967"></p>
 <p>可以看到这个字段的值为8，也就是要将Window Size的值左移8位，即乘以128，因此，在上面中我们看到window size值是256，但是真正选用的值却是65536(256*256)。<br>Checksum: 校验和，占2字节。检验和字段检验的范围包括首部和数据这两部分。和UDP用户数据报一样，在计算检验和时，要在TCP报文段的前面加上12字节的伪首部。伪首部的格式和UDP用户数据报的伪首部一样。但应把伪首部第4个字段中的17改为6（TCP的协议号是6）；把第5字段中的UDP中的长度改为TCP长度。接收方收到此报文段后，仍要加上这个伪首部来计算检验和。若使用TPv6,则相应的伪首部也要改变。图中为0x843f [unverified]未验证状态<br>Urgent pointer:  紧急指针，占2字节。紧急指针仅在URG=1时才有意义，它指出本报文段中的紧急数据的字节数（紧急数据结束后就是普通数据） 。因此，在紧急指针指出了紧急数据的末尾在报文段中的位置。当所有紧急数据都处理完时，TCP就告诉应用程序恢复到正常操作。值得注意的是，即使窗口为0时也可以发送紧急数据，图中为0<br>Options:选项,长度可变，最长可达4字节。包括最大报文段长度MSS、窗口扩大选项、时间戳选项等。当没有使用“选项”时，TCP的首部长度是20字节。该TCP首部没有选项字段，因此仅有20字节</p>
-<h4 id="2°画出TCP的流图"><a href="#2°画出TCP的流图" class="headerlink" title="2°画出TCP的流图"></a>2°画出TCP的流图</h4><p>利用右键追踪TCP流定位到 <a href="http://ischoolgu.xmu.edu.cn/">http://ischoolgu.xmu.edu.cn/</a> 网站html文件所在TCP流</p>
+<h4 id="2画出tcp的流图"><a class="markdownIt-Anchor" href="#2画出tcp的流图"></a> 2°画出TCP的流图</h4>
+<p>利用右键追踪TCP流定位到 <a href="http://ischoolgu.xmu.edu.cn/">http://ischoolgu.xmu.edu.cn/</a> 网站html文件所在TCP流</p>
 <p><img src="/images/loading.gif" data-original="/posts/55d1396f/image-20191225205618179.png" alt="image-20191225205618179"></p>
 <p>根据流信息画出流程图</p>
 <p><img src="/images/loading.gif" data-original="/posts/55d1396f/image-20191225210818958.png" alt="image-20191225210818958"></p>
-<p>[TCP segment of a reassembled PDU]是Wireshark分析了其上层的HTTP协议而给出的摘要，为了便于分析，将其还原为可以直接读取的TCP信息，配置Wireshark不支持HTTP协议解析 </p>
-<p><img src="/images/loading.gif" data-original="/posts/55d1396f/image-20191227113929953.png" alt="image-20191227113929953" style="zoom:67%;"></p>
-<p><img src="/images/loading.gif" data-original="/posts/55d1396f/image-20191227114043056.png" alt="image-20191227114043056" style="zoom:67%;"></p>
-<p>转变为如下图 </p>
+<p>[TCP segment of a reassembled PDU]是Wireshark分析了其上层的HTTP协议而给出的摘要，为了便于分析，将其还原为可以直接读取的TCP信息，配置Wireshark不支持HTTP协议解析</p>
+<img src="/images/loading.gif" data-original="/posts/55d1396f/image-20191227113929953.png" alt="image-20191227113929953" style="zoom:67%;">
+<img src="/images/loading.gif" data-original="/posts/55d1396f/image-20191227114043056.png" alt="image-20191227114043056" style="zoom:67%;">
+<p>转变为如下图</p>
 <p><img src="/images/loading.gif" data-original="/posts/55d1396f/image-20191227114625453.png" alt="image-20191227114625453"></p>
 <div id="sequence-0"></div>
-
-<h3 id="任务要求2"><a href="#任务要求2" class="headerlink" title="任务要求2"></a>任务要求2</h3><p><img src="/images/loading.gif" data-original="/posts/55d1396f/image-20191225171410342.png" alt="image-20191225171410342"></p>
-<h3 id="Solution2"><a href="#Solution2" class="headerlink" title="Solution2"></a>Solution2</h3><p>定位所在流序号</p>
+<h3 id="任务要求2"><a class="markdownIt-Anchor" href="#任务要求2"></a> 任务要求2</h3>
+<p><img src="/images/loading.gif" data-original="/posts/55d1396f/image-20191225171410342.png" alt="image-20191225171410342"></p>
+<h3 id="solution2"><a class="markdownIt-Anchor" href="#solution2"></a> Solution2</h3>
+<p>定位所在流序号</p>
 <p><img src="/images/loading.gif" data-original="/posts/55d1396f/image-20191226155333151.png" alt="image-20191226155333151"></p>
 <p>得到以下图</p>
 <p><img src="/images/loading.gif" data-original="/posts/55d1396f/20191226160219.png" alt="20191226160219"></p>
 <p>依然对[TCP segment of a reassembled PDU]进行还原，得到以下图</p>
 <p><img src="/images/loading.gif" data-original="/posts/55d1396f/image-20191227114204908.png" alt="image-20191227114204908"></p>
-<p><img src="/images/loading.gif" data-original="/posts/55d1396f/image-20191228224704565.png" alt="image-20191228224704565" style="zoom: 200%;"></p>
+<img src="/images/loading.gif" data-original="/posts/55d1396f/image-20191228224704565.png" alt="image-20191228224704565" style="zoom: 200%;">
 <div style="page-break-after: always;"></div>
-
-<h2 id="任务3：-HTTP协议分析"><a href="#任务3：-HTTP协议分析" class="headerlink" title="任务3： HTTP协议分析"></a>任务3： HTTP协议分析</h2><h3 id="任务要求-1"><a href="#任务要求-1" class="headerlink" title="任务要求"></a>任务要求</h3><p><img src="/images/loading.gif" data-original="/posts/55d1396f/image-20191227155942568.png" alt="image-20191227155942568"></p>
-<h3 id="Solution-1"><a href="#Solution-1" class="headerlink" title="Solution"></a>Solution</h3><p>（1）</p>
-<p>访问<a href="http://stu.xmu.edu.cn/过滤HTTP报文得到如下图">http://stu.xmu.edu.cn/过滤HTTP报文得到如下图</a></p>
+<h2 id="任务3-http协议分析"><a class="markdownIt-Anchor" href="#任务3-http协议分析"></a> 任务3： HTTP协议分析</h2>
+<h3 id="任务要求-2"><a class="markdownIt-Anchor" href="#任务要求-2"></a> 任务要求</h3>
+<p><img src="/images/loading.gif" data-original="/posts/55d1396f/image-20191227155942568.png" alt="image-20191227155942568"></p>
+<h3 id="solution-2"><a class="markdownIt-Anchor" href="#solution-2"></a> Solution</h3>
+<p>（1）</p>
+<p>访问http://stu.xmu.edu.cn/过滤HTTP报文得到如下图</p>
 <p><img src="/images/loading.gif" data-original="/posts/55d1396f/image-20191227215718717.png" alt="image-20191227215718717"></p>
 <p>分析其中一对HTTP请求/响应报文</p>
 <p><img src="/images/loading.gif" data-original="/posts/55d1396f/image-20191227220524272.png" alt="image-20191227220524272"></p>
@@ -566,14 +584,17 @@
 <p><img src="/images/loading.gif" data-original="/posts/55d1396f/headImg.action" alt="img"></p>
 <p>HTTP响应报文格式如下：</p>
 <p><img src="/images/loading.gif" data-original="/posts/55d1396f/headImg.action" alt="img"></p>
-<p>HTTP请求报文首部：<br>GET /coremail/common/assets/login/js/blurImg_worker.js HTTP/1.1\r\n： GET 为请求方式，后面跟请求的内容及协议版本<br>Request Method: GET 请求方式<br>Request URI: /coremail/common/assets/login/js/blurImg_worker.js 请求内容<br>Request Version: HTTP/1.1 协议的版本<br>Host: stu.xmu.edu.cn\r\n 请求的主机名<br>User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:71.0) Gecko/20100101 Firefox/71.0\r\n 发送请求的操作系统、及浏览器信息<br>Accept:*/*\r\n 客户端可识别的内容类型列表，用于指定客户端接受了哪些类型的信息<br>Accept-Language: zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2\r\n 浏览器所支持的语言类型<br>Accept-Encoding: gzip, deflate\r\n 客户端可识别的数据编码<br>Connection: close\r\n 客户端与服务端指定的请求，响应有关选项<br>Referer: <a href="http://stu.xmu.edu.cn/coremail/index.jsp?cus=1\r\n">http://stu.xmu.edu.cn/coremail/index.jsp?cus=1\r\n</a> 客户端可识别的内容类型列表，用于指定客户端接受哪些类型的信息<br>Cookie: 类型为“<strong>小型文本文件</strong>”，是某些网站为了辨别用户身份，进行Session跟踪而储存在用户本地终端上的数据（通常经过加密），由用户客户端计算机暂时或永久保存的信息</p>
+<p>HTTP请求报文首部：<br>GET /coremail/common/assets/login/js/blurImg_worker.js HTTP/1.1\r\n： GET 为请求方式，后面跟请求的内容及协议版本<br>Request Method: GET 请求方式<br>Request URI: /coremail/common/assets/login/js/blurImg_worker.js 请求内容<br>Request Version: HTTP/1.1 协议的版本<br>Host: <a href="http://stu.xmu.edu.cn">stu.xmu.edu.cn</a>\r\n 请求的主机名<br>User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:71.0) Gecko/20100101 Firefox/71.0\r\n 发送请求的操作系统、及浏览器信息<br>Accept:*/*\r\n 客户端可识别的内容类型列表，用于指定客户端接受了哪些类型的信息<br>Accept-Language: zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2\r\n 浏览器所支持的语言类型<br>Accept-Encoding: gzip, deflate\r\n 客户端可识别的数据编码<br>Connection: close\r\n 客户端与服务端指定的请求，响应有关选项<br>Referer: <a href="http://stu.xmu.edu.cn/coremail/index.jsp?cus=1%5Cr%5Cn">http://stu.xmu.edu.cn/coremail/index.jsp?cus=1\r\n</a> 客户端可识别的内容类型列表，用于指定客户端接受哪些类型的信息<br>Cookie: 类型为“<strong>小型文本文件</strong>”，是某些网站为了辨别用户身份，进行Session跟踪而储存在用户本地终端上的数据（通常经过加密），由用户客户端计算机暂时或永久保存的信息</p>
 <p>HTTP响应报文首部：<br>HTTP/1.1 200 OK\r\n 状态行，200表示客户端请求成功<br>Request Version: HTTP/1.1 协议版本<br>Status Code: 200 状态码<br>Response Phrase: OK 响应短语<br>Server: nginx\r\n 服务器信息<br>Date: Fri, 27 Dec 2019 13:16:16 GMT\r\n 响应时间<br>Content-Type: application/javascript\r\n 告诉客户端实际返回的内容类型<br>Transfer-Encoding: chunked\r\n 消息主题的大小<br>Connection: close\r\n 连接状态<br>X-Protected-By: OpenRASP\r\n<br>X-Request-ID: 1040fe080fa5424da40cc11f29d4acec\r\n<br>ETag: W/“4603-1472555014000”\r\n 资源的特定版本的标识符<br>Last-Modified: Tue, 30 Aug 2016 11:03:34 GMT\r\n请求资源的最后修改时间<br>Content-Encoding: gzip\r\n 响应内容编码<br>HTTP chunked response 响应内容<br>Content-encoded entity body (gzip): 1560 bytes -&gt; 4603 bytes 编码对应主体<br>File Data: 4603 bytes 文件数据大小<br>Media Type：文件类型</p>
 <p>（2）<br>在首选项添加显示端口</p>
 <p><img src="/images/loading.gif" data-original="/posts/55d1396f/image-20191227234729105.png" alt="image-20191227234729105"></p>
 <p><img src="/images/loading.gif" data-original="/posts/55d1396f/image-20191227234858198.png" alt="image-20191227234858198"></p>
 <p>可知这次的访问总共生成10个TCP流，传输双方的端口号和内容均可以从上图看出，可以发现远程主机的端口号均是80</p>
-<h2 id="任务4：FTP分析"><a href="#任务4：FTP分析" class="headerlink" title="任务4：FTP分析"></a>任务4：FTP分析</h2><h3 id="任务要求-2"><a href="#任务要求-2" class="headerlink" title="任务要求"></a>任务要求</h3><p><img src="/images/loading.gif" data-original="/posts/55d1396f/image-20191227235748753.png" alt="image-20191227235748753"></p>
-<h3 id="Solution-2"><a href="#Solution-2" class="headerlink" title="Solution"></a>Solution</h3><p>使用如下命令进入访问该ftp</p>
+<h2 id="任务4ftp分析"><a class="markdownIt-Anchor" href="#任务4ftp分析"></a> 任务4：FTP分析</h2>
+<h3 id="任务要求-3"><a class="markdownIt-Anchor" href="#任务要求-3"></a> 任务要求</h3>
+<p><img src="/images/loading.gif" data-original="/posts/55d1396f/image-20191227235748753.png" alt="image-20191227235748753"></p>
+<h3 id="solution-3"><a class="markdownIt-Anchor" href="#solution-3"></a> Solution</h3>
+<p>使用如下命令进入访问该ftp</p>
 <div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="SHELL"><figure class="iseeu highlight /shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ftp</span><br><span class="line">o ftp.rfc-editor.org</span><br><span class="line">ftp</span><br></pre></td></tr></table></figure></div>
 <p><img src="/images/loading.gif" data-original="/posts/55d1396f/image-20191228000747868.png" alt="image-20191228000747868"></p>
 <div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="SHELL"><figure class="iseeu highlight /shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd legal</span><br><span class="line">get rfc811.txt</span><br></pre></td></tr></table></figure></div>
@@ -585,21 +606,19 @@
 <p><img src="/images/loading.gif" data-original="/posts/55d1396f/image-20191228024308063.png" alt="image-20191228024308063"></p>
 <p>捣鼓许久才知道需关闭windows防火墙</p>
 <p><img src="/images/loading.gif" data-original="/posts/55d1396f/image-20191228025523929.png" alt="image-20191228025523929"></p>
-<p>便成功抓到FTP PORT模式下的数据包</p>
+<p>便成功抓到FTP PORT模式下的数据包</p>
 <p><img src="/images/loading.gif" data-original="/posts/55d1396f/image-20191228024555915.png" alt="image-20191228024555915"></p>
 <p>现比较两种模式</p>
 <p>被动模式</p>
 <div id="sequence-1"></div>
-
 <p>从上面sequence图中可以看到，被动模式是FTP服务器返回数据传输需要的端口，FTP客户端去连接FTP服务端。绝大部分的互联网应用(比如Web/Http)，都是客户端向服务端发起连接。换句话说，绝大部分互联网应用都是被动模式。</p>
 <p><img src="/images/loading.gif" data-original="/posts/55d1396f/image-20191228101422236.png" alt="image-20191228101422236"></p>
 <p>从上图可以看到，服务端(4.31.198.49)返回给客户端(192.168.2.29)数据端口(117,228)=117*256+128=30080,然后用这个端口进行数据传输</p>
 <p>主动模式</p>
 <div id="sequence-2"></div>
-
 <p>从sequence图中可以看到，主动模式是FTP客户端向FTP服务器发送数据传输需要的端口，FTP服务端去连接FTP客户端的端口，与被动模式刚好相反。值得注意的是，需要注意的是，被动模式和主动模式的登录过程，都是FTP客户端去连接FTP服务器。</p>
 <p><img src="/images/loading.gif" data-original="/posts/55d1396f/image-20191228101703372.png" alt="image-20191228101703372"></p>
-<p>从上图可以看到，返回给客户端(192.168.2.29)主动将数据端口(195,76)=195<em>256+76=49996发给服务端(4.31.198.49),而服务端启用固定端口<em>*20</em></em>和客户端的这个端口进行数据传输</p>
+<p>从上图可以看到，返回给客户端(192.168.2.29)主动将数据端口(195,76)=195*256+76=49996发给服务端(4.31.198.49),而服务端启用固定端口<strong>20</strong>和客户端的这个端口进行数据传输</p>
 <p>因此从上面可以总结出：主动模式对便于FTP服务器的管理，不便于对客户端进行管理。因为FTP服务器企图与客户端的高位随机端口建立连接，而这个端口很有可能被客户端的防火墙所阻塞，从上面笔者将linux虚拟机外部的windows防火墙关掉才可使用FTP PORT模式可以看出。被动模式对FTP便于对客户端进行管理，不便于对服务器端进行管理。因为客户端要与服务器端建立两个连接，其中一个连到一个高位随机端口，而这个端口很有可能被服务器端的防火墙阻塞掉。</p>
 <p>使用Windows下的firefox下载rfc811.txt</p>
 <p><img src="/images/loading.gif" data-original="/posts/55d1396f/image-20191228024738405.png" alt="image-20191228024738405"></p>
@@ -607,9 +626,9 @@
 <p>对比下图FTP被动模式，可以看出，使用web浏览器下载，其默认使用匿名(anonymous)登陆，密码自动使用mozilla@example.com，而实践证明用linux FTP在未开启匿名登陆方式时不能进行匿名登陆，然后会发送编码方式，使用被动模式进行传输，但在下载时，会下载该文件的属性（生成时间），这是与Windows的NTFS文件系统相匹配的。</p>
 <p><img src="/images/loading.gif" data-original="/posts/55d1396f/image-20191228113623047.png" alt="image-20191228113623047"></p>
 <div style="page-break-after: always;"></div>
-
-<h1 id="实验小结"><a href="#实验小结" class="headerlink" title="实验小结"></a>实验小结</h1><pre><code>此次实验我进一步掌握了wireshark的各种使用技巧，分析了应用层的DNS、HTTP、FTP协议，对应用层有更深刻的认识和理解，并且学到了课本上所未提及到的知识。在切换FTP port模式时，我遇到了很大的困难，无论如何修改虚拟机配置都不能建立连接，最后了解主动模式和被动模式的区别，方知问题可能出在外部的Windows上，最后成功解决问题。学习就是不断经过思考和实践来克服困难的过程，知其难为而勉力为之，方为正道。
-</code></pre><p><script src="https://cdnjs.cloudflare.com/ajax/libs/webfont/1.6.27/webfontloader.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/snap.svg/0.4.1/snap.svg-min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script><textarea id="sequence-0-code" style="display: none">participant Client
+<h1 id="实验小结"><a class="markdownIt-Anchor" href="#实验小结"></a> 实验小结</h1>
+<p>此次实验我进一步掌握了wireshark的各种使用技巧，分析了应用层的DNS、HTTP、FTP协议，对应用层有更深刻的认识和理解，并且学到了课本上所未提及到的知识。在切换FTP port模式时，我遇到了很大的困难，无论如何修改虚拟机配置都不能建立连接，最后了解主动模式和被动模式的区别，方知问题可能出在外部的Windows上，最后成功解决问题。学习就是不断经过思考和实践来克服困难的过程，知其难为而勉力为之，方为正道。</p>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/webfont/1.6.27/webfontloader.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/snap.svg/0.4.1/snap.svg-min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script><textarea id="sequence-0-code" style="display: none">participant Client
 participant Server
 note over Client,Server:OPEN
 Client -->> Server: <SYN>Seq=0 Win=14600 Len=0
@@ -649,8 +668,7 @@ FTP服务端 --> FTP客户端: 登录成功
 FTP客户端 --> FTP服务端: PORT 客户端(ip,端口)
 FTP服务端 --> FTP客户端: 新创建数据传输TCP连接[ip,新端口]
 FTP客户端 --> FTP服务端: STOR文件名
-note over FTP客户端,FTP服务端: 在新建立的数据连接上传输</textarea><textarea id="sequence-2-options" style="display: none">{"theme":"simple","scale":1,"line-width":2,"line-length":50,"text-margin":10,"font-size":12}</textarea><script>  var code = document.getElementById("sequence-2-code").value;  var options = JSON.parse(decodeURIComponent(document.getElementById("sequence-2-options").value));  var diagram = Diagram.parse(code);  diagram.drawSVG("sequence-2", options);</script></p>
-
+note over FTP客户端,FTP服务端: 在新建立的数据连接上传输</textarea><textarea id="sequence-2-options" style="display: none">{"theme":"simple","scale":1,"line-width":2,"line-length":50,"text-margin":10,"font-size":12}</textarea><script>  var code = document.getElementById("sequence-2-code").value;  var options = JSON.parse(decodeURIComponent(document.getElementById("sequence-2-options").value));  var diagram = Diagram.parse(code);  diagram.drawSVG("sequence-2", options);</script>
       
     </div>
     
@@ -878,7 +896,7 @@ note over FTP客户端,FTP服务端: 在新建立的数据连接上传输</texta
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#实验目的"><span class="nav-number">1.</span> <span class="nav-text">实验目的</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实验内容与分析"><span class="nav-number">2.</span> <span class="nav-text">实验内容与分析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#任务1：DNS服务"><span class="nav-number">2.1.</span> <span class="nav-text">任务1：DNS服务</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#任务要求"><span class="nav-number">2.1.1.</span> <span class="nav-text">任务要求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Solution"><span class="nav-number">2.1.2.</span> <span class="nav-text">Solution</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#任务2：-TCP协议分析"><span class="nav-number">2.2.</span> <span class="nav-text">任务2： TCP协议分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#任务要求1"><span class="nav-number">2.2.1.</span> <span class="nav-text">任务要求1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Solution1"><span class="nav-number">2.2.2.</span> <span class="nav-text">Solution1</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1°分析报文"><span class="nav-number">2.2.2.1.</span> <span class="nav-text">1°分析报文</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2°画出TCP的流图"><span class="nav-number">2.2.2.2.</span> <span class="nav-text">2°画出TCP的流图</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#任务要求2"><span class="nav-number">2.2.3.</span> <span class="nav-text">任务要求2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Solution2"><span class="nav-number">2.2.4.</span> <span class="nav-text">Solution2</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#任务3：-HTTP协议分析"><span class="nav-number">2.3.</span> <span class="nav-text">任务3： HTTP协议分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#任务要求-1"><span class="nav-number">2.3.1.</span> <span class="nav-text">任务要求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Solution-1"><span class="nav-number">2.3.2.</span> <span class="nav-text">Solution</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#任务4：FTP分析"><span class="nav-number">2.4.</span> <span class="nav-text">任务4：FTP分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#任务要求-2"><span class="nav-number">2.4.1.</span> <span class="nav-text">任务要求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Solution-2"><span class="nav-number">2.4.2.</span> <span class="nav-text">Solution</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实验小结"><span class="nav-number">3.</span> <span class="nav-text">实验小结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#实验目的"><span class="nav-number">1.</span> <span class="nav-text"> 实验目的</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实验内容与分析"><span class="nav-number">2.</span> <span class="nav-text"> 实验内容与分析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#任务1dns服务"><span class="nav-number">2.1.</span> <span class="nav-text"> 任务1：DNS服务</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#任务要求"><span class="nav-number">2.1.1.</span> <span class="nav-text"> 任务要求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#solution"><span class="nav-number">2.1.2.</span> <span class="nav-text"> Solution</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#任务2-tcp协议分析"><span class="nav-number">2.2.</span> <span class="nav-text"> 任务2： TCP协议分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#任务要求1"><span class="nav-number">2.2.1.</span> <span class="nav-text"> 任务要求1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#solution1"><span class="nav-number">2.2.2.</span> <span class="nav-text"> Solution1</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1分析报文"><span class="nav-number">2.2.2.1.</span> <span class="nav-text"> 1°分析报文</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2画出tcp的流图"><span class="nav-number">2.2.2.2.</span> <span class="nav-text"> 2°画出TCP的流图</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#任务要求2"><span class="nav-number">2.2.3.</span> <span class="nav-text"> 任务要求2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#solution2"><span class="nav-number">2.2.4.</span> <span class="nav-text"> Solution2</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#任务3-http协议分析"><span class="nav-number">2.3.</span> <span class="nav-text"> 任务3： HTTP协议分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#任务要求-2"><span class="nav-number">2.3.1.</span> <span class="nav-text"> 任务要求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#solution-2"><span class="nav-number">2.3.2.</span> <span class="nav-text"> Solution</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#任务4ftp分析"><span class="nav-number">2.4.</span> <span class="nav-text"> 任务4：FTP分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#任务要求-3"><span class="nav-number">2.4.1.</span> <span class="nav-text"> 任务要求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#solution-3"><span class="nav-number">2.4.2.</span> <span class="nav-text"> Solution</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实验小结"><span class="nav-number">3.</span> <span class="nav-text"> 实验小结</span></a></li></ol></div>
             
 
           </div>
@@ -1651,7 +1669,7 @@ note over FTP客户端,FTP服务端: 在新建立的数据连接上传输</texta
         </span>
     </div>
 </div>
-https://i.imgur.com/AZULc9Y.png
+
 <script>
   function back2top(){
     $('html, body').animate({scrollTop: 0}, 500);
@@ -1686,9 +1704,9 @@ https://i.imgur.com/AZULc9Y.png
     POWERMODE.colorful = true;
     POWERMODE.shake = false;
     document.body.addEventListener('input', POWERMODE);
-  </script>
+  </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
-<script>!function(e){var c=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function i(){for(var r=0;r<c.length;r++)t=c[r],0<=(n=t.getBoundingClientRect()).bottom&&0<=n.left&&n.top<=(e.innerHeight||document.documentElement.clientHeight)&&function(){var t,n,e,i,o=c[r];t=o,n=function(){c=c.filter(function(t){return o!==t})},e=new Image,i=t.getAttribute("data-original"),e.onload=function(){t.src=i,n&&n()},e.src=i}();var t,n}i(),e.addEventListener("scroll",function(){var t,n;t=i,n=e,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(n)},500)})}(this);</script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+<script>!function(e){var c=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function i(){for(var r=0;r<c.length;r++)t=c[r],0<=(n=t.getBoundingClientRect()).bottom&&0<=n.left&&n.top<=(e.innerHeight||document.documentElement.clientHeight)&&function(){var t,n,e,i,o=c[r];t=o,n=function(){c=c.filter(function(t){return o!==t})},e=new Image,i=t.getAttribute("data-original"),e.onload=function(){t.src=i,n&&n()},e.src=i}();var t,n}i(),e.addEventListener("scroll",function(){var t,n;t=i,n=e,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(n)},500)})}(this);</script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script></body>
 </html>
 <!-- 页面点击小红心 -->
 <script type="text/javascript" src="/js/src/clicklove.js"></script>

