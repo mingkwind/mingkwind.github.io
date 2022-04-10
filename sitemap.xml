@@ -593,14 +593,14 @@
   </url>
   
   <url>
-    <loc>http://yoursite.com/tags/web%E5%AE%89%E5%85%A8/</loc>
+    <loc>http://yoursite.com/tags/Windows%E6%8A%80%E5%B7%A7/</loc>
     <lastmod>2022-04-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>http://yoursite.com/tags/Windows%E6%8A%80%E5%B7%A7/</loc>
+    <loc>http://yoursite.com/tags/web%E5%AE%89%E5%85%A8/</loc>
     <lastmod>2022-04-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -656,14 +656,14 @@
   </url>
   
   <url>
-    <loc>http://yoursite.com/tags/git/</loc>
+    <loc>http://yoursite.com/tags/window%E6%8A%80%E5%B7%A7/</loc>
     <lastmod>2022-04-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>http://yoursite.com/tags/window%E6%8A%80%E5%B7%A7/</loc>
+    <loc>http://yoursite.com/tags/git/</loc>
     <lastmod>2022-04-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
