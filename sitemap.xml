@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/posts/baf217b6/</loc>
+    
+    <lastmod>2022-04-10</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/posts/ef2e418b/</loc>
     
     <lastmod>2022-04-10</lastmod>
@@ -683,6 +692,13 @@
     <priority>0.2</priority>
   </url>
   
+  <url>
+    <loc>http://yoursite.com/tags/sagemath/</loc>
+    <lastmod>2022-04-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
 
   
   <url>
@@ -799,6 +815,13 @@
   
   <url>
     <loc>http://yoursite.com/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1%E5%AE%9E%E9%AA%8C/</loc>
+    <lastmod>2022-04-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/categories/MacOS/</loc>
     <lastmod>2022-04-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
