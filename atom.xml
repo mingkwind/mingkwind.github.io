@@ -335,13 +335,11 @@
     <link href="https://asymptotic-freedom.xyz/posts/ef2e418b/"/>
     <id>https://asymptotic-freedom.xyz/posts/ef2e418b/</id>
     <published>2020-03-22T13:40:04.000Z</published>
-    <updated>2020-09-01T16:04:23.030Z</updated>
+    <updated>2022-04-10T04:03:29.263Z</updated>
     
     <summary type="html">
     
-      &lt;h1 id=&quot;实验目的&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#实验目的&quot;&gt;&lt;/a&gt; 实验目的&lt;/h1&gt;
-&lt;p&gt;目的：学习和掌握距离向量算法&lt;br&gt;
-内容：编程实现并分析以下过程&lt;/p&gt;
+      &lt;h1 id=&quot;实验目的&quot;&gt;&lt;a href=&quot;#实验目的&quot; class=&quot;headerlink&quot; title=&quot;实验目的&quot;&gt;&lt;/a&gt;实验目的&lt;/h1&gt;&lt;p&gt;目的：学习和掌握距离向量算法&lt;br&gt;内容：编程实现并分析以下过程&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;模拟路由收敛&lt;/li&gt;
 &lt;li&gt;模拟拓扑变化&lt;/li&gt;
