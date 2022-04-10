@@ -1,0 +1,491 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>风屿の博客</title>
+  <icon>https://asymptotic-freedom.xyz/icon.png</icon>
+  
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="https://asymptotic-freedom.xyz/"/>
+  <updated>2020-09-01T06:38:11.826Z</updated>
+  <id>https://asymptotic-freedom.xyz/</id>
+  
+  <author>
+    <name>Asymptotic-freedom</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>关于RSA素数生成漏洞的CTF题</title>
+    <link href="https://asymptotic-freedom.xyz/posts/6bf2a5bf/"/>
+    <id>https://asymptotic-freedom.xyz/posts/6bf2a5bf/</id>
+    <published>2020-08-11T16:51:18.000Z</published>
+    <updated>2020-09-01T06:38:11.826Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;Google-CTF-–-CHUNK-NORRIS&quot;&gt;&lt;a href=&quot;#Google-CTF-–-CHUNK-NORRIS&quot; class=&quot;headerlink&quot; title=&quot;Google CTF – CHUNK NORRIS&quot;&gt;&lt;/a&gt;Google CTF – CHUNK NORRIS&lt;/h1&gt;&lt;h2 id=&quot;题目&quot;&gt;&lt;a href=&quot;#题目&quot; class=&quot;headerlink&quot; title=&quot;题目&quot;&gt;&lt;/a&gt;题目&lt;/h2&gt;&lt;p&gt;&lt;img src=&quot;/posts/6bf2a5bf/image-20200824003337195.png&quot; alt=&quot;image-20200824003337195&quot;&gt;&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="CTF" scheme="https://asymptotic-freedom.xyz/categories/CTF/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>uCoreOs lab8 实验报告</title>
+    <link href="https://asymptotic-freedom.xyz/posts/7a4984ba/"/>
+    <id>https://asymptotic-freedom.xyz/posts/7a4984ba/</id>
+    <published>2020-05-30T14:06:10.000Z</published>
+    <updated>2020-05-30T14:08:58.698Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;实验目的&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#实验目的&quot;&gt;&lt;/a&gt; 实验目的&lt;/h1&gt;
+&lt;p&gt;通过完成本次实验，希望能达到以下目标&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;了解基本的文件系统系统调用的实现方法；&lt;/li&gt;
+&lt;li&gt;了解一个基于索引节点组织方式的Simple FS文件系统的设计与实现；&lt;/li&gt;
+&lt;li&gt;了解文件系统抽象层-VFS的设计与实现；&lt;/li&gt;&lt;/ul&gt;
+    
+    </summary>
+    
+    
+      <category term="操作系统" scheme="https://asymptotic-freedom.xyz/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
+    
+    
+      <category term="学习" scheme="https://asymptotic-freedom.xyz/tags/%E5%AD%A6%E4%B9%A0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>uCoreOs lab7 实验报告</title>
+    <link href="https://asymptotic-freedom.xyz/posts/2cdd304c/"/>
+    <id>https://asymptotic-freedom.xyz/posts/2cdd304c/</id>
+    <published>2020-05-30T08:12:02.000Z</published>
+    <updated>2020-05-30T14:07:04.501Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;实验目的&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#实验目的&quot;&gt;&lt;/a&gt; 实验目的&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;理解操作系统的同步互斥的设计实现；&lt;/li&gt;
+&lt;li&gt;理解底层支撑技术：禁用中断、定时器、等待队列；&lt;/li&gt;
+&lt;li&gt;在ucore中理解信号量（semaphore）机制的具体实现；&lt;/li&gt;
+&lt;li&gt;理解管程机制，在ucore内核中增加基于管程（monitor）的条件变量（condition variable）的支持；&lt;/li&gt;
+&lt;li&gt;了解经典进程同步问题，并能使用同步机制解决进程同步问题。&lt;/li&gt;&lt;/ul&gt;
+    
+    </summary>
+    
+    
+      <category term="操作系统" scheme="https://asymptotic-freedom.xyz/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
+    
+    
+      <category term="学习" scheme="https://asymptotic-freedom.xyz/tags/%E5%AD%A6%E4%B9%A0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>uCoreOS lab6 实验报告</title>
+    <link href="https://asymptotic-freedom.xyz/posts/48714bfd/"/>
+    <id>https://asymptotic-freedom.xyz/posts/48714bfd/</id>
+    <published>2020-05-02T11:30:23.000Z</published>
+    <updated>2020-05-30T08:44:03.274Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;实验目的&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#实验目的&quot;&gt;&lt;/a&gt; 实验目的&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;理解操作系统的调度管理机制&lt;/li&gt;
+&lt;li&gt;熟悉 ucore 的系统调度器框架，以及缺省的Round-Robin 调度算法&lt;/li&gt;
+&lt;li&gt;基于调度器框架实现一个(Stride Scheduling)调度算法来替换缺省的调度算法&lt;/li&gt;&lt;/ul&gt;
+    
+    </summary>
+    
+    
+      <category term="操作系统" scheme="https://asymptotic-freedom.xyz/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
+    
+    
+      <category term="学习" scheme="https://asymptotic-freedom.xyz/tags/%E5%AD%A6%E4%B9%A0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>uCoreOs lab5 实验报告</title>
+    <link href="https://asymptotic-freedom.xyz/posts/c606d982/"/>
+    <id>https://asymptotic-freedom.xyz/posts/c606d982/</id>
+    <published>2020-04-21T16:03:46.000Z</published>
+    <updated>2020-05-01T06:21:14.824Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;实验目的&quot;&gt;&lt;a href=&quot;#实验目的&quot; class=&quot;headerlink&quot; title=&quot;实验目的&quot;&gt;&lt;/a&gt;实验目的&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;了解第一个用户进程创建过程&lt;/li&gt;
+&lt;li&gt;了解系统调用框架的实现机制&lt;/li&gt;
+&lt;li&gt;了解ucore如何实现系统调用sys_fork/sys_exec/sys_exit/sys_wait来进行进程管理&lt;/li&gt;&lt;/ul&gt;
+    
+    </summary>
+    
+    
+      <category term="操作系统" scheme="https://asymptotic-freedom.xyz/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
+    
+    
+      <category term="学习" scheme="https://asymptotic-freedom.xyz/tags/%E5%AD%A6%E4%B9%A0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>uCoreOs lab4 实验报告</title>
+    <link href="https://asymptotic-freedom.xyz/posts/50bc1597/"/>
+    <id>https://asymptotic-freedom.xyz/posts/50bc1597/</id>
+    <published>2020-04-21T15:12:48.000Z</published>
+    <updated>2020-04-24T09:04:10.118Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;实验目的&quot;&gt;&lt;a href=&quot;#实验目的&quot; class=&quot;headerlink&quot; title=&quot;实验目的&quot;&gt;&lt;/a&gt;实验目的&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;了解内核线程创建/执行的管理过程&lt;/li&gt;
+&lt;li&gt;了解内核线程的切换和基本调度过程&lt;/li&gt;&lt;/ul&gt;
+    
+    </summary>
+    
+    
+      <category term="操作系统" scheme="https://asymptotic-freedom.xyz/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
+    
+    
+      <category term="学习" scheme="https://asymptotic-freedom.xyz/tags/%E5%AD%A6%E4%B9%A0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>iptables之服务器应急响应及提供服务器防御解决方案实验</title>
+    <link href="https://asymptotic-freedom.xyz/posts/2f12bf9c/"/>
+    <id>https://asymptotic-freedom.xyz/posts/2f12bf9c/</id>
+    <published>2020-04-14T15:23:28.000Z</published>
+    <updated>2020-04-17T13:37:44.721Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;实验目的&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#实验目的&quot;&gt;&lt;/a&gt; 【实验目的】&lt;/h1&gt;
+&lt;p&gt;参考实验场景及实验步骤完成服务器应急响应工作并重新为服务器部署策略。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="信息安全学习" scheme="https://asymptotic-freedom.xyz/categories/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="iptables" scheme="https://asymptotic-freedom.xyz/tags/iptables/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>uCoreOs lab3 实验报告</title>
+    <link href="https://asymptotic-freedom.xyz/posts/69d005/"/>
+    <id>https://asymptotic-freedom.xyz/posts/69d005/</id>
+    <published>2020-04-10T04:09:22.000Z</published>
+    <updated>2020-04-21T15:14:21.554Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;实验目的&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#实验目的&quot;&gt;&lt;/a&gt; 实验目的&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;了解虚拟内存的Page Fault异常处理实现&lt;/li&gt;
+&lt;li&gt;了解页替换算法在操作系统中的实现&lt;/li&gt;&lt;/ul&gt;
+    
+    </summary>
+    
+    
+      <category term="操作系统" scheme="https://asymptotic-freedom.xyz/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
+    
+    
+      <category term="学习" scheme="https://asymptotic-freedom.xyz/tags/%E5%AD%A6%E4%B9%A0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>实验3 递归下降法的语法分析器</title>
+    <link href="https://asymptotic-freedom.xyz/posts/b04b3b51/"/>
+    <id>https://asymptotic-freedom.xyz/posts/b04b3b51/</id>
+    <published>2020-04-03T06:41:58.000Z</published>
+    <updated>2020-04-03T09:44:35.050Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;实验目的&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#实验目的&quot;&gt;&lt;/a&gt; 实验目的&lt;/h1&gt;
+&lt;p&gt;掌握语法分析器的构造原理，掌握递归下降法的编程方法。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="编译原理" scheme="https://asymptotic-freedom.xyz/categories/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>scapy实现TCP Attacks</title>
+    <link href="https://asymptotic-freedom.xyz/posts/5acb07a3/"/>
+    <id>https://asymptotic-freedom.xyz/posts/5acb07a3/</id>
+    <published>2020-04-01T10:59:42.000Z</published>
+    <updated>2020-04-01T11:10:40.281Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;实验目的&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#实验目的&quot;&gt;&lt;/a&gt; 实验目的&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;Task1. SYN Flooding Attack&lt;br&gt;
+用Scapy构造SYN包，观察攻击效果，解释现象及原因。&lt;/li&gt;
+&lt;li&gt;Task2.TCP RST Attacks on telnet and ssh Connections&lt;br&gt;
+应用Scapy，解释需要构造报文中的关键数据及其值获取&lt;/li&gt;
+&lt;li&gt;Task3.TCP Session Hijacking&lt;br&gt;
+回显主机上的文件（自行取）内容。在受害机上Wireshark观察劫持后，与服务器的TCP通信信息，解释原因。&lt;/li&gt;
+&lt;li&gt;Task4.Creating Reverse Shell using TCP Hijacking&lt;br&gt;
+将受害主机外壳反弹至攻击机&lt;/li&gt;&lt;/ul&gt;
+    
+    </summary>
+    
+    
+      <category term="信息安全学习" scheme="https://asymptotic-freedom.xyz/categories/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="scapy" scheme="https://asymptotic-freedom.xyz/tags/scapy/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>MITM攻击之ARP毒化</title>
+    <link href="https://asymptotic-freedom.xyz/posts/4026efe8/"/>
+    <id>https://asymptotic-freedom.xyz/posts/4026efe8/</id>
+    <published>2020-03-28T15:40:33.000Z</published>
+    <updated>2020-04-01T02:12:30.136Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;实验目的&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#实验目的&quot;&gt;&lt;/a&gt; 实验目的&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;img src=&quot;/posts/4026efe8/image-20200325211150567.png&quot; alt=&quot;image-20200325211150567&quot; style=&quot;zoom: 50%;&quot;&gt;&lt;/p&gt;&lt;/blockquote&gt;
+    
+    </summary>
+    
+    
+      <category term="信息安全学习" scheme="https://asymptotic-freedom.xyz/categories/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="scapy" scheme="https://asymptotic-freedom.xyz/tags/scapy/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>uCoreOs lab2 实验报告</title>
+    <link href="https://asymptotic-freedom.xyz/posts/a87e5e21/"/>
+    <id>https://asymptotic-freedom.xyz/posts/a87e5e21/</id>
+    <published>2020-03-28T03:06:00.000Z</published>
+    <updated>2020-04-09T19:30:12.604Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;实验目的&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#实验目的&quot;&gt;&lt;/a&gt; 实验目的&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;理解基于段页式内存地址的转换机制&lt;/li&gt;
+&lt;li&gt;理解页表的建立和使用方法&lt;/li&gt;
+&lt;li&gt;理解物理内存的管理方法&lt;/li&gt;&lt;/ul&gt;
+    
+    </summary>
+    
+    
+      <category term="操作系统" scheme="https://asymptotic-freedom.xyz/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
+    
+    
+      <category term="学习" scheme="https://asymptotic-freedom.xyz/tags/%E5%AD%A6%E4%B9%A0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>计网实验——运输层和应用层协议分析</title>
+    <link href="https://asymptotic-freedom.xyz/posts/55d1396f/"/>
+    <id>https://asymptotic-freedom.xyz/posts/55d1396f/</id>
+    <published>2020-03-22T13:41:30.000Z</published>
+    <updated>2020-03-29T17:31:43.996Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;实验目的&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#实验目的&quot;&gt;&lt;/a&gt; 实验目的&lt;/h1&gt;
+&lt;p&gt;目的：分析TCP和重要的应用层协议&lt;br&gt;
+内容：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;任务1：DNS服务&lt;/li&gt;
+&lt;li&gt;任务2：TCP协议分析&lt;/li&gt;
+&lt;li&gt;任务3：HTTP协议分析&lt;/li&gt;
+&lt;li&gt;任务4：FTP协议分析&lt;/li&gt;&lt;/ul&gt;
+    
+    </summary>
+    
+    
+      <category term="计算机网络通信实验" scheme="https://asymptotic-freedom.xyz/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1%E5%AE%9E%E9%AA%8C/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>计网实验——路由算法实验</title>
+    <link href="https://asymptotic-freedom.xyz/posts/ef2e418b/"/>
+    <id>https://asymptotic-freedom.xyz/posts/ef2e418b/</id>
+    <published>2020-03-22T13:40:04.000Z</published>
+    <updated>2020-09-01T16:04:23.030Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;实验目的&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#实验目的&quot;&gt;&lt;/a&gt; 实验目的&lt;/h1&gt;
+&lt;p&gt;目的：学习和掌握距离向量算法&lt;br&gt;
+内容：编程实现并分析以下过程&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;模拟路由收敛&lt;/li&gt;
+&lt;li&gt;模拟拓扑变化&lt;/li&gt;
+&lt;li&gt;制造路由回路&lt;/li&gt;
+&lt;li&gt;抑制路由回路&lt;/li&gt;&lt;/ul&gt;
+    
+    </summary>
+    
+    
+      <category term="计算机网络通信实验" scheme="https://asymptotic-freedom.xyz/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1%E5%AE%9E%E9%AA%8C/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>计网实验——Socket编程</title>
+    <link href="https://asymptotic-freedom.xyz/posts/865a19fa/"/>
+    <id>https://asymptotic-freedom.xyz/posts/865a19fa/</id>
+    <published>2020-03-22T13:15:31.000Z</published>
+    <updated>2020-03-29T17:20:51.075Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;实验目的&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#实验目的&quot;&gt;&lt;/a&gt; 实验目的&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;掌握TCP和UDP协议主要特点和工作原理&lt;/li&gt;
+&lt;li&gt;理解socket的基本概念和工作原理&lt;/li&gt;
+&lt;li&gt;编程实现socket网络通信（C++ &amp;amp; Python）&lt;/li&gt;&lt;/ul&gt;
+    
+    </summary>
+    
+    
+      <category term="计算机网络通信实验" scheme="https://asymptotic-freedom.xyz/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1%E5%AE%9E%E9%AA%8C/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>计网实验——数据帧和IP包分析</title>
+    <link href="https://asymptotic-freedom.xyz/posts/287ca37a/"/>
+    <id>https://asymptotic-freedom.xyz/posts/287ca37a/</id>
+    <published>2020-03-22T13:13:35.000Z</published>
+    <updated>2020-03-29T17:31:07.490Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;实验目的&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#实验目的&quot;&gt;&lt;/a&gt; 实验目的&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;捕获和分析网络数据&lt;/li&gt;
+&lt;li&gt;掌握以太网MAC帧、802.11数据帧和IPv4数据包的构成，了解字段含义&lt;/li&gt;
+&lt;li&gt;掌握ICMP和ARP协议的请求/响应机理&lt;/li&gt;
+&lt;li&gt;掌握ping、arp和tracert指令&lt;/li&gt;&lt;/ul&gt;
+    
+    </summary>
+    
+    
+      <category term="计算机网络通信实验" scheme="https://asymptotic-freedom.xyz/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1%E5%AE%9E%E9%AA%8C/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>用bat创建带图标的桌面快捷方式</title>
+    <link href="https://asymptotic-freedom.xyz/posts/b12adb60/"/>
+    <id>https://asymptotic-freedom.xyz/posts/b12adb60/</id>
+    <published>2020-03-22T12:24:50.000Z</published>
+    <updated>2020-03-29T17:16:53.465Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;利用桌面“创建桌面快捷方式.bat&amp;quot;为Nessus_start.bat创建以nessus_favicon.ico为图标的快捷方式。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Windows技巧" scheme="https://asymptotic-freedom.xyz/categories/Windows%E6%8A%80%E5%B7%A7/"/>
+    
+    
+      <category term="bat脚本" scheme="https://asymptotic-freedom.xyz/tags/bat%E8%84%9A%E6%9C%AC/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Linux之vim编辑器</title>
+    <link href="https://asymptotic-freedom.xyz/posts/c9920544/"/>
+    <id>https://asymptotic-freedom.xyz/posts/c9920544/</id>
+    <published>2020-03-17T05:48:55.000Z</published>
+    <updated>2020-03-29T17:18:20.836Z</updated>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;Q：如何生成一个随机字符串？&lt;/p&gt;
+&lt;p&gt;A：让新手退出Vim。&lt;/p&gt;&lt;/blockquote&gt;
+    
+    </summary>
+    
+    
+      <category term="linux" scheme="https://asymptotic-freedom.xyz/categories/linux/"/>
+    
+    
+      <category term="vim" scheme="https://asymptotic-freedom.xyz/tags/vim/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>修改hexo默认字体颜色</title>
+    <link href="https://asymptotic-freedom.xyz/posts/f4345ea0/"/>
+    <id>https://asymptotic-freedom.xyz/posts/f4345ea0/</id>
+    <published>2020-03-15T13:31:16.000Z</published>
+    <updated>2020-03-29T17:16:49.615Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;修改hexo默认字体颜色。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="hexo" scheme="https://asymptotic-freedom.xyz/categories/hexo/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>ucoreOS lab1 实验报告</title>
+    <link href="https://asymptotic-freedom.xyz/posts/335ac3b4/"/>
+    <id>https://asymptotic-freedom.xyz/posts/335ac3b4/</id>
+    <published>2020-03-13T02:07:09.000Z</published>
+    <updated>2020-03-29T17:18:57.952Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;练习1理解通过make生成执行文件的过程&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#练习1理解通过make生成执行文件的过程&quot;&gt;&lt;/a&gt; 练习1：理解通过make生成执行文件的过程。&lt;/h1&gt;
+&lt;p&gt;列出本实验各练习中对应的OS原理的知识点，并说明本实验中的实现部分如何对应和体现了原理中的基本概念和关键知识点&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="操作系统" scheme="https://asymptotic-freedom.xyz/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
+    
+    
+      <category term="学习" scheme="https://asymptotic-freedom.xyz/tags/%E5%AD%A6%E4%B9%A0/"/>
+    
+  </entry>
+  
+</feed>
