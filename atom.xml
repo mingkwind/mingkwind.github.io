@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://mingkwind.github.io/"/>
-  <updated>2022-04-10T07:07:08.162Z</updated>
+  <updated>2022-04-10T07:40:55.869Z</updated>
   <id>https://mingkwind.github.io/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Android调用动态链接库so</title>
+    <link href="https://mingkwind.github.io/posts/225c7dcd/"/>
+    <id>https://mingkwind.github.io/posts/225c7dcd/</id>
+    <published>2022-04-10T07:26:41.000Z</published>
+    <updated>2022-04-10T07:40:55.869Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;之前帮同学运行一个安卓的MNN模型.out可执行文件，附带两个动态链接库so，不知道如何运行&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/posts/225c7dcd/image-20220410153207850.png&quot; alt=&quot;image-20220410153207850&quot;&gt;&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Android" scheme="https://mingkwind.github.io/categories/Android/"/>
+    
+    
+      <category term="Android" scheme="https://mingkwind.github.io/tags/Android/"/>
+    
+  </entry>
   
   <entry>
     <title>MaxOS安装sagemath</title>
@@ -471,25 +493,6 @@
     
     
       <category term="vim" scheme="https://mingkwind.github.io/tags/vim/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>修改hexo默认字体颜色</title>
-    <link href="https://mingkwind.github.io/posts/f4345ea0/"/>
-    <id>https://mingkwind.github.io/posts/f4345ea0/</id>
-    <published>2020-03-15T13:31:16.000Z</published>
-    <updated>2022-04-09T15:16:20.643Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;修改hexo默认字体颜色。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="hexo" scheme="https://mingkwind.github.io/categories/hexo/"/>
-    
     
   </entry>
   
