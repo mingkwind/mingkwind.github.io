@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://mingkwind.github.io/"/>
-  <updated>2022-04-10T07:40:55.869Z</updated>
+  <updated>2022-04-20T07:08:14.123Z</updated>
   <id>https://mingkwind.github.io/</id>
   
   <author>
@@ -15,6 +15,224 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>golang之Web爬虫练习</title>
+    <link href="https://mingkwind.github.io/posts/ca9bd683/"/>
+    <id>https://mingkwind.github.io/posts/ca9bd683/</id>
+    <published>2022-04-20T06:42:47.000Z</published>
+    <updated>2022-04-20T07:08:14.123Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;a href=&quot;https://tour.go-zh.org/&quot;&gt;go编程指南&lt;/a&gt;的题目&lt;/p&gt;
+&lt;p&gt;题目链接：&lt;a href=&quot;https://tour.go-zh.org/concurrency/10&quot;&gt;https://tour.go-zh.org/concurrency/10&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;练习：Web 爬虫&lt;/p&gt;
+&lt;p&gt;在这个练习中，我们将会使用 Go 的并发特性来并行化一个 Web 爬虫。&lt;/p&gt;
+&lt;p&gt;修改 &lt;code&gt;Crawl&lt;/code&gt; 函数来并行地抓取 URL，并且保证不重复。&lt;/p&gt;
+&lt;p&gt;提示：你可以用一个 map 来缓存已经获取的 URL，但是要注意 map 本身并不是并发安全的！&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="golang" scheme="https://mingkwind.github.io/categories/golang/"/>
+    
+    
+      <category term="golang" scheme="https://mingkwind.github.io/tags/golang/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>golang之等价二叉查找树</title>
+    <link href="https://mingkwind.github.io/posts/8cb9068c/"/>
+    <id>https://mingkwind.github.io/posts/8cb9068c/</id>
+    <published>2022-04-20T06:42:30.000Z</published>
+    <updated>2022-04-20T07:08:14.126Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;a href=&quot;https://tour.go-zh.org/&quot;&gt;go编程指南&lt;/a&gt;的题目&lt;/p&gt;
+&lt;p&gt;题目链接：&lt;a href=&quot;https://tour.go-zh.org/concurrency/8&quot;&gt;https://tour.go-zh.org/concurrency/8&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;练习：等价二叉查找树&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;1.&lt;/strong&gt; 实现 &lt;code&gt;Walk&lt;/code&gt; 函数。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;2.&lt;/strong&gt; 测试 &lt;code&gt;Walk&lt;/code&gt; 函数。&lt;/p&gt;
+&lt;p&gt;函数 &lt;code&gt;tree.New(k)&lt;/code&gt; 用于构造一个随机结构的已排序二叉查找树，它保存了值 &lt;code&gt;k&lt;/code&gt;, &lt;code&gt;2k&lt;/code&gt;, &lt;code&gt;3k&lt;/code&gt;, …, &lt;code&gt;10k&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;创建一个新的信道 &lt;code&gt;ch&lt;/code&gt; 并且对其进行步进：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;go Walk(tree.New(1), ch)&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;然后从信道中读取并打印 10 个值。应当是数字 &lt;code&gt;1, 2, 3, ..., 10&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;3.&lt;/strong&gt; 用 &lt;code&gt;Walk&lt;/code&gt; 实现 &lt;code&gt;Same&lt;/code&gt; 函数来检测 &lt;code&gt;t1&lt;/code&gt; 和 &lt;code&gt;t2&lt;/code&gt; 是否存储了相同的值。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;4.&lt;/strong&gt; 测试 &lt;code&gt;Same&lt;/code&gt; 函数。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Same(tree.New(1), tree.New(1))&lt;/code&gt; 应当返回 &lt;code&gt;true&lt;/code&gt;，而 &lt;code&gt;Same(tree.New(1), tree.New(2))&lt;/code&gt; 应当返回 &lt;code&gt;false&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Tree&lt;/code&gt; 的文档可在&lt;a href=&quot;https://godoc.org/golang.org/x/tour/tree#Tree&quot;&gt;这里&lt;/a&gt;找到。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="golang" scheme="https://mingkwind.github.io/categories/golang/"/>
+    
+    
+      <category term="golang" scheme="https://mingkwind.github.io/tags/golang/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>golang之图像练习</title>
+    <link href="https://mingkwind.github.io/posts/9d953bb4/"/>
+    <id>https://mingkwind.github.io/posts/9d953bb4/</id>
+    <published>2022-04-20T06:39:31.000Z</published>
+    <updated>2022-04-20T07:08:14.126Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;a href=&quot;https://tour.go-zh.org/&quot;&gt;go编程指南&lt;/a&gt;的题目&lt;/p&gt;
+&lt;p&gt;题目链接：&lt;a href=&quot;https://tour.go-zh.org/methods/25&quot;&gt;https://tour.go-zh.org/methods/25&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;练习：图像&lt;/p&gt;
+&lt;p&gt;还记得之前编写的&lt;a href=&quot;https://tour.go-zh.org/moretypes/18&quot;&gt;图片生成器&lt;/a&gt; 吗？我们再来编写另外一个，不过这次它将会返回一个 &lt;code&gt;image.Image&lt;/code&gt; 的实现而非一个数据切片。&lt;/p&gt;
+&lt;p&gt;定义你自己的 &lt;code&gt;Image&lt;/code&gt; 类型，实现&lt;a href=&quot;https://go-zh.org/pkg/image/#Image&quot;&gt;必要的方法&lt;/a&gt;并调用 &lt;code&gt;pic.ShowImage&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Bounds&lt;/code&gt; 应当返回一个 &lt;code&gt;image.Rectangle&lt;/code&gt; ，例如 &lt;code&gt;image.Rect(0, 0, w, h)&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;ColorModel&lt;/code&gt; 应当返回 &lt;code&gt;color.RGBAModel&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;At&lt;/code&gt; 应当返回一个颜色。上一个图片生成器的值 &lt;code&gt;v&lt;/code&gt; 对应于此次的 &lt;code&gt;color.RGBA{v, v, 255, 255}&lt;/code&gt;。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="golang" scheme="https://mingkwind.github.io/categories/golang/"/>
+    
+    
+      <category term="golang" scheme="https://mingkwind.github.io/tags/golang/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>golang之rot13Reader练习</title>
+    <link href="https://mingkwind.github.io/posts/75c4d0b7/"/>
+    <id>https://mingkwind.github.io/posts/75c4d0b7/</id>
+    <published>2022-04-20T06:35:55.000Z</published>
+    <updated>2022-04-20T07:08:14.125Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;a href=&quot;https://tour.go-zh.org/&quot;&gt;go编程指南&lt;/a&gt;的题目&lt;/p&gt;
+&lt;p&gt;题目链接：&lt;a href=&quot;https://tour.go-zh.org/methods/23&quot;&gt;https://tour.go-zh.org/methods/23&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;练习：rot13Reader&lt;/p&gt;
+&lt;p&gt;有种常见的模式是一个 &lt;a href=&quot;https://go-zh.org/pkg/io/#Reader&quot;&gt;&lt;code&gt;io.Reader&lt;/code&gt;&lt;/a&gt; 包装另一个 &lt;code&gt;io.Reader&lt;/code&gt;，然后通过某种方式修改其数据流。&lt;/p&gt;
+&lt;p&gt;例如，&lt;a href=&quot;https://go-zh.org/pkg/compress/gzip/#NewReader&quot;&gt;&lt;code&gt;gzip.NewReader&lt;/code&gt;&lt;/a&gt; 函数接受一个 &lt;code&gt;io.Reader&lt;/code&gt;（已压缩的数据流）并返回一个同样实现了 &lt;code&gt;io.Reader&lt;/code&gt; 的 &lt;code&gt;*gzip.Reader&lt;/code&gt;（解压后的数据流）。&lt;/p&gt;
+&lt;p&gt;编写一个实现了 &lt;code&gt;io.Reader&lt;/code&gt; 并从另一个 &lt;code&gt;io.Reader&lt;/code&gt; 中读取数据的 &lt;code&gt;rot13Reader&lt;/code&gt;，通过应用 &lt;a href=&quot;http://en.wikipedia.org/wiki/ROT13&quot;&gt;rot13&lt;/a&gt; 代换密码对数据流进行修改。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;rot13Reader&lt;/code&gt; 类型已经提供。实现 &lt;code&gt;Read&lt;/code&gt; 方法以满足 &lt;code&gt;io.Reader&lt;/code&gt;。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="golang" scheme="https://mingkwind.github.io/categories/golang/"/>
+    
+    
+      <category term="golang" scheme="https://mingkwind.github.io/tags/golang/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>golang之Reader练习</title>
+    <link href="https://mingkwind.github.io/posts/d9747082/"/>
+    <id>https://mingkwind.github.io/posts/d9747082/</id>
+    <published>2022-04-20T06:34:04.000Z</published>
+    <updated>2022-04-20T07:08:14.120Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;a href=&quot;https://tour.go-zh.org/&quot;&gt;go编程指南&lt;/a&gt;的题目&lt;/p&gt;
+&lt;p&gt;题目链接：&lt;a href=&quot;https://tour.go-zh.org/methods/22&quot;&gt;https://tour.go-zh.org/methods/22&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;练习：Reader&lt;/p&gt;
+&lt;p&gt;实现一个 &lt;code&gt;Reader&lt;/code&gt; 类型，它产生一个 ASCII 字符 &lt;code&gt;&#39;A&#39;&lt;/code&gt; 的无限流。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="golang" scheme="https://mingkwind.github.io/categories/golang/"/>
+    
+    
+      <category term="golang" scheme="https://mingkwind.github.io/tags/golang/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>golang之错误练习</title>
+    <link href="https://mingkwind.github.io/posts/36cd3388/"/>
+    <id>https://mingkwind.github.io/posts/36cd3388/</id>
+    <published>2022-04-20T06:32:23.000Z</published>
+    <updated>2022-04-20T07:08:14.127Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;a href=&quot;https://tour.go-zh.org/&quot;&gt;go编程指南&lt;/a&gt;的题目&lt;/p&gt;
+&lt;p&gt;题目链接：&lt;a href=&quot;https://tour.go-zh.org/methods/20&quot;&gt;https://tour.go-zh.org/methods/20&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;练习：错误&lt;/p&gt;
+&lt;p&gt;从&lt;a href=&quot;https://tour.go-zh.org/flowcontrol/8&quot;&gt;之前的练习&lt;/a&gt;中复制 &lt;code&gt;Sqrt&lt;/code&gt; 函数，修改它使其返回 &lt;code&gt;error&lt;/code&gt; 值。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Sqrt&lt;/code&gt; 接受到一个负数时，应当返回一个非 nil 的错误值。复数同样也不被支持。&lt;/p&gt;
+&lt;p&gt;创建一个新的类型&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;type ErrNegativeSqrt float64&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;并为其实现&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;func (e ErrNegativeSqrt) Error() string&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;方法使其拥有 &lt;code&gt;error&lt;/code&gt; 值，通过 &lt;code&gt;ErrNegativeSqrt(-2).Error()&lt;/code&gt; 调用该方法应返回 &lt;code&gt;&amp;quot;cannot Sqrt negative number: -2&amp;quot;&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;注意:&lt;/strong&gt; 在 &lt;code&gt;Error&lt;/code&gt; 方法内调用 &lt;code&gt;fmt.Sprint(e)&lt;/code&gt; 会让程序陷入死循环。可以通过先转换 &lt;code&gt;e&lt;/code&gt; 来避免这个问题：&lt;code&gt;fmt.Sprint(float64(e))&lt;/code&gt;。这是为什么呢？&lt;/p&gt;
+&lt;p&gt;修改 &lt;code&gt;Sqrt&lt;/code&gt; 函数，使其接受一个负数时，返回 &lt;code&gt;ErrNegativeSqrt&lt;/code&gt; 值。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="golang" scheme="https://mingkwind.github.io/categories/golang/"/>
+    
+    
+      <category term="golang" scheme="https://mingkwind.github.io/tags/golang/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>golang之Stringer练习</title>
+    <link href="https://mingkwind.github.io/posts/283b96fc/"/>
+    <id>https://mingkwind.github.io/posts/283b96fc/</id>
+    <published>2022-04-20T06:29:50.000Z</published>
+    <updated>2022-04-20T07:08:14.122Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;a href=&quot;https://tour.go-zh.org/&quot;&gt;go编程指南&lt;/a&gt;的题目&lt;/p&gt;
+&lt;p&gt;题目链接：&lt;a href=&quot;https://tour.go-zh.org/methods/18&quot;&gt;https://tour.go-zh.org/methods/18&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;练习：Stringer&lt;/p&gt;
+&lt;p&gt;通过让 &lt;code&gt;IPAddr&lt;/code&gt; 类型实现 &lt;code&gt;fmt.Stringer&lt;/code&gt; 来打印点号分隔的地址。&lt;/p&gt;
+&lt;p&gt;例如，&lt;code&gt;IPAddr{1, 2, 3, 4}&lt;/code&gt; 应当打印为 &lt;code&gt;&amp;quot;1.2.3.4&amp;quot;&lt;/code&gt;。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="golang" scheme="https://mingkwind.github.io/categories/golang/"/>
+    
+    
+      <category term="golang" scheme="https://mingkwind.github.io/tags/golang/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>安装部署disem项目</title>
+    <link href="https://mingkwind.github.io/posts/4e008f20/"/>
+    <id>https://mingkwind.github.io/posts/4e008f20/</id>
+    <published>2022-04-12T13:49:18.000Z</published>
+    <updated>2022-04-20T07:12:19.815Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;项目部署&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#项目部署&quot;&gt;&lt;/a&gt; 项目部署&lt;/h1&gt;
+&lt;p&gt;偶然在推上看到这个github项目&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/posts/4e008f20/image-20220412215025909.png&quot; alt=&quot;image-20220412215025909&quot;&gt;&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Web安全" scheme="https://mingkwind.github.io/categories/Web%E5%AE%89%E5%85%A8/"/>
+    
+    
+      <category term="Web安全" scheme="https://mingkwind.github.io/tags/Web%E5%AE%89%E5%85%A8/"/>
+    
+  </entry>
   
   <entry>
     <title>Android调用动态链接库so</title>
@@ -302,197 +520,6 @@
     
     
       <category term="scapy" scheme="https://mingkwind.github.io/tags/scapy/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>MITM攻击之ARP毒化</title>
-    <link href="https://mingkwind.github.io/posts/4026efe8/"/>
-    <id>https://mingkwind.github.io/posts/4026efe8/</id>
-    <published>2020-03-28T15:40:33.000Z</published>
-    <updated>2022-04-09T15:16:20.986Z</updated>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;实验目的&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#实验目的&quot;&gt;&lt;/a&gt; 实验目的&lt;/h1&gt;
-&lt;blockquote&gt;
-&lt;p&gt;&lt;img src=&quot;/posts/4026efe8/image-20200325211150567.png&quot; alt=&quot;image-20200325211150567&quot; style=&quot;zoom: 50%;&quot;&gt;&lt;/p&gt;&lt;/blockquote&gt;
-    
-    </summary>
-    
-    
-      <category term="信息安全学习" scheme="https://mingkwind.github.io/categories/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E5%AD%A6%E4%B9%A0/"/>
-    
-    
-      <category term="scapy" scheme="https://mingkwind.github.io/tags/scapy/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>uCoreOs lab2 实验报告</title>
-    <link href="https://mingkwind.github.io/posts/a87e5e21/"/>
-    <id>https://mingkwind.github.io/posts/a87e5e21/</id>
-    <published>2020-03-28T03:06:00.000Z</published>
-    <updated>2022-04-09T15:16:20.994Z</updated>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;实验目的&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#实验目的&quot;&gt;&lt;/a&gt; 实验目的&lt;/h1&gt;
-&lt;ul&gt;
-&lt;li&gt;理解基于段页式内存地址的转换机制&lt;/li&gt;
-&lt;li&gt;理解页表的建立和使用方法&lt;/li&gt;
-&lt;li&gt;理解物理内存的管理方法&lt;/li&gt;&lt;/ul&gt;
-    
-    </summary>
-    
-    
-      <category term="操作系统" scheme="https://mingkwind.github.io/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
-    
-    
-      <category term="学习" scheme="https://mingkwind.github.io/tags/%E5%AD%A6%E4%B9%A0/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>计网实验——运输层和应用层协议分析</title>
-    <link href="https://mingkwind.github.io/posts/55d1396f/"/>
-    <id>https://mingkwind.github.io/posts/55d1396f/</id>
-    <published>2020-03-22T13:41:30.000Z</published>
-    <updated>2022-04-09T15:16:20.644Z</updated>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;实验目的&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#实验目的&quot;&gt;&lt;/a&gt; 实验目的&lt;/h1&gt;
-&lt;p&gt;目的：分析TCP和重要的应用层协议&lt;br&gt;
-内容：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;任务1：DNS服务&lt;/li&gt;
-&lt;li&gt;任务2：TCP协议分析&lt;/li&gt;
-&lt;li&gt;任务3：HTTP协议分析&lt;/li&gt;
-&lt;li&gt;任务4：FTP协议分析&lt;/li&gt;&lt;/ul&gt;
-    
-    </summary>
-    
-    
-      <category term="计算机网络通信实验" scheme="https://mingkwind.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1%E5%AE%9E%E9%AA%8C/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>计网实验——路由算法实验</title>
-    <link href="https://mingkwind.github.io/posts/ef2e418b/"/>
-    <id>https://mingkwind.github.io/posts/ef2e418b/</id>
-    <published>2020-03-22T13:40:04.000Z</published>
-    <updated>2022-04-10T07:06:03.166Z</updated>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;实验目的&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#实验目的&quot;&gt;&lt;/a&gt; 实验目的&lt;/h1&gt;
-&lt;p&gt;目的：学习和掌握距离向量算法&lt;br&gt;
-内容：编程实现并分析以下过程&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;模拟路由收敛&lt;/li&gt;
-&lt;li&gt;模拟拓扑变化&lt;/li&gt;
-&lt;li&gt;制造路由回路&lt;/li&gt;
-&lt;li&gt;抑制路由回路&lt;/li&gt;&lt;/ul&gt;
-    
-    </summary>
-    
-    
-      <category term="计算机网络通信实验" scheme="https://mingkwind.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1%E5%AE%9E%E9%AA%8C/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>计网实验——Socket编程</title>
-    <link href="https://mingkwind.github.io/posts/865a19fa/"/>
-    <id>https://mingkwind.github.io/posts/865a19fa/</id>
-    <published>2020-03-22T13:15:31.000Z</published>
-    <updated>2022-04-09T15:16:20.867Z</updated>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;实验目的&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#实验目的&quot;&gt;&lt;/a&gt; 实验目的&lt;/h1&gt;
-&lt;ul&gt;
-&lt;li&gt;掌握TCP和UDP协议主要特点和工作原理&lt;/li&gt;
-&lt;li&gt;理解socket的基本概念和工作原理&lt;/li&gt;
-&lt;li&gt;编程实现socket网络通信（C++ &amp;amp; Python）&lt;/li&gt;&lt;/ul&gt;
-    
-    </summary>
-    
-    
-      <category term="计算机网络通信实验" scheme="https://mingkwind.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1%E5%AE%9E%E9%AA%8C/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>计网实验——数据帧和IP包分析</title>
-    <link href="https://mingkwind.github.io/posts/287ca37a/"/>
-    <id>https://mingkwind.github.io/posts/287ca37a/</id>
-    <published>2020-03-22T13:13:35.000Z</published>
-    <updated>2022-04-09T15:16:20.711Z</updated>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;实验目的&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#实验目的&quot;&gt;&lt;/a&gt; 实验目的&lt;/h1&gt;
-&lt;ul&gt;
-&lt;li&gt;捕获和分析网络数据&lt;/li&gt;
-&lt;li&gt;掌握以太网MAC帧、802.11数据帧和IPv4数据包的构成，了解字段含义&lt;/li&gt;
-&lt;li&gt;掌握ICMP和ARP协议的请求/响应机理&lt;/li&gt;
-&lt;li&gt;掌握ping、arp和tracert指令&lt;/li&gt;&lt;/ul&gt;
-    
-    </summary>
-    
-    
-      <category term="计算机网络通信实验" scheme="https://mingkwind.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1%E5%AE%9E%E9%AA%8C/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>用bat创建带图标的桌面快捷方式</title>
-    <link href="https://mingkwind.github.io/posts/b12adb60/"/>
-    <id>https://mingkwind.github.io/posts/b12adb60/</id>
-    <published>2020-03-22T12:24:50.000Z</published>
-    <updated>2022-04-09T15:16:20.599Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;利用桌面“创建桌面快捷方式.bat&amp;quot;为Nessus_start.bat创建以nessus_favicon.ico为图标的快捷方式。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="Windows技巧" scheme="https://mingkwind.github.io/categories/Windows%E6%8A%80%E5%B7%A7/"/>
-    
-    
-      <category term="bat脚本" scheme="https://mingkwind.github.io/tags/bat%E8%84%9A%E6%9C%AC/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Linux之vim编辑器</title>
-    <link href="https://mingkwind.github.io/posts/c9920544/"/>
-    <id>https://mingkwind.github.io/posts/c9920544/</id>
-    <published>2020-03-17T05:48:55.000Z</published>
-    <updated>2022-04-09T15:16:20.966Z</updated>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;Q：如何生成一个随机字符串？&lt;/p&gt;
-&lt;p&gt;A：让新手退出Vim。&lt;/p&gt;&lt;/blockquote&gt;
-    
-    </summary>
-    
-    
-      <category term="linux" scheme="https://mingkwind.github.io/categories/linux/"/>
-    
-    
-      <category term="vim" scheme="https://mingkwind.github.io/tags/vim/"/>
     
   </entry>
   
