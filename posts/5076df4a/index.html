@@ -97,7 +97,7 @@
 <meta property="og:site_name" content="风屿の博客">
 <meta property="og:description" content="Channel 介绍  默认channel 默认情况下创建的channel是阻塞和不带缓冲区的，例如： 1ch :&#x3D; make(chan int)  &#x2F;&#x2F; 创建一个阻塞的不带缓冲区的channel 通过默认方式创建的channel有以下性质：  发送操作将会阻塞，直到接收端准备好了。 接收操作将会阻塞，直到发送端准备好了。也就是说：若channel中没有数据，接收者将会阻塞。   带缓冲区的Ch">
 <meta property="article:published_time" content="2022-04-24T10:43:42.000Z">
-<meta property="article:modified_time" content="2022-04-24T12:29:35.947Z">
+<meta property="article:modified_time" content="2022-04-24T12:34:23.463Z">
 <meta property="article:author" content="Mingkwind">
 <meta property="article:tag" content="golang">
 <meta name="twitter:card" content="summary">
@@ -430,7 +430,7 @@
 <p>或</p>
 <div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="GO"><figure class="iseeu highlight /go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    ch := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">string</span>)</span><br><span class="line">    &lt;-ch</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
 <p>对于第一种例子，可修改为</p>
-<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="GO"><figure class="iseeu highlight /go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    ch := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">string</span>,<span class="number">10</span>)</span><br><span class="line">    ch &lt;- <span class="string">"channelValue"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="GO"><figure class="iseeu highlight /go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    ch := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">string</span>, <span class="number">10</span>)</span><br><span class="line">    ch &lt;- <span class="string">"channelValue"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
 <p>此时就不会产生死锁</p>
 <p>常见因为这种情况产生死锁可归结于以下几种情况：</p>
 <ul>
@@ -528,7 +528,7 @@
   <p><span>本文标题:</span><a href="/posts/5076df4a/">golang的channel死锁问题</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 Mingkwind 的个人博客">Mingkwind</a></p>
   <p><span>发布时间:</span>2022年04月24日 - 18:43</p>
-  <p><span>最后更新:</span>2022年04月24日 - 20:29</p>
+  <p><span>最后更新:</span>2022年04月24日 - 20:34</p>
   <p><span>原始链接:</span><a href="/posts/5076df4a/" title="golang的channel死锁问题">https://mingkwind.github.io/posts/5076df4a/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://mingkwind.github.io/posts/5076df4a/"  aria-label="复制成功！"></i></span>
   </p>
@@ -1533,9 +1533,9 @@
     POWERMODE.colorful = true;
     POWERMODE.shake = false;
     document.body.addEventListener('input', POWERMODE);
-  </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  </script>
 
-<script>!function(e){var c=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function i(){for(var r=0;r<c.length;r++)t=c[r],0<=(n=t.getBoundingClientRect()).bottom&&0<=n.left&&n.top<=(e.innerHeight||document.documentElement.clientHeight)&&function(){var t,n,e,i,o=c[r];t=o,n=function(){c=c.filter(function(t){return o!==t})},e=new Image,i=t.getAttribute("data-original"),e.onload=function(){t.src=i,n&&n()},e.src=i}();var t,n}i(),e.addEventListener("scroll",function(){var t,n;t=i,n=e,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(n)},500)})}(this);</script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script></body>
+<script>!function(e){var c=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function i(){for(var r=0;r<c.length;r++)t=c[r],0<=(n=t.getBoundingClientRect()).bottom&&0<=n.left&&n.top<=(e.innerHeight||document.documentElement.clientHeight)&&function(){var t,n,e,i,o=c[r];t=o,n=function(){c=c.filter(function(t){return o!==t})},e=new Image,i=t.getAttribute("data-original"),e.onload=function(){t.src=i,n&&n()},e.src=i}();var t,n}i(),e.addEventListener("scroll",function(){var t,n;t=i,n=e,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(n)},500)})}(this);</script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
 </html>
 <!-- 页面点击小红心 -->
 <script type="text/javascript" src="/js/src/clicklove.js"></script>
