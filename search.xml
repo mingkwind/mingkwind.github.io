@@ -21,6 +21,7 @@
 <li>从带缓冲区的channel中读取或写入数据时，是异步的，类比使用消息队列写入和读取数据</li>
 <li>向带缓冲区的channel中写数据时是FIFO顺序进行的</li>
 </ul>
+<a id="more"></a>
 <h1 id="channel-死锁"><a class="markdownIt-Anchor" href="#channel-死锁"></a> Channel 死锁</h1>
 <h2 id="缺失接收者或者发送者产生的死锁"><a class="markdownIt-Anchor" href="#缺失接收者或者发送者产生的死锁"></a> 缺失接收者或者发送者产生的死锁</h2>
 <p>无缓冲信道在取值前没有发送者或是传之前没有接收者，就会发生死锁</p>

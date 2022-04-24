@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://mingkwind.github.io/"/>
-  <updated>2022-04-24T12:23:01.320Z</updated>
+  <updated>2022-04-24T12:29:35.947Z</updated>
   <id>https://mingkwind.github.io/</id>
   
   <author>
@@ -21,18 +21,28 @@
     <link href="https://mingkwind.github.io/posts/5076df4a/"/>
     <id>https://mingkwind.github.io/posts/5076df4a/</id>
     <published>2022-04-24T10:43:42.000Z</published>
-    <updated>2022-04-24T12:23:01.320Z</updated>
+    <updated>2022-04-24T12:29:35.947Z</updated>
     
     <summary type="html">
     
-      
-      
-        
-        
-          &lt;h1 id=&quot;channel-介绍&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#channel-介绍&quot;&gt;&lt;/a&gt; Channel 介绍&lt;/h1&gt;
-&lt;h2 id=&quot;默认channel&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot;
-        
-      
+      &lt;h1 id=&quot;channel-介绍&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#channel-介绍&quot;&gt;&lt;/a&gt; Channel 介绍&lt;/h1&gt;
+&lt;h2 id=&quot;默认channel&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#默认channel&quot;&gt;&lt;/a&gt; 默认channel&lt;/h2&gt;
+&lt;p&gt;默认情况下创建的channel是阻塞和不带缓冲区的，例如：&lt;/p&gt;
+&lt;figure class=&quot;highlight go&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;ch := &lt;span class=&quot;built_in&quot;&gt;make&lt;/span&gt;(&lt;span class=&quot;keyword&quot;&gt;chan&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;int&lt;/span&gt;)  &lt;span class=&quot;comment&quot;&gt;// 创建一个阻塞的不带缓冲区的channel&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;通过默认方式创建的channel有以下性质：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;发送操作将会阻塞，直到接收端准备好了。&lt;/li&gt;
+&lt;li&gt;接收操作将会阻塞，直到发送端准备好了。也就是说：若channel中没有数据，接收者将会阻塞。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;带缓冲区的channel&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#带缓冲区的channel&quot;&gt;&lt;/a&gt; 带缓冲区的Channel&lt;/h2&gt;
+&lt;p&gt;不带缓冲区的channel只能包含一个元素(一条记录)，带缓冲区的channel可以包含多条记录&lt;/p&gt;
+&lt;figure class=&quot;highlight go&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;ch := &lt;span class=&quot;built_in&quot;&gt;make&lt;/span&gt;(&lt;span class=&quot;keyword&quot;&gt;chan&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;string&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;)  &lt;span class=&quot;comment&quot;&gt;// 此时的ch，类似一个消息队列，可以容纳100个string类型的元素&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;ul&gt;
+&lt;li&gt;向带缓冲区的channel写数据时不会阻塞，直到channel的缓冲区满了&lt;/li&gt;
+&lt;li&gt;从带缓冲区的channel中读数据也不会阻塞，直到缓冲区为空&lt;/li&gt;
+&lt;li&gt;从带缓冲区的channel中读取或写入数据时，是异步的，类比使用消息队列写入和读取数据&lt;/li&gt;
+&lt;li&gt;向带缓冲区的channel中写数据时是FIFO顺序进行的&lt;/li&gt;
+&lt;/ul&gt;
     
     </summary>
     

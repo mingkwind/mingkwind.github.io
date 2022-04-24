@@ -402,16 +402,24 @@
 
       
         
-          
-           Channel 介绍
- 默认channel
-默认情况下创建的channel是阻塞和不带缓冲区的，例如：
-1ch := make(chan int)  // 创建一个阻塞的不带缓冲区的channel
-通过默认方式创建的channel有以下性质：
-
-发送操作将会阻塞，直到接收端准备好了。
-接收操作将会
-          ...
+          <h1 id="channel-介绍"><a class="markdownIt-Anchor" href="#channel-介绍"></a> Channel 介绍</h1>
+<h2 id="默认channel"><a class="markdownIt-Anchor" href="#默认channel"></a> 默认channel</h2>
+<p>默认情况下创建的channel是阻塞和不带缓冲区的，例如：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ch := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">int</span>)  <span class="comment">// 创建一个阻塞的不带缓冲区的channel</span></span><br></pre></td></tr></table></figure>
+<p>通过默认方式创建的channel有以下性质：</p>
+<ul>
+<li>发送操作将会阻塞，直到接收端准备好了。</li>
+<li>接收操作将会阻塞，直到发送端准备好了。也就是说：若channel中没有数据，接收者将会阻塞。</li>
+</ul>
+<h2 id="带缓冲区的channel"><a class="markdownIt-Anchor" href="#带缓冲区的channel"></a> 带缓冲区的Channel</h2>
+<p>不带缓冲区的channel只能包含一个元素(一条记录)，带缓冲区的channel可以包含多条记录</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ch := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">string</span>, <span class="number">100</span>)  <span class="comment">// 此时的ch，类似一个消息队列，可以容纳100个string类型的元素</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>向带缓冲区的channel写数据时不会阻塞，直到channel的缓冲区满了</li>
+<li>从带缓冲区的channel中读数据也不会阻塞，直到缓冲区为空</li>
+<li>从带缓冲区的channel中读取或写入数据时，是异步的，类比使用消息队列写入和读取数据</li>
+<li>向带缓冲区的channel中写数据时是FIFO顺序进行的</li>
+</ul>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/posts/5076df4a/#more" rel="contents">
