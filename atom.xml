@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://mingkwind.github.io/"/>
-  <updated>2022-04-23T15:59:48.439Z</updated>
+  <updated>2022-04-24T12:23:01.320Z</updated>
   <id>https://mingkwind.github.io/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>golang的channel死锁问题</title>
+    <link href="https://mingkwind.github.io/posts/5076df4a/"/>
+    <id>https://mingkwind.github.io/posts/5076df4a/</id>
+    <published>2022-04-24T10:43:42.000Z</published>
+    <updated>2022-04-24T12:23:01.320Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;channel-介绍&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#channel-介绍&quot;&gt;&lt;/a&gt; Channel 介绍&lt;/h1&gt;
+&lt;h2 id=&quot;默认channel&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="golang" scheme="https://mingkwind.github.io/categories/golang/"/>
+    
+    
+      <category term="golang" scheme="https://mingkwind.github.io/tags/golang/"/>
+    
+  </entry>
   
   <entry>
     <title>golang之Web爬虫练习</title>
@@ -490,36 +518,6 @@
     
       <category term="编译原理" scheme="https://mingkwind.github.io/categories/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/"/>
     
-    
-  </entry>
-  
-  <entry>
-    <title>scapy实现TCP Attacks</title>
-    <link href="https://mingkwind.github.io/posts/5acb07a3/"/>
-    <id>https://mingkwind.github.io/posts/5acb07a3/</id>
-    <published>2020-04-01T10:59:42.000Z</published>
-    <updated>2022-04-09T15:16:20.628Z</updated>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;实验目的&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#实验目的&quot;&gt;&lt;/a&gt; 实验目的&lt;/h1&gt;
-&lt;ul&gt;
-&lt;li&gt;Task1. SYN Flooding Attack&lt;br&gt;
-用Scapy构造SYN包，观察攻击效果，解释现象及原因。&lt;/li&gt;
-&lt;li&gt;Task2.TCP RST Attacks on telnet and ssh Connections&lt;br&gt;
-应用Scapy，解释需要构造报文中的关键数据及其值获取&lt;/li&gt;
-&lt;li&gt;Task3.TCP Session Hijacking&lt;br&gt;
-回显主机上的文件（自行取）内容。在受害机上Wireshark观察劫持后，与服务器的TCP通信信息，解释原因。&lt;/li&gt;
-&lt;li&gt;Task4.Creating Reverse Shell using TCP Hijacking&lt;br&gt;
-将受害主机外壳反弹至攻击机&lt;/li&gt;&lt;/ul&gt;
-    
-    </summary>
-    
-    
-      <category term="信息安全学习" scheme="https://mingkwind.github.io/categories/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E5%AD%A6%E4%B9%A0/"/>
-    
-    
-      <category term="scapy" scheme="https://mingkwind.github.io/tags/scapy/"/>
     
   </entry>
   
