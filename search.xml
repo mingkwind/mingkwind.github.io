@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>golang之协程复用</title>
+    <url>/posts/41521440/</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
     <title>golang的channel死锁问题</title>
     <url>/posts/5076df4a/</url>
     <content><![CDATA[<h1 id="channel-介绍"><a class="markdownIt-Anchor" href="#channel-介绍"></a> Channel 介绍</h1>
@@ -31,7 +36,7 @@
 <div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="GO"><figure class="iseeu highlight /go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    ch := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">string</span>)</span><br><span class="line">    &lt;-ch</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
 <p>对于第一种例子，可修改为</p>
 <div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="GO"><figure class="iseeu highlight /go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    ch := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">string</span>, <span class="number">10</span>)</span><br><span class="line">    ch &lt;- <span class="string">"channelValue"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-<p>此时就不会产生死锁</p>
+<p>此时就不会产生死锁，但是这个依然是不推荐的，详情请看<a href="#%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F">内存泄漏</a></p>
 <p>常见因为这种情况产生死锁可归结于以下几种情况：</p>
 <ul>
 <li>一个channel在一个主go程里同时进行读和写</li>
@@ -91,6 +96,13 @@
 <div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="GO"><figure class="iseeu highlight /go"><table><tr><td class="code"><pre><span class="line"><span class="number">9</span> +</span><br><span class="line"><span class="number">9</span> -</span><br><span class="line"><span class="number">0</span> +</span><br><span class="line"><span class="number">0</span> -</span><br><span class="line"><span class="number">6</span> +</span><br><span class="line"><span class="number">6</span> -</span><br><span class="line"><span class="number">1</span> +</span><br><span class="line"><span class="number">1</span> -</span><br><span class="line"><span class="number">7</span> +</span><br><span class="line"><span class="number">7</span> -</span><br><span class="line"><span class="number">3</span> +</span><br><span class="line"><span class="number">3</span> -</span><br><span class="line"><span class="number">4</span> +</span><br><span class="line"><span class="number">4</span> -</span><br><span class="line"><span class="number">5</span> +</span><br><span class="line"><span class="number">5</span> -</span><br><span class="line"><span class="number">8</span> +</span><br><span class="line"><span class="number">8</span> -</span><br><span class="line"><span class="number">2</span> +</span><br><span class="line"><span class="number">2</span> -</span><br></pre></td></tr></table></figure></div>
 <p>所以使用range也不一定要close，但是推荐用close，避免某些代码无法运行而找不到问题。</p>
 <p>如果是主程序使用range是一定要在其他地方close的。</p>
+<h1 id="内存泄漏"><a class="markdownIt-Anchor" href="#内存泄漏"></a> 内存泄漏</h1>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="GO"><figure class="iseeu highlight /go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	ch := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">string</span>)</span><br><span class="line">	<span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">		ch &lt;- <span class="string">"send"</span></span><br><span class="line">	&#125;()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>对于上面这种情况，虽然不会造成死锁，但是会导致内存泄漏</p>
+<p>什么是内存泄露呢，就是是指程序在申请内存后，无法释放已申请的内存空间，一次内存泄露危害可以忽略，但内存泄露堆积后果很严重，无论多少内存,迟早会被占光。</p>
+<p>比如下面这个例子</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="GO"><figure class="iseeu highlight /go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	ch := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">string</span>)</span><br><span class="line">	<span class="keyword">var</span> cmd <span class="keyword">string</span></span><br><span class="line">	<span class="keyword">for</span> &#123;</span><br><span class="line">		fmt.Scanln(&amp;cmd)</span><br><span class="line">		<span class="keyword">if</span> cmd == <span class="string">"c"</span> &#123;</span><br><span class="line">			fmt.Println(<span class="string">"go"</span>)</span><br><span class="line">			<span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">				ch &lt;- <span class="string">"send"</span></span><br><span class="line">			&#125;()</span><br><span class="line">			cmd = <span class="string">""</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>上面程序中的cmd模仿平时业务的调用api，如果调用了该go程序，就会创建一个go程，但是每一个go程都因为<code>ch &lt;- &quot;send&quot;</code>阻塞住了，导致在协程一直无法运行结束，一直占用着内存，堆积起来后就会吃光内存。</p>
 <p>参考链接：</p>
 <p><a href="https://juejin.cn/post/6844903881843933197">https://juejin.cn/post/6844903881843933197</a></p>
 <p><a href="https://blog.csdn.net/Chen_Jeep/article/details/109534566">https://blog.csdn.net/Chen_Jeep/article/details/109534566</a></p>
