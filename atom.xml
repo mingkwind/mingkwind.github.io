@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://mingkwind.github.io/"/>
-  <updated>2022-04-25T07:51:40.888Z</updated>
+  <updated>2022-05-12T06:26:38.600Z</updated>
   <id>https://mingkwind.github.io/</id>
   
   <author>
@@ -15,6 +15,71 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>golang使用base64Captcha做图形验证码并支持点击刷新</title>
+    <link href="https://mingkwind.github.io/posts/abbfff54/"/>
+    <id>https://mingkwind.github.io/posts/abbfff54/</id>
+    <published>2022-05-12T05:39:35.000Z</published>
+    <updated>2022-05-12T06:26:38.600Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;很多go的web框架都自带图形验证码，比如macaron和gin，但是这些验证码模块的验证码都比较弱，只能使用纯数字作为验证码，此处介绍base64Captcha包的使用方法并支持点击刷新。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="golang" scheme="https://mingkwind.github.io/categories/golang/"/>
+    
+    
+      <category term="golang" scheme="https://mingkwind.github.io/tags/golang/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>树莓派作为旁路由安装OpenWrt</title>
+    <link href="https://mingkwind.github.io/posts/7681dc6e/"/>
+    <id>https://mingkwind.github.io/posts/7681dc6e/</id>
+    <published>2022-05-02T03:40:43.000Z</published>
+    <updated>2022-05-17T12:11:35.919Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;strong&gt;旁路由可以理解为接入在内网的一台普通机器&lt;/strong&gt;，不管是用LAN还是WAN接入都无所谓，只要你能知道它的内网IP，在本地网络中直接编辑网关和DNS服务器指向它即可。&lt;/p&gt;
+&lt;p&gt;如果想内网流量都自动经过它，则只需在主路由上的DHCP分配网关、DNS设置为旁路由即可。&lt;/p&gt;
+&lt;p&gt;树莓派的硬件条件素质不够高，作为主路由性能比不上硬路由，所以可以将其作为旁路由安装软路由作为一个网关是比较合适的。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="宽带症侯群" scheme="https://mingkwind.github.io/categories/%E5%AE%BD%E5%B8%A6%E7%97%87%E4%BE%AF%E7%BE%A4/"/>
+    
+    
+      <category term="OpenWrt" scheme="https://mingkwind.github.io/tags/OpenWrt/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>记一次安卓安装恶意软件</title>
+    <link href="https://mingkwind.github.io/posts/94abfaa4/"/>
+    <id>https://mingkwind.github.io/posts/94abfaa4/</id>
+    <published>2022-04-29T02:49:45.000Z</published>
+    <updated>2022-05-17T12:29:47.699Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本文介绍了一种自动识别安卓平台下载并隐藏恶意apk包名的方法&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="信息安全" scheme="https://mingkwind.github.io/categories/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8/"/>
+    
+    
+      <category term="安卓" scheme="https://mingkwind.github.io/tags/%E5%AE%89%E5%8D%93/"/>
+    
+  </entry>
   
   <entry>
     <title>golang之协程复用</title>
@@ -451,76 +516,6 @@
 &lt;li&gt;了解第一个用户进程创建过程&lt;/li&gt;
 &lt;li&gt;了解系统调用框架的实现机制&lt;/li&gt;
 &lt;li&gt;了解ucore如何实现系统调用sys_fork/sys_exec/sys_exit/sys_wait来进行进程管理&lt;/li&gt;&lt;/ul&gt;
-    
-    </summary>
-    
-    
-      <category term="操作系统" scheme="https://mingkwind.github.io/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
-    
-    
-      <category term="学习" scheme="https://mingkwind.github.io/tags/%E5%AD%A6%E4%B9%A0/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>uCoreOs lab4 实验报告</title>
-    <link href="https://mingkwind.github.io/posts/50bc1597/"/>
-    <id>https://mingkwind.github.io/posts/50bc1597/</id>
-    <published>2020-04-21T15:12:48.000Z</published>
-    <updated>2022-04-09T15:16:20.970Z</updated>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;实验目的&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#实验目的&quot;&gt;&lt;/a&gt; 实验目的&lt;/h1&gt;
-&lt;ul&gt;
-&lt;li&gt;了解内核线程创建/执行的管理过程&lt;/li&gt;
-&lt;li&gt;了解内核线程的切换和基本调度过程&lt;/li&gt;&lt;/ul&gt;
-    
-    </summary>
-    
-    
-      <category term="操作系统" scheme="https://mingkwind.github.io/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
-    
-    
-      <category term="学习" scheme="https://mingkwind.github.io/tags/%E5%AD%A6%E4%B9%A0/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>iptables之服务器应急响应及提供服务器防御解决方案实验</title>
-    <link href="https://mingkwind.github.io/posts/2f12bf9c/"/>
-    <id>https://mingkwind.github.io/posts/2f12bf9c/</id>
-    <published>2020-04-14T15:23:28.000Z</published>
-    <updated>2022-04-09T15:16:20.927Z</updated>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;实验目的&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#实验目的&quot;&gt;&lt;/a&gt; 【实验目的】&lt;/h1&gt;
-&lt;p&gt;参考实验场景及实验步骤完成服务器应急响应工作并重新为服务器部署策略。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="信息安全学习" scheme="https://mingkwind.github.io/categories/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E5%AD%A6%E4%B9%A0/"/>
-    
-    
-      <category term="iptables" scheme="https://mingkwind.github.io/tags/iptables/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>uCoreOs lab3 实验报告</title>
-    <link href="https://mingkwind.github.io/posts/69d005/"/>
-    <id>https://mingkwind.github.io/posts/69d005/</id>
-    <published>2020-04-10T04:09:22.000Z</published>
-    <updated>2022-04-09T15:16:20.872Z</updated>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;实验目的&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#实验目的&quot;&gt;&lt;/a&gt; 实验目的&lt;/h1&gt;
-&lt;ul&gt;
-&lt;li&gt;了解虚拟内存的Page Fault异常处理实现&lt;/li&gt;
-&lt;li&gt;了解页替换算法在操作系统中的实现&lt;/li&gt;&lt;/ul&gt;
     
     </summary>
     

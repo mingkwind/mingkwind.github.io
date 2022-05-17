@@ -113,7 +113,7 @@
 <meta property="og:image" content="https://mingkwind.github.io/images/loading.gif">
 <meta property="og:image" content="https://mingkwind.github.io/images/loading.gif">
 <meta property="article:published_time" content="2020-03-28T03:06:00.000Z">
-<meta property="article:modified_time" content="2022-04-09T15:16:20.994Z">
+<meta property="article:modified_time" content="2022-05-17T11:42:43.948Z">
 <meta property="article:author" content="Mingkwind">
 <meta property="article:tag" content="学习">
 <meta name="twitter:card" content="summary">
@@ -395,7 +395,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  6.6k
+                  6.5k
                 </span>
               
 
@@ -536,8 +536,12 @@
 </tr>
 </tbody>
 </table>
-<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi mathvariant="normal">虚</mi><mi mathvariant="normal">拟</mi><mi mathvariant="normal">地</mi><mi mathvariant="normal">址</mi><mi mathvariant="normal">映</mi><mi mathvariant="normal">射</mi><mi mathvariant="normal">关</mi><mi mathvariant="normal">系</mi><mi mathvariant="normal">：</mi><mi mathvariant="normal">虚</mi><mi mathvariant="normal">拟</mi><mo>=</mo><mi mathvariant="normal">物</mi><mi mathvariant="normal">理</mi><mo>+</mo><mn>0</mn><mi>x</mi><mi>C</mi><mn>0000000</mn></mrow><annotation encoding="application/x-tex">虚拟地址映射关系：虚拟=物理+0xC0000000
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mord cjk_fallback">虚</span><span class="mord cjk_fallback">拟</span><span class="mord cjk_fallback">地</span><span class="mord cjk_fallback">址</span><span class="mord cjk_fallback">映</span><span class="mord cjk_fallback">射</span><span class="mord cjk_fallback">关</span><span class="mord cjk_fallback">系</span><span class="mord cjk_fallback">：</span><span class="mord cjk_fallback">虚</span><span class="mord cjk_fallback">拟</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord cjk_fallback">物</span><span class="mord cjk_fallback">理</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord">0</span><span class="mord mathdefault">x</span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="mord">0</span><span class="mord">0</span><span class="mord">0</span><span class="mord">0</span><span class="mord">0</span><span class="mord">0</span><span class="mord">0</span></span></span></span></span></p>
+<ul>
+<li>
+<p>虚拟地址映射关系：</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">虚拟 &#x3D; 物理 + 0xC0000000</span><br></pre></td></tr></table></figure></div>
+</li>
+</ul>
 <p>pmm.h中有下列的宏定义函数</p>
 <div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="C"><figure class="iseeu highlight /c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//分配1页空间</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> alloc_page() alloc_pages(1) </span></span><br><span class="line"><span class="comment">//释放1页空间</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> free_page(page) free_pages(page, 1)  </span></span><br><span class="line"><span class="comment">/* *</span></span><br><span class="line"><span class="comment"> * PADDR - takes a kernel virtual address (an address that points above KERNBASE),</span></span><br><span class="line"><span class="comment"> * where the machine's maximum 256MB of physical memory is mapped and returns the</span></span><br><span class="line"><span class="comment"> * corresponding physical address.  It panics if you pass it a non-kernel virtual address.</span></span><br><span class="line"><span class="comment"> * */</span></span><br><span class="line"><span class="comment">//将内核虚地址转化为物理地址，若非内核虚地址会报错</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PADDR(kva) (&#123;                                                   \</span></span><br><span class="line">            <span class="keyword">uintptr_t</span> __m_kva = (<span class="keyword">uintptr_t</span>)(kva);                       \</span><br><span class="line">            <span class="keyword">if</span> (__m_kva &lt; KERNBASE) &#123;                                   \</span><br><span class="line">                panic(<span class="string">"PADDR called with invalid kva %08lx"</span>, __m_kva);  \</span><br><span class="line">            &#125;                                                           \</span><br><span class="line">            __m_kva - KERNBASE;                                         \</span><br><span class="line">        &#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">/* *</span></span><br><span class="line"><span class="comment"> * KADDR - takes a physical address and returns the corresponding kernel virtual</span></span><br><span class="line"><span class="comment"> * address. It panics if you pass an invalid physical address.</span></span><br><span class="line"><span class="comment"> * */</span></span><br><span class="line"><span class="comment">//将物理地址转化为内核虚地址，若非物理地址会报错，对la所在的二级页表的物理地址进行虚拟化</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> KADDR(pa) (&#123;                                                    \</span></span><br><span class="line">            <span class="keyword">uintptr_t</span> __m_pa = (pa);                                    \</span><br><span class="line">            <span class="keyword">size_t</span> __m_ppn = PPN(__m_pa);                               \</span><br><span class="line">            <span class="keyword">if</span> (__m_ppn &gt;= npage) &#123;                                     \</span><br><span class="line">                panic(<span class="string">"KADDR called with invalid pa %08lx"</span>, __m_pa);    \</span><br><span class="line">            &#125;                                                           \</span><br><span class="line">            (<span class="keyword">void</span> *) (__m_pa + KERNBASE);                               \</span><br><span class="line">        &#125;)</span><br><span class="line"><span class="comment">//对页表项进行4K对齐(截断低12位,低十二位变为0，高位不变)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PTE_ADDR(pte)   ((uintptr_t)(pte) &amp; ~0xFFF)   </span></span><br><span class="line"><span class="comment">//对页目录项进行4K对齐(截断低12位)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PDE_ADDR(pde)   PTE_ADDR(pde)</span></span><br></pre></td></tr></table></figure></div>
 <div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="C"><figure class="iseeu highlight /c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PDXSHIFT        22                      <span class="comment">// offset of PDX in a linear address</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PTXSHIFT        12                      <span class="comment">// offset of PTX in a linear address  </span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PDX(la) ((((uintptr_t)(la)) &gt;&gt; PDXSHIFT) &amp; 0x3FF)    <span class="comment">//一级页目录表的下标</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PTX(la) ((((uintptr_t)(la)) &gt;&gt; PTXSHIFT) &amp; 0x3FF)    <span class="comment">//</span></span></span><br></pre></td></tr></table></figure></div>
@@ -689,12 +693,14 @@ create: 一个决定是否要分配一个页面给PT（页表）的逻辑值</p>
   <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
   
   <!-- JS库 sweetalert 可修改路径 -->
-  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <!-- <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script> -->
+  <script src="http://libs.baidu.com/jquery/2.0.0/jquery.js"></script>
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
   <p><span>本文标题:</span><a href="/posts/a87e5e21/">uCoreOs lab2 实验报告</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 Mingkwind 的个人博客">Mingkwind</a></p>
   <p><span>发布时间:</span>2020年03月28日 - 11:06</p>
-  <p><span>最后更新:</span>2022年04月09日 - 23:16</p>
+  <p><span>最后更新:</span>2022年05月17日 - 19:42</p>
   <p><span>原始链接:</span><a href="/posts/a87e5e21/" title="uCoreOs lab2 实验报告">https://mingkwind.github.io/posts/a87e5e21/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://mingkwind.github.io/posts/a87e5e21/"  aria-label="复制成功！"></i></span>
   </p>
@@ -818,7 +824,7 @@ create: 一个决定是否要分配一个页面给PT（页表）的逻辑值</p>
                 
 				<a href="/archives/">
               
-                  <span class="site-state-item-count">70</span>
+                  <span class="site-state-item-count">73</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -829,7 +835,7 @@ create: 一个决定是否要分配一个页面给PT（页表）的逻辑值</p>
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -840,7 +846,7 @@ create: 一个决定是否要分配一个页面给PT（页表）的逻辑值</p>
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-count">25</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -1454,7 +1460,7 @@ create: 一个决定是否要分配一个页面给PT（页表）的逻辑值</p>
         }
       });
     </script>
-    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="//mathjax.josephjctang.com/MathJax.js?config=TeX-MML-AM_HTMLorMML"></script>
   
 
 
