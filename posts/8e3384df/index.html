@@ -79,7 +79,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="golang," />
 
 
 
@@ -90,15 +90,16 @@
 
 
 
-<meta name="description" content="基于time.After的超时控制 12345678910111213141516171819202122package mainimport (	&quot;fmt&quot;	&quot;time&quot;)func main() &amp;#123;	&#x2F;&#x2F; 空结构体不占用空间，可以用来当占位符	c :&#x3D; make(chan struct&amp;#123;&amp;#125;)	go func() &amp;#123;		fmt.Println(&quot;doing">
+<meta name="description" content="本文介绍golang进行超时控制的几种方法">
 <meta property="og:type" content="article">
-<meta property="og:title" content="go进行超时控制">
+<meta property="og:title" content="golang进行超时控制">
 <meta property="og:url" content="https://mingkwind.github.io/posts/8e3384df/index.html">
 <meta property="og:site_name" content="风屿の博客">
-<meta property="og:description" content="基于time.After的超时控制 12345678910111213141516171819202122package mainimport (	&quot;fmt&quot;	&quot;time&quot;)func main() &amp;#123;	&#x2F;&#x2F; 空结构体不占用空间，可以用来当占位符	c :&#x3D; make(chan struct&amp;#123;&amp;#125;)	go func() &amp;#123;		fmt.Println(&quot;doing">
+<meta property="og:description" content="本文介绍golang进行超时控制的几种方法">
 <meta property="article:published_time" content="2022-05-18T07:16:45.000Z">
-<meta property="article:modified_time" content="2022-05-18T12:45:48.086Z">
+<meta property="article:modified_time" content="2022-05-24T15:55:31.737Z">
 <meta property="article:author" content="Mingkwind">
+<meta property="article:tag" content="golang">
 <meta name="twitter:card" content="summary">
 
 
@@ -135,7 +136,7 @@
 
 
 
-  <title>go进行超时控制 | 风屿の博客</title>
+  <title>golang进行超时控制 | 风屿の博客</title>
   
 
 
@@ -313,7 +314,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">go进行超时控制</h1>
+          <h1 class="post-title" itemprop="name headline">golang进行超时控制</h1>
         
 
         <div class="post-meta">
@@ -333,6 +334,26 @@
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/golang/" itemprop="url" rel="index">
+                    <span itemprop="name">golang</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -357,7 +378,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  372
+                  388
                 </span>
               
 
@@ -382,7 +403,9 @@
       
 
       
-        <h1 id="基于timeafter的超时控制"><a class="markdownIt-Anchor" href="#基于timeafter的超时控制"></a> 基于time.After的超时控制</h1>
+        <p>本文介绍golang进行超时控制的几种方法</p>
+<a id="more"></a>
+<h1 id="基于timeafter的超时控制"><a class="markdownIt-Anchor" href="#基于timeafter的超时控制"></a> 基于time.After的超时控制</h1>
 <div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="GO"><figure class="iseeu highlight /go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">	<span class="string">"time"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="comment">// 空结构体不占用空间，可以用来当占位符</span></span><br><span class="line">	c := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">struct</span>&#123;&#125;)</span><br><span class="line">	<span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">		fmt.Println(<span class="string">"doing something"</span>)</span><br><span class="line">		time.Sleep(time.Second * <span class="number">5</span>)</span><br><span class="line">		<span class="keyword">defer</span> <span class="built_in">close</span>(c)</span><br><span class="line">	&#125;()</span><br><span class="line">	<span class="keyword">select</span> &#123;</span><br><span class="line">	<span class="keyword">case</span> &lt;-c:</span><br><span class="line">		fmt.Println(<span class="string">"运行结束"</span>)</span><br><span class="line">	<span class="keyword">case</span> &lt;-time.After(time.Second * <span class="number">3</span>):</span><br><span class="line">		fmt.Println(<span class="string">"运行超时"</span>)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
 <p>将需要控制时间的服务放到go协程里</p>
 <h1 id="基于context的超时控制"><a class="markdownIt-Anchor" href="#基于context的超时控制"></a> 基于Context的超时控制</h1>
@@ -409,6 +432,12 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/golang/" rel="tag"><i class="fa fa-tag"></i> golang</a>
+          
+        </div>
+      
 		<div>
       
         
@@ -420,11 +449,11 @@
   <script src="http://libs.baidu.com/jquery/2.0.0/jquery.js"></script>
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
-  <p><span>本文标题:</span><a href="/posts/8e3384df/">go进行超时控制</a></p>
+  <p><span>本文标题:</span><a href="/posts/8e3384df/">golang进行超时控制</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 Mingkwind 的个人博客">Mingkwind</a></p>
   <p><span>发布时间:</span>2022年05月18日 - 15:16</p>
-  <p><span>最后更新:</span>2022年05月18日 - 20:45</p>
-  <p><span>原始链接:</span><a href="/posts/8e3384df/" title="go进行超时控制">https://mingkwind.github.io/posts/8e3384df/</a>
+  <p><span>最后更新:</span>2022年05月24日 - 23:55</p>
+  <p><span>原始链接:</span><a href="/posts/8e3384df/" title="golang进行超时控制">https://mingkwind.github.io/posts/8e3384df/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://mingkwind.github.io/posts/8e3384df/"  aria-label="复制成功！"></i></span>
   </p>
   <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
@@ -547,7 +576,7 @@
                 
 				<a href="/archives/">
               
-                  <span class="site-state-item-count">64</span>
+                  <span class="site-state-item-count">61</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -558,7 +587,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-count">19</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -569,7 +598,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-count">15</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -1432,9 +1461,9 @@
     POWERMODE.colorful = true;
     POWERMODE.shake = false;
     document.body.addEventListener('input', POWERMODE);
-  </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  </script>
 
-<script>!function(e){var c=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function i(){for(var r=0;r<c.length;r++)t=c[r],0<=(n=t.getBoundingClientRect()).bottom&&0<=n.left&&n.top<=(e.innerHeight||document.documentElement.clientHeight)&&function(){var t,n,e,i,o=c[r];t=o,n=function(){c=c.filter(function(t){return o!==t})},e=new Image,i=t.getAttribute("data-original"),e.onload=function(){t.src=i,n&&n()},e.src=i}();var t,n}i(),e.addEventListener("scroll",function(){var t,n;t=i,n=e,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(n)},500)})}(this);</script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script></body>
+<script>!function(e){var c=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function i(){for(var r=0;r<c.length;r++)t=c[r],0<=(n=t.getBoundingClientRect()).bottom&&0<=n.left&&n.top<=(e.innerHeight||document.documentElement.clientHeight)&&function(){var t,n,e,i,o=c[r];t=o,n=function(){c=c.filter(function(t){return o!==t})},e=new Image,i=t.getAttribute("data-original"),e.onload=function(){t.src=i,n&&n()},e.src=i}();var t,n}i(),e.addEventListener("scroll",function(){var t,n;t=i,n=e,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(n)},500)})}(this);</script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
 </html>
 <!-- 页面点击小红心 -->
 <script type="text/javascript" src="/js/src/clicklove.js"></script>
