@@ -624,6 +624,7 @@ pre code {
 }
 .highlight .line {
   height: 20px;
+  tab-size: 4;
 }
 .gutter {
   -webkit-user-select: none;
@@ -1938,7 +1939,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #c3ffdd;
+  background: #2628ff;
 }
 .links-of-blogroll {
   font-size: 13px;

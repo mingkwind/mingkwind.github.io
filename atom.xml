@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://mingkwind.github.io/"/>
-  <updated>2022-05-12T06:26:38.600Z</updated>
+  <updated>2022-05-24T15:37:06.953Z</updated>
   <id>https://mingkwind.github.io/</id>
   
   <author>
@@ -15,6 +15,53 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>bgp.he.net爬虫</title>
+    <link href="https://mingkwind.github.io/posts/a94af289/"/>
+    <id>https://mingkwind.github.io/posts/a94af289/</id>
+    <published>2022-05-22T05:49:09.000Z</published>
+    <updated>2022-05-24T15:37:06.953Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;div class=&quot;highlight-wrap&quot;autocomplete=&quot;off&quot; autocorrect=&quot;off&quot; autocapitalize=&quot;off&quot; spellcheck=&quot;false&quot;
+        
+      
+    
+    </summary>
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>go进行超时控制</title>
+    <link href="https://mingkwind.github.io/posts/8e3384df/"/>
+    <id>https://mingkwind.github.io/posts/8e3384df/</id>
+    <published>2022-05-18T07:16:45.000Z</published>
+    <updated>2022-05-18T12:45:48.086Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;基于timeafter的超时控制&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#基于timeafter的超时控制&quot;&gt;&lt;/a&gt; 基于time.After的超时控制&lt;/h1&gt;
+&lt;div
+        
+      
+    
+    </summary>
+    
+    
+    
+  </entry>
   
   <entry>
     <title>golang使用base64Captcha做图形验证码并支持点击刷新</title>
@@ -359,28 +406,6 @@
   </entry>
   
   <entry>
-    <title>Android调用动态链接库so</title>
-    <link href="https://mingkwind.github.io/posts/225c7dcd/"/>
-    <id>https://mingkwind.github.io/posts/225c7dcd/</id>
-    <published>2022-04-10T07:26:41.000Z</published>
-    <updated>2022-04-10T07:40:55.869Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;之前帮同学运行一个安卓的MNN模型.out可执行文件，附带两个动态链接库so，不知道如何运行&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;/posts/225c7dcd/image-20220410153207850.png&quot; alt=&quot;image-20220410153207850&quot;&gt;&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="Android" scheme="https://mingkwind.github.io/categories/Android/"/>
-    
-    
-      <category term="Android" scheme="https://mingkwind.github.io/tags/Android/"/>
-    
-  </entry>
-  
-  <entry>
     <title>MaxOS安装sagemath</title>
     <link href="https://mingkwind.github.io/posts/baf217b6/"/>
     <id>https://mingkwind.github.io/posts/baf217b6/</id>
@@ -491,31 +516,6 @@
 &lt;li&gt;理解操作系统的调度管理机制&lt;/li&gt;
 &lt;li&gt;熟悉 ucore 的系统调度器框架，以及缺省的Round-Robin 调度算法&lt;/li&gt;
 &lt;li&gt;基于调度器框架实现一个(Stride Scheduling)调度算法来替换缺省的调度算法&lt;/li&gt;&lt;/ul&gt;
-    
-    </summary>
-    
-    
-      <category term="操作系统" scheme="https://mingkwind.github.io/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
-    
-    
-      <category term="学习" scheme="https://mingkwind.github.io/tags/%E5%AD%A6%E4%B9%A0/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>uCoreOs lab5 实验报告</title>
-    <link href="https://mingkwind.github.io/posts/c606d982/"/>
-    <id>https://mingkwind.github.io/posts/c606d982/</id>
-    <published>2020-04-21T16:03:46.000Z</published>
-    <updated>2022-04-09T15:16:20.687Z</updated>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;实验目的&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#实验目的&quot;&gt;&lt;/a&gt; 实验目的&lt;/h1&gt;
-&lt;ul&gt;
-&lt;li&gt;了解第一个用户进程创建过程&lt;/li&gt;
-&lt;li&gt;了解系统调用框架的实现机制&lt;/li&gt;
-&lt;li&gt;了解ucore如何实现系统调用sys_fork/sys_exec/sys_exit/sys_wait来进行进程管理&lt;/li&gt;&lt;/ul&gt;
     
     </summary>
     
